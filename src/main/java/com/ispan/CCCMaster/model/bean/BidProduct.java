@@ -1,5 +1,7 @@
 package com.ispan.CCCMaster.model.bean;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -32,6 +34,8 @@ public class BidProduct {
     @Column(name = "customer_id", nullable = false)
     Integer customerId;
 
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "created_at", columnDefinition = "datetime", nullable = false)
     Date createdAt;
 
