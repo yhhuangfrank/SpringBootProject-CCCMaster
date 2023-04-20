@@ -70,6 +70,18 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
+                                <label for="categoryId" class="col-sm-2 col-form-label fw-bold">種類</label>
+                                <div class="col-sm-10">
+                                    <form:input path="categoryName" class="form-control" list="categoryList" id="categoryId"
+                                           placeholder="搜尋或自訂種類"/>
+                                    <datalist id="categoryList">
+                                        <c:forEach items="${categories}" var="category">
+                                            <option value="${category.name}">
+                                        </c:forEach>
+                                    </datalist>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
                                 <label for="description" class="col-sm-2 col-form-label fw-bold">描述</label>
                                 <div class="col-sm-10">
                                     <form:textarea path="description" id="description" cols="30" rows="10"></form:textarea>

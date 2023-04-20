@@ -19,7 +19,7 @@ public class GenDefaultCategory {
 
     private List<Category> defaultCategories = new ArrayList<>();
 
-    @PostConstruct
+    @PostConstruct // 新建 bean 時，檢查 Category 資料表是否有預設值
     public void genDefaultCategories() {
 
         List<Category> categoryList = categoryDao.findAll();

@@ -8,6 +8,8 @@ public class BidProductRequest {
 
     private Integer basePrice;
 
+    private String categoryName;
+
     private String description;
 
     private MultipartFile image;
@@ -22,6 +24,14 @@ public class BidProductRequest {
 
     public Integer getBasePrice() {
         return basePrice;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public void setBasePrice(Integer basePrice) {

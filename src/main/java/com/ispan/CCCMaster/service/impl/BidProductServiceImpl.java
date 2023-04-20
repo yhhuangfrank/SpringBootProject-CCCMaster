@@ -1,7 +1,9 @@
 package com.ispan.CCCMaster.service.impl;
 
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
+import com.ispan.CCCMaster.model.bean.bid.Category;
 import com.ispan.CCCMaster.model.dao.BidProductDao;
+import com.ispan.CCCMaster.model.dao.CategoryDao;
 import com.ispan.CCCMaster.model.dto.BidProductRequest;
 import com.ispan.CCCMaster.service.BidProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,9 @@ public class BidProductServiceImpl implements BidProductService {
     @Autowired
     private BidProductDao bidProductDao;
 
+    @Autowired
+    private CategoryDao categoryDao;
+
     @Override
     public BidProduct createBidProduct(BidProductRequest bidProductRequest) {
 
@@ -26,7 +31,8 @@ public class BidProductServiceImpl implements BidProductService {
         bidProduct.setName(bidProductRequest.getName());
         bidProduct.setBasePrice(bidProductRequest.getBasePrice());
 
-        // 新增種類
+        // 查詢種類，若無則新增種類
+        Category foundCategory = categoryDao.findCategoryByName(bidProductRequest.getCategoryName());
 
 
         bidProduct.setDescription(bidProductRequest.getDescription());
