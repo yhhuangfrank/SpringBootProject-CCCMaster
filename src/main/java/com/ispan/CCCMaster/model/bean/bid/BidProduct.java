@@ -32,13 +32,20 @@ public class BidProduct {
     @Column(name = "image", columnDefinition = "varchar(max)", nullable = false)
     private String image;
 
-    @Column(name = "customer_id", nullable = false)
-    private Integer customerId;
+//    @Column(name = "customer_id", nullable = false)
+//    private Integer customerId;
 
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "created_at", columnDefinition = "datetime", nullable = false)
     Date createdAt;
+
+    @PrePersist
+    public void onCreate() {
+        if (createdAt == null) {
+            createdAt = new Date();
+        }
+    }
 
     public Integer getId() {
         return id;
@@ -72,11 +79,11 @@ public class BidProduct {
         this.bidPrice = bidPrice;
     }
 
-    public Category getCategoryId() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategoryId(Category category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
@@ -96,13 +103,13 @@ public class BidProduct {
         this.image = image;
     }
 
-    public Integer getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
-    }
+//    public Integer getCustomerId() {
+//        return customerId;
+//    }
+//
+//    public void setCustomerId(Integer customerId) {
+//        this.customerId = customerId;
+//    }
 
     public Date getCreatedAt() {
         return createdAt;
