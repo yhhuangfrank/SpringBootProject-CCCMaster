@@ -1,5 +1,6 @@
-package com.ispan.CCCMaster.model.bean;
+package com.ispan.CCCMaster.model.bean.weihsiang;
 
+import com.ispan.CCCMaster.model.bean.weihsiang.Product;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;

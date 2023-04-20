@@ -1,12 +1,13 @@
 package com.ispan.CCCMaster.model.bean;
 
+import com.ispan.CCCMaster.model.bean.weihsiang.Product;
+
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
