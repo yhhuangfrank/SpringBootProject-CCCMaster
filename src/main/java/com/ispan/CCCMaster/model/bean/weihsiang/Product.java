@@ -1,5 +1,7 @@
 package com.ispan.CCCMaster.model.bean.weihsiang;
 
+import com.ispan.CCCMaster.model.bean.Category;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -11,9 +13,9 @@ public class Product {
     @Column(name = "product_id")
     private Integer productId;
 
-    //    @ManyToOne//產品種類Bean
-//    @JoinColumn(name = "product_category_id")
-//    private ProductCategory productCategory;
+    @ManyToOne//產品種類Bean
+    @JoinColumn(name = "product_category_id")
+    private Category category;
     @Column(name = "product_brand")
     private String productBrand;
     @Column(name = "product_name",nullable = false)
