@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.model.bean;
+package com.ispan.CCCMaster.model.bean.weihsiang;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
