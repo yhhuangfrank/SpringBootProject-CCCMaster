@@ -16,7 +16,7 @@ public class Category {
     @Column(name = "name", columnDefinition = "nvarchar(50)", nullable = false)
     String name;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH-mm-ss")
     @Column(name = "created_at", columnDefinition = "datetime", nullable = false)
     Date createdAt;

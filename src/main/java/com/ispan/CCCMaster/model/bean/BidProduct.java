@@ -22,8 +22,9 @@ public class BidProduct {
     @Column(name = "bid_price", nullable = false)
     Integer bidPrice;
 
-    @Column(name = "category_id", nullable = false)
-    Integer categoryId;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "category_id", nullable = false, foreignKey = @ForeignKey(name = "BidProduct_Category"))
+    Category category;
 
     @Column(name = "description", columnDefinition = "nvarchar(max)")
     String description;
@@ -34,7 +35,7 @@ public class BidProduct {
     @Column(name = "customer_id", nullable = false)
     Integer customerId;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "created_at", columnDefinition = "datetime", nullable = false)
     Date createdAt;
@@ -71,12 +72,12 @@ public class BidProduct {
         this.bidPrice = bidPrice;
     }
 
-    public Integer getCategoryId() {
-        return categoryId;
+    public Category getCategoryId() {
+        return category;
     }
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
+    public void setCategoryId(Category category) {
+        this.category = category;
     }
 
     public String getDescription() {
