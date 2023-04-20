@@ -11,44 +11,44 @@ public class Forum {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "forum_id")
-    private Integer forum_id;
+    private Integer forumId;
 
     @Column(name = "forum_name", columnDefinition = "nvarchar(200)", nullable = true)
-    private String forum_name;
+    private String forumName;
 
 
     @Column(name = "start_date", columnDefinition = "datetime")
-    private Date start_date;
+    private Date startDate;
 
     public void  onCreate() {
-        if(start_date == null) {
-            start_date = new Date();
+        if(startDate == null) {
+            startDate = new Date();
         }
     }
     public Forum() {
     }
 
-    public Integer getForum_id() {
-        return forum_id;
+    public Integer getForumId() {
+        return forumId;
     }
 
-    public void setForum_id(Integer forum_id) {
-        this.forum_id = forum_id;
+    public void setForumId(Integer forumId) {
+        this.forumId = forumId;
     }
 
-    public String getForum_name() {
-        return forum_name;
+    public String getForumName() {
+        return forumName;
     }
 
-    public void setForum_name(String forum_name) {
-        this.forum_name = forum_name;
+    public void setForumName(String forumName) {
+        this.forumName = forumName;
     }
 
-    public Date getStart_date() {
-        return start_date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setStart_date(Date start_date) {
-        this.start_date = start_date;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 }
