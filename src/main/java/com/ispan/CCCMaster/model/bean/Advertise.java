@@ -13,70 +13,70 @@ public class Advertise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "advertise_id")
-    private Integer advertise_id;
+    private Integer advertiseId;
 
     @Column(name = "click_count")
-    private Integer click_count;
+    private Integer clickCount;
 
     @Column(name = "image", columnDefinition = "nvarchar(200)", nullable = true)
     private String image;
 
     @Column(name = "navigate_url", columnDefinition = "nvarchar(200)", nullable = true)
-    private String navigate_url;
+    private String navigateUrl;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss EEEE",timezone = "GMT+8")
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
     @Column(name = "start_time", columnDefinition = "datetime")
-    private Date start_time;
+    private Date startTime;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss EEEE",timezone = "GMT+8")
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
     @Column(name = "end_time", columnDefinition = "datetime")
-    private Date end_time;
+    private Date endTime;
 
     public Advertise() {
     }
 
-    public Integer getAdvertise_id() {
-        return advertise_id;
+    public Integer getAdvertiseId() {
+        return advertiseId;
     }
 
-    public void setAdvertise_id(Integer advertise_id) {
-        this.advertise_id = advertise_id;
+    public void setAdvertiseId(Integer advertiseId) {
+        this.advertiseId = advertiseId;
     }
 
-    public Integer getClick_count() {
-        return click_count;
+    public Integer getClickCount() {
+        return clickCount;
     }
 
-    public void setClick_count(Integer click_count) {
-        this.click_count = click_count;
+    public void setClickCount(Integer clickCount) {
+        this.clickCount = clickCount;
     }
 
-    public String getNavigate_url() {
-        return navigate_url;
+    public String getNavigateUrl() {
+        return navigateUrl;
     }
 
-    public void setNavigate_url(String navigate_url) {
-        this.navigate_url = navigate_url;
+    public void setNavigateUrl(String navigateUrl) {
+        this.navigateUrl = navigateUrl;
     }
 
-    public Date getStart_time() {
-        return start_time;
+    public Date getStartTime() {
+        return startTime;
     }
 
-    public void setStart_time(Date start_time) {
-        this.start_time = start_time;
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
     }
 
-    public Date getEnd_time() {
-        return end_time;
+    public Date getEndTime() {
+        return endTime;
     }
 
-    public void setEnd_time(Date end_time) {
-        this.end_time = end_time;
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 
     public String getImage() {

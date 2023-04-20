@@ -14,20 +14,20 @@ public class ArticleLike {
 
 
     @Column(name = "article_id")
-    private Integer article_id;
+    private Integer articleId;
 
 
     @Column(name = "forum_id")
-    private Integer forum_id;
+    private Integer forumId;
 
 
     @Column(name = "customer_id")
-    private Integer customer_id;
+    private Integer customerId;
 
 
 
     @Column(name = "created_at")
-    private Date created_at;
+    private Date createdAt;
 
     public ArticleLike() {
     }
@@ -40,35 +40,35 @@ public class ArticleLike {
         this.id = id;
     }
 
-    public Integer getArticle_id() {
-        return article_id;
+    public Integer getArticleId() {
+        return articleId;
     }
 
-    public void setArticle_id(Integer article_id) {
-        this.article_id = article_id;
+    public void setArticleId(Integer articleId) {
+        this.articleId = articleId;
     }
 
-    public Integer getForum_id() {
-        return forum_id;
+    public Integer getForumId() {
+        return forumId;
     }
 
-    public void setForum_id(Integer forum_id) {
-        this.forum_id = forum_id;
+    public void setForumId(Integer forumId) {
+        this.forumId = forumId;
     }
 
-    public Integer getCustomer_id() {
-        return customer_id;
+    public Integer getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer_id(Integer customer_id) {
-        this.customer_id = customer_id;
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
     }
 
-    public Date getCreated_at() {
-        return created_at;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }
