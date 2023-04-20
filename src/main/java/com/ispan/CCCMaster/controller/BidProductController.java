@@ -8,6 +8,6 @@ public class BidProductController {
 
     @GetMapping("/bidProducts/create")
     public String getCreateBidProductForm() {
-        return "back/bidProduct-create";
+        return "/back/bid/product-create";
     }
 }
