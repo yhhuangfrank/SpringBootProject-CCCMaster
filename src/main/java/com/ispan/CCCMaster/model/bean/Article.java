@@ -116,3 +116,4 @@ public class Article {
         this.response_count = response_count;
     }
 }
+
