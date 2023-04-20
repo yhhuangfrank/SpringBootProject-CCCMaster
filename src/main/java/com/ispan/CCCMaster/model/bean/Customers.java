@@ -1,12 +1,15 @@
 package com.ispan.CCCMaster.model.bean;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -44,6 +47,10 @@ public class Customers {
 	
 	@Column(name = "abandon_count")
 	private Integer abandonCount;
+	
+	// BY 瑛仁
+	@OneToMany(mappedBy="cbShoppingCart")
+	Set<ShoppingCartBean> set = new HashSet<>();
 	
 	public Customers() {
 	}
