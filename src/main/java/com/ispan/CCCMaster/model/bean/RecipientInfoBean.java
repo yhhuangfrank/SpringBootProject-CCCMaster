@@ -26,13 +26,13 @@ public class RecipientInfoBean implements Serializable {
 	//雙向多對一
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="customer_id")
-	private CustomerBean cbRecipientInfo;
+	private Customers cbRecipientInfo;
 	
-	public RecipientInfoBean(String address, String name, String telephone, CustomerBean customerBean) {
+	public RecipientInfoBean(String address, String name, String telephone, Customers cbRecipientInfo) {
 		this.address = address;
 		this.name = name;
 		this.telephone = telephone;
-		this.customerBean = customerBean;
+		this.cbRecipientInfo = cbRecipientInfo;
 	}
 	public String getAddress() {
 		return address;

@@ -31,11 +31,11 @@ public class OrderBean implements Serializable {
 	//雙向多對一
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="customer_id")
-	private CustomerBean cbOrder;
+	private Customers cbOrder;
 	
 	public OrderBean(String orderid,Integer freight,Integer pointsdiscount,String couponid,Integer unitprice,Integer quantity,
 			String orderdate,String arrivaldate,String shipper,String shipperaddress,
-			String payment,String ordercondition,String paymentcondition,CustomerBean customerBean) {
+			String payment,String ordercondition,String paymentcondition,Customers cbOrder) {
 		this.orderid = orderid;
 		this.freight = freight;
 		this.pointsdiscount = pointsdiscount;
@@ -47,7 +47,7 @@ public class OrderBean implements Serializable {
 		this.payment = payment;
 		this.ordercondition = ordercondition;
 		this.paymentcondition = paymentcondition;
-		this.customerBean = customerBean;
+		this.cbOrder = cbOrder;
 	}
 	
 	public OrderBean() {
@@ -59,12 +59,6 @@ public class OrderBean implements Serializable {
 	}
 	public void setOrderid(String orderid) {
 		this.orderid = orderid;
-	}
-	public String getCustomerid() {
-		return customerid;
-	}
-	public void setCustomerid(String customerid) {
-		this.customerid = customerid;
 	}
 
 	public int getFreight() {

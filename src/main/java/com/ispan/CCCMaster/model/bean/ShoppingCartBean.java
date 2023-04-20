@@ -26,17 +26,17 @@ public class ShoppingCartBean implements Serializable {
 	//雙向多對一	
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="customer_id")
-	private CustomerBean cbShoppingCart;
+	private Customers cbShoppingCart;
 	
 	//雙向一對多	
 	@OneToMany(mappedBy = "shoppingcartbean",cascade=CascadeType.ALL)
 	Set<ShoppingCartDetailBean> scd = new HashSet<>();
 	
-	public ShoppingCartBean(String shoppoingCartId,Timestamp settime,Integer isCheckout,CustomerBean customerBean) {
+	public ShoppingCartBean(String shoppoingCartId,Timestamp settime,Integer isCheckout,Customers cbShoppingCart) {
 		this.shoppoingCartId = shoppoingCartId;
 		this.settime = settime;
 		this.isCheckout = isCheckout;
-		this.customerBean = customerBean;
+		this.cbShoppingCart = cbShoppingCart;
 	}
 	
 	public ShoppingCartBean() {

@@ -25,9 +25,9 @@ public class ShoppingCartDetailBean implements Serializable{
 	//雙向一對多
 	@OneToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="product_id")
-	private ProductsBean productBean;
+	private Product productBean;
 	
-	public ShoppingCartDetailBean(Integer sCDquantity, ShoppingCartBean shoppingcartbean, ProductsBean productBean) {
+	public ShoppingCartDetailBean(Integer sCDquantity, ShoppingCartBean shoppingcartbean, Product productBean) {
 		this.SCDquantity = sCDquantity;
 		this.shoppingcartbean = shoppingcartbean;
 		this.productBean = productBean;

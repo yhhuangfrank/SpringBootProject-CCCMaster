@@ -35,19 +35,37 @@ public class BidOrderBean implements Serializable {
 	//買家雙向多對一	
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="buyer_id")
-	private CustomerBean cbBuyer;
+	private Customers cbBuyer;
 	
 	//賣家雙向多對一	
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="seller_id")
-	private CustomerBean cbSeller;
+	private Customers cbSeller;
 	
 	//雙向一對一
 	@OneToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="bidproducts_id")
-	private BidProductsBean bpbidOrder;
+	private BidProduct bpbidOrder;
 	
-	
+	public BidOrderBean(String bidorderid, Integer price, Integer quantity, Integer freight, Timestamp orderdate,
+			Timestamp arrivaldate, String shipper, String shipperaddress, String payment, String ordercondition,
+			String paymentcondition, Customers cbBuyer, Customers cbSeller, BidProduct bpbidOrder) {
+		super();
+		this.bidorderid = bidorderid;
+		this.price = price;
+		this.quantity = quantity;
+		this.freight = freight;
+		this.orderdate = orderdate;
+		this.arrivaldate = arrivaldate;
+		this.shipper = shipper;
+		this.shipperaddress = shipperaddress;
+		this.payment = payment;
+		this.ordercondition = ordercondition;
+		this.paymentcondition = paymentcondition;
+		this.cbBuyer = cbBuyer;
+		this.cbSeller = cbSeller;
+		this.bpbidOrder = bpbidOrder;
+	}
 	public String getBidorderid() {
 		return bidorderid;
 	}

@@ -25,8 +25,14 @@ public class OrderDetailBean implements Serializable {
 	//雙向多對一
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="product_id")
-	private ProductsBean pOrder;
+	private Product pOrder;
 	
+	public OrderDetailBean(Integer unitprice, Integer quantity, OrderBean orderBean, Product pOrder) {
+		this.unitprice = unitprice;
+		this.quantity = quantity;
+		this.orderBean = orderBean;
+		this.pOrder = pOrder;
+	}
 	public Integer getUnitprice() {
 		return unitprice;
 	}

@@ -27,15 +27,15 @@ public class StoreRecipientInfoBean implements Serializable {
 	//雙向多對一
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="customer_id")
-	private CustomerBean cbStoreRecipientInfo;
+	private Customers cbStoreRecipientInfo;
 		
 	public StoreRecipientInfoBean(String storetype, String storename, String address, String name,
-			CustomerBean customerBean) {
+			Customers cbStoreRecipientInfo) {
 		this.storetype = storetype;
 		this.storename = storename;
 		this.address = address;
 		this.name = name;
-		this.customerBean = customerBean;
+		this.cbStoreRecipientInfo = cbStoreRecipientInfo;
 	}
 	public String getStoretype() {
 		return storetype;
