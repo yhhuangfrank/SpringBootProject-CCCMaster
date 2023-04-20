@@ -11,29 +11,29 @@ public class BidProduct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    private Integer id;
 
     @Column(name = "name", columnDefinition = "nvarchar(50)", nullable = false)
-    String name;
+    private String name;
 
     @Column(name = "base_price", nullable = false)
-    Integer basePrice;
+    private Integer basePrice;
 
     @Column(name = "bid_price", nullable = false)
-    Integer bidPrice;
+    private Integer bidPrice;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "category_id", nullable = false, foreignKey = @ForeignKey(name = "BidProduct_Category"))
-    Category category;
+    private Category category;
 
     @Column(name = "description", columnDefinition = "nvarchar(max)")
-    String description;
+    private String description;
 
     @Column(name = "image", columnDefinition = "varchar(max)", nullable = false)
-    String image;
+    private String image;
 
     @Column(name = "customer_id", nullable = false)
-    Integer customerId;
+    private Integer customerId;
 
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

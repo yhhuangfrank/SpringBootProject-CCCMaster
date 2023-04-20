@@ -54,33 +54,34 @@
                         <h5 class="card-title text-center fw-bold">新增二手商品</h5>
 
                         <!-- General Form Elements -->
-                        <form:form>
+                        <form:form modelAttribute="bidProductRequest" method="POST" action="${contextRoot}/bidProducts" enctype="multipart/form-data">
                             <div class="row mb-3">
                                 <label for="name" class="col-sm-2 col-form-label fw-bold">名稱</label>
                                 <div class="col-sm-10">
-                                    <input path="name" id="name" type="text" class="form-control" minlength="1"
-                                           maxlength="20" placeholder="輸入名稱" required>
+                                    <form:input path="name" id="name" type="text" class="form-control" minlength="1"
+                                           maxlength="20" placeholder="輸入名稱" required="true"/>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="basePrice" class="col-sm-2 col-form-label fw-bold">底價</label>
                                 <div class="col-sm-10">
-                                    <input path="basePrice" id="basePrice" type="number" class="form-control" min="1"
-                                           placeholder="輸入底價" required>
+                                    <form:input path="basePrice" id="basePrice" type="number" class="form-control" min="1"
+                                           placeholder="輸入底價" required="true"/>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="description" class="col-sm-2 col-form-label fw-bold">描述</label>
                                 <div class="col-sm-10">
-                                    <textarea path="description" id="description" cols="30" rows="10"></textarea>
+                                    <form:textarea path="description" id="description" cols="30" rows="10"></form:textarea>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="image" class="col-sm-2 col-form-label fw-bold">圖片</label>
                                 <div class="col-sm-10">
-                                    <input path="image" id="image" type="file" class="form-control">
+                                    <form:input path="image" id="image" type="file" class="form-control"/>
                                 </div>
                             </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </form:form><!-- End General Form Elements -->
 
                     </div>
