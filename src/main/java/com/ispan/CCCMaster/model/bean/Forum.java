@@ -10,45 +10,45 @@ import java.util.Date;
 public class Forum {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "forumId")
-    private Integer forumId;
+    @Column(name = "forum_id")
+    private Integer forum_id;
 
-    @Column(name = "forumName", columnDefinition = "nvarchar(200)", nullable = true)
-    private String forumName;
+    @Column(name = "forum_name", columnDefinition = "nvarchar(200)", nullable = true)
+    private String forum_name;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss EEEE",timezone = "GMT+8")
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "startDate", columnDefinition = "datetime")
-    private Date startDate;
+
+    @Column(name = "start_date", columnDefinition = "datetime")
+    private Date start_date;
 
     public void  onCreate() {
-        if(startDate == null) {
-            startDate = new Date();
+        if(start_date == null) {
+            start_date = new Date();
         }
     }
     public Forum() {
     }
-    public Integer getForumId() {
-        return forumId;
+
+    public Integer getForum_id() {
+        return forum_id;
     }
 
-    public void setForumId(Integer forumId) {
-        this.forumId = forumId;
+    public void setForum_id(Integer forum_id) {
+        this.forum_id = forum_id;
     }
 
-    public String getForumName() {
-        return forumName;
+    public String getForum_name() {
+        return forum_name;
     }
 
-    public void setForumName(String forumName) {
-        this.forumName = forumName;
+    public void setForum_name(String forum_name) {
+        this.forum_name = forum_name;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getStart_date() {
+        return start_date;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setStart_date(Date start_date) {
+        this.start_date = start_date;
     }
 }

@@ -9,65 +9,66 @@ public class ArticleLike {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "articleId")
-    private Integer articleId;
+    @Column(name = "id")
+    private Integer id;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "forumId")
-    private Integer forumId;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customerId")
-    private Integer customerId;
+    @Column(name = "article_id")
+    private Integer article_id;
 
-    @Column(name = "like")
-    private Integer like;
 
-    @Column(name = "likeDate")
-    private Date likeDate;
+    @Column(name = "forum_id")
+    private Integer forum_id;
+
+
+    @Column(name = "customer_id")
+    private Integer customer_id;
+
+
+
+    @Column(name = "created_at")
+    private Date created_at;
 
     public ArticleLike() {
     }
 
-    public Integer getArticleId() {
-        return articleId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setArticleId(Integer articleId) {
-        this.articleId = articleId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Integer getForumId() {
-        return forumId;
+    public Integer getArticle_id() {
+        return article_id;
     }
 
-    public void setForumId(Integer forumId) {
-        this.forumId = forumId;
+    public void setArticle_id(Integer article_id) {
+        this.article_id = article_id;
     }
 
-    public Integer getCustomerId() {
-        return customerId;
+    public Integer getForum_id() {
+        return forum_id;
     }
 
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
+    public void setForum_id(Integer forum_id) {
+        this.forum_id = forum_id;
     }
 
-    public Integer getLike() {
-        return like;
+    public Integer getCustomer_id() {
+        return customer_id;
     }
 
-    public void setLike(Integer like) {
-        this.like = like;
+    public void setCustomer_id(Integer customer_id) {
+        this.customer_id = customer_id;
     }
 
-    public Date getLikeDate() {
-        return likeDate;
+    public Date getCreated_at() {
+        return created_at;
     }
 
-    public void setLikeDate(Date likeDate) {
-        this.likeDate = likeDate;
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
     }
 }
