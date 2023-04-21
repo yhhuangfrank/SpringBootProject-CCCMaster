@@ -38,10 +38,12 @@ public class BidProductServiceImpl implements BidProductService {
         if (list.isEmpty()) {
             // 創建新種類
             category = new Category();
-            category.setName(bidProduct.getName());
-            categoryDao.save(category);
+            category.setName(bidProductRequest.getCategoryName());
+            category = categoryDao.save(category);
+        } else {
+            category = list.get(0);
         }
-        bidProduct.setCategory(list.get(0));
+        bidProduct.setCategory(category);
         bidProduct.setDescription(bidProductRequest.getDescription());
 
         String imageLink = "";
