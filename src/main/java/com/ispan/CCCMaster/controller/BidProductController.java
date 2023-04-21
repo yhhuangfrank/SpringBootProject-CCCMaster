@@ -40,12 +40,7 @@ public class BidProductController {
     @PostMapping("/bidProducts")
     public String createBidProduct(@RequestBody @ModelAttribute("bidProductRequest") BidProductRequest bidProductRequest) {
 
-//        System.out.println(bidProductRequest);
-        List<Category> list = categoryService.findCategoryByName("電腦x");
-        System.out.println(list.get(0));
-        for (Category c : list) {
-            System.out.println(c);
-        }
+        bidProductService.createBidProduct(bidProductRequest);
 
         return "/back/bid/product-create";
     }

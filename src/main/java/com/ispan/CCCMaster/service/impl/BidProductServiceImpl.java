@@ -6,12 +6,11 @@ import com.ispan.CCCMaster.model.dao.BidProductDao;
 import com.ispan.CCCMaster.model.dao.CategoryDao;
 import com.ispan.CCCMaster.model.dto.BidProductRequest;
 import com.ispan.CCCMaster.service.BidProductService;
+import com.ispan.CCCMaster.util.ImgurUploader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class BidProductServiceImpl implements BidProductService {
@@ -21,6 +20,9 @@ public class BidProductServiceImpl implements BidProductService {
 
     @Autowired
     private CategoryDao categoryDao;
+
+    @Autowired
+    private ImgurUploader imgurUploader;
 
     @Override
     public BidProduct createBidProduct(BidProductRequest bidProductRequest) {
@@ -42,10 +44,12 @@ public class BidProductServiceImpl implements BidProductService {
         bidProduct.setCategory(list.get(0));
         bidProduct.setDescription(bidProductRequest.getDescription());
 
-
-        if (bidProductRequest.getImage() != null) {
+        String imageLink = "";
+        if (bidProductRequest.getImage() != null || !bidProductRequest.getImage().isEmpty()) {
             // 呼叫 imgur api 上傳圖片，取得 link
+            imageLink = imgurUploader.uploadImage(bidProductRequest.getImage());
         }
+        bidProduct.setImage(imageLink);
 
         return bidProductDao.save(bidProduct);
     }
