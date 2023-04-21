@@ -40,13 +40,19 @@ public class ProductController {
     model.addAttribute("page",page);
         return "back/showProduct";
     }
-    @GetMapping(value = "/showImage/{productId}")
+    @GetMapping(value = "Products/showImage/{productId}")//顯示產品的圖片
     public ResponseEntity<byte[]> getImage(@PathVariable("productId") Integer productId) {
-        byte[] image = pService.getProductImage(productId);
+        byte[] image = pService.getProductImageById(productId);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG);
         headers.setContentLength(image.length);
         return new ResponseEntity<>(image, headers, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/Products/delete")
+    public String deleteProductById(@RequestParam("id") Integer productId){
+        pService.deleteProduct(productId);
+        return "redirect:/Products/showAllProduct";
     }
 }
 

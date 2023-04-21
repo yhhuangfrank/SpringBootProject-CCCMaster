@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.Optional;
@@ -36,14 +37,16 @@ public class ProductService {
         return page;
     }
 
-    public byte[] getProductImage(Integer productId) {
-        Optional<Product> option=productRepository.findById(productId);
-        if(option.isPresent()) {
+    public byte[] getProductImageById(Integer productId) {
+        Optional<Product> option = productRepository.findById(productId);
+        if (option.isPresent()) {
             Product product = option.get();
             return product.getImage();
-        }
-        else return null;
+        } else return null;
     }
 
+    public void deleteProduct(Integer productId) {
+        productRepository.deleteById(productId);
+    }
 
 }

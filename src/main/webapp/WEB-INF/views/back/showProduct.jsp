@@ -88,7 +88,7 @@
 
 
                                     <td><img style="width: 300px; height: 300px;"
-                                             src="${contextRoot}/showImage/${product.productId}"/></td>
+                                             src="${contextRoot}/Products/showImage/${product.productId}"/></td>
                                     <td>
                                         <form action="${contextRoot}/Products/edit">
                                             <input type="hidden" name="id" value="${product.productId}"/>
@@ -97,11 +97,13 @@
                                     </td>
                                     <td>
                                         <div class="justify-content: center;">
-                                        <form action="${contextRoot}/Products/delete" method="post">
-                                            <input type="hidden" name="_method" value="delete"/>
-                                            <input type="hidden" name="id" value="${product.productId}"/>
-                                            <input type="submit" class="btn btn-outline-danger btn-sm" value="刪除"/>
-                                        </form></div>
+                                            <form action="${contextRoot}/Products/delete" method="post">
+                                                <input type="hidden" name="_method" value="delete"/>
+                                                <input type="hidden" name="id" value="${product.productId}"/>
+                                                <input type="submit" class="btn btn-outline-danger btn-sm"
+                                                       value="刪除"/>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
 
