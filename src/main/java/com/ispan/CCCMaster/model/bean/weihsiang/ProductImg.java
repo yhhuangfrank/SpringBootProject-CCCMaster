@@ -22,9 +22,10 @@ public class ProductImg {
     @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")//告訴 Spring 框架如何將輸入的日期和時間字串轉換為 Java 的Date
     @Column(name = "create_date")
     private Date createDate;
-    @ManyToOne(cascade = CascadeType.ALL)//產品Bean 產品單向一對多
+
+   /* @ManyToOne(cascade = CascadeType.ALL)//產品Bean 產品單向一對多
     @JoinColumn(name = "product_id")
-    private Product product;
+    private Product product;*/
 
 
 }
