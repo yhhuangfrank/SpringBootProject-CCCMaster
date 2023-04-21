@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<c:set var="contextRoot" value="${pageContext.request.contextPath}"/>
         <!-- ======= Sidebar ======= -->
         <aside id="sidebar" class="sidebar">
 
@@ -127,8 +127,14 @@
                     </a>
                     <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <li>
-                            <a href="tables-general.html">
-                                <i class="bi bi-circle"></i><span>General Tables</span>
+                            <a href="${contextRoot}/Products/showAllProduct">
+                                <i class="bi bi-circle"></i><span>產品列表</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="${contextRoot}/Products/createform">
+                                <i class="bi bi-circle"></i><span>新增產品</span>
                             </a>
                         </li>
                         <li>
