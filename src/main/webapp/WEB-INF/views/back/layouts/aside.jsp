@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextRoot" value="${pageContext.request.contextPath}"/>
 
         <!-- ======= Sidebar ======= -->
         <aside id="sidebar" class="sidebar">
@@ -145,13 +146,13 @@
                     </a>
                     <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <li>
-                            <a href="charts-chartjs.html">
-                                <i class="bi bi-circle"></i><span>Chart.js</span>
+                            <a href="${contextRoot}/bidProducts">
+                                <i class="bi bi-circle"></i><span>所有商品</span>
                             </a>
                         </li>
                         <li>
-                            <a href="charts-apexcharts.html">
-                                <i class="bi bi-circle"></i><span>ApexCharts</span>
+                            <a href="${contextRoot}/bidProducts/create">
+                                <i class="bi bi-circle"></i><span>新增商品</span>
                             </a>
                         </li>
                         <li>

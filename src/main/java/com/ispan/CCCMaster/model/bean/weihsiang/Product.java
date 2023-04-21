@@ -1,10 +1,9 @@
 package com.ispan.CCCMaster.model.bean.weihsiang;
 
-import com.ispan.CCCMaster.model.bean.Category;
+import com.ispan.CCCMaster.model.bean.bid.Category;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "Products")
