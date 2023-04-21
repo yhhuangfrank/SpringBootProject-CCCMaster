@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class BidProductServiceImpl implements BidProductService {
@@ -23,19 +25,27 @@ public class BidProductServiceImpl implements BidProductService {
     @Override
     public BidProduct createBidProduct(BidProductRequest bidProductRequest) {
 
-        if (bidProductRequest.getImage() != null) {
-            // 呼叫 imgur api 上傳圖片，取得 link
-        }
-
         BidProduct bidProduct = new BidProduct();
         bidProduct.setName(bidProductRequest.getName());
         bidProduct.setBasePrice(bidProductRequest.getBasePrice());
+        bidProduct.setBidPrice(0); // 初始出價為 0
 
         // 查詢種類，若無則新增種類
-        Category foundCategory = categoryDao.findCategoryByName(bidProductRequest.getCategoryName());
-
-
+        List<Category> list = categoryDao.findCategoryByName(bidProductRequest.getCategoryName());
+        Category category = null;
+        if (list.isEmpty()) {
+            // 創建新種類
+            category = new Category();
+            category.setName(bidProduct.getName());
+            categoryDao.save(category);
+        }
+        bidProduct.setCategory(list.get(0));
         bidProduct.setDescription(bidProductRequest.getDescription());
+
+
+        if (bidProductRequest.getImage() != null) {
+            // 呼叫 imgur api 上傳圖片，取得 link
+        }
 
         return bidProductDao.save(bidProduct);
     }

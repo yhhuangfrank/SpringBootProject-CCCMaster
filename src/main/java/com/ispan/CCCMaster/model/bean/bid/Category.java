@@ -21,6 +21,13 @@ public class Category {
     @Column(name = "created_at", columnDefinition = "datetime", nullable = false)
     Date createdAt;
 
+    @PrePersist
+    public void onCreate() {
+        if (createdAt == null) {
+            createdAt = new Date();
+        }
+    }
+
     public Integer getId() {
         return id;
     }
@@ -43,5 +50,14 @@ public class Category {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

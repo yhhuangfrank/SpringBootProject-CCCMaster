@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class BidProductController {
@@ -39,7 +40,12 @@ public class BidProductController {
     @PostMapping("/bidProducts")
     public String createBidProduct(@RequestBody @ModelAttribute("bidProductRequest") BidProductRequest bidProductRequest) {
 
-        System.out.println(bidProductRequest);
+//        System.out.println(bidProductRequest);
+        List<Category> list = categoryService.findCategoryByName("電腦x");
+        System.out.println(list.get(0));
+        for (Category c : list) {
+            System.out.println(c);
+        }
 
         return "/back/bid/product-create";
     }

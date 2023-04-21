@@ -59,6 +59,7 @@ public class BidProductRequest {
         return "BidProductRequest{" +
                 "name='" + name + '\'' +
                 ", basePrice=" + basePrice +
+                ", categoryName='" + categoryName + '\'' +
                 ", description='" + description + '\'' +
                 ", image=" + image +
                 '}';
