@@ -210,12 +210,12 @@
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#custService-nav" data-bs-toggle="collapse" href="#">
-                        <i class="bi bi-gem"></i><span>客服作業</span><i class="bi bi-chevron-down ms-auto"></i>
+                        <i class="bi bi-person-hearts"></i><span>客服作業</span><i class="bi bi-chevron-down ms-auto"></i>
                     </a>
                     <ul id="custService-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <li>
-                            <a href="icons-bootstrap.html">
-                                <i class="bi bi-circle"></i><span>Bootstrap Icons</span>
+                            <a href="Servic/console">
+                                <i class="bi bi-wechat"></i><span>Bootstrap Icons</span>
                             </a>
                         </li>
                         <li>

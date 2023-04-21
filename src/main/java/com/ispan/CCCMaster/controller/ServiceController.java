@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ServiceController {
 
-    @GetMapping("/back")
+    @GetMapping("/Servic/console")
     public String home() {
-        return "back/backExample";
+        return "back/Service-console";
     }
 }
