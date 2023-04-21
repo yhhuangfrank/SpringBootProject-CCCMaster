@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -49,4 +50,28 @@ public class ProductService {
         productRepository.deleteById(productId);
     }
 
+    public Product findProductById(Integer productId) {
+        Optional<Product> option = productRepository.findById(productId);
+        if(option.isEmpty()){
+            return null;
+        }else return option.get();
+    }
+
+    @Transactional
+    public void editProductById(Product product) throws IOException {//也許可做更新失敗的判斷
+        System.out.println("enter editProductById");
+        Optional<Product> option = productRepository.findById(product.getProductId());
+        if(option.isPresent()) {
+            Product oldProduct = option.get();
+            oldProduct.setProductName(product.getProductName());
+            oldProduct.setPrice(product.getPrice());
+            oldProduct.setInventory(product.getInventory());
+            oldProduct.setActive(product.getActive());
+        if(!product.getImageFile().isEmpty()){//如果更新的圖片不為空
+                oldProduct.setImage(product.getImageFile().getBytes());
+
+        }
+        }
+
+    }
 }

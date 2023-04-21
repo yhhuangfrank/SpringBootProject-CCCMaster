@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <title>test</title>
@@ -90,10 +91,13 @@
                                     <td><img style="width: 300px; height: 300px;"
                                              src="${contextRoot}/Products/showImage/${product.productId}"/></td>
                                     <td>
-                                        <form action="${contextRoot}/Products/edit">
+                                        <form action="${contextRoot}/Products/editPage">
                                             <input type="hidden" name="id" value="${product.productId}"/>
                                             <input type="submit" class="btn btn-outline-info btn-sm" value="編輯"/>
                                         </form>
+                                        <form:form method="put">
+
+                                        </form:form>
                                     </td>
                                     <td>
                                         <div class="justify-content: center;">

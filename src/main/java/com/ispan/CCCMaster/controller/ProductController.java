@@ -17,29 +17,33 @@ import java.io.IOException;
 
 @Controller
 public class ProductController {
-@Autowired
+    @Autowired
     private ProductService pService;
+
     @GetMapping("/Products/createform")//新增產品表單
     public String getCreateProductForm(Model model) {
         model.addAttribute("product", new Product());
         return "back/Product-create";
     }
+
     @PostMapping("/Products/create")//新增產品表單送出
-    public String createProduct(@ModelAttribute("product") Product product)  {
+    public String createProduct(@ModelAttribute("product") Product product) {
         try {
             product.setImage(product.getImageFile().getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
         pService.createProduct(product);
-       return "redirect:/Products/showAllProduct";
+        return "redirect:/Products/showAllProduct";
     }
+
     @GetMapping("/Products/showAllProduct")//產品列表
-    public String showAllProduct(@RequestParam(name="p",defaultValue = "1") Integer pageNumber,Model model){
-    Page<Product> page=pService.findByPage(pageNumber);
-    model.addAttribute("page",page);
+    public String showAllProduct(@RequestParam(name = "p", defaultValue = "1") Integer pageNumber, Model model) {
+        Page<Product> page = pService.findByPage(pageNumber);
+        model.addAttribute("page", page);
         return "back/showProduct";
     }
+
     @GetMapping(value = "Products/showImage/{productId}")//顯示產品的圖片
     public ResponseEntity<byte[]> getImage(@PathVariable("productId") Integer productId) {
         byte[] image = pService.getProductImageById(productId);
@@ -49,9 +53,26 @@ public class ProductController {
         return new ResponseEntity<>(image, headers, HttpStatus.OK);
     }
 
-    @DeleteMapping("/Products/delete")
-    public String deleteProductById(@RequestParam("id") Integer productId){
+    @DeleteMapping("/Products/delete") //刪除產品
+    public String deleteProductById(@RequestParam("id") Integer productId) {
         pService.deleteProduct(productId);
+        return "redirect:/Products/showAllProduct";
+    }
+
+    @GetMapping("/Products/editPage") //編輯產品頁面
+    public String editPage(@RequestParam("id") Integer productId,Model model) {
+    Product product=pService.findProductById(productId);
+    model.addAttribute("product",product);
+        return "back/editProductPage";
+    }
+
+    @PutMapping("/Products/edit")//更新產品
+    public String editProductById(@ModelAttribute("product")Product product) {
+        try {
+            pService.editProductById(product);
+        } catch (IOException e) {
+           e.printStackTrace();
+        }
         return "redirect:/Products/showAllProduct";
     }
 }
