@@ -1,5 +1,7 @@
 package com.ispan.CCCMaster.model.bean;
 
+import com.ispan.CCCMaster.model.bean.bid.BidProduct;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 
