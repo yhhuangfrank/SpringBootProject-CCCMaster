@@ -8,6 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="jstl" %>
 <html>
 <head>
   <title>新增討論版</title>
@@ -52,17 +54,23 @@
 
     </div>
   </div>
-
-
     <br>
     <div class="row mb-3">
       <label class="col-sm-2 col-form-label">Submit Button</label>
       <div class="col-sm-10">
         <button type="submit" class="btn btn-primary">Submit Form</button>
+        </form:form>
       </div>
     </div>
 
-    </form:form>
+
+
+  <label for="inputName" class="col-sm-2 col-form-label">最新的資料 時間:</label>
+
+  <div class="col-sm-10">
+    <span><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss EEEE" value="${latest.added}"/></span>
+  </div>
+  ${latest.forumName}
 </main>
 
 <jsp:include page="layouts/aside.jsp"/>

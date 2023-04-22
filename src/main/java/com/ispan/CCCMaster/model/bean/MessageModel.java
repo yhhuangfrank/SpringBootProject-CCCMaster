@@ -88,7 +88,4 @@ public class MessageModel {
 	public void setCreate_time(Date create_time) {
 		this.create_time = create_time;
 	}
-
-	
-
 }

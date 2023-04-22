@@ -22,11 +22,13 @@ public class Forum {
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
     @Column(name = "start_date", columnDefinition = "datetime")
-    private Date startDate;
+    private Date added;
 
+
+    @PrePersist
     public void  onCreate() {
-        if(startDate == null) {
-            startDate = new Date();
+        if(added == null) {
+            added = new Date();
         }
     }
     public Forum() {
@@ -48,11 +50,11 @@ public class Forum {
         this.forumName = forumName;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getAdded() {
+        return added;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setAdded(Date added) {
+        this.added = added;
     }
 }
