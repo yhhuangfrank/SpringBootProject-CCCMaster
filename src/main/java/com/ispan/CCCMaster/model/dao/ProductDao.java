@@ -4,5 +4,5 @@ import com.ispan.CCCMaster.model.bean.weihsiang.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface ProductRepository extends JpaRepository<Product,Integer> {
+public interface ProductDao extends JpaRepository<Product,Integer> {
 }
