@@ -118,5 +118,13 @@ public class BidProduct {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
+
+    public void addCategory(String name) {
+        if (this.category != null) return;
+
+        Category newCategory = new Category();
+        newCategory.setName(name);
+        this.setCategory(newCategory);
+    }
 }
 

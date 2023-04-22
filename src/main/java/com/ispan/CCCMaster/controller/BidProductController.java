@@ -41,7 +41,7 @@ public class BidProductController {
 
         bidProductService.createBidProduct(bidProductRequest);
 
-        return "/back/bid/product-create";
+        return "redirect:/bidProducts";
     }
 
     @GetMapping("/bidProducts")
