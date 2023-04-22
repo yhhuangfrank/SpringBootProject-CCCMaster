@@ -28,7 +28,7 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
 
     @Override
     public void createProduct(Product product, String categoryName) throws IOException {
-        Category category = categoryDao.findCategoryByNameReturnCategory(categoryName);
+        Category category = categoryDao.findCategoryByName(categoryName);
         if(category!=null){
             product.setCategory(category);
         }else {
@@ -90,8 +90,8 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
             if (!product.getImageFile().isEmpty()) {//如果更新的圖片不為空
                 oldProduct.setImage(product.getImageFile().getBytes());
             }
-            if(categoryDao.findCategoryByNameReturnCategory(categoryName)!=null){
-                oldProduct.setCategory(categoryDao.findCategoryByNameReturnCategory(categoryName));
+            if(categoryDao.findCategoryByName(categoryName)!=null){
+                oldProduct.setCategory(categoryDao.findCategoryByName(categoryName));
             }else {
                 Category newCategory=new Category();
                 newCategory.setName(categoryName);
