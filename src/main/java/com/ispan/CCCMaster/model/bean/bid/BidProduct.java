@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.model.bean;
+package com.ispan.CCCMaster.model.bean.bid;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -11,34 +11,41 @@ public class BidProduct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    private Integer id;
 
     @Column(name = "name", columnDefinition = "nvarchar(50)", nullable = false)
-    String name;
+    private String name;
 
     @Column(name = "base_price", nullable = false)
-    Integer basePrice;
+    private Integer basePrice;
 
     @Column(name = "bid_price", nullable = false)
-    Integer bidPrice;
+    private Integer bidPrice;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "category_id", nullable = false, foreignKey = @ForeignKey(name = "BidProduct_Category"))
-    Category category;
+    private Category category;
 
-    @Column(name = "description", columnDefinition = "nvarchar(max)")
-    String description;
+    @Column(name = "description", columnDefinition = "nvarchar(255)")
+    private String description;
 
     @Column(name = "image", columnDefinition = "varchar(max)", nullable = false)
-    String image;
+    private String image;
 
-    @Column(name = "customer_id", nullable = false)
-    Integer customerId;
+//    @Column(name = "customer_id", nullable = false)
+//    private Integer customerId;
 
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "created_at", columnDefinition = "datetime", nullable = false)
     Date createdAt;
+
+    @PrePersist
+    public void onCreate() {
+        if (createdAt == null) {
+            createdAt = new Date();
+        }
+    }
 
     public Integer getId() {
         return id;
@@ -72,11 +79,11 @@ public class BidProduct {
         this.bidPrice = bidPrice;
     }
 
-    public Category getCategoryId() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategoryId(Category category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
@@ -96,13 +103,13 @@ public class BidProduct {
         this.image = image;
     }
 
-    public Integer getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
-    }
+//    public Integer getCustomerId() {
+//        return customerId;
+//    }
+//
+//    public void setCustomerId(Integer customerId) {
+//        this.customerId = customerId;
+//    }
 
     public Date getCreatedAt() {
         return createdAt;
@@ -110,6 +117,14 @@ public class BidProduct {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public void addCategory(String name) {
+        if (this.category != null) return;
+
+        Category newCategory = new Category();
+        newCategory.setName(name);
+        this.setCategory(newCategory);
     }
 }
 
