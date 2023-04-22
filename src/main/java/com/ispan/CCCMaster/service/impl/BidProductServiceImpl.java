@@ -60,4 +60,9 @@ public class BidProductServiceImpl implements BidProductService {
     public List<BidProduct> findAllBidProducts() {
         return bidProductDao.findAll();
     }
+
+    @Override
+    public BidProduct findBidProductById(Integer id) {
+        return bidProductDao.findById(id).orElse(null);
+    }
 }
