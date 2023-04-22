@@ -32,7 +32,7 @@
 </head>
 <body>
 
-<jsp:include page="layouts/header.jsp"/>
+<jsp:include page="../layouts/header.jsp"/>
 
 <main id="main" class="main">
     <h1>新增產品</h1>
@@ -42,6 +42,17 @@
         <label for="inputName" class="col-sm-2 col-form-label">產品名稱</label>
         <div class="col-sm-10">
             <form:input type="text" path="productName" class="form-control" id="inputName"></form:input>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="categoryId" class="col-sm-2 col-form-label fw-bold">種類</label>
+        <div class="col-sm-10">
+            <input name="categoryName" class="form-control" list="categoryList" id="categoryId" placeholder="搜尋或自訂種類"/>
+            <datalist id="categoryList">
+                <c:forEach items="${categories}" var="category">
+                    <option value="${category.name}"></option>
+                </c:forEach>
+            </datalist>
         </div>
     </div>
     <div class="row mb-3">
@@ -57,7 +68,7 @@
         </div>
     </div>
     <div class="row mb-3">
-        <label class="col-sm-2 col-form-label">File Upload</label>
+        <label class="col-sm-2 col-form-label">上傳圖片</label>
         <div class="col-sm-10">
             <form:input class="form-control" type="file" id="formFile" path="imageFile"></form:input>
         </div>
@@ -96,9 +107,9 @@
         </form:form>
 </main>
 
-<jsp:include page="layouts/aside.jsp"/>
+<jsp:include page="../layouts/aside.jsp"/>
 
-<jsp:include page="layouts/footer.jsp"/>
+<jsp:include page="../layouts/footer.jsp"/>
 
 <!-- Vendor JS Files -->
 <script src="${contextRoot}/styles/back/assets/vendor/apexcharts/apexcharts.min.js"></script>

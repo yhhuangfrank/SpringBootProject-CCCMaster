@@ -39,7 +39,7 @@
 </head>
 <body>
 
-<jsp:include page="layouts/header.jsp"/>
+<jsp:include page="../layouts/header.jsp"/>
 
 
 <main id="main" class="main">
@@ -66,6 +66,7 @@
                             <tr>
                                 <th scope="col">產品代號</th>
                                 <th scope="col">產品名稱</th>
+                                <th scope="col">產品類別</th>
                                 <th scope="col">價格</th>
                                 <th scope="col">庫存量</th>
                                 <th scope="col">產品介紹</th>
@@ -80,6 +81,9 @@
                                     </td>
                                     <td>
                                             ${product.productName}
+                                    </td>
+                                    <td>
+                                        ${product.category.name}
                                     </td>
                                     <td>
                                             ${product.price}
@@ -147,9 +151,9 @@
 </main><!-- End #main -->
 
 
-<jsp:include page="layouts/aside.jsp"/>
+<jsp:include page="../layouts/aside.jsp"/>
 
-<jsp:include page="layouts/footer.jsp"/>
+<jsp:include page="../layouts/footer.jsp"/>
 
 <!-- Vendor JS Files -->
 <script src="${contextRoot}/styles/back/assets/vendor/apexcharts/apexcharts.min.js"></script>
