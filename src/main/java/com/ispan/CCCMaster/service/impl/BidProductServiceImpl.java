@@ -65,4 +65,13 @@ public class BidProductServiceImpl implements BidProductService {
     public BidProduct findBidProductById(Integer id) {
         return bidProductDao.findById(id).orElse(null);
     }
+
+    @Override
+    public void updateBidProduct(BidProductRequest bidProductRequest) {
+
+        // 取得bidproduct
+
+        // 更新
+        bidProductDao.save();
+    }
 }

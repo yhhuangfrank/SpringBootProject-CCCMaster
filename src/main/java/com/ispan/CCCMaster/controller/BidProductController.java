@@ -70,4 +70,13 @@ public class BidProductController {
 
         return "/back/bid/product-edit";
     }
+
+    @PutMapping("/bidProducts/{id}")
+    public String editBidProduct(@PathVariable Integer id,
+                                 @RequestBody @ModelAttribute("bidProductRequest") BidProductRequest bidProductRequest) {
+
+        bidProductService.updateBidProduct(bidProductRequest);
+
+        return "redirect:/bidProducts";
+    }
 }
