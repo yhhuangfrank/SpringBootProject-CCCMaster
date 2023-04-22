@@ -36,7 +36,8 @@
 
 <main id="main" class="main">
     <h1>新增產品</h1>
-    <form:form method="post" modelAttribute="product" action="${contextRoot}/Products/create" enctype="multipart/form-data">
+    <form:form method="post" modelAttribute="product" action="${contextRoot}/Products/create"
+               enctype="multipart/form-data">
     <div class="row mb-3">
         <label for="inputName" class="col-sm-2 col-form-label">產品名稱</label>
         <div class="col-sm-10">
@@ -61,7 +62,11 @@
             <form:input class="form-control" type="file" id="formFile" path="imageFile"></form:input>
         </div>
 
-
+        <div class="form-floating mb-3">
+            <form:textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+                      style="height: 100px;" path="description"></form:textarea>
+            <label for="floatingTextarea">產品介紹</label>
+        </div>
         <fieldset class="row mb-3">
             <legend class="col-form-label col-sm-2 pt-0">上下架狀態</legend>
             <div class="col-sm-10">

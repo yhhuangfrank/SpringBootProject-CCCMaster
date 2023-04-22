@@ -22,8 +22,8 @@ public class GenDefaultCategory {
     @PostConstruct // 新建 bean 時，檢查 Category 資料表是否有預設值
     public void genDefaultCategories() {
 
-        List<Category> categoryList = categoryDao.findAll();
-        if (categoryList.size() > 0) return;
+        long num = categoryDao.count();
+        if (num > 0) return;
 
         String[] defaultCategoryNames = new String[]{"手機", "滑鼠", "鍵盤", "電腦", "筆記型電腦"};
 
