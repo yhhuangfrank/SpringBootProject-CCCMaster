@@ -28,8 +28,8 @@ public class Product {
     private Integer numOfPurchases;
     @Column(name = "product_views")
     private Integer productViews;
-    @Column(name = "desciption")
-    private String desciption;
+    @Column(name = "description")
+    private String description;
     @Column(name = "number_of_ratings")
     private Integer numberOfRatings;
     @Column(name = "avg_rating")
@@ -113,12 +113,12 @@ public class Product {
         this.productViews = productViews;
     }
 
-    public String getDesciption() {
-        return desciption;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesciption(String desciption) {
-        this.desciption = desciption;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Integer getNumberOfRatings() {
