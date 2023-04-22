@@ -45,7 +45,7 @@
     <h1>編輯產品</h1>
     <form:form method="put" modelAttribute="product" action="${contextRoot}/Products/edit"
                enctype="multipart/form-data">
-    <form:input type="text" path="productId" class="form-control" id="inputId"></form:input>
+    <form:input type="hidden" path="productId" class="form-control" id="inputId"></form:input>
     <div class="row mb-3">
         <label for="inputName" class="col-sm-2 col-form-label">產品名稱</label>
         <div class="col-sm-10">
@@ -81,7 +81,7 @@
         <div class="col-sm-10">
             <form:input class="form-control" type="file" id="formFile" path="imageFile"></form:input>
         </div>
-
+    </div>
 
         <fieldset class="row mb-3">
             <legend class="col-form-label col-sm-2 pt-0">上下架狀態</legend>
@@ -101,7 +101,7 @@
 
             </div>
         </fieldset>
-        <br>
+
         <div class="row mb-3">
             <label class="col-sm-2 col-form-label">Submit Button</label>
             <div class="col-sm-10">

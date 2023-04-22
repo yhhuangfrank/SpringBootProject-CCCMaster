@@ -4,7 +4,6 @@ import com.ispan.CCCMaster.model.bean.bid.Category;
 import com.ispan.CCCMaster.model.bean.weihsiang.Product;
 import com.ispan.CCCMaster.service.CategoryService;
 import com.ispan.CCCMaster.service.ProductService;
-import com.ispan.CCCMaster.service.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
@@ -19,7 +18,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
-public class ProductController {
+public class ProductsAdminController {
     @Autowired
     private ProductService pService;
     @Autowired
