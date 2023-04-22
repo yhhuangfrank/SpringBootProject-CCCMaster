@@ -67,6 +67,7 @@ public class BidProductController {
 
         model.addAttribute("categories", categories);
         model.addAttribute("bidProductRequest", bidProductRequest);
+        model.addAttribute("id", id);
 
         return "/back/bid/product-edit";
     }
@@ -75,7 +76,7 @@ public class BidProductController {
     public String editBidProduct(@PathVariable Integer id,
                                  @RequestBody @ModelAttribute("bidProductRequest") BidProductRequest bidProductRequest) {
 
-        bidProductService.updateBidProduct(bidProductRequest);
+        bidProductService.updateBidProduct(id, bidProductRequest);
 
         return "redirect:/bidProducts";
     }

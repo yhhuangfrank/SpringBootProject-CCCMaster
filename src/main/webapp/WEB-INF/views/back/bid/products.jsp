@@ -53,13 +53,25 @@
                     <div class="card mb-3">
                         <div class="row g-0">
                             <div class="col-md-4">
-                                <img src="${b.image}" class="img-fluid rounded-start"
-                                     style="opacity: 0; transition: opacity 0.5s ease-in-out;" onload="this.style.opacity='1';"
-                                     alt="BidProduct-image">
+                                <c:choose>
+                                    <c:when test="${ b.image.startsWith('http') }">
+                                        <img src="${b.image}" class="img-fluid rounded-start"
+                                             style="opacity: 0; transition: opacity 0.5s ease-in-out;"
+                                             onload="this.style.opacity='1';"
+                                             alt="BidProduct-image">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="${contextRoot}/${b.image}" class="img-fluid rounded-start"
+                                             style="opacity: 0; transition: opacity 0.5s ease-in-out;"
+                                             onload="this.style.opacity='1';"
+                                             alt="BidProduct-image">
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title"><span class="badge fw-bold bg-success text-white" >品名</span>  ${b.name}</h5>
+                                    <h5 class="card-title"><span
+                                            class="badge fw-bold bg-success text-white">品名</span> ${b.name}</h5>
                                     <p class="card-text">${b.description}</p>
                                     <div>
                                         <a href="${contextRoot}/bidProducts/${b.id}/edit" class="btn btn-outline-info">修改</a>

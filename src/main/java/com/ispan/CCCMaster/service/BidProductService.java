@@ -14,5 +14,5 @@ public interface BidProductService {
 
     BidProduct findBidProductById(Integer id);
 
-    void updateBidProduct(BidProductRequest bidProductRequest);
+    void updateBidProduct(Integer id, BidProductRequest bidProductRequest);
 }
