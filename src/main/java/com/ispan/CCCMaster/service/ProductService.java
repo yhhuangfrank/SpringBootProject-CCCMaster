@@ -2,7 +2,7 @@ package com.ispan.CCCMaster.service;
 
 import com.ispan.CCCMaster.model.bean.weihsiang.Product;
 import com.ispan.CCCMaster.model.dao.ProductRepository;
-import org.apache.taglibs.standard.lang.jstl.test.beans.PublicBean1;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.criteria.CriteriaBuilder;
+
 import java.io.IOException;
 import java.util.Base64;
 import java.util.Optional;
@@ -59,7 +59,6 @@ public class ProductService {
 
     @Transactional
     public void editProductById(Product product) throws IOException {//也許可做更新失敗的判斷
-        System.out.println("enter editProductById");
         Optional<Product> option = productRepository.findById(product.getProductId());
         if(option.isPresent()) {
             Product oldProduct = option.get();

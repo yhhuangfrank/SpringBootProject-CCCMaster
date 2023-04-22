@@ -68,6 +68,7 @@
                                 <th scope="col">產品名稱</th>
                                 <th scope="col">價格</th>
                                 <th scope="col">庫存量</th>
+                                <th scope="col">產品介紹</th>
                                 <th scope="col">圖片</th>
                             </tr>
                             </thead>
@@ -86,7 +87,9 @@
                                     <td>
                                             ${product.inventory}
                                     </td>
-
+                                    <td>
+                                            ${product.description}
+                                    </td>
 
                                     <td><img style="width: 300px; height: 300px;"
                                              src="${contextRoot}/Products/showImage/${product.productId}"/></td>
