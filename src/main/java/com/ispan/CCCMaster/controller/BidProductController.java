@@ -1,7 +1,7 @@
 package com.ispan.CCCMaster.controller;
 
+import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.bid.Category;
-import com.ispan.CCCMaster.model.dao.CategoryDao;
 import com.ispan.CCCMaster.model.dto.BidProductRequest;
 import com.ispan.CCCMaster.service.BidProductService;
 import com.ispan.CCCMaster.service.CategoryService;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class BidProductController {
@@ -42,6 +41,16 @@ public class BidProductController {
 
         bidProductService.createBidProduct(bidProductRequest);
 
-        return "/back/bid/product-create";
+        return "redirect:/bidProducts";
+    }
+
+    @GetMapping("/bidProducts")
+    public String getAllBidProducts(Model model) {
+
+        List<BidProduct> bidProducts = bidProductService.findAllBidProducts();
+
+        model.addAttribute("bidProducts", bidProducts);
+
+        return "/back/bid/products";
     }
 }

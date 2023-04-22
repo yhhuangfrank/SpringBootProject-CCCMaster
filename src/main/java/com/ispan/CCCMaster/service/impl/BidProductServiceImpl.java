@@ -55,4 +55,9 @@ public class BidProductServiceImpl implements BidProductService {
 
         return bidProductDao.save(bidProduct);
     }
+
+    @Override
+    public List<BidProduct> findAllBidProducts() {
+        return bidProductDao.findAll();
+    }
 }
