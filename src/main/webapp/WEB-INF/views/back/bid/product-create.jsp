@@ -123,5 +123,7 @@
 
 <!-- Template Main JS File -->
 <script src="${contextRoot}/styles/back/assets/js/main.js"></script>
+<%-- 自訂 js --%>
+<script src="${contextRoot}/js/validation.js"></script>
 </body>
 </html>
