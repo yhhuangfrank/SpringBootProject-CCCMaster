@@ -11,4 +11,8 @@ public interface BidProductService {
     BidProduct createBidProduct(BidProductRequest bidProductRequest);
 
     List<BidProduct> findAllBidProducts();
+
+    BidProduct findBidProductById(Integer id);
+
+    void updateBidProduct(Integer id, BidProductRequest bidProductRequest);
 }

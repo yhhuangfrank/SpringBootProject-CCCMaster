@@ -72,11 +72,7 @@ public class ImgurUploader {
 
             return imageLink;
 
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        } catch (HttpClientErrorException e) {
-            System.out.println(e.getMessage());
+        } catch (IOException | HttpClientErrorException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }

@@ -31,23 +31,12 @@ public class BidProductServiceImpl implements BidProductService {
         bidProduct.setName(bidProductRequest.getName());
         bidProduct.setBasePrice(bidProductRequest.getBasePrice());
         bidProduct.setBidPrice(0); // 初始出價為 0
-
-        // 查詢種類，若無則新增種類
-        List<Category> list = categoryDao.findCategoryByName(bidProductRequest.getCategoryName());
-        Category category = null;
-        if (list.isEmpty()) {
-            // 創建新種類
-            category = new Category();
-            category.setName(bidProductRequest.getCategoryName());
-            category = categoryDao.save(category);
-        } else {
-            category = list.get(0);
-        }
-        bidProduct.setCategory(category);
+        bidProduct.setCategory(getOrCreateCategory(bidProductRequest.getCategoryName()));
         bidProduct.setDescription(bidProductRequest.getDescription());
 
-        String imageLink = "";
-        if (bidProductRequest.getImage() != null || !bidProductRequest.getImage().isEmpty()) {
+        String imageLink = "no-image-icon.png";
+
+        if (!bidProductRequest.getImage().isEmpty()) {
             // 呼叫 imgur api 上傳圖片，取得 link
             imageLink = imgurUploader.uploadImage(bidProductRequest.getImage());
         }
@@ -59,5 +48,49 @@ public class BidProductServiceImpl implements BidProductService {
     @Override
     public List<BidProduct> findAllBidProducts() {
         return bidProductDao.findAll();
+    }
+
+    @Override
+    public BidProduct findBidProductById(Integer id) {
+        return bidProductDao.findById(id).orElse(null);
+    }
+
+    @Override
+    public void updateBidProduct(Integer id, BidProductRequest bidProductRequest) {
+
+        BidProduct foundBidProduct = bidProductDao.findById(id).orElse(null);
+
+        if (foundBidProduct == null) return;
+
+        // 設定新值
+        foundBidProduct.setName(bidProductRequest.getName());
+        foundBidProduct.setBasePrice(bidProductRequest.getBasePrice());
+        foundBidProduct.setCategory(getOrCreateCategory(bidProductRequest.getCategoryName()));
+        foundBidProduct.setDescription(bidProductRequest.getDescription());
+
+        if (!bidProductRequest.getImage().isEmpty()) {
+            String imageLink = imgurUploader.uploadImage(bidProductRequest.getImage());
+            foundBidProduct.setImage(imageLink);
+        }
+
+        bidProductDao.save(foundBidProduct);
+    }
+
+
+    private Category getOrCreateCategory(String categoryName) {
+
+        // 查詢種類，若無則新增種類
+        List<Category> list = categoryDao.findCategoryByName(categoryName);
+        Category category = null;
+        if (list.isEmpty()) {
+            // 創建新種類
+            category = new Category();
+            category.setName(categoryName);
+            category = categoryDao.save(category);
+        } else {
+            category = list.get(0);
+        }
+
+        return category;
     }
 }

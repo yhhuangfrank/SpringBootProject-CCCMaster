@@ -8,10 +8,7 @@ import com.ispan.CCCMaster.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -52,5 +49,35 @@ public class BidProductController {
         model.addAttribute("bidProducts", bidProducts);
 
         return "/back/bid/products";
+    }
+
+    @GetMapping("/bidProducts/{id}/edit")
+    public String getEditBidProductForm(@PathVariable Integer id, Model model) {
+
+        // 查詢商品
+        BidProduct foundBidProduct = bidProductService.findBidProductById(id);
+
+        BidProductRequest bidProductRequest = new BidProductRequest();
+        bidProductRequest.setName(foundBidProduct.getName());
+        bidProductRequest.setBasePrice(foundBidProduct.getBasePrice());
+        bidProductRequest.setDescription(foundBidProduct.getDescription());
+        bidProductRequest.setCategoryName(foundBidProduct.getCategory().getName());
+
+        List<Category> categories = categoryService.findAllCategories();
+
+        model.addAttribute("categories", categories);
+        model.addAttribute("bidProductRequest", bidProductRequest);
+        model.addAttribute("id", id);
+
+        return "/back/bid/product-edit";
+    }
+
+    @PutMapping("/bidProducts/{id}")
+    public String editBidProduct(@PathVariable Integer id,
+                                 @RequestBody @ModelAttribute("bidProductRequest") BidProductRequest bidProductRequest) {
+
+        bidProductService.updateBidProduct(id, bidProductRequest);
+
+        return "redirect:/bidProducts";
     }
 }

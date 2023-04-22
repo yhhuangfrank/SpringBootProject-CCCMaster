@@ -37,11 +37,11 @@ public class GenDefaultBidProduct {
         Faker faker = new Faker();
         for (int i = 0; i < defaultImageLinks.length; i += 1) {
             BidProduct bidProduct = new BidProduct();
-            bidProduct.setName("九成新 "+defaultCategoryNames[i]);
+            bidProduct.setName("九成新 " + defaultCategoryNames[i]);
             bidProduct.addCategory(defaultCategoryNames[i]);
-            bidProduct.setBasePrice(faker.number().numberBetween(0,1000));
+            bidProduct.setBasePrice(faker.number().numberBetween(0, 1000));
             bidProduct.setBidPrice(0);
-            bidProduct.setDescription(faker.lorem().paragraph());
+            bidProduct.setDescription(faker.lorem().paragraph(3));
             bidProduct.setImage(defaultImageLinks[i]);
             defaultBidProducts.add(bidProduct);
         }
