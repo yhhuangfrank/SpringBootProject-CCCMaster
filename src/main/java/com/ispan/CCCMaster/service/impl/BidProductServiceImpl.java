@@ -80,15 +80,15 @@ public class BidProductServiceImpl implements BidProductService {
     private Category getOrCreateCategory(String categoryName) {
 
         // 查詢種類，若無則新增種類
-        List<Category> list = categoryDao.findCategoryByName(categoryName);
-        Category category = null;
-        if (list.isEmpty()) {
+        Category foundCategory = categoryDao.findCategoryByName(categoryName);
+        Category category;
+        if (foundCategory == null) {
             // 創建新種類
             category = new Category();
             category.setName(categoryName);
             category = categoryDao.save(category);
         } else {
-            category = list.get(0);
+            category = foundCategory;
         }
 
         return category;
