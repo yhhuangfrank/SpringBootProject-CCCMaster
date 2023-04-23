@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface CategoryDao extends JpaRepository<Category, Integer> {
 
-    @Query("select c.id, c.name, c.createdAt FROM Category c WHERE c.name = :name")
+    @Query("FROM Category c WHERE c.name = :name")
     Category findCategoryByName(@Param(value = "name") String name);
 
 }

@@ -48,7 +48,7 @@
     <section class="section">
         <div class="row align-items-top">
             <div class="col-lg-8 mx-auto">
-
+                <jsp:include page="../layouts/message.jsp"/>
                 <c:forEach items="${bidProducts}" var="b">
                     <div class="card mb-3">
                         <div class="row g-0">

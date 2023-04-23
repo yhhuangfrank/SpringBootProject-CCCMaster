@@ -53,8 +53,8 @@ public class BidProductController {
 
         bidProductService.createBidProduct(bidProductRequest);
 
-        redirectAttributes.addAttribute("isSuccess", true);
-        redirectAttributes.addAttribute("successMsg", "新增成功!");
+        redirectAttributes.addFlashAttribute("isSuccess", true);
+        redirectAttributes.addFlashAttribute("successMsg", "新增成功!");
 
         return "redirect:/bidProducts";
     }
@@ -94,7 +94,8 @@ public class BidProductController {
     public String editBidProduct(@PathVariable Integer id,
                                  @RequestBody @Valid @ModelAttribute("bidProductRequest") BidProductRequest bidProductRequest,
                                  BindingResult bindingResult,
-                                 Model model) {
+                                 Model model,
+                                 RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();
@@ -105,6 +106,9 @@ public class BidProductController {
         }
 
         bidProductService.updateBidProduct(id, bidProductRequest);
+
+        redirectAttributes.addFlashAttribute("isSuccess", true);
+        redirectAttributes.addFlashAttribute("successMsg", "新增成功!");
 
         return "redirect:/bidProducts";
     }
