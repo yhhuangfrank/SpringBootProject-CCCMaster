@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -40,7 +41,8 @@ public class BidProductController {
     public String createBidProduct(
             @RequestBody @Valid @ModelAttribute("bidProductRequest") BidProductRequest bidProductRequest,
             BindingResult bindingResult,
-            Model model) {
+            Model model,
+            RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();
@@ -50,6 +52,9 @@ public class BidProductController {
         }
 
         bidProductService.createBidProduct(bidProductRequest);
+
+        redirectAttributes.addAttribute("isSuccess", true);
+        redirectAttributes.addAttribute("successMsg", "新增成功!");
 
         return "redirect:/bidProducts";
     }

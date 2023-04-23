@@ -2,6 +2,7 @@ package com.ispan.CCCMaster.service.impl;
 
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.bid.Category;
+import com.ispan.CCCMaster.model.customexception.NotFoundException;
 import com.ispan.CCCMaster.model.dao.BidProductDao;
 import com.ispan.CCCMaster.model.dao.CategoryDao;
 import com.ispan.CCCMaster.model.dto.BidProductRequest;
@@ -9,6 +10,7 @@ import com.ispan.CCCMaster.service.BidProductService;
 import com.ispan.CCCMaster.util.ImgurUploader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -52,15 +54,20 @@ public class BidProductServiceImpl implements BidProductService {
 
     @Override
     public BidProduct findBidProductById(Integer id) {
-        return bidProductDao.findById(id).orElse(null);
+        BidProduct foundBidProduct = bidProductDao.findById(id).orElse(null);
+
+        if (foundBidProduct == null) throw new NotFoundException("查無對應商品，參數有誤!");
+
+        return foundBidProduct;
     }
 
     @Override
+    @Transactional
     public void updateBidProduct(Integer id, BidProductRequest bidProductRequest) {
 
         BidProduct foundBidProduct = bidProductDao.findById(id).orElse(null);
 
-        if (foundBidProduct == null) return;
+        if (foundBidProduct == null) throw new NotFoundException("查無對應商品，參數有誤!");
 
         // 設定新值
         foundBidProduct.setName(bidProductRequest.getName());

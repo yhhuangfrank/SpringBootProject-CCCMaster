@@ -2,6 +2,7 @@ package com.ispan.CCCMaster.controller;
 
 import com.ispan.CCCMaster.model.bean.bid.Category;
 import com.ispan.CCCMaster.model.dao.CategoryDao;
+import com.ispan.CCCMaster.service.BidProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class TestController {
 
     @Autowired
-    private CategoryDao categoryDao;
+    private BidProductService bidProductService;
 
     @GetMapping("/")
     public String home() {
@@ -20,14 +21,7 @@ public class TestController {
     @GetMapping("/test")
     public String test() {
 
-        String a = "無效的輸入";
-        String result = "";
-        for (int i = 0; i < a.length() ;i += 1) {
-            int c = a.charAt(i);
-            String hexString = "\\u" + Integer.toHexString(c);
-            result +=  hexString;
-        }
-        System.out.println(result);
+
         return "back/back-test";
     }
 }
