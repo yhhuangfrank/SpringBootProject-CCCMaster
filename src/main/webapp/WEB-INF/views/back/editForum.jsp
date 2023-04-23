@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: volum
-  Date: 2023/4/22
-  Time: 下午 03:44
+  Date: 2023/4/23
+  Time: 上午 11:31
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -10,6 +10,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="jstl" %>
+
 <html>
 <head>
     <title>test</title>
@@ -43,50 +44,24 @@
 <jsp:include page="layouts/header.jsp"/>
 
 <main id="main" class="main">
-    <h1>討論版列表</h1>
+    <h1>修改討論版</h1>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-8">
+                <div class="card">
+                    <div class="card-header">訊息</div>
+                    <div class="card-body">
 
+                        <form:form class="form-control" modelAttribute="forum"
+                                   method="put" action="${contextRoot}/Forum/edit">
+                            <form:input type="hidden" path="forumId"/>
 
-                <jstl:forEach var="fourm" items="${page.content}">
-                    <div class="card">
-                        <div class="card-header">新增時間: <span><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss EEEE" value="${fourm.added}"/></span></div>
-                        <div class="card-body">
-                                ${fourm.forumName}
-                            <div style="display:flex">
-                                <form action="${contextRoot}/Forum/editPage">
-                                    <input type="hidden" name="id" value="${latest.forumId}" />
-                                    <input type="submit" class="btn btn-outline-info btn-sm" value="編輯" />
-                                </form>
+                            <form:input type="text" path="forumName" class="form-control" id="inputName"></form:input>
+                            <button type="submit" class="btn btn-primary">送出</button>
+                        </form:form>
 
-                                <form action="${contextRoot}/Forums/delete" method="post">
-                                    <input type="hidden" name="_method" value="delete" />
-                                    <input type="hidden" name="id" value="${latest.forumId}" />
-                                    <input type="submit" class="btn btn-outline-danger btn-sm" value="刪除" />
-                                </form>
-                            </div>
-
-                        </div>
                     </div>
-                </jstl:forEach>
-                <br />
-                <jstl:forEach var="pageNumber" begin="1" end="${page.totalPages}">
-                    <jstl:choose>
-                        <jstl:when test="${page.number != pageNumber-1 }">
-                            <a href="${contextRoot}/Forums/showAllForum?p=${pageNumber}">${pageNumber}</a>
-                        </jstl:when>
-                        <jstl:otherwise>
-                            ${pageNumber}
-                        </jstl:otherwise>
-
-                    </jstl:choose>
-
-                    <jstl:if test="${page.number != page.totalPages }">
-                        <span> | </span>
-                    </jstl:if>
-
-                </jstl:forEach>
+                </div>
             </div>
         </div>
     </div>
