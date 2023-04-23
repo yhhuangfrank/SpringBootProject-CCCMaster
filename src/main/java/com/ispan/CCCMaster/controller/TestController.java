@@ -20,8 +20,14 @@ public class TestController {
     @GetMapping("/test")
     public String test() {
 
-        Category category = categoryDao.findCategoryByName("手機");
-        System.out.println(category);
+        String a = "無效的輸入";
+        String result = "";
+        for (int i = 0; i < a.length() ;i += 1) {
+            int c = a.charAt(i);
+            String hexString = "\\u" + Integer.toHexString(c);
+            result +=  hexString;
+        }
+        System.out.println(result);
         return "back/back-test";
     }
 }

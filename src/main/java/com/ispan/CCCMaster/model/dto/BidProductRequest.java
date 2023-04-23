@@ -2,12 +2,20 @@ package com.ispan.CCCMaster.model.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class BidProductRequest {
 
+    @NotBlank(message = "名稱不可為空!")
     private String name;
 
+    @NotNull(message = "底價不可為空!")
+    @Min(value = 0, message = "底價不可小於0!")
     private Integer basePrice;
 
+    @NotBlank(message = "種類不可為空!")
     private String categoryName;
 
     private String description;

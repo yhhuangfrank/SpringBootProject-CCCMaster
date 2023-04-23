@@ -8,8 +8,11 @@ import com.ispan.CCCMaster.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -34,7 +37,17 @@ public class BidProductController {
     }
 
     @PostMapping("/bidProducts")
-    public String createBidProduct(@RequestBody @ModelAttribute("bidProductRequest") BidProductRequest bidProductRequest) {
+    public String createBidProduct(
+            @RequestBody @Valid @ModelAttribute("bidProductRequest") BidProductRequest bidProductRequest,
+            BindingResult bindingResult,
+            Model model) {
+
+        if (bindingResult.hasErrors()) {
+            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+            model.addAttribute("isErrorExist", true);
+            model.addAttribute("errors", fieldErrors);
+            return "/back/bid/product-create";
+        }
 
         bidProductService.createBidProduct(bidProductRequest);
 
@@ -72,9 +85,19 @@ public class BidProductController {
         return "/back/bid/product-edit";
     }
 
-    @PutMapping("/bidProducts/{id}")
+    @PostMapping("/bidProducts/{id}")
     public String editBidProduct(@PathVariable Integer id,
-                                 @RequestBody @ModelAttribute("bidProductRequest") BidProductRequest bidProductRequest) {
+                                 @RequestBody @Valid @ModelAttribute("bidProductRequest") BidProductRequest bidProductRequest,
+                                 BindingResult bindingResult,
+                                 Model model) {
+
+        if (bindingResult.hasErrors()) {
+            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+            model.addAttribute("isErrorExist", true);
+            model.addAttribute("errors", fieldErrors);
+
+            return "/back/bid/product-edit";
+        }
 
         bidProductService.updateBidProduct(id, bidProductRequest);
 
