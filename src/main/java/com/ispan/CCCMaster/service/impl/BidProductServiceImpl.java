@@ -18,17 +18,23 @@ import java.util.List;
 @Service
 public class BidProductServiceImpl implements BidProductService {
 
-    @Autowired
-    private BidProductDao bidProductDao;
+    private final BidProductDao bidProductDao;
 
-    @Autowired
-    private CategoryDao categoryDao;
+    private final CategoryDao categoryDao;
 
-    @Autowired
-    private ImgurUploader imgurUploader;
+    private final ImgurUploader imgurUploader;
 
     @Value("${default.image}")
     private String DEFAULT_IMAGE;
+
+    @Autowired
+    public BidProductServiceImpl(BidProductDao bidProductDao,
+                                 CategoryDao categoryDao,
+                                 ImgurUploader imgurUploader) {
+        this.bidProductDao = bidProductDao;
+        this.categoryDao = categoryDao;
+        this.imgurUploader = imgurUploader;
+    }
 
     @Override
     public BidProduct createBidProduct(BidProductRequest bidProductRequest) {
