@@ -54,7 +54,7 @@
                         <h5 class="card-title text-center fw-bold">修改二手商品</h5>
 
                         <!-- General Form Elements -->
-                        <form:form modelAttribute="bidProductRequest" method="POST" action="${contextRoot}/bidProducts/${id}" enctype="multipart/form-data">
+                        <form:form modelAttribute="bidProductRequest" method="POST" action="${contextRoot}/admin/bidProducts/${id}" enctype="multipart/form-data">
                             <!-- 印出錯誤訊息 -->
                             <c:if test="${isErrorExist}">
                                 <c:forEach items="${errors}" var="error">

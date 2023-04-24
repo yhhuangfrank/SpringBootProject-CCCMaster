@@ -33,6 +33,8 @@
 </head>
 <body>
 
+<jsp:include page="../layouts/topbar.jsp"/>
+
 <jsp:include page="../layouts/header.jsp"/>
 
 <main id="main" class="main">
@@ -92,8 +94,6 @@
         </div>
     </section>
 </main>
-
-<jsp:include page="../layouts/aside.jsp"/>
 
 <jsp:include page="../layouts/footer.jsp"/>
 
