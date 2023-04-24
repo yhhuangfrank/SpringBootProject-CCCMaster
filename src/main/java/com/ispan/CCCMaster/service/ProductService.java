@@ -16,6 +16,10 @@ public interface ProductService {
 
     Page<Product> findByPage(Integer pageNumber);
 
+    Page<Product> findByPageSortByPrice(Integer pageNumber);
+
+    Page<Product> findByPageSearchByNameSortByPrice(Integer pageNumber, String productName);
+
     byte[] getProductImageById(Integer productId);
 
     void deleteProduct(Integer productId);
@@ -26,4 +30,8 @@ public interface ProductService {
 
     @Transactional
     void editProductById(Product product, String categoryName) throws IOException;
+
+
+
+    void productViews(Integer id);
 }

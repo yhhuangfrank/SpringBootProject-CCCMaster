@@ -28,4 +28,12 @@ public class Crawler {
     @Column(name = "price")
     private Integer price;
 
+    @PrePersist
+    public void onCreate() {
+        if (crawlerDate == null) {
+            crawlerDate = new Date();
+        }
+
+    }
+
 }

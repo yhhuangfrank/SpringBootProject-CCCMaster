@@ -24,4 +24,8 @@ public class TestController {
         System.out.println(category);
         return "back/back-test";
     }
+    @GetMapping("/front/test")
+    public String frontTest(){
+        return "front/frontExample";
+    }
 }

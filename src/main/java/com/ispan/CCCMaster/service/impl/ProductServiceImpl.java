@@ -36,8 +36,10 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
             newCategory.setName(categoryName);
             product.setCategory(newCategory);
         }
-
+    if(product.getImageFile()!=null){
         product.setImage(product.getImageFile().getBytes());
+    }
+
         productDao.save(product);
     }
 
@@ -52,6 +54,20 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
     public Page<Product> findByPage(Integer pageNumber) {
         Pageable pgb = PageRequest.of(pageNumber - 1, 10, Sort.Direction.ASC, "productId");
         Page<Product> page = productDao.findAll(pgb);
+        return page;
+    }
+
+    @Override
+    public Page<Product> findByPageSortByPrice(Integer pageNumber) {
+        Pageable pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.DESC, "price");
+        Page<Product> page = productDao.findAll(pgb);
+        return page;
+    }
+
+    @Override
+    public Page<Product> findByPageSearchByNameSortByPrice(Integer pageNumber,String productName) {
+        Pageable pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.DESC, "price");
+        Page<Product> page = productDao.findByName(productName,pgb);
         return page;
     }
 
@@ -98,6 +114,11 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
                 oldProduct.setCategory(newCategory);
             }
         }
-
+    }
+    @Transactional
+    @Override
+    public void productViews(Integer id){
+      Product product=findProductById(id);
+    product.setProductViews(product.getProductViews()+1);
     }
 }

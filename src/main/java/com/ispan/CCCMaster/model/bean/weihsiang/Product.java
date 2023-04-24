@@ -1,9 +1,11 @@
 package com.ispan.CCCMaster.model.bean.weihsiang;
 
 import com.ispan.CCCMaster.model.bean.bid.Category;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "Products")
@@ -39,6 +41,25 @@ public class Product {
     private Integer numberOfComments;
     @Column(name = "active",nullable = false)
     private Boolean active;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(name = "create_date",nullable = false)
+    private Date createDate;
+
+    @PrePersist
+    public void onCreate() {
+        if (createDate == null) {
+            createDate = new Date();
+        }
+        if(productViews==null){
+            productViews=0;
+        }
+    }
+
+
+
+
     @Lob
     @Column(name = "image", columnDefinition = "varbinary(max)")
     private byte[] image;
