@@ -2,27 +2,39 @@ package com.ispan.CCCMaster.service.impl;
 
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.bid.Category;
+import com.ispan.CCCMaster.model.customexception.NotFoundException;
 import com.ispan.CCCMaster.model.dao.BidProductDao;
 import com.ispan.CCCMaster.model.dao.CategoryDao;
 import com.ispan.CCCMaster.model.dto.BidProductRequest;
 import com.ispan.CCCMaster.service.BidProductService;
 import com.ispan.CCCMaster.util.ImgurUploader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 public class BidProductServiceImpl implements BidProductService {
 
-    @Autowired
-    private BidProductDao bidProductDao;
+    private final BidProductDao bidProductDao;
+
+    private final CategoryDao categoryDao;
+
+    private final ImgurUploader imgurUploader;
+
+    @Value("${default.image}")
+    private String DEFAULT_IMAGE;
 
     @Autowired
-    private CategoryDao categoryDao;
-
-    @Autowired
-    private ImgurUploader imgurUploader;
+    public BidProductServiceImpl(BidProductDao bidProductDao,
+                                 CategoryDao categoryDao,
+                                 ImgurUploader imgurUploader) {
+        this.bidProductDao = bidProductDao;
+        this.categoryDao = categoryDao;
+        this.imgurUploader = imgurUploader;
+    }
 
     @Override
     public BidProduct createBidProduct(BidProductRequest bidProductRequest) {
@@ -34,7 +46,7 @@ public class BidProductServiceImpl implements BidProductService {
         bidProduct.setCategory(getOrCreateCategory(bidProductRequest.getCategoryName()));
         bidProduct.setDescription(bidProductRequest.getDescription());
 
-        String imageLink = "no-image-icon.png";
+        String imageLink = DEFAULT_IMAGE; // 預設圖片
 
         if (!bidProductRequest.getImage().isEmpty()) {
             // 呼叫 imgur api 上傳圖片，取得 link
@@ -52,15 +64,20 @@ public class BidProductServiceImpl implements BidProductService {
 
     @Override
     public BidProduct findBidProductById(Integer id) {
-        return bidProductDao.findById(id).orElse(null);
+        BidProduct foundBidProduct = bidProductDao.findById(id).orElse(null);
+
+        if (foundBidProduct == null) throw new NotFoundException("查無對應商品，參數有誤!");
+
+        return foundBidProduct;
     }
 
     @Override
+    @Transactional
     public void updateBidProduct(Integer id, BidProductRequest bidProductRequest) {
 
         BidProduct foundBidProduct = bidProductDao.findById(id).orElse(null);
 
-        if (foundBidProduct == null) return;
+        if (foundBidProduct == null) throw new NotFoundException("查無對應商品，參數有誤!");
 
         // 設定新值
         foundBidProduct.setName(bidProductRequest.getName());

@@ -48,7 +48,9 @@
     <section class="section">
         <div class="row align-items-top">
             <div class="col-lg-8 mx-auto">
-
+                <%-- 顯示訊息 --%>
+                <jsp:include page="../layouts/message.jsp"/>
+                <%-- 顯示商品 --%>
                 <c:forEach items="${bidProducts}" var="b">
                     <div class="card mb-3">
                         <div class="row g-0">
@@ -82,7 +84,7 @@
                         </div>
                     </div>
                 </c:forEach>
-
+                <%-- 顯示商品結束 --%>
             </div>
         </div>
     </section>
