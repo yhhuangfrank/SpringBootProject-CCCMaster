@@ -84,10 +84,6 @@ public class ProductsAdminController {
         }
         return "redirect:/admin/products/showAllProduct";
     }
-    @GetMapping("/front/product/details/crawler/{id}")//爬蟲
-    public String crawlerProduct(@PathVariable("id")Integer id){
-        crawlerService.crawlerPchome(id);
-        return "redirect:/admin/products/showAllProduct";
-    }
+
 }
 

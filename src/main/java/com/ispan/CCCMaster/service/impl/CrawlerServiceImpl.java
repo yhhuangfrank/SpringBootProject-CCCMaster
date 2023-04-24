@@ -20,28 +20,35 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class CrawlerServiceImpl implements CrawlerService {
-@Autowired
+    @Autowired
     private CrawlerDao crawlerDao;
-@Autowired
-private ProductServiceImpl productService;
+    @Autowired
+    private ProductServiceImpl productService;
+
     @Override
-    public   void crawlerPchome(Integer id) {
+    public void crawlerPchome(Integer id) {
+        System.out.println("enter crawlerPchome");
+        if(!isScrapingExpired(id)) return;
+
         String pchomeHttpRequest = "https://ecshweb.pchome.com.tw/search/v3.3/all/results?";
         String sort = "sale/dc";
         String url;
-        Product product=productService.findProductById(id);
-        String keyword=product.getProductName();
-        keyword=keyword.replace(" ","%20");//把keyword中的空白字元換成 uri的空白字元編碼%20
-        System.out.println("keyword:"+keyword);
-        List<Crawler> crawlers=new ArrayList<>();
+        Product product = productService.findProductById(id);
+        String keyword = product.getProductName();
+        keyword = keyword.replace(" ", "%20");//把keyword中的空白字元換成 uri的空白字元編碼%20
+        System.out.println("keyword:" + keyword);
+        List<Crawler> crawlers = new ArrayList<>();
         url = pchomeHttpRequest + "q=" + keyword;
         int totalPage = getTotalPage(url);
         for (int page = 1; page <= totalPage; page++) {
-            url = pchomeHttpRequest + "q=" + keyword+"&page=" + page + "&sort=" + sort;
+            url = pchomeHttpRequest + "q=" + keyword + "&page=" + page + "&sort=" + sort;
             System.out.println(url);
             String content = httpRequestGetJson(url);
             ObjectMapper mapper = new ObjectMapper();
@@ -50,7 +57,7 @@ private ProductServiceImpl productService;
                 JsonNode node = mapper.readTree(content);
                 prods = node.get("prods");
                 for (JsonNode prod : prods) {
-                    Crawler crawler=new Crawler();
+                    Crawler crawler = new Crawler();
                     int price = prod.get("price").asInt();
                     String name = prod.get("name").asText();
                     crawler.setPrice(price);
@@ -98,7 +105,6 @@ private ProductServiceImpl productService;
     }
 
 
-
     @Override
     public int getTotalPage(String pchomeHttpRequest) {
         String content = httpRequestGetJson(pchomeHttpRequest);
@@ -112,6 +118,24 @@ private ProductServiceImpl productService;
             e.printStackTrace();
         }
         return totalPage;
+    }
+    @Override
+    public boolean isScrapingExpired(Integer id){//判斷爬蟲是否過期
+        System.out.println("isScrapingExpired");
+        Product product = productService.findProductById(id);
+       Optional<Date>optional= Optional.ofNullable(crawlerDao.findLatestCrawlerDateByProductId(id));
+
+       if(optional.isEmpty())return true;
+       else {
+           Date crawlerDate=optional.get();
+           Date now = new Date();
+           long diffInMillies = Math.abs(now.getTime() - crawlerDate.getTime());
+           long diffInHours = TimeUnit.HOURS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+           System.out.println("crawlerDate="+crawlerDate+"   now="+now+"  diffInMillies="+diffInMillies+"  diffInHours="+diffInHours);
+           return diffInHours >= 1;
+       }
+
+
     }
 }
 

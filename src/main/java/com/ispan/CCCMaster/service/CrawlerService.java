@@ -8,4 +8,6 @@ public interface CrawlerService {
     String httpRequestGetJson(String url);
 
     int getTotalPage(String pchomeHttpRequest);
+
+    boolean isScrapingExpired(Integer id);
 }
