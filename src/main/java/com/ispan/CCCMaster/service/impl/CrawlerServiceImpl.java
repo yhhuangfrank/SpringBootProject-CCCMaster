@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ispan.CCCMaster.model.bean.weihsiang.Crawler;
+import com.ispan.CCCMaster.model.bean.weihsiang.Product;
 import com.ispan.CCCMaster.model.dao.CrawlerDao;
 import com.ispan.CCCMaster.service.CrawlerService;
 import org.apache.http.HttpEntity;
@@ -25,17 +26,20 @@ import java.util.List;
 public class CrawlerServiceImpl implements CrawlerService {
 @Autowired
     private CrawlerDao crawlerDao;
+@Autowired
+private ProductServiceImpl productService;
     @Override
-    public   void crawlerPchome(String keyword) {
+    public   void crawlerPchome(Integer id) {
         String pchomeHttpRequest = "https://ecshweb.pchome.com.tw/search/v3.3/all/results?";
         String sort = "sale/dc";
         String url;
+        Product product=productService.findProductById(id);
+        String keyword=product.getProductName();
         keyword=keyword.replace(" ","%20");//把keyword中的空白字元換成 uri的空白字元編碼%20
         System.out.println("keyword:"+keyword);
         List<Crawler> crawlers=new ArrayList<>();
         url = pchomeHttpRequest + "q=" + keyword;
         int totalPage = getTotalPage(url);
-
         for (int page = 1; page <= totalPage; page++) {
             url = pchomeHttpRequest + "q=" + keyword+"&page=" + page + "&sort=" + sort;
             System.out.println(url);
@@ -50,9 +54,9 @@ public class CrawlerServiceImpl implements CrawlerService {
                     int price = prod.get("price").asInt();
                     String name = prod.get("name").asText();
                     crawler.setPrice(price);
+                    crawler.setProduct(product);
+                    crawler.setCrawlerProductName(name);
                     crawlers.add(crawler);
-//                    System.out.print("名稱:" + name);
-//                    System.out.println("  價格:" + price);
                 }
             } catch (JsonMappingException e) {
                 e.printStackTrace();

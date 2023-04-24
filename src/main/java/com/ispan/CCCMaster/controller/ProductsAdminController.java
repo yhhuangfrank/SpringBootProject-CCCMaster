@@ -3,6 +3,7 @@ package com.ispan.CCCMaster.controller;
 import com.ispan.CCCMaster.model.bean.bid.Category;
 import com.ispan.CCCMaster.model.bean.weihsiang.Product;
 import com.ispan.CCCMaster.service.CategoryService;
+import com.ispan.CCCMaster.service.CrawlerService;
 import com.ispan.CCCMaster.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,6 +24,8 @@ public class ProductsAdminController {
     private ProductService pService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private CrawlerService crawlerService;
 
     @GetMapping("/Products/createform")//新增產品表單
     public String getCreateProductForm(Model model) {
@@ -79,6 +82,11 @@ public class ProductsAdminController {
         } catch (IOException e) {
            e.printStackTrace();
         }
+        return "redirect:/Products/showAllProduct";
+    }
+    @GetMapping("/front/product/details/crawler/{id}")//爬蟲
+    public String crawlerProduct(@PathVariable("id")Integer id){
+        crawlerService.crawlerPchome(id);
         return "redirect:/Products/showAllProduct";
     }
 }

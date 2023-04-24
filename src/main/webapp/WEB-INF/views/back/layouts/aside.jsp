@@ -139,6 +139,9 @@
                     </a>
                 </li>
                 <li>
+                <a href=""><i class="bi bi-circle"></i><span>手動爬蟲測試鈕(停用)</span></a>
+                </li>
+                <li>
                     <a href="tables-data.html">
                         <i class="bi bi-circle"></i><span>Data Tables</span>
                     </a>

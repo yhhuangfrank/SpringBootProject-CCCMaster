@@ -116,6 +116,7 @@
                                             </form>
                                         </div>
                                     </td>
+                                    <td><a href="${contextRoot}/front/product/details/crawler/${product.productId}"><span>指定商品爬蟲(測試)</span></a></td>
                                 </tr>
 
                             </c:forEach>

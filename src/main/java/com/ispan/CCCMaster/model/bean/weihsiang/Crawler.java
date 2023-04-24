@@ -20,6 +20,17 @@ public class Crawler {
     @JoinColumn(name = "e_commerce_id")//電商平台Bean 電商單向一對多?
     private ECommerce eCommerce;
 
+    public String getCrawlerProductName() {
+        return crawlerProductName;
+    }
+
+    public void setCrawlerProductName(String crawlerProductName) {
+        this.crawlerProductName = crawlerProductName;
+    }
+
+    @Column(name = "crawler_product_name")
+    private String crawlerProductName;
+
 
     public Integer getCrawlerId() {
         return crawlerId;

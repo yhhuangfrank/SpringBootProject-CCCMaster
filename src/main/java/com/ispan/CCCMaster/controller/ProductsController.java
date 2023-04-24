@@ -44,11 +44,7 @@ public class ProductsController {
         return "front/product/product";
     }
 
-    @GetMapping("/front/product/details/crawler/{id}")
-    public String crawlerProduct(@PathVariable("id")Integer id){
-        cService.crawlerPchome(pService.findProductById(id).getProductName());
-    return "redirect:/front/product/details/{id}";
-    }
+
 
 
 }
