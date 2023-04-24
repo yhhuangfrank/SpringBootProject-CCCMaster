@@ -37,7 +37,7 @@ public class BidProductServiceImpl implements BidProductService {
     }
 
     @Override
-    public BidProduct createBidProduct(BidProductRequest bidProductRequest) {
+    public void createBidProduct(BidProductRequest bidProductRequest) {
 
         BidProduct bidProduct = new BidProduct();
         bidProduct.setName(bidProductRequest.getName());
@@ -54,7 +54,7 @@ public class BidProductServiceImpl implements BidProductService {
         }
         bidProduct.setImage(imageLink);
 
-        return bidProductDao.save(bidProduct);
+        bidProductDao.save(bidProduct);
     }
 
     @Override
@@ -93,6 +93,16 @@ public class BidProductServiceImpl implements BidProductService {
         bidProductDao.save(foundBidProduct);
     }
 
+    @Override
+    @Transactional
+    public void deleteBidProduct(Integer id) {
+
+        BidProduct foundBidProduct = bidProductDao.findById(id).orElse(null);
+
+        if (foundBidProduct == null) throw new NotFoundException("查無對應商品，參數有誤!");
+
+        bidProductDao.delete(foundBidProduct);
+    }
 
     private Category getOrCreateCategory(String categoryName) {
 
