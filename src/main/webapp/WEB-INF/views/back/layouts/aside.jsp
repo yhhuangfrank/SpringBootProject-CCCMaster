@@ -128,15 +128,18 @@
             </a>
             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="${contextRoot}/Products/showAllProduct">
+                    <a href="${contextRoot}/admin/products/showAllProduct">
                         <i class="bi bi-circle"></i><span>產品列表</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="${contextRoot}/Products/createform">
+                    <a href="${contextRoot}/admin/products/create/form">
                         <i class="bi bi-circle"></i><span>新增產品</span>
                     </a>
+                </li>
+                <li>
+                <a href=""><i class="bi bi-circle"></i><span>手動爬蟲測試鈕(停用)</span></a>
                 </li>
                 <li>
                     <a href="tables-data.html">

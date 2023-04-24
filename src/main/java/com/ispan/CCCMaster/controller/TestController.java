@@ -24,4 +24,8 @@ public class TestController {
 
         return "back/back-test";
     }
+    @GetMapping("/front/test")
+    public String frontTest(){
+        return "front/frontExample";
+    }
 }

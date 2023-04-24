@@ -12,7 +12,7 @@ public class Crawler {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "crawler_id")
     private Integer crawlerId;
-    @ManyToOne(cascade = CascadeType.ALL)//產品Bean 產品單向一對多?
+    @ManyToOne(cascade = CascadeType.ALL)//產品Bean 產品雙向一對多?
     @JoinColumn(name = "product_id")
     private Product product;
 
@@ -20,6 +20,57 @@ public class Crawler {
     @JoinColumn(name = "e_commerce_id")//電商平台Bean 電商單向一對多?
     private ECommerce eCommerce;
 
+    public String getCrawlerProductName() {
+        return crawlerProductName;
+    }
+
+    public void setCrawlerProductName(String crawlerProductName) {
+        this.crawlerProductName = crawlerProductName;
+    }
+
+    @Column(name = "crawler_product_name")
+    private String crawlerProductName;
+
+
+    public Integer getCrawlerId() {
+        return crawlerId;
+    }
+
+    public void setCrawlerId(Integer crawlerId) {
+        this.crawlerId = crawlerId;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public ECommerce geteCommerce() {
+        return eCommerce;
+    }
+
+    public void seteCommerce(ECommerce eCommerce) {
+        this.eCommerce = eCommerce;
+    }
+
+    public Date getCrawlerDate() {
+        return crawlerDate;
+    }
+
+    public void setCrawlerDate(Date crawlerDate) {
+        this.crawlerDate = crawlerDate;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
 
     @Temporal(TemporalType.TIMESTAMP) //對應到SSMS的DATETIME
     @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")//告訴 Spring 框架如何將輸入的日期和時間字串轉換為 Java 的Date
@@ -27,5 +78,13 @@ public class Crawler {
     private Date crawlerDate;
     @Column(name = "price")
     private Integer price;
+
+    @PrePersist
+    public void onCreate() {
+        if (crawlerDate == null) {
+            crawlerDate = new Date();
+        }
+
+    }
 
 }
