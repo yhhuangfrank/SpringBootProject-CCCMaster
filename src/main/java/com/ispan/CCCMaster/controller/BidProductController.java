@@ -127,4 +127,16 @@ public class BidProductController {
 
         return "redirect:/bidProducts";
     }
+
+    @DeleteMapping("/bidProducts/{id}")
+    public String deleteBidProduct(@PathVariable Integer id,
+                                  RedirectAttributes redirectAttributes) {
+
+        bidProductService.deleteBidProduct(id);
+
+        redirectAttributes.addFlashAttribute("isSuccess", true);
+        redirectAttributes.addFlashAttribute("successMsg", "刪除成功!");
+
+        return "redirect:/bidProducts";
+    }
 }
