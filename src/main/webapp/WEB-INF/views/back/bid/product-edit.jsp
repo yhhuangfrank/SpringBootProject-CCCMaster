@@ -133,7 +133,6 @@
 
 <jsp:include page="../layouts/footer.jsp"/>
 
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 <!-- Vendor JS Files -->
 <script src="${contextRoot}/styles/back/assets/vendor/apexcharts/apexcharts.min.js"></script>

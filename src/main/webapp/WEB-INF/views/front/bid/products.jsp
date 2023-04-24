@@ -97,9 +97,6 @@
 
 <jsp:include page="../layouts/footer.jsp"/>
 
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-        class="bi bi-arrow-up-short"></i></a>
-
 <%-- Modals --%>
 <c:forEach items="${bidProducts}" var="b">
     <div class="modal fade" id="modal-${b.id}" tabindex="-1">
