@@ -15,9 +15,6 @@ public class TestController {
 
     @GetMapping("/")
     public String home() {
-<<<<<<< HEAD
-        return "front/frontExample";
-=======
         return "back/back-test";
     }
 
@@ -26,6 +23,5 @@ public class TestController {
 
 
         return "back/back-test";
->>>>>>> main
     }
 }
