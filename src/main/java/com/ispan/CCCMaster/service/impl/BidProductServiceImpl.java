@@ -9,6 +9,7 @@ import com.ispan.CCCMaster.model.dto.BidProductRequest;
 import com.ispan.CCCMaster.service.BidProductService;
 import com.ispan.CCCMaster.util.ImgurUploader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +27,9 @@ public class BidProductServiceImpl implements BidProductService {
     @Autowired
     private ImgurUploader imgurUploader;
 
+    @Value("${default.image}")
+    private String DEFAULT_IMAGE;
+
     @Override
     public BidProduct createBidProduct(BidProductRequest bidProductRequest) {
 
@@ -36,7 +40,7 @@ public class BidProductServiceImpl implements BidProductService {
         bidProduct.setCategory(getOrCreateCategory(bidProductRequest.getCategoryName()));
         bidProduct.setDescription(bidProductRequest.getDescription());
 
-        String imageLink = "no-image-icon.png";
+        String imageLink = DEFAULT_IMAGE; // 預設圖片
 
         if (!bidProductRequest.getImage().isEmpty()) {
             // 呼叫 imgur api 上傳圖片，取得 link

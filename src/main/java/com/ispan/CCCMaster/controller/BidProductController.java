@@ -108,7 +108,7 @@ public class BidProductController {
         bidProductService.updateBidProduct(id, bidProductRequest);
 
         redirectAttributes.addFlashAttribute("isSuccess", true);
-        redirectAttributes.addFlashAttribute("successMsg", "新增成功!");
+        redirectAttributes.addFlashAttribute("successMsg", "修改成功!");
 
         return "redirect:/bidProducts";
     }
