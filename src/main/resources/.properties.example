@@ -26,3 +26,6 @@ spring.servlet.multipart.enabled=true
 spring.servlet.multipart.file-size-threshold=2KB
 spring.servlet.multipart.max-file-size=3MB
 spring.servlet.multipart.max-request-size=3MB
+
+# default_image_file
+default.image=no-image-icon.png

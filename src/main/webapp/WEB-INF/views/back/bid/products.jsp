@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <html>
 <head>
@@ -48,23 +49,45 @@
     <section class="section">
         <div class="row align-items-top">
             <div class="col-lg-8 mx-auto">
-
+                <%-- 顯示訊息 --%>
+                <jsp:include page="../layouts/message.jsp"/>
+                <%-- 顯示商品 --%>
                 <c:forEach items="${bidProducts}" var="b">
                     <div class="card mb-3">
                         <div class="row g-0">
                             <div class="col-md-4">
-                                <img src="${b.image}" class="img-fluid rounded-start" alt="BidProduct-image">
+                                <c:choose>
+                                    <c:when test="${ b.image.startsWith('http') }">
+                                        <img src="${b.image}" class="img-fluid rounded-start"
+                                             style="opacity: 0; transition: opacity 0.5s ease-in-out;"
+                                             onload="this.style.opacity='1';"
+                                             alt="BidProduct-image">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="${contextRoot}/${b.image}" class="img-fluid rounded-start"
+                                             style="opacity: 0; transition: opacity 0.5s ease-in-out;"
+                                             onload="this.style.opacity='1';"
+                                             alt="BidProduct-image">
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title">品名: ${b.name}</h5>
-                                    <p class="card-text">   ${b.description}</p>
+                                    <h5 class="card-title"><span
+                                            class="badge fw-bold bg-success text-white">品名</span> ${b.name}</h5>
+                                    <p class="card-text">${b.description}</p>
+                                    <div>
+                                        <a href="${contextRoot}/bidProducts/${b.id}/edit" class="btn btn-outline-info">修改</a>
+                                        <button class="btn btn-outline-danger" style="display: inline"
+                                                data-bs-toggle="modal" data-bs-target="#modal-${b.id}">刪除
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </c:forEach>
-
+                <%-- 顯示商品結束 --%>
             </div>
         </div>
     </section>
@@ -74,7 +97,31 @@
 
 <jsp:include page="../layouts/footer.jsp"/>
 
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+        class="bi bi-arrow-up-short"></i></a>
+
+<%-- Modals --%>
+<c:forEach items="${bidProducts}" var="b">
+    <div class="modal fade" id="modal-${b.id}" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">刪除確認</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    確定刪除 <strong>${b.name}</strong> 嗎?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">返回</button>
+                    <form:form action="/bidProducts/${b.id}" method="DELETE">
+                        <button type="submit" class="btn btn-danger">刪除</button>
+                    </form:form>
+                </div>
+            </div>
+        </div>
+    </div>
+</c:forEach>
 
 <!-- Vendor JS Files -->
 <script src="${contextRoot}/styles/back/assets/vendor/apexcharts/apexcharts.min.js"></script>

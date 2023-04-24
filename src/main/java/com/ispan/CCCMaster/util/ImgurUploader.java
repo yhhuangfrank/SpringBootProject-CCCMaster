@@ -72,13 +72,12 @@ public class ImgurUploader {
 
             return imageLink;
 
-        } catch (IOException e) {
+        } catch (IOException  e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         } catch (HttpClientErrorException e) {
-            System.out.println(e.getMessage());
             e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new RuntimeException("上傳圖片發生錯誤!");
         }
     }
 }

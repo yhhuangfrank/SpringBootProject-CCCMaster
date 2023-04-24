@@ -13,8 +13,8 @@ public class Product {
     @Column(name = "product_id")
     private Integer productId;
 
-    @ManyToOne//產品種類Bean
-    @JoinColumn(name = "product_category_id")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})//產品種類Bean
+    @JoinColumn(name = "category_id")
     private Category category;
     @Column(name = "product_brand")
     private String productBrand;
