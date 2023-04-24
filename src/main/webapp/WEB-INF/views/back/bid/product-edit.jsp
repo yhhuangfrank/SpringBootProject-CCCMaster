@@ -60,19 +60,25 @@
                                 <c:forEach items="${errors}" var="error">
                                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
                                         <i class="bi bi-exclamation-triangle me-1"></i>
-                                        <c:if test="${error.field.equals('name')}">
-                                            <form:errors path="name"/>
-                                        </c:if>
-                                        <c:if test="${error.field.equals('basePrice')}">
-                                            <form:errors path="basePrice"/>
-                                        </c:if>
-                                        <c:if test="${error.field.equals('categoryName')}">
-                                            <form:errors path="categoryName"/>
-                                        </c:if>
+                                        <code class="fw-bold fs-6">
+                                            <c:if test="${error.field.equals('name')}">
+                                                <form:errors path="name"/>
+                                            </c:if>
+                                            <c:if test="${error.field.equals('basePrice')}">
+                                                <form:errors path="basePrice"/>
+                                            </c:if>
+                                            <c:if test="${error.field.equals('categoryName')}">
+                                                <form:errors path="categoryName"/>
+                                            </c:if>
+                                            <c:if test="${error.field.equals('description')}">
+                                                <form:errors path="description"/>
+                                            </c:if>
+                                        </code>
                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>
                                 </c:forEach>
                             </c:if>
+                            <!-- 印出錯誤訊息結束 -->
                             <div class="row mb-3">
                                 <label for="name" class="col-sm-2 col-form-label fw-bold">名稱</label>
                                 <div class="col-sm-10">

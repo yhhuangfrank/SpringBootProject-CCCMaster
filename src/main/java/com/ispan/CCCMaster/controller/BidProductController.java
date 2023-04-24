@@ -5,6 +5,7 @@ import com.ispan.CCCMaster.model.bean.bid.Category;
 import com.ispan.CCCMaster.model.dto.BidProductRequest;
 import com.ispan.CCCMaster.service.BidProductService;
 import com.ispan.CCCMaster.service.CategoryService;
+import com.ispan.CCCMaster.util.BidProductValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +20,20 @@ import java.util.List;
 @Controller
 public class BidProductController {
 
-    @Autowired
-    private BidProductService bidProductService;
+    private final BidProductService bidProductService;
+
+    private final CategoryService categoryService;
+
+    private final BidProductValidator bidProductValidator;
 
     @Autowired
-    private CategoryService categoryService;
+    public BidProductController(BidProductService bidProductService,
+                                CategoryService categoryService,
+                                BidProductValidator bidProductValidator) {
+        this.bidProductService = bidProductService;
+        this.categoryService = categoryService;
+        this.bidProductValidator = bidProductValidator;
+    }
 
     @GetMapping("/bidProducts/create")
     public String getCreateBidProductForm(Model model) {
@@ -43,6 +53,9 @@ public class BidProductController {
             BindingResult bindingResult,
             Model model,
             RedirectAttributes redirectAttributes) {
+
+        // 驗證表單
+        bidProductValidator.validate(bidProductRequest, bindingResult);
 
         if (bindingResult.hasErrors()) {
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();
@@ -96,6 +109,8 @@ public class BidProductController {
                                  BindingResult bindingResult,
                                  Model model,
                                  RedirectAttributes redirectAttributes) {
+
+        bidProductValidator.validate(bidProductRequest, bindingResult);
 
         if (bindingResult.hasErrors()) {
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();
