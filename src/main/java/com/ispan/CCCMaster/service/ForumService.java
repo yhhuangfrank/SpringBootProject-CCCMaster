@@ -49,20 +49,41 @@ public class ForumService {
         return page;
     }
 
-
-
-    @Transactional
-  public Forum updateById(Integer forumId, String newForum) { //update forum
+    public byte[] getForumImageById(Integer forumId) {
         Optional<Forum> option = forumRepository.findById(forumId);
-
-        if(option.isPresent()) {
+        if (option.isPresent()) {
             Forum forum = option.get();
-            forum.setForumName(newForum);
-            return forum;
-        }
-        return null;
+            return forum.getImage();
+        } else return null;
     }
 
+
+
+//    @Transactional
+//    public Forum updateById(Integer forumId, String newForum) { //update forum
+//        Optional<Forum> option = forumRepository.findById(forumId);
+//
+//        if(option.isPresent()) {
+//            Forum forum = option.get();
+//            forum.setForumName(newForum);
+//            return forum;
+//        }
+//        return null;
+//    }
+
+    @Transactional
+    public void updateById(Forum forum) throws IOException {//update forum
+        Optional<Forum> option = forumRepository.findById(forum.getForumId());
+        if(option.isPresent()){
+            Forum oldforum = option.get();
+            oldforum.setForumName(forum.getForumName());
+            if(forum.getImageFile().isEmpty()){
+                oldforum.setImage(forum.getImageFile().getBytes());
+            }
+
+        }
+
+    }
 
 
 

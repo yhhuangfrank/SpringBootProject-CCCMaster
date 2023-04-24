@@ -52,6 +52,11 @@
       <form:input type="text" path="forumName" class="form-control" id="inputName"></form:input>
     </div>
   </div>
+  <div class="row mb-3">
+    <label class="col-sm-2 col-form-label">File Upload</label>
+    <div class="col-sm-10">
+      <form:input class="form-control" type="file" id="formFile" path="imageFile"></form:input>
+    </div>
 
     </div>
   </div>

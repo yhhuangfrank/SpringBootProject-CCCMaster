@@ -2,6 +2,7 @@ package com.ispan.CCCMaster.model.bean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -24,6 +25,28 @@ public class Forum {
     @Column(name = "start_date", columnDefinition = "datetime")
     private Date added;
 
+    @Lob
+    @Column(name = "image", columnDefinition = "varbinary(max)")
+    private byte[] image;
+
+    @Transient
+    private MultipartFile imageFile;
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public MultipartFile getImageFile() {
+        return imageFile;
+    }
+
+    public void setImageFile(MultipartFile imageFile) {
+        this.imageFile = imageFile;
+    }
 
     @PrePersist
     public void  onCreate() {
@@ -31,6 +54,8 @@ public class Forum {
             added = new Date();
         }
     }
+
+
     public Forum() {
     }
 

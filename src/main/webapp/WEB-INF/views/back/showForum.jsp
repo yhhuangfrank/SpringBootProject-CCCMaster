@@ -49,20 +49,25 @@
             <div class="col-8">
 
 
-                <jstl:forEach var="fourm" items="${page.content}">
+                <jstl:forEach var="forum" items="${page.content}">
                     <div class="card">
-                        <div class="card-header">新增時間: <span><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss EEEE" value="${fourm.added}"/></span></div>
+                        <div class="card-header">
+                        <div class="d-flex justify-content-around">討論版名稱:${forum.forumName}<span>開版時間:<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss EEEE" value="${forum.added}"/></span>
+                        </div>
+                        </div>
+                        <img style="width: 300px; height: 300px;"
+                             src="${contextRoot}/Forums/showAllForum/${forum.forumId}"/>
                         <div class="card-body">
-                                ${fourm.forumName}
+
                             <div style="display:flex">
                                 <form action="${contextRoot}/Forum/editPage">
-                                    <input type="hidden" name="id" value="${latest.forumId}" />
+                                    <input type="hidden" name="id" value="${forum.forumId}" />
                                     <input type="submit" class="btn btn-outline-info btn-sm" value="編輯" />
                                 </form>
 
                                 <form action="${contextRoot}/Forums/delete" method="post">
                                     <input type="hidden" name="_method" value="delete" />
-                                    <input type="hidden" name="id" value="${latest.forumId}" />
+                                    <input type="hidden" name="id" value="${forum.forumId}" />
                                     <input type="submit" class="btn btn-outline-danger btn-sm" value="刪除" />
                                 </form>
                             </div>
