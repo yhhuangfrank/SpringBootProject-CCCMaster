@@ -44,7 +44,7 @@
 <main id="main" class="main">
     <h1>編輯產品</h1>
     <div style="max-width: 800px; margin: 0 auto;">
-    <form:form method="put" modelAttribute="product" action="${contextRoot}/Products/edit"
+    <form:form method="put" modelAttribute="product" action="${contextRoot}/admin/products/edit"
                enctype="multipart/form-data">
     <form:input type="hidden" path="productId" class="form-control" id="inputId"></form:input>
     <div class="row mb-3">

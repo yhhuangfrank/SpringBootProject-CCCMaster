@@ -76,15 +76,15 @@
             <div class="swiper-wrapper align-items-center">
 
               <div class="swiper-slide">
-                <img src="${contextRoot}/Products/showImage/${product.productId}" alt="">
+                <img src="${contextRoot}/products/showImage/${product.productId}" alt="">
               </div>
 
               <div class="swiper-slide">
-                <img src="${contextRoot}/Products/showImage/${product.productId}" alt="">
+                <img src="${contextRoot}/products/showImage/${product.productId}" alt="">
               </div>
 
               <div class="swiper-slide">
-                <img src="${contextRoot}/Products/showImage/${product.productId}" alt="">
+                <img src="${contextRoot}/products/showImage/${product.productId}" alt="">
               </div>
 
             </div>

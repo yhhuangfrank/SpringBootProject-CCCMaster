@@ -27,7 +27,7 @@ public class ProductsAdminController {
     @Autowired
     private CrawlerService crawlerService;
 
-    @GetMapping("/Products/createform")//新增產品表單
+    @GetMapping("/admin/products/create/form")//新增產品表單
     public String getCreateProductForm(Model model) {
         List<Category> categories = categoryService.findAllCategories();
         model.addAttribute("categories", categories);
@@ -35,7 +35,7 @@ public class ProductsAdminController {
         return "back/product/createProduct";
     }
 
-    @PostMapping("/Products/create")//新增產品表單送出
+    @PostMapping("/admin/products/create")//新增產品表單送出
     public String createProduct(@ModelAttribute("product") Product product ,@RequestParam("categoryName") String categoryName) {
         try {
             pService.createProduct(product,categoryName);
@@ -43,17 +43,17 @@ public class ProductsAdminController {
             e.printStackTrace();
         }
 
-        return "redirect:/Products/showAllProduct";
+        return "redirect:/admin/products/showAllProduct";
     }
 
-    @GetMapping("/Products/showAllProduct")//產品列表
+    @GetMapping("/admin/products/showAllProduct")//產品列表
     public String showAllProduct(@RequestParam(name = "p", defaultValue = "1") Integer pageNumber, Model model) {
         Page<Product> page = pService.findByPage(pageNumber);
         model.addAttribute("page", page);
         return "back/product/showProduct";
     }
 
-    @GetMapping(value = "Products/showImage/{productId}")//顯示產品的圖片
+    @GetMapping(value = "products/showImage/{productId}")//顯示產品的圖片
     public ResponseEntity<byte[]> getImage(@PathVariable("productId") Integer productId) {
         byte[] image = pService.getProductImageById(productId);
         HttpHeaders headers = new HttpHeaders();
@@ -62,32 +62,32 @@ public class ProductsAdminController {
         return new ResponseEntity<>(image, headers, HttpStatus.OK);
     }
 
-    @DeleteMapping("/Products/delete") //刪除產品
+    @DeleteMapping("/admin/products/delete") //刪除產品
     public String deleteProductById(@RequestParam("id") Integer productId) {
         pService.deleteProduct(productId);
-        return "redirect:/Products/showAllProduct";
+        return "redirect:/admin/products/showAllProduct";
     }
 
-    @GetMapping("/Products/editPage") //編輯產品頁面
+    @GetMapping("/admin/products/editForm") //編輯產品頁面
     public String editPage(@RequestParam("id") Integer productId,Model model) {
         model.addAttribute("categories",categoryService.findAllCategories());
     model.addAttribute("product",pService.findProductById(productId));
         return "back/product/editProductPage";
     }
 
-    @PutMapping("/Products/edit")//更新產品
+    @PutMapping("/admin/products/edit")//更新產品
     public String editProductById(@ModelAttribute("product")Product product,@RequestParam("categoryName") String categoryName) {
         try {
             pService.editProductById(product,categoryName);
         } catch (IOException e) {
            e.printStackTrace();
         }
-        return "redirect:/Products/showAllProduct";
+        return "redirect:/admin/products/showAllProduct";
     }
     @GetMapping("/front/product/details/crawler/{id}")//爬蟲
     public String crawlerProduct(@PathVariable("id")Integer id){
         crawlerService.crawlerPchome(id);
-        return "redirect:/Products/showAllProduct";
+        return "redirect:/admin/products/showAllProduct";
     }
 }
 

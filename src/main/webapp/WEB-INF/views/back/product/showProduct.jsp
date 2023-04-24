@@ -96,9 +96,9 @@
                                     </td>
 
                                     <td><img style="width: 300px; height: 300px;"
-                                             src="${contextRoot}/Products/showImage/${product.productId}"/></td>
+                                             src="${contextRoot}/products/showImage/${product.productId}"/></td>
                                     <td>
-                                        <form action="${contextRoot}/Products/editPage">
+                                        <form action="${contextRoot}/admin/products/editForm">
                                             <input type="hidden" name="id" value="${product.productId}"/>
                                             <input type="submit" class="btn btn-outline-info btn-sm" value="編輯"/>
                                         </form>
@@ -108,7 +108,7 @@
                                     </td>
                                     <td>
                                         <div class="justify-content: center;">
-                                            <form action="${contextRoot}/Products/delete" method="post">
+                                            <form action="${contextRoot}/admin/products/delete" method="post">
                                                 <input type="hidden" name="_method" value="delete"/>
                                                 <input type="hidden" name="id" value="${product.productId}"/>
                                                 <input type="submit" class="btn btn-outline-danger btn-sm"
@@ -128,7 +128,7 @@
                         <c:forEach var="pageNumber" begin="1" end="${page.totalPages}">
                             <c:choose>
                                 <c:when test="${page.number != pageNumber-1 }">
-                                    <a href="${contextRoot}/Products/showAllProduct?p=${pageNumber}">${pageNumber}</a>
+                                    <a href="${contextRoot}/admin/products/showAllProduct?p=${pageNumber}">${pageNumber}</a>
                                 </c:when>
                                 <c:otherwise>
                                     ${pageNumber}

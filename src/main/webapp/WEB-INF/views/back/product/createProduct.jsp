@@ -38,7 +38,7 @@
     <h1>新增產品</h1>
     <section class="section">
         <div style="max-width: 800px; margin: 0 auto;">
-    <form:form method="post" modelAttribute="product" action="${contextRoot}/Products/create"
+    <form:form method="post" modelAttribute="product" action="${contextRoot}/admin/products/create"
                enctype="multipart/form-data">
     <div class="row mb-3">
         <label for="inputName" class="col-sm-2 col-form-label">產品名稱</label>

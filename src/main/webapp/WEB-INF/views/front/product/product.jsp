@@ -99,7 +99,7 @@
                 <c:forEach var="product" items="${page.content}">
                     <div class="col-lg-4 col-md-6 portfolio-item filter-app">
                         <div class="portfolio-wrap">
-                            <img src="${contextRoot}/Products/showImage/${product.productId}"
+                            <img src="${contextRoot}/products/showImage/${product.productId}"
                                  class="img-fluid product-img" alt="">
                             <div class="portfolio-info">
                                 <h4>App 1</h4>
