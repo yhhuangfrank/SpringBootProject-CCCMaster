@@ -108,6 +108,7 @@
             <p>
               ${product.description}
             </p>
+            <a href="${contextRoot}/front/product/details/crawler/${product.productId}">手動爬蟲測試鈕</a>
           </div>
         </div>
 
