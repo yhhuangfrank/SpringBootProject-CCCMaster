@@ -1,6 +1,8 @@
 package com.ispan.CCCMaster.model.bean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -17,14 +19,43 @@ public class Forum {
     private String forumName;
 
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss EEEE",timezone = "GMT+8")
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
     @Column(name = "start_date", columnDefinition = "datetime")
-    private Date startDate;
+    private Date added;
 
+    @Lob
+    @Column(name = "image", columnDefinition = "varbinary(max)")
+    private byte[] image;
+
+    @Transient
+    private MultipartFile imageFile;
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public MultipartFile getImageFile() {
+        return imageFile;
+    }
+
+    public void setImageFile(MultipartFile imageFile) {
+        this.imageFile = imageFile;
+    }
+
+    @PrePersist
     public void  onCreate() {
-        if(startDate == null) {
-            startDate = new Date();
+        if(added == null) {
+            added = new Date();
         }
     }
+
+
     public Forum() {
     }
 
@@ -44,11 +75,11 @@ public class Forum {
         this.forumName = forumName;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getAdded() {
+        return added;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setAdded(Date added) {
+        this.added = added;
     }
 }
