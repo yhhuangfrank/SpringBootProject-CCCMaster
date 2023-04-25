@@ -2,11 +2,14 @@ package com.ispan.CCCMaster.model.bean;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,8 +25,9 @@ public class CustomerNotify {
 	@Column(name = "id")
 	private Integer id;
 
-	@Column(name = "customer_id")
-	private Integer customerId;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "customer_id")
+	private Customers customers;
 
 	@Column(name = "notify", columnDefinition = "nvarchar(50)")
 	private String notify;
@@ -47,12 +51,12 @@ public class CustomerNotify {
 		this.id = id;
 	}
 
-	public Integer getCustomerId() {
-		return customerId;
+	public Customers getCustomers() {
+		return customers;
 	}
 
-	public void setCustomerId(Integer customerId) {
-		this.customerId = customerId;
+	public void setCustomers(Customers customers) {
+		this.customers = customers;
 	}
 
 	public String getNotify() {

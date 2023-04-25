@@ -2,11 +2,14 @@ package com.ispan.CCCMaster.model.bean;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,8 +37,9 @@ public class Employees {
 	@Column(name = "password", columnDefinition = "varchar(20)")
 	private String password;
 	
-	@Column(name = "position_id")
-	private Integer positionId;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "position_id")
+	private Positions positions;
 	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
@@ -85,12 +89,12 @@ public class Employees {
 		this.password = password;
 	}
 
-	public Integer getPositionId() {
-		return positionId;
+	public Positions getPositions() {
+		return positions;
 	}
 
-	public void setPositionId(Integer positionId) {
-		this.positionId = positionId;
+	public void setPositions(Positions positions) {
+		this.positions = positions;
 	}
 
 	public Date getHireDate() {
