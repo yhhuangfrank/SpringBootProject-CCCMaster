@@ -20,6 +20,7 @@ public class TestController {
 
     @GetMapping("/test")
     public String test() {
+        bidProductService.findBidProductById(100);
 
 
         return "back/back-test";
