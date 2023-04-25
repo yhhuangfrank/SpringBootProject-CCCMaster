@@ -69,35 +69,35 @@
                 </div>
             </div>
 
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
-                <c:forEach items="${bidProducts}" var="b">
-                    <a href="http://localhost:8080" class="text-black my-2">
-                        <div class="card">
-                            <c:choose>
-                                <c:when test="${ b.image.startsWith('http') }">
-                                    <img src="${b.image}" class="card-img-top"
-                                         style="opacity: 0; transition: opacity 0.5s ease-in-out; height: 500px;"
-                                         onload="this.style.opacity='1';"
-                                         alt="BidProduct-image">
-                                </c:when>
-                                <c:otherwise>
-                                    <img src="${contextRoot}/${b.image}" class="card-img-top"
-                                         style="opacity: 0; transition: opacity 0.5s ease-in-out; height: 500px;"
-                                         onload="this.style.opacity='1';"
-                                         alt="BidProduct-image">
-                                </c:otherwise>
-                            </c:choose>
-                            <div class="card-body">
-                                <h5 class="card-title">${b.name}</h5>
-                                <div class="card-text">
-                                    <span class="badge bg-secondary text-white">目前價格</span>
-                                    <strong class="ms-2">${b.bidPrice}</strong>
-                                    <div class="mt-2">${b.description}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </c:forEach>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3" id="bidProductArea">
+<%--                <c:forEach items="${bidProducts}" var="b">--%>
+<%--                    <a href="http://localhost:8080" class="text-black my-2">--%>
+<%--                        <div class="card">--%>
+<%--                            <c:choose>--%>
+<%--                                <c:when test="${ b.image.startsWith('http') }">--%>
+<%--                                    <img src="${b.image}" class="card-img-top"--%>
+<%--                                         style="opacity: 0; transition: opacity 0.5s ease-in-out; height: 500px;"--%>
+<%--                                         onload="this.style.opacity='1';"--%>
+<%--                                         alt="BidProduct-image">--%>
+<%--                                </c:when>--%>
+<%--                                <c:otherwise>--%>
+<%--                                    <img src="${contextRoot}/${b.image}" class="card-img-top"--%>
+<%--                                         style="opacity: 0; transition: opacity 0.5s ease-in-out; height: 500px;"--%>
+<%--                                         onload="this.style.opacity='1';"--%>
+<%--                                         alt="BidProduct-image">--%>
+<%--                                </c:otherwise>--%>
+<%--                            </c:choose>--%>
+<%--                            <div class="card-body">--%>
+<%--                                <h5 class="card-title">${b.name}</h5>--%>
+<%--                                <div class="card-text">--%>
+<%--                                    <span class="badge bg-secondary text-white">目前價格</span>--%>
+<%--                                    <strong class="ms-2">${b.bidPrice}</strong>--%>
+<%--                                    <div class="mt-2">${b.description}</div>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                    </a>--%>
+<%--                </c:forEach>--%>
             </div>
 
         </div>

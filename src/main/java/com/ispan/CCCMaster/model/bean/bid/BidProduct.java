@@ -126,5 +126,19 @@ public class BidProduct {
         newCategory.setName(name);
         this.setCategory(newCategory);
     }
+
+    @Override
+    public String toString() {
+        return "BidProduct{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", basePrice=" + basePrice +
+                ", bidPrice=" + bidPrice +
+                ", category=" + category +
+                ", description='" + description + '\'' +
+                ", image='" + image + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }
 

@@ -75,9 +75,9 @@ public class BidProductController {
     @GetMapping("/bidProducts")
     public String getAllBidProducts(Model model) {
 
-        List<BidProduct> bidProducts = bidProductService.findAllBidProducts();
+//        List<BidProduct> bidProducts = bidProductService.findAllBidProducts();
 
-        model.addAttribute("bidProducts", bidProducts);
+//        model.addAttribute("bidProducts", bidProducts);
 
         return "/front/bid/products";
     }
