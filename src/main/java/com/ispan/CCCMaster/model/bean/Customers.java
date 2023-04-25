@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -47,6 +48,18 @@ public class Customers {
 	
 	@Column(name = "abandon_count")
 	private Integer abandonCount;
+	
+	@OneToMany(mappedBy = "customers", cascade = CascadeType.ALL)
+	private Set<CustomerCoupons> customerCoupons = new HashSet<>();
+	
+	@OneToMany(mappedBy = "customers", cascade = CascadeType.ALL)
+	private Set<CustomerFavorites> customerFavorites = new HashSet<>();
+	
+	@OneToMany(mappedBy = "customers", cascade = CascadeType.ALL)
+	private Set<CustomerBrowsingHistory> customerBrowsingHistory = new HashSet<>();
+
+	@OneToMany(mappedBy = "customers", cascade = CascadeType.ALL)
+	private Set<CustomerNotify> customerNotify = new HashSet<>();
 	
 	// BY 瑛仁
 	@OneToMany(mappedBy="cbShoppingCart")
