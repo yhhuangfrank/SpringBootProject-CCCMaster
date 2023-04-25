@@ -3,6 +3,7 @@ package com.ispan.CCCMaster.model.bean;
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,8 +20,14 @@ public class RecipientInfoBean implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@Column(name = "address", columnDefinition = "nvarchar(70)")
 	private String address;
+	
+	@Column(name = "name", columnDefinition = "nvarchar(50)")
 	private String name;
+	
+	@Column(name = "telephone")
 	private String telephone;
 	
 	//雙向多對一

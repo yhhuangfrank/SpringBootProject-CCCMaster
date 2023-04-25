@@ -1,11 +1,14 @@
 package com.ispan.CCCMaster.model.bean.weihsiang;
 
+import com.ispan.CCCMaster.model.bean.OrderDetailBean;
 import com.ispan.CCCMaster.model.bean.bid.Category;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "Products")
@@ -200,6 +203,9 @@ public class Product {
     public void setImageFile(MultipartFile imageFile) {
         this.imageFile = imageFile;
     }
+    //對產品明細:一對多  by瑛仁
+  	@OneToMany(mappedBy="pOrderDetail")
+  	Set<OrderDetailBean> setpod = new HashSet<>();
 }
 
 

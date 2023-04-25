@@ -1,30 +1,48 @@
 package com.ispan.CCCMaster.model.bean;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
+
 @Entity
 @Table(name="Coupon")
 public class CouponBean implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Column(name="coupon_id", columnDefinition = "nchar(36)")
 	private String couponid;
+	
+	
+	@Column(name="coupon_name",columnDefinition = "nvarchar(50)")
 	private String couponname;
+	
+	
+	@Column(name="convert_id",columnDefinition = "nvarchar(50)")
 	private String convertid;
-	private Timestamp startdate;
-	private Timestamp enddate;
+	
+	@Column(name = "start_date", columnDefinition = "smalldatetime")
+	private String startdate;
+	
+	@Column(name="end_date",columnDefinition = "smalldatetime")
+	private String enddate;
+	
+	@Column(name="coupon_amount")
 	private Integer couponamount;
+	
+	@Column(name="instructions",columnDefinition = "text")
 	private String instructions;
 	
+	public CouponBean() {
+		
+	}
 	
-	
-	public CouponBean(String couponid, String couponname, String convertid, Timestamp startdate, Timestamp enddate,
+	public CouponBean(String couponid, String couponname, String convertid, String startdate, String enddate,
 			Integer couponamount, String instructions) {
 		this.couponid = couponid;
 		this.couponname = couponname;
@@ -52,16 +70,16 @@ public class CouponBean implements Serializable {
 	public void setConvertid(String convertid) {
 		this.convertid = convertid;
 	}
-	public Timestamp getStartdate() {
+	public String getStartdate() {
 		return startdate;
 	}
-	public void setStartdate(Timestamp startdate) {
+	public void setStartdate(String startdate) {
 		this.startdate = startdate;
 	}
-	public Timestamp getEnddate() {
+	public String getEnddate() {
 		return enddate;
 	}
-	public void setEnddate(Timestamp enddate) {
+	public void setEnddate(String enddate) {
 		this.enddate = enddate;
 	}
 	public Integer getCouponamount() {
