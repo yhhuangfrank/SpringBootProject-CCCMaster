@@ -2,6 +2,8 @@ package com.ispan.CCCMaster.model.bean.bid;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.ispan.CCCMaster.model.bean.BidOrderBean;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -126,5 +128,8 @@ public class BidProduct {
         newCategory.setName(name);
         this.setCategory(newCategory);
     }
+  //對二手商品訂單:一對一  BY瑛仁
+    @OneToOne(mappedBy = "bpbidOrder")
+    BidOrderBean bidOrder;
 }
 

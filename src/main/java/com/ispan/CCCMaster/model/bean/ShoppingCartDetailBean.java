@@ -5,6 +5,7 @@ import com.ispan.CCCMaster.model.bean.weihsiang.Product;
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,7 +24,9 @@ public class ShoppingCartDetailBean implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private Integer SCDquantity;
+	
+	@Column(name="quantity", nullable = false)
+	private Integer quantity;
 	
 	//雙向多對一
 	@ManyToOne(cascade=CascadeType.PERSIST)
@@ -36,15 +39,15 @@ public class ShoppingCartDetailBean implements Serializable{
 	private Product productBean;
 	
 	public ShoppingCartDetailBean(Integer sCDquantity, ShoppingCartBean shoppingcartbean, Product productBean) {
-		this.SCDquantity = sCDquantity;
+		this.quantity = sCDquantity;
 		this.shoppingcartbean = shoppingcartbean;
 		this.productBean = productBean;
 	}
 	public Integer getSCDquantity() {
-		return SCDquantity;
+		return quantity;
 	}
 	public void setSCDquantity(Integer sCDquantity) {
-		this.SCDquantity = sCDquantity;
+		this.quantity = sCDquantity;
 	}
 	
 	

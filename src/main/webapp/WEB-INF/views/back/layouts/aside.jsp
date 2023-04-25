@@ -174,22 +174,12 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-gem"></i><span>訂單管理</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-layout-text-window-reverse"></i><span>訂單管理</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="icons-bootstrap.html">
-                        <i class="bi bi-circle"></i><span>Bootstrap Icons</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="icons-remix.html">
-                        <i class="bi bi-circle"></i><span>Remix Icons</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="icons-boxicons.html">
-                        <i class="bi bi-circle"></i><span>Boxicons</span>
+                    <a href="${contextRoot}/Orders">
+                        <i class="bi bi-circle"></i><span>訂單列表</span>
                     </a>
                 </li>
             </ul>
@@ -270,13 +260,13 @@
             </a>
             <ul id="coupons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="icons-bootstrap.html">
-                        <i class="bi bi-circle"></i><span>Bootstrap Icons</span>
+                    <a href="${contextRoot}/Coupons">
+                        <i class="bi bi-circle"></i><span>優惠券列表</span>
                     </a>
                 </li>
                 <li>
-                    <a href="icons-remix.html">
-                        <i class="bi bi-circle"></i><span>Remix Icons</span>
+                    <a href="${contextRoot}/Coupons/CreateForm">
+                        <i class="bi bi-circle"></i><span>新增優惠券</span>
                     </a>
                 </li>
                 <li>
