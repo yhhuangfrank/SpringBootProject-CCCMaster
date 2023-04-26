@@ -29,16 +29,16 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
     @Override
     public void createProduct(Product product, String categoryName) throws IOException {
         Category category = categoryDao.findCategoryByName(categoryName);
-        if(category!=null){
+        if (category != null) {
             product.setCategory(category);
-        }else {
-            Category newCategory=new Category();
+        } else {
+            Category newCategory = new Category();
             newCategory.setName(categoryName);
             product.setCategory(newCategory);
         }
-    if(product.getImageFile()!=null){
-        product.setImage(product.getImageFile().getBytes());
-    }
+        if (product.getImageFile() != null) {
+            product.setImage(product.getImageFile().getBytes());
+        }
 
         productDao.save(product);
     }
@@ -65,9 +65,9 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
     }
 
     @Override
-    public Page<Product> findByPageSearchByNameSortByPrice(Integer pageNumber,String productName) {
+    public Page<Product> findByPageSearchByNameSortByPrice(Integer pageNumber, String productName) {
         Pageable pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.DESC, "price");
-        Page<Product> page = productDao.findByName(productName,pgb);
+        Page<Product> page = productDao.findByName(productName, pgb);
         return page;
     }
 
@@ -106,19 +106,23 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
             if (!product.getImageFile().isEmpty()) {//如果更新的圖片不為空
                 oldProduct.setImage(product.getImageFile().getBytes());
             }
-            if(categoryDao.findCategoryByName(categoryName)!=null){
+            if (categoryDao.findCategoryByName(categoryName) != null) {
                 oldProduct.setCategory(categoryDao.findCategoryByName(categoryName));
-            }else {
-                Category newCategory=new Category();
+            } else {
+                Category newCategory = new Category();
                 newCategory.setName(categoryName);
                 oldProduct.setCategory(newCategory);
             }
         }
     }
+
     @Transactional
     @Override
-    public void productViews(Integer id){
-      Product product=findProductById(id);
-    product.setProductViews(product.getProductViews()+1);
+    public void productViews(Integer id) {
+        Product product = findProductById(id);
+        product.setProductViews(product.getProductViews() + 1);
     }
+
+//    @Override
+//    public Page<Product>
 }
