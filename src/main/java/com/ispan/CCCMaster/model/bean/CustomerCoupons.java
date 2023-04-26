@@ -2,11 +2,14 @@ package com.ispan.CCCMaster.model.bean;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,8 +25,9 @@ public class CustomerCoupons {
 	@Column(name = "id")
 	private Integer id;
 	
-	@Column(name = "customer_id")
-	private Integer customerId;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "customer_id")
+	private Customers customers;
 	
 	@Column(name = "coupon_id", columnDefinition = "nchar(36)")
 	private String couponId;
@@ -48,14 +52,6 @@ public class CustomerCoupons {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Integer getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(Integer customerId) {
-		this.customerId = customerId;
 	}
 
 	public String getCouponId() {
@@ -88,6 +84,14 @@ public class CustomerCoupons {
 
 	public void setUnavailableReason(String unavailableReason) {
 		this.unavailableReason = unavailableReason;
+	}
+
+	public Customers getCustomers() {
+		return customers;
+	}
+
+	public void setCustomers(Customers customers) {
+		this.customers = customers;
 	}
 
 }

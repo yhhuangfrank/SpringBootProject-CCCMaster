@@ -5,6 +5,7 @@ import com.ispan.CCCMaster.model.bean.weihsiang.Product;
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +22,11 @@ public class OrderDetailBean implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@Column(name="unitprice")
 	private Integer unitprice;
+	
+	@Column(name="quantity")
 	private Integer quantity;
 	
 	//雙向多對一
@@ -32,14 +37,16 @@ public class OrderDetailBean implements Serializable {
 	//雙向多對一
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="product_id")
-	private Product pOrder;
+	private Product pOrderDetail;
 	
+	public OrderDetailBean() {		
+	}
 	
-	public OrderDetailBean(Integer unitprice, Integer quantity, OrderBean orderBean, Product pOrder) {
+	public OrderDetailBean(Integer unitprice, Integer quantity, OrderBean orderBean, Product pOrderDetail) {
 		this.unitprice = unitprice;
 		this.quantity = quantity;
 		this.orderBean = orderBean;
-		this.pOrder = pOrder;
+		this.pOrderDetail = pOrderDetail;
 	}
 	public Integer getUnitprice() {
 		return unitprice;
@@ -53,6 +60,13 @@ public class OrderDetailBean implements Serializable {
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
-	
+
+	public Product getpOrderDetail() {
+		return pOrderDetail;
+	}
+	public void setpOrderDetail(Product pOrderDetail) {
+		this.pOrderDetail = pOrderDetail;
+	}
+
 
 }

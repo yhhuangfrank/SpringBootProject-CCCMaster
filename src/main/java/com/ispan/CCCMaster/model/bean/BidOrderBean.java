@@ -3,15 +3,20 @@ package com.ispan.CCCMaster.model.bean;
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="BidOrder")
@@ -19,19 +24,37 @@ public class BidOrderBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
+	@Column(name = "bid_order_id")
 	private String bidorderid;
-	private Integer buyerid;
-	private Integer sellerid;
-	private Integer bidproductid;
+	
+	@Column(name = "price")
 	private Integer price;
+	
+	@Column(name = "quantity")
 	private Integer quantity;
+	
+	@Column(name = "freight")
 	private Integer freight;
-	private Timestamp orderdate;
-	private Timestamp arrivaldate;
+	
+	@Column(name = "order_date", columnDefinition = "datetime", nullable = false)
+	private String orderdate;
+	
+	@Column(name = "arrival_date", columnDefinition = "datetime", nullable = false)
+	private String arrivaldate;
+	
+	@Column(name = "shipper", columnDefinition = "nvarchar(20)")
 	private String shipper;
+	
+	@Column(name = "shipper_address", columnDefinition = "nvarchar(60)")
 	private String shipperaddress;
+	
+	@Column(name = "payment", columnDefinition = "nvarchar(30)")
 	private String payment;
+	
+	@Column(name = "order_condition", columnDefinition = "nvarchar(20)")
 	private String ordercondition;
+	
+	@Column(name = "payment_condition", columnDefinition = "nvarchar(20)")
 	private String paymentcondition;
 	
 	//買家雙向多對一	
@@ -48,10 +71,11 @@ public class BidOrderBean implements Serializable {
 	@OneToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="bidproducts_id")
 	private BidProduct bpbidOrder;
+
 	
-	public BidOrderBean(String bidorderid, Integer price, Integer quantity, Integer freight, Timestamp orderdate,
-			Timestamp arrivaldate, String shipper, String shipperaddress, String payment, String ordercondition,
-			String paymentcondition, Customers cbBuyer, Customers cbSeller, BidProduct bpbidOrder) {
+	public BidOrderBean(String bidorderid, Integer price, Integer quantity, Integer freight, String orderdate,
+			String arrivaldate, String shipper, String shipperaddress, String payment, String ordercondition,
+			String paymentcondition) {
 		super();
 		this.bidorderid = bidorderid;
 		this.price = price;
@@ -64,94 +88,97 @@ public class BidOrderBean implements Serializable {
 		this.payment = payment;
 		this.ordercondition = ordercondition;
 		this.paymentcondition = paymentcondition;
-		this.cbBuyer = cbBuyer;
-		this.cbSeller = cbSeller;
-		this.bpbidOrder = bpbidOrder;
 	}
+
 	public String getBidorderid() {
 		return bidorderid;
 	}
+
 	public void setBidorderid(String bidorderid) {
 		this.bidorderid = bidorderid;
 	}
-	public Integer getBuyerid() {
-		return buyerid;
-	}
-	public void setBuyerid(Integer buyerid) {
-		this.buyerid = buyerid;
-	}
-	public Integer getSellerid() {
-		return sellerid;
-	}
-	public void setSellerid(Integer sellerid) {
-		this.sellerid = sellerid;
-	}
-	public Integer getBidproductid() {
-		return bidproductid;
-	}
-	public void setBidproductid(Integer bidproductid) {
-		this.bidproductid = bidproductid;
-	}
+
 	public Integer getPrice() {
 		return price;
 	}
+
 	public void setPrice(Integer price) {
 		this.price = price;
 	}
+
 	public Integer getQuantity() {
 		return quantity;
 	}
+
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
+
 	public Integer getFreight() {
 		return freight;
 	}
+
 	public void setFreight(Integer freight) {
 		this.freight = freight;
 	}
-	public Timestamp getOrderdate() {
+
+	public String getOrderdate() {
 		return orderdate;
 	}
-	public void setOrderdate(Timestamp orderdate) {
+
+	public void setOrderdate(String orderdate) {
 		this.orderdate = orderdate;
 	}
-	public Timestamp getArrivaldate() {
+
+	public String getArrivaldate() {
 		return arrivaldate;
 	}
-	public void setArrivaldate(Timestamp arrivaldate) {
+
+	public void setArrivaldate(String arrivaldate) {
 		this.arrivaldate = arrivaldate;
 	}
+
 	public String getShipper() {
 		return shipper;
 	}
+
 	public void setShipper(String shipper) {
 		this.shipper = shipper;
 	}
+
 	public String getShipperaddress() {
 		return shipperaddress;
 	}
+
 	public void setShipperaddress(String shipperaddress) {
 		this.shipperaddress = shipperaddress;
 	}
+
 	public String getPayment() {
 		return payment;
 	}
+
 	public void setPayment(String payment) {
 		this.payment = payment;
 	}
+
 	public String getOrdercondition() {
 		return ordercondition;
 	}
+
 	public void setOrdercondition(String ordercondition) {
 		this.ordercondition = ordercondition;
 	}
+
 	public String getPaymentcondition() {
 		return paymentcondition;
 	}
+
 	public void setPaymentcondition(String paymentcondition) {
 		this.paymentcondition = paymentcondition;
 	}
+	
+	
 
 	
 }

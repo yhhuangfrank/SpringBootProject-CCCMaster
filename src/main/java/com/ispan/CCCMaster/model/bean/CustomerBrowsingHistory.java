@@ -2,11 +2,14 @@ package com.ispan.CCCMaster.model.bean;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,8 +25,9 @@ public class CustomerBrowsingHistory {
 	@Column(name = "id")
 	private Integer id;
 	
-	@Column(name = "customer_id")
-	private Integer customerId;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "customer_id")
+	private Customers customers;
 	
 	@Column(name = "product_id")
 	private Integer productId;
@@ -44,14 +48,6 @@ public class CustomerBrowsingHistory {
 		this.id = id;
 	}
 
-	public Integer getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(Integer customerId) {
-		this.customerId = customerId;
-	}
-
 	public Integer getProductId() {
 		return productId;
 	}
@@ -66,6 +62,14 @@ public class CustomerBrowsingHistory {
 
 	public void setBuildTime(Date buildTime) {
 		this.buildTime = buildTime;
+	}
+
+	public Customers getCustomers() {
+		return customers;
+	}
+
+	public void setCustomers(Customers customers) {
+		this.customers = customers;
 	}
 
 }

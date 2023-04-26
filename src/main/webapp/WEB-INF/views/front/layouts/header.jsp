@@ -1,8 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <c:set var="contextRoot" value="${pageContext.request.contextPath}"/>
-
     <!-- ======= Header ======= -->
     <header id="header" class="d-flex align-items-center">
       <div class="container d-flex justify-content-between align-items-center">
@@ -33,7 +31,7 @@
               </ul>
             </li>
             <li><a class="active" href="about.html">通知</a></li>
-            <li><a href="services.html">商城</a></li>
+            <li><a href="${contextRoot}/front/product">商城</a></li>
             <li><a href="${contextRoot}/bidProducts">二手賣場</a></li>
             <li><a href="team.html">論壇</a></li>
             <li><a href="pricing.html">聯絡客服</a></li>
