@@ -155,12 +155,12 @@
             </a>
             <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="${contextRoot}/bidProducts">
+                    <a href="${contextRoot}/admin/bidProducts">
                         <i class="bi bi-circle"></i><span>所有商品</span>
                     </a>
                 </li>
                 <li>
-                    <a href="${contextRoot}/bidProducts/create">
+                    <a href="${contextRoot}/admin/bidProducts/create">
                         <i class="bi bi-circle"></i><span>新增商品</span>
                     </a>
                 </li>
