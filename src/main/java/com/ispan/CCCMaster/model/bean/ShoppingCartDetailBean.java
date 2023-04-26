@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -33,8 +32,8 @@ public class ShoppingCartDetailBean implements Serializable{
 	@JoinColumn(name="shopping_cart_id")
 	private ShoppingCartBean shoppingcartbean;
 	
-	//雙向一對多
-	@OneToOne(cascade=CascadeType.PERSIST)
+	//雙向多對一
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="product_id")
 	private Product productBean;
 	
@@ -48,6 +47,15 @@ public class ShoppingCartDetailBean implements Serializable{
 	}
 	public void setSCDquantity(Integer sCDquantity) {
 		this.quantity = sCDquantity;
+	}
+	public ShoppingCartBean getShoppingcartbean() {
+		return shoppingcartbean;
+	}
+	public Product getProductBean() {
+		return productBean;
+	}
+	public void setShoppingcartbean(ShoppingCartBean shoppingcartbean) {
+		this.shoppingcartbean = shoppingcartbean;
 	}
 	
 	
