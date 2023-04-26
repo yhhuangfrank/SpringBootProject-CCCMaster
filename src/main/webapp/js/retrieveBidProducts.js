@@ -1,5 +1,6 @@
 const bidProductArea = document.querySelector("#bidProductArea")
 const pagination = document.querySelector(".pagination")
+const categoryList = document.querySelector(".categoryList")
 const BASE_URL = "http://localhost:8080/api/bidProducts"
 let currentPage = 1 // 預設在第一頁
 
@@ -28,6 +29,7 @@ pagination.addEventListener("click", async (e) => {
             goToPage = currentPage - 1
         } else {
             goToPage = Number(target.textContent)
+            if (goToPage === currentPage) return
         }
 
         // 向 api 請求攜帶的參數
@@ -39,7 +41,6 @@ pagination.addEventListener("click", async (e) => {
 
         const response = await axios.get(BASE_URL, config)
         const {data} = response
-        window.document.body.scrollTop = 0 // 將 scroll bar 移至頂端
         renderBidProducts(data.content)
         paginator(data)
 
@@ -48,8 +49,37 @@ pagination.addEventListener("click", async (e) => {
     }
 })
 
+categoryList.addEventListener("click", async (e) => {
+    try {
+        const {target} = e
+
+        if (target.tagName !== "LI" ||
+            target.classList.contains("filter-active")) return
+
+        let categoryName = target.textContent // 取得類別名
+        updateCategoryListStyle(categoryName)
+
+        // 選擇全部類別
+        if(target.dataset.category === "all") {
+            categoryName = null
+        }
+
+        // 送出請求
+        const config = {
+            params: {categoryName}
+        }
+        const response = await axios(BASE_URL, config)
+        const {data} = response
+        renderBidProducts(data.content)
+        paginator(data)
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 
 function renderBidProducts(content) {
+    window.document.body.scrollTop = 0 // 將 scroll bar 移至頂端
     let html = ``;
 
     for (let i = 0; i < content.length; i += 1) {
@@ -117,4 +147,20 @@ function paginator(data) {
     }
 
     pagination.innerHTML = html
+}
+
+function updateCategoryListStyle(categoryName) {
+    // 更新篩選區樣式
+    const categories = categoryList.children
+
+    for (let i = 0; i < categories.length; i += 1) {
+        const element = categories[i]
+        if (element.classList.contains("filter-active") &&
+            element.textContent !== categoryName) {
+            element.classList.remove("filter-active")
+        }
+        if (element.textContent === categoryName) {
+            element.classList.add("filter-active")
+        }
+    }
 }
