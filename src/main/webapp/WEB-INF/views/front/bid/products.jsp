@@ -59,11 +59,13 @@
 
             <div class="row">
                 <div class="col-lg-12 d-flex justify-content-center">
-                    <ul id="portfolio-flters">
-                        <li data-filter="*" class="filter-active">All</li>
-                        <li data-filter=".filter-app">App</li>
-                        <li data-filter=".filter-card">Card</li>
-                        <li data-filter=".filter-web">Web</li>
+                    <ul id="portfolio-flters" class="categoryList">
+                        <li class="filter-active" data-category="all">全部</li>
+                        <li>手機</li>
+                        <li>電腦</li>
+                        <li>筆記型電腦</li>
+                        <li>滑鼠</li>
+                        <li>鍵盤</li>
                     </ul>
                 </div>
             </div>

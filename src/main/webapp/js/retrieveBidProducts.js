@@ -1,14 +1,13 @@
 const bidProductArea = document.querySelector("#bidProductArea")
 const pagination = document.querySelector(".pagination")
 const BASE_URL = "http://localhost:8080/api/bidProducts"
-let currentPage
+let currentPage = 1 // 預設在第一頁
 
 // 網頁載入時發起預設請求
 window.addEventListener("load", async () => {
     try {
         const response = await axios.get(BASE_URL)
         const {data} = response
-        currentPage = data.number + 1
         renderBidProducts(data.content)
         paginator(data)
     } catch (error) {
@@ -31,14 +30,18 @@ pagination.addEventListener("click", async (e) => {
             goToPage = Number(target.textContent)
         }
 
+        // 向 api 請求攜帶的參數
         const config = {
-            params : {
+            params: {
                 page: goToPage
             }
         }
 
         const response = await axios.get(BASE_URL, config)
-        paginator(response.data)
+        const {data} = response
+        window.document.body.scrollTop = 0 // 將 scroll bar 移至頂端
+        renderBidProducts(data.content)
+        paginator(data)
 
     } catch (error) {
         console.log(error)
@@ -55,7 +58,7 @@ function renderBidProducts(content) {
                 <a href="#" class="text-black my-2">
                     <div class="card">
                                 <img src="${b.image}" class="card-img-top"
-                                     style="opacity: 0; transition: opacity 0.5s ease-in-out; height: 500px;"
+                                     style="opacity: 0; transition: opacity 0.5s ease-in-out; height: 18rem;"
                                      onload="this.style.opacity='1';"
                                      alt="BidProduct-image">
                         <div class="card-body">
@@ -76,10 +79,10 @@ function renderBidProducts(content) {
 
 function paginator(data) {
     const {totalPages, number, empty, first, last} = data
-    currentPage = number + 1
 
     if (empty) return
 
+    currentPage = number + 1
     let html = ``;
     if (!first) {
         html += `
@@ -94,7 +97,7 @@ function paginator(data) {
     for (let i = 1; i <= totalPages; i += 1) {
         if (i === currentPage) {
             html += `
-                <li class="page-item active"><button class="page-link" style="cursor: text">${i}</button></li>
+                <li class="page-item active"><button class="page-link" style="cursor: text; background: #e96b56; border: 1px">${i}</button></li>
             `
             continue
         }
