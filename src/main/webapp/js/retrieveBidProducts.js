@@ -1,6 +1,7 @@
 const bidProductArea = document.querySelector("#bidProductArea")
 const pagination = document.querySelector(".pagination")
 const categoryList = document.querySelector(".categoryList")
+const categories = document.querySelectorAll("li.category")
 const BASE_URL = "http://localhost:8080/api/bidProducts"
 const DEFAULT_SHOWING_PAGES = 5
 let currentPage = 1 // 預設在第一頁
@@ -132,12 +133,17 @@ function paginator(data) {
 
     // 當頁數超過設定數時，隱藏多餘分頁
     if (totalPages > DEFAULT_SHOWING_PAGES) {
-        // 設定在第三頁後隱藏，並新增第一頁按鈕
-        if (currentPage > 3) {
+        // 設定在第三頁後隱藏
+        if (currentPage > 2) {
+            // 增加第一頁按鈕
             html += `
                 <li class="page-item"><button class="page-link">1</button></li>
-                <li class="page-item"><button class="page-link disabled">...</button></li>
             `
+            if (currentPage > 3) {
+                html += `
+                    <li class="page-item"><button class="page-link disabled">...</button></li>
+                `
+            }
         }
     }
 
@@ -183,33 +189,28 @@ function paginator(data) {
 
 function updateCategoryListStyle(categoryName) {
     // 更新篩選區樣式
-    const categories = categoryList.children
-
-    for (let i = 0; i < categories.length; i += 1) {
-        const element = categories[i]
-        const isActive = element.classList.contains("filter-active")
-        const isSelected = element.textContent === categoryName
+    categories.forEach(category => {
+        const isActive = category.classList.contains("filter-active")
+        const isSelected = category.textContent === categoryName
         if (isActive && !isSelected) {
-            element.classList.remove("filter-active")
+            category.classList.remove("filter-active")
         }
         if (isSelected) {
-            element.classList.add("filter-active")
+            category.classList.add("filter-active")
         }
-    }
+    })
 }
 
 function getCurrentQueryParams() {
-    const categories = categoryList.children
     const param = {}
 
-    for (let i = 0; i < categories.length; i += 1) {
-        const category = categories[i]
+    categories.forEach(category => {
         const isActive = category.classList.contains("filter-active")
         if (category.dataset.category === "all" && isActive) return param
         if (isActive) {
             param.categoryName = category.textContent
         }
-    }
+    })
 
     return param
 }

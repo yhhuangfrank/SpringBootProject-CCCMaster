@@ -60,12 +60,12 @@
             <div class="row">
                 <div class="col-lg-12 d-flex justify-content-center">
                     <ul id="portfolio-flters" class="categoryList">
-                        <li class="filter-active" data-category="all">全部</li>
-                        <li>手機</li>
-                        <li>電腦</li>
-                        <li>筆記型電腦</li>
-                        <li>滑鼠</li>
-                        <li>鍵盤</li>
+                        <li class="filter-active category" data-category="all">全部</li>
+                        <li class="category">手機</li>
+                        <li class="category">電腦</li>
+                        <li class="category">筆記型電腦</li>
+                        <li class="category">滑鼠</li>
+                        <li class="category">鍵盤</li>
                     </ul>
                 </div>
             </div>
