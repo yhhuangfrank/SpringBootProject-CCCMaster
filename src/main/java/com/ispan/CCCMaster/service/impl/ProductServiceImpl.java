@@ -82,10 +82,10 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
 
         }
         if (keyword.equals("")) {
-            page = productDao.findAll(pgb);
+            page = productDao.findByAllIsActive(pgb);
 
         } else {
-            page = productDao.findByName(keyword, pgb);
+            page = productDao.findByNameIsActive(keyword, pgb);
         }
         return page;
 
