@@ -43,12 +43,6 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
         productDao.save(product);
     }
 
-    @Override
-    public String convertToBase64(MultipartFile imageFile) throws IOException {
-        byte[] bytes = imageFile.getBytes();
-        String base64 = Base64.getEncoder().encodeToString(bytes);
-        return base64;
-    }
 
     @Override
     public Page<Product> findByPage(Integer pageNumber) {
@@ -57,18 +51,44 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
         return page;
     }
 
-    @Override
-    public Page<Product> findByPageSortByPrice(Integer pageNumber) {
-        Pageable pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.DESC, "price");
-        Page<Product> page = productDao.findAll(pgb);
-        return page;
-    }
+//    @Override
+//    public Page<Product> findByPageSortByPrice(Integer pageNumber) {
+//        Pageable pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.DESC, "price");
+//        Page<Product> page = productDao.findAll(pgb);
+//        return page;
+//    }
+
+//    @Override
+//    public Page<Product> findByPageSearchByNameSortByPrice(Integer pageNumber, String productName) {
+//        Pageable pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.DESC, "price");
+//        Page<Product> page = productDao.findByName(productName, pgb);
+//        return page;
+//    }
 
     @Override
-    public Page<Product> findByPageSearchByNameSortByPrice(Integer pageNumber, String productName) {
-        Pageable pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.DESC, "price");
-        Page<Product> page = productDao.findByName(productName, pgb);
+    public Page<Product> findByPageAjax(Integer pageNumber, String keyword, String sort) {
+        Pageable pgb = null;
+        Page<Product> page;
+        if (sort.equals("default")) {
+            pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.ASC, "productId");
+
+        } else {
+            String sortBy[] = sort.split("_");
+            if (sortBy[1].equals("desc")) {
+                pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.DESC, sortBy[0]);
+            } else if (sortBy[1].equals("asc")) {
+                pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.ASC, sortBy[0]);
+            } 
+
+        }
+        if (keyword.equals("")) {
+            page = productDao.findAll(pgb);
+
+        } else {
+            page = productDao.findByName(keyword, pgb);
+        }
         return page;
+
     }
 
     @Override
@@ -123,6 +143,5 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
         product.setProductViews(product.getProductViews() + 1);
     }
 
-//    @Override
-//    public Page<Product>
+
 }
