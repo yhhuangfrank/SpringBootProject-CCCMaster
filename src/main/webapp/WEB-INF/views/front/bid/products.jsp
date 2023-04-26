@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Example</title>
+    <title>二手賣場</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -45,10 +45,10 @@
         <div class="container">
 
             <ol>
-                <li><a href="index.html">Home</a></li>
-                <li>About Us</li>
+                <li><a href="${contextRoot}/">首頁</a></li>
+                <li>二手賣場</li>
             </ol>
-            <h2>About Us</h2>
+            <h2>二手賣場</h2>
 
         </div>
     </section><!-- End Breadcrumbs -->
@@ -71,34 +71,7 @@
             </div>
 
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3" id="bidProductArea">
-<%--                <c:forEach items="${bidProducts}" var="b">--%>
-<%--                    <a href="http://localhost:8080" class="text-black my-2">--%>
-<%--                        <div class="card">--%>
-<%--                            <c:choose>--%>
-<%--                                <c:when test="${ b.image.startsWith('http') }">--%>
-<%--                                    <img src="${b.image}" class="card-img-top"--%>
-<%--                                         style="opacity: 0; transition: opacity 0.5s ease-in-out; height: 500px;"--%>
-<%--                                         onload="this.style.opacity='1';"--%>
-<%--                                         alt="BidProduct-image">--%>
-<%--                                </c:when>--%>
-<%--                                <c:otherwise>--%>
-<%--                                    <img src="${contextRoot}/${b.image}" class="card-img-top"--%>
-<%--                                         style="opacity: 0; transition: opacity 0.5s ease-in-out; height: 500px;"--%>
-<%--                                         onload="this.style.opacity='1';"--%>
-<%--                                         alt="BidProduct-image">--%>
-<%--                                </c:otherwise>--%>
-<%--                            </c:choose>--%>
-<%--                            <div class="card-body">--%>
-<%--                                <h5 class="card-title">${b.name}</h5>--%>
-<%--                                <div class="card-text">--%>
-<%--                                    <span class="badge bg-secondary text-white">目前價格</span>--%>
-<%--                                    <strong class="ms-2">${b.bidPrice}</strong>--%>
-<%--                                    <div class="mt-2">${b.description}</div>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </a>--%>
-<%--                </c:forEach>--%>
+                <%--使用 api 替換此區資料--%>
             </div>
 
         </div>

@@ -2,6 +2,7 @@ const bidProductArea = document.querySelector("#bidProductArea")
 const pagination = document.querySelector(".pagination")
 const categoryList = document.querySelector(".categoryList")
 const BASE_URL = "http://localhost:8080/api/bidProducts"
+const DEFAULT_SHOWING_PAGES = 5
 let currentPage = 1 // 預設在第一頁
 
 // 網頁載入時發起預設請求
@@ -106,7 +107,19 @@ function paginator(data) {
     if (empty) return
 
     currentPage = number + 1
+
+    let fromPage = currentPage - 1 <= 0 ? 1 : currentPage - 1
+    let untilPage = fromPage + DEFAULT_SHOWING_PAGES - 1
+
+    if (untilPage >= totalPages) {
+        untilPage = totalPages
+        fromPage = untilPage - DEFAULT_SHOWING_PAGES + 1 <= 0
+            ? 1
+            : untilPage - DEFAULT_SHOWING_PAGES + 1
+    }
+
     let html = ``;
+
     if (!first) {
         html += `
                 <li class="page-item">
@@ -117,7 +130,18 @@ function paginator(data) {
         `
     }
 
-    for (let i = 1; i <= totalPages; i += 1) {
+    // 當頁數超過設定數時，隱藏多餘分頁
+    if (totalPages > DEFAULT_SHOWING_PAGES) {
+        // 設定在第三頁後隱藏，並新增第一頁按鈕
+        if (currentPage > 3) {
+            html += `
+                <li class="page-item"><button class="page-link">1</button></li>
+                <li class="page-item"><button class="page-link disabled">...</button></li>
+            `
+        }
+    }
+
+    for (let i = fromPage; i <= untilPage; i += 1) {
         if (i === currentPage) {
             html += `
                 <li class="page-item active"><button class="page-link" style="cursor: text; background: #e96b56; border: 1px">${i}</button></li>
@@ -127,6 +151,21 @@ function paginator(data) {
         html += `
             <li class="page-item"><button class="page-link">${i}</button></li>
         `
+    }
+
+    // 當頁數超過設定數時，隱藏多餘分頁
+    if (totalPages > DEFAULT_SHOWING_PAGES) {
+        // 設定隱藏頁與新增最後頁按鈕
+        if (currentPage <= totalPages - DEFAULT_SHOWING_PAGES + 1) {
+            if (currentPage <= totalPages - DEFAULT_SHOWING_PAGES) {
+                html += `
+                    <li class="page-item"><button class="page-link disabled">...</button></li>
+                `
+            }
+            html += `
+                <li class="page-item"><button class="page-link">${totalPages}</button></li>
+            `
+        }
     }
 
     if (!last) {
