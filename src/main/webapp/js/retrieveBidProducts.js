@@ -80,7 +80,7 @@ function renderBidProducts(content) {
     for (let i = 0; i < content.length; i += 1) {
         const b = content[i]
         html += `
-                <a href="#" class="text-black my-2">
+                <a href="${BASE_URL}/${b.id}" class="text-black my-2">
                     <div class="card">
                                 <img src="${b.image}" class="card-img-top"
                                      style="opacity: 0; transition: opacity 0.5s ease-in-out; height: 18rem;"

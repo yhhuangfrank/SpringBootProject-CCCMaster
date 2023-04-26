@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>二手賣場</title>
+    <title>二手賣場-</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -48,41 +48,55 @@
                 <li><a href="${contextRoot}/">首頁</a></li>
                 <li>二手賣場</li>
             </ol>
-            <h2>二手賣場</h2>
+            <h2>商品詳情</h2>
 
         </div>
     </section><!-- End Breadcrumbs -->
 
-    <section id="portfolio" class="portfolio">
+    <section id="portfolio-details" class="portfolio-details">
         <div class="container">
 
-            <div class="row">
-                <div class="col-lg-12 d-flex justify-content-center">
-                    <ul id="portfolio-flters" class="categoryList">
-                        <li class="filter-active category" data-category="all">全部</li>
-                        <li class="category">手機</li>
-                        <li class="category">電腦</li>
-                        <li class="category">筆記型電腦</li>
-                        <li class="category">滑鼠</li>
-                        <li class="category">鍵盤</li>
-                    </ul>
-                </div>
-            </div>
+            <div class="row gy-4">
 
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3" id="bidProductArea">
-                <%--使用 api 替換此區資料--%>
+                <div class="col-lg-8">
+                    <div class="portfolio-details-slider swiper">
+                        <div class="swiper-wrapper align-items-center">
+
+                            <div class="swiper-slide">
+                                <img src="${bidProduct.image}" alt="BidProduct-image" style="height: 50rem; width: 50rem">
+                            </div>
+
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="portfolio-info">
+                        <h3>商品詳情</h3>
+                        <ul>
+                            <li><strong class="fs-6 badge bg-secondary text-white">種類</strong><span class="fs-6 ms-2">${bidProduct.category.name}</span></li>
+                            <li><strong class="fs-6 badge bg-secondary text-white">名稱</strong><span class="fs-6 ms-2">${bidProduct.name}</span></li>
+                            <li><strong class="fs-6 badge bg-secondary text-white">起始時間</strong><span class="fs-6 ms-2">${bidProduct.createdAt}</span></li>
+                            <li><strong class="fs-6 badge bg-secondary text-white">結束時間</strong><span class="fs-6 ms-2">01 March, 2020</span> </li>
+                            <li><strong class="fs-6 badge bg-secondary text-white">底價</strong><span class="fs-6 ms-2">${bidProduct.basePrice}</span></li>
+                            <li><strong class="fs-6 badge bg-secondary text-white">目前價格</strong><span class="fs-6 ms-2">${bidProduct.bidPrice}</span></li>
+                        </ul>
+                        <button class="btn btn-outline-dark">點我下標</button>
+                    </div>
+                    <div class="portfolio-description">
+                        <h2>賣家: 某某某</h2>
+                        <h4>關於此商品</h4>
+                        <p>${bidProduct.description}</p>
+                    </div>
+                </div>
+
             </div>
 
         </div>
-        <%--  Pagination   --%>
-        <nav aria-label="Page navigation example" class="mt-4">
-            <ul class="pagination justify-content-center align-items-center my-0">
-            </ul>
-        </nav>
-    </section>
+    </section><!-- End Portfolio Details Section -->
 
-
-</main><!-- End #main -->
+</main>
 
 <jsp:include page="../layouts/footer.jsp"/>
 
@@ -97,9 +111,8 @@
 <script src="${contextRoot}/styles/front/assets/vendor/php-email-form/validate.js"></script>
 <!-- Template Main JS File -->
 <script src="${contextRoot}/styles/front/assets/js/main.js"></script>
-<%-- axios 與自訂 JS --%>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.6/axios.min.js"></script>
-<script src="${contextRoot}/js/retrieveBidProducts.js"></script>
+<%-- 自訂 JS --%>
+
 </body>
 
 </html>
