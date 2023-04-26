@@ -37,6 +37,8 @@
     <%--    自己加的--%>
     <!-- Bootstrap icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <%--axios--%>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <%--    自己加的--%>
 
     <!-- Template Main CSS File -->
@@ -70,8 +72,8 @@
             <h3 class="sidebar-title">Search</h3>
             <div class="sidebar-item search-form">
                 <form action="${contextRoot}/front/product/search" method="get">
-                    <input type="text" name="productName">
-                    <button type="submit"><i class="bi bi-search"></i></button>
+                    <input type="text" name="productName" id="productName">
+                    <button id="searchBtn" type="submit"><i class="bi bi-search"></i></button>
                 </form>
             </div><!-- End sidebar search formn-->
 
@@ -124,7 +126,8 @@
             <c:forEach var="pageNumber" begin="1" end="${page.totalPages}">
                 <c:choose>
                     <c:when test="${page.number != pageNumber-1 }">
-                        <a href="${contextRoot}/front/product?p=${pageNumber}">${pageNumber}</a>
+<%--                        <a href="${contextRoot}/front/product/search?keyword=${}&productName=${}">${pageNumber}</a>--%>
+                        <a href="${contextRoot}/front/product/all/${pageNumber}">${pageNumber}</a>
                     </c:when>
                     <c:otherwise>
                         ${pageNumber}
@@ -141,33 +144,33 @@
         </div>
     </section><!-- End Portfolio Section -->
 
-    <!-- ======= Clients Section ======= -->
-    <section id="clients" class="clients">
-        <div class="container">
+<%--    <!-- ======= Clients Section ======= -->--%>
+<%--    <section id="clients" class="clients">--%>
+<%--        <div class="container">--%>
 
-            <div class="section-title">
-                <h2>Clients</h2>
-                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
-                    consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia
-                    fugiat sit in iste officiis commodi quidem hic quas.</p>
-            </div>
+<%--            <div class="section-title">--%>
+<%--                <h2>Clients</h2>--%>
+<%--                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint--%>
+<%--                    consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia--%>
+<%--                    fugiat sit in iste officiis commodi quidem hic quas.</p>--%>
+<%--            </div>--%>
 
-            <div class="clients-slider swiper">
-                <div class="swiper-wrapper align-items-center">
-                    <div class="swiper-slide"><img src="assets/img/clients/client-1.png" class="img-fluid" alt=""></div>
-                    <div class="swiper-slide"><img src="assets/img/clients/client-2.png" class="img-fluid" alt=""></div>
-                    <div class="swiper-slide"><img src="assets/img/clients/client-3.png" class="img-fluid" alt=""></div>
-                    <div class="swiper-slide"><img src="assets/img/clients/client-4.png" class="img-fluid" alt=""></div>
-                    <div class="swiper-slide"><img src="assets/img/clients/client-5.png" class="img-fluid" alt=""></div>
-                    <div class="swiper-slide"><img src="assets/img/clients/client-6.png" class="img-fluid" alt=""></div>
-                    <div class="swiper-slide"><img src="assets/img/clients/client-7.png" class="img-fluid" alt=""></div>
-                    <div class="swiper-slide"><img src="assets/img/clients/client-8.png" class="img-fluid" alt=""></div>
-                </div>
-                <div class="swiper-pagination"></div>
-            </div>
+<%--            <div class="clients-slider swiper">--%>
+<%--                <div class="swiper-wrapper align-items-center">--%>
+<%--                    <div class="swiper-slide"><img src="assets/img/clients/client-1.png" class="img-fluid" alt=""></div>--%>
+<%--                    <div class="swiper-slide"><img src="assets/img/clients/client-2.png" class="img-fluid" alt=""></div>--%>
+<%--                    <div class="swiper-slide"><img src="assets/img/clients/client-3.png" class="img-fluid" alt=""></div>--%>
+<%--                    <div class="swiper-slide"><img src="assets/img/clients/client-4.png" class="img-fluid" alt=""></div>--%>
+<%--                    <div class="swiper-slide"><img src="assets/img/clients/client-5.png" class="img-fluid" alt=""></div>--%>
+<%--                    <div class="swiper-slide"><img src="assets/img/clients/client-6.png" class="img-fluid" alt=""></div>--%>
+<%--                    <div class="swiper-slide"><img src="assets/img/clients/client-7.png" class="img-fluid" alt=""></div>--%>
+<%--                    <div class="swiper-slide"><img src="assets/img/clients/client-8.png" class="img-fluid" alt=""></div>--%>
+<%--                </div>--%>
+<%--                <div class="swiper-pagination"></div>--%>
+<%--            </div>--%>
 
-        </div>
-    </section><!-- End Clients Section -->
+<%--        </div>--%>
+<%--    </section><!-- End Clients Section -->--%>
 
 </main><!-- End #main -->
 
@@ -186,7 +189,22 @@
 <script src="${contextRoot}/styles/front/assets/vendor/php-email-form/validate.js"></script>
 <!-- Template Main JS File -->
 <script src="${contextRoot}/styles/front/assets/js/main.js"></script>
+<%--Ajax--%>
 
+<script>
+    <%--const searchBtn = document.getElementById('searchBtn');--%>
+    <%--const productNameInput = document.getElementById('productName');--%>
+    <%--searchBtn.addEventListener('click', () => {--%>
+    <%--    const productName = productNameInput.value;--%>
+    <%--    axios.get(`/api/data?productName=${product.productName}`)--%>
+    <%--        .then((response) => {--%>
+    <%--            console.log(response.data);--%>
+    <%--        })--%>
+    <%--        .catch((error) => {--%>
+    <%--            console.log(error);--%>
+    <%--        });--%>
+    <%--});--%>
+</script>
 </body>
 
 </html>
