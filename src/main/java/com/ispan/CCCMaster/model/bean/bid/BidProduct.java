@@ -22,7 +22,7 @@ public class BidProduct {
     @Column(name = "bid_price", nullable = false)
     private Integer bidPrice;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name = "category_id", nullable = false, foreignKey = @ForeignKey(name = "BidProduct_Category"))
     private Category category;
 
@@ -117,14 +117,6 @@ public class BidProduct {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public void addCategory(String name) {
-        if (this.category != null) return;
-
-        Category newCategory = new Category();
-        newCategory.setName(name);
-        this.setCategory(newCategory);
     }
 
     @Override
