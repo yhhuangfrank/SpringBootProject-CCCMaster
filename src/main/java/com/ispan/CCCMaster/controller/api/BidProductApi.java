@@ -41,6 +41,12 @@ public class BidProductApi {
             @RequestParam(defaultValue = "3") @Min(0) Integer limit
     ) {
 
+        System.out.println("接收到的參數為=======================");
+        System.out.println("page " + page);
+        System.out.println("categoryName " + categoryName);
+        System.out.println("orderBy " + orderBy);
+        System.out.println("sort " + sort);
+
         // 設定參數傳遞物件
         BidProductQueryParams queryParams = new BidProductQueryParams();
         queryParams.setCategoryName(categoryName);

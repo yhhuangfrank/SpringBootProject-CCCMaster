@@ -100,9 +100,12 @@
             </div>
 
         </div>
+        <%--  Pagination   --%>
+        <nav aria-label="Page navigation example" class="mt-4">
+            <ul class="pagination justify-content-center align-items-center my-0">
+            </ul>
+        </nav>
     </section><!-- End Portfolio Section -->
-
-    <!-- ======= Testimonials Section ======= -->
 
 
 </main><!-- End #main -->
