@@ -19,13 +19,8 @@ import java.util.Map;
 public class ProductsController {
     @Autowired
     private ProductService pService;
-//    @Autowired
-//    private CrawlerService cService;
     @Autowired
     private CategoryService categoryService;
-
-
-
 
 
     @GetMapping("/front/product/details/{id}")
@@ -41,23 +36,22 @@ public class ProductsController {
     @ResponseBody
     @GetMapping("/front/product/list")
     public Map<String, Object> searchProductNameApi(@RequestParam(name = "keyword", required = false) String keyword,
-                                                    @RequestParam(name = "page", defaultValue = "1") Integer pageNum) {
+                                                    @RequestParam(name = "page", defaultValue = "1") Integer pageNum,
+                                                    @RequestParam(name = "sort", defaultValue = "default") String sort) {
+        System.out.println(sort);
         Page<Product> products;
         Map<String, Object> response = new HashMap<>();
         System.out.println("enter searchProductNameApi");
         System.out.println(pageNum);
         System.out.println(keyword);
-        if (keyword == null) {
-            products = pService.findByPageSortByPrice(pageNum);
-        } else {
-            products = pService.findByPageSearchByNameSortByPrice(pageNum, keyword);
-        }
+        products=pService.findByPageAjax(pageNum,keyword,sort);
         response.put("pageNum", pageNum);
-        response.put("keyword",keyword);
+        response.put("keyword", keyword);
         response.put("products", products);
 
         return response;
     }
+
     @GetMapping("/front/product")
     public String defaultProductPage(Model model) {
         System.out.println("enter defaultProductPage");
