@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html lang="en">
 
 <head>
@@ -104,6 +105,13 @@
                             <li><strong>Project date</strong>: 01 March, 2020</li>
                             <li><strong>價格</strong>: ${product.price}</li>
                             <li><strong>庫存量</strong>: ${product.inventory}</li>
+                            <li>
+                            	<form:form method="post" modelAttribute="sc" action="${contextRoot}/ShoppingCarts/create">
+                            	<form:form method="post" modelAttribute="scd" action="${contextRoot}/ShoppingCarts/create">
+			                    	<button type="submit" class="btn btn-primary">加入購物車</button>
+	                    		</form:form>
+	                    		</form:form>
+							</li>
                         </ul>
                     </div>
                     <div class="portfolio-description">

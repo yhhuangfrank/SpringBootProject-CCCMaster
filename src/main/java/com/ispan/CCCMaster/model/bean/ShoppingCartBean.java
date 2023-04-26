@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -44,6 +45,17 @@ public class ShoppingCartBean implements Serializable {
 	@OneToMany(mappedBy = "shoppingcartbean",cascade=CascadeType.ALL)
 	Set<ShoppingCartDetailBean> scd = new HashSet<>();
 	
+	@PrePersist
+	public void onCreate() {
+		if(settime  == null) {
+			settime = new Date();
+		}
+	}
+	
+	public ShoppingCartBean() {
+		
+	}
+	
 	public ShoppingCartBean(String shoppoingCartId, Date settime, Integer isCheckout, Set<ShoppingCartDetailBean> scd) {
 		this.shoppoingCartId = shoppoingCartId;
 		this.settime = settime;
@@ -73,6 +85,10 @@ public class ShoppingCartBean implements Serializable {
 
 	public void setIsCheckout(Integer isCheckout) {
 		this.isCheckout = isCheckout;
+	}
+
+	public Customers getCbShoppingCart() {
+		return cbShoppingCart;
 	}
 	
 	
