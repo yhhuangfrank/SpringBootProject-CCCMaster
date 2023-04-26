@@ -33,11 +33,9 @@ pagination.addEventListener("click", async (e) => {
         }
 
         // 向 api 請求攜帶的參數
-        const config = {
-            params: {
-                page: goToPage
-            }
-        }
+        const params = getCurrentQueryParams()
+        params.page = goToPage
+        const config = {params}
 
         const response = await axios.get(BASE_URL, config)
         const {data} = response
@@ -52,22 +50,17 @@ pagination.addEventListener("click", async (e) => {
 categoryList.addEventListener("click", async (e) => {
     try {
         const {target} = e
+        const isActive = target.classList.contains("filter-active")
 
-        if (target.tagName !== "LI" ||
-            target.classList.contains("filter-active")) return
+        // 若是點擊到非篩選區域或已經是篩選中類別則取消事件
+        if (target.tagName !== "LI" || isActive) return
 
         let categoryName = target.textContent // 取得類別名
         updateCategoryListStyle(categoryName)
 
-        // 選擇全部類別
-        if(target.dataset.category === "all") {
-            categoryName = null
-        }
-
-        // 送出請求
-        const config = {
-            params: {categoryName}
-        }
+        // 向 api 請求攜帶的參數
+        const params = getCurrentQueryParams()
+        const config = {params}
         const response = await axios(BASE_URL, config)
         const {data} = response
         renderBidProducts(data.content)
@@ -155,12 +148,29 @@ function updateCategoryListStyle(categoryName) {
 
     for (let i = 0; i < categories.length; i += 1) {
         const element = categories[i]
-        if (element.classList.contains("filter-active") &&
-            element.textContent !== categoryName) {
+        const isActive = element.classList.contains("filter-active")
+        const isSelected = element.textContent === categoryName
+        if (isActive && !isSelected) {
             element.classList.remove("filter-active")
         }
-        if (element.textContent === categoryName) {
+        if (isSelected) {
             element.classList.add("filter-active")
         }
     }
+}
+
+function getCurrentQueryParams() {
+    const categories = categoryList.children
+    const param = {}
+
+    for (let i = 0; i < categories.length; i += 1) {
+        const category = categories[i]
+        const isActive = category.classList.contains("filter-active")
+        if (category.dataset.category === "all" && isActive) return param
+        if (isActive) {
+            param.categoryName = category.textContent
+        }
+    }
+
+    return param
 }
