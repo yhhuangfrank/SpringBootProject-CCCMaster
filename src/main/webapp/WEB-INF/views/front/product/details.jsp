@@ -100,6 +100,7 @@
                     <div class="portfolio-info">
                         <h3>產品資訊</h3>
                         <ul>
+                        
                             <li><strong>產品名稱</strong>: ${product.productName}</li>
                             <li><strong>類別</strong>: ASU Company</li>
                             <li><strong>Project date</strong>: 01 March, 2020</li>
@@ -122,14 +123,11 @@
                             <%--                                <button id="increment" type="button">+</button>--%>
                             <%--                            </li>--%>
                             <li>
-                                <form:form method="post" modelAttribute="sc"
-                                           action="${contextRoot}/ShoppingCarts/create">
-                                    <form:form method="post" modelAttribute="scd"
-                                               action="${contextRoot}/ShoppingCarts/create">
-                                        <button type="submit" class="btn btn-primary">加入購物車</button>
-                                    </form:form>
-                                </form:form>
-                            </li>
+                                <form:form method="post" modelAttribute="sc" action="${contextRoot}/shoppingcarts/create">
+                            		<input name="productId" value="${product.productId}"type="hidden">                          	
+			                    	<button type="submit" class="btn btn-danger"><i class="bi bi-cart3"></i>&nbsp;加入購物車</button>	                    		
+	                    		</form:form>
+							</li>
                         </ul>
                     </div>
                     <div class="portfolio-description">

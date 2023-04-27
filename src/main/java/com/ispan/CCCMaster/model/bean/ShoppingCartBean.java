@@ -19,6 +19,8 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.ispan.CCCMaster.model.bean.weihsiang.Product;
+
 @Entity
 @Table(name="ShoppingCart")
 public class ShoppingCartBean implements Serializable {
@@ -28,22 +30,23 @@ public class ShoppingCartBean implements Serializable {
 	@Column(name="shoppoing_cart_id")
 	private String shoppoingCartId;
 	
+	@Column(name="quantity")
+	private Integer quantity;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "settime", columnDefinition = "datetime", nullable = false)
 	private Date settime;
 	
-	@Column(name="is_Checkout")
-	private Integer isCheckout;
+	//雙向多對一
+	@ManyToOne(cascade=CascadeType.PERSIST)
+	@JoinColumn(name="product_id")
+	private Product productBean;	
 	
 	//雙向多對一	
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="customer_id")
 	private Customers cbShoppingCart;
-	
-	//雙向一對多	
-	@OneToMany(mappedBy = "shoppingcartbean",cascade=CascadeType.ALL)
-	Set<ShoppingCartDetailBean> scd = new HashSet<>();
 	
 	@PrePersist
 	public void onCreate() {
@@ -55,12 +58,14 @@ public class ShoppingCartBean implements Serializable {
 	public ShoppingCartBean() {
 		
 	}
-	
-	public ShoppingCartBean(String shoppoingCartId, Date settime, Integer isCheckout, Set<ShoppingCartDetailBean> scd) {
+
+	public ShoppingCartBean(String shoppoingCartId, Integer quantity, Date settime, Product productBean,
+			Customers cbShoppingCart) {
 		this.shoppoingCartId = shoppoingCartId;
+		this.quantity = quantity;
 		this.settime = settime;
-		this.isCheckout = isCheckout;
-		this.scd = scd;
+		this.productBean = productBean;
+		this.cbShoppingCart = cbShoppingCart;
 	}
 
 	public String getShoppoingCartId() {
@@ -71,6 +76,14 @@ public class ShoppingCartBean implements Serializable {
 		this.shoppoingCartId = shoppoingCartId;
 	}
 
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
 	public Date getSettime() {
 		return settime;
 	}
@@ -79,18 +92,20 @@ public class ShoppingCartBean implements Serializable {
 		this.settime = settime;
 	}
 
-	public Integer getIsCheckout() {
-		return isCheckout;
-	}
-
-	public void setIsCheckout(Integer isCheckout) {
-		this.isCheckout = isCheckout;
+	public Product getProductBean() {
+		return productBean;
 	}
 
 	public Customers getCbShoppingCart() {
 		return cbShoppingCart;
 	}
-	
-	
 
+	public void setProductBean(Product productBean) {
+		this.productBean = productBean;
+	}
+
+	public void setCbShoppingCart(Customers cbShoppingCart) {
+		this.cbShoppingCart = cbShoppingCart;
+	}	
+	
 }
