@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ispan.CCCMaster.model.bean.Customers;
+import com.ispan.CCCMaster.model.bean.Customer;
 import com.ispan.CCCMaster.model.bean.ShoppingCartBean;
 import com.ispan.CCCMaster.model.bean.weihsiang.Product;
 import com.ispan.CCCMaster.model.dao.ProductDao;

@@ -20,7 +20,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "Customers")
-public class Customers {
+public class Customer {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,10 +51,10 @@ public class Customers {
 	private Integer abandonCount;
 	
 	@OneToMany(mappedBy = "customers", cascade = CascadeType.ALL)
-	private Set<CustomerCoupons> customerCoupons = new HashSet<>();
+	private Set<CustomerCoupon> customerCoupons = new HashSet<>();
 	
 	@OneToMany(mappedBy = "customers", cascade = CascadeType.ALL)
-	private Set<CustomerFavorites> customerFavorites = new HashSet<>();
+	private Set<CustomerFavorite> customerFavorites = new HashSet<>();
 	
 	@OneToMany(mappedBy = "customers", cascade = CascadeType.ALL)
 	private Set<CustomerBrowsingHistory> customerBrowsingHistory = new HashSet<>();
@@ -66,7 +66,7 @@ public class Customers {
 	@OneToMany(mappedBy="cbShoppingCart")
 	Set<ShoppingCartBean> set = new HashSet<>();
 	
-	public Customers() {
+	public Customer() {
 	}
 
 	public Integer getId() {
