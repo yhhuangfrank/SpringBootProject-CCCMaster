@@ -18,7 +18,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "CustomerCoupons")
-public class CustomerCoupons {
+public class CustomerCoupon {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,7 @@ public class CustomerCoupons {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "customer_id")
-	private Customers customers;
+	private Customer customers;
 	
 	@Column(name = "coupon_id", columnDefinition = "nchar(36)")
 	private String couponId;
@@ -43,7 +43,7 @@ public class CustomerCoupons {
 	@Column(name = "unavailable_reason", columnDefinition = "char(1)")
 	private String unavailableReason;
 
-	public CustomerCoupons() {
+	public CustomerCoupon() {
 	}
 
 	public Integer getId() {
@@ -86,11 +86,11 @@ public class CustomerCoupons {
 		this.unavailableReason = unavailableReason;
 	}
 
-	public Customers getCustomers() {
+	public Customer getCustomers() {
 		return customers;
 	}
 
-	public void setCustomers(Customers customers) {
+	public void setCustomers(Customer customers) {
 		this.customers = customers;
 	}
 

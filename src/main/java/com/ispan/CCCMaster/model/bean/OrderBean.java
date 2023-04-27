@@ -65,7 +65,7 @@ public class OrderBean implements Serializable {
 	//雙向多對一
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="customer_id")
-	private Customers cbOrder;
+	private Customer cbOrder;
 	
 	//對訂單明細:一對多  
 	@OneToMany(mappedBy="orderBean",cascade=CascadeType.ALL)
@@ -73,7 +73,7 @@ public class OrderBean implements Serializable {
 	
 	public OrderBean(String orderid, Integer freight, Integer pointsdiscount, String couponid, Date orderdate,
 			String arrivaldate, String shipper, String shipperaddress, String payment, String ordercondition,
-			String paymentcondition, Customers cbOrder) {
+			String paymentcondition, Customer cbOrder) {
 		this.orderid = orderid;
 		this.freight = freight;
 		this.pointsdiscount = pointsdiscount;
@@ -179,11 +179,11 @@ public class OrderBean implements Serializable {
 		this.paymentcondition = paymentcondition;
 	}
 
-	public Customers getCbOrder() {
+	public Customer getCbOrder() {
 		return cbOrder;
 	}
 
-	public void setCbOrder(Customers cbOrder) {
+	public void setCbOrder(Customer cbOrder) {
 		this.cbOrder = cbOrder;
 	}
 

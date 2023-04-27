@@ -2,12 +2,12 @@ package com.ispan.CCCMaster.service;
 
 import java.util.List;
 
-import com.ispan.CCCMaster.model.bean.Positions;
+import com.ispan.CCCMaster.model.bean.Position;
 
 public interface PositionService {
 
-	void createPosition(Positions pst);
+	void createPosition(Position pst);
 
-	List<Positions> findAll();
+	List<Position> findAll();
 
 }

@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Positions")
-public class Positions {
+public class Position {
 	
 	@Id
 	@Column(name = "position_id")
@@ -22,9 +22,9 @@ public class Positions {
 	private String positionName;
 	
 	@OneToMany(mappedBy = "positions", cascade = CascadeType.ALL)
-	private Set<Employees> employees = new HashSet<>();
+	private Set<Employee> employees = new HashSet<>();
 
-	public Positions() {
+	public Position() {
 	}
 
 	public Integer getPositionId() {

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.ispan.CCCMaster.model.bean.Customers;
+import com.ispan.CCCMaster.model.bean.Customer;
 import com.ispan.CCCMaster.model.bean.ShoppingCartBean;
 
 public interface ShoppingCartDao  extends JpaRepository<ShoppingCartBean, String>{
@@ -14,6 +14,6 @@ public interface ShoppingCartDao  extends JpaRepository<ShoppingCartBean, String
 //	public void addCIdToSC(@Param(value="id") Integer id);
 	
 	@Query(value="select * from ShoppingCart as sc where sc.customer_id= :id",nativeQuery = true)
-	public List<ShoppingCartBean> findByCid(@Param(value="id") Customers c);
+	public List<ShoppingCartBean> findByCid(@Param(value="id") Customer c);
 
 }

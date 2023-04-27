@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ispan.CCCMaster.model.bean.Positions;
+import com.ispan.CCCMaster.model.bean.Position;
 import com.ispan.CCCMaster.model.dao.PositionRepository;
 import com.ispan.CCCMaster.service.PositionService;
 
@@ -15,13 +15,13 @@ public class PositionServiceImpl implements PositionService {
 	private PositionRepository pstRepository;
 	
 	@Override
-	public void createPosition(Positions pst) {
+	public void createPosition(Position pst) {
 		pstRepository.save(pst);
 	}
 	
 	@Override
-	public List<Positions> findAll(){
-		List<Positions> positions = pstRepository.findAll();
+	public List<Position> findAll(){
+		List<Position> positions = pstRepository.findAll();
 		return positions;
 	}
 

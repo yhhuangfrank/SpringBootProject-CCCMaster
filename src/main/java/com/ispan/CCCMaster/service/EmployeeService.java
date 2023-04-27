@@ -1,9 +1,9 @@
 package com.ispan.CCCMaster.service;
 
-import com.ispan.CCCMaster.model.bean.Employees;
+import com.ispan.CCCMaster.model.bean.Employee;
 
 public interface EmployeeService {
 
-	void createEmployee(Employees epy);
+	void createEmployee(Employee epy);
 
 }
