@@ -25,7 +25,7 @@ public class OrderController {
 
 	
 	//訂單列表	
-	@GetMapping("/Orders")
+	@GetMapping("/orders")
 	public String findAllOrder(Model model) {
 		List<OrderBean> list = oService.findOrders();
 		List<OrderDetailBean> list2 = oService.findOrder();
@@ -35,7 +35,7 @@ public class OrderController {
 	}
 	
 	//單筆訂單
-	@GetMapping("/Orders/editOrder")
+	@GetMapping("/orders/editorder")
 	public String findOrderById(@RequestParam("id") String orderid,Model model) {
 		OrderBean ob= oService.findOrderByid(orderid);
 		List<OrderDetailBean> list = oService.findOrder();
@@ -45,13 +45,13 @@ public class OrderController {
 	}
 	
 	//修改訂單
-	@PutMapping("/Orders/edit")
+	@PutMapping("/orders/edit")
 	public String editOrderById(@ModelAttribute("singleorder")OrderBean orderBean) {
 		try {
 			oService.updateById(orderBean);
 		}catch(IOException e) {
           e.printStackTrace();
        }
-		return "redirect:/Orders";
+		return "redirect:/orders";
 	}
 }

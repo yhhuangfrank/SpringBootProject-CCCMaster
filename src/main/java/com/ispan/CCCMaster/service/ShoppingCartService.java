@@ -1,15 +1,17 @@
 package com.ispan.CCCMaster.service;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ispan.CCCMaster.model.bean.Customers;
 import com.ispan.CCCMaster.model.bean.ShoppingCartBean;
-import com.ispan.CCCMaster.model.bean.ShoppingCartDetailBean;
 import com.ispan.CCCMaster.model.bean.weihsiang.Product;
+import com.ispan.CCCMaster.model.dao.ProductDao;
 import com.ispan.CCCMaster.model.dao.ShoppingCartDao;
-import com.ispan.CCCMaster.model.dao.ShoppingCartDetailDao;
 
 @Service
 public class ShoppingCartService {
@@ -18,22 +20,30 @@ public class ShoppingCartService {
 	private ShoppingCartDao scDao;
 	
 	@Autowired
-	private ShoppingCartDetailDao scdDao;
+	private ProductDao pDao;
+	
 	
 	//購物車建立
-	public void createShoppingCart(ShoppingCartBean sc) {
+	public void createShoppingCart(ShoppingCartBean sc,Integer productId) {
+		Optional<Product> pOption= pDao.findById(productId);
+		Product p = pOption.get();
+		sc.setProductBean(p);
 		Date date = new Date();
 		String dateString = String.valueOf(date.getTime());
 		sc.setShoppoingCartId(dateString);
-		sc.setIsCheckout(0);
 //		scDao.addCIdToSC(sc.getCbShoppingCart().getId());
 		scDao.save(sc);
 	}
-	//購物車明細建立
-	public void createShoppingCartDetail(ShoppingCartDetailBean scd) {
-		scd.setSCDquantity(1);
-//		scdDao.addPIdToSCD(scd.getProductBean().getProductId());
-		scdDao.save(scd);
+	//查詢購物車
+//	public List<ShoppingCartBean> findShoppingCartByCid(Customers c) {
+//		List<ShoppingCartBean> list = scDao.findByCid(c);
+//		 return list;
+//	}
+
+	public List<ShoppingCartBean> findtest(){
+		return scDao.findAll();
 	}
+	
+	
 
 }

@@ -36,7 +36,7 @@
             <li><a href="team.html">論壇</a></li>
             <li><a href="pricing.html">聯絡客服</a></li>
             <li><a href="blog.html">會員中心</a></li>
-            <li><a href="index.html">購物車</a></li>
+            <li><a href="${contextRoot}/front/shoppingcart">購物車</a></li>
             <li><a href="index.html">註冊</a></li>
             <li><a href="index.html">登入</a></li>
           </ul>
