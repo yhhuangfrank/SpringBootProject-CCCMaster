@@ -29,26 +29,20 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
     @Override
     public void createProduct(Product product, String categoryName) throws IOException {
         Category category = categoryDao.findCategoryByName(categoryName);
-        if(category!=null){
+        if (category != null) {
             product.setCategory(category);
-        }else {
-            Category newCategory=new Category();
+        } else {
+            Category newCategory = new Category();
             newCategory.setName(categoryName);
             product.setCategory(newCategory);
         }
-    if(product.getImageFile()!=null){
-        product.setImage(product.getImageFile().getBytes());
-    }
+        if (product.getImageFile() != null) {
+            product.setImage(product.getImageFile().getBytes());
+        }
 
         productDao.save(product);
     }
 
-    @Override
-    public String convertToBase64(MultipartFile imageFile) throws IOException {
-        byte[] bytes = imageFile.getBytes();
-        String base64 = Base64.getEncoder().encodeToString(bytes);
-        return base64;
-    }
 
     @Override
     public Page<Product> findByPage(Integer pageNumber) {
@@ -57,18 +51,44 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
         return page;
     }
 
-    @Override
-    public Page<Product> findByPageSortByPrice(Integer pageNumber) {
-        Pageable pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.DESC, "price");
-        Page<Product> page = productDao.findAll(pgb);
-        return page;
-    }
+//    @Override
+//    public Page<Product> findByPageSortByPrice(Integer pageNumber) {
+//        Pageable pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.DESC, "price");
+//        Page<Product> page = productDao.findAll(pgb);
+//        return page;
+//    }
+
+//    @Override
+//    public Page<Product> findByPageSearchByNameSortByPrice(Integer pageNumber, String productName) {
+//        Pageable pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.DESC, "price");
+//        Page<Product> page = productDao.findByName(productName, pgb);
+//        return page;
+//    }
 
     @Override
-    public Page<Product> findByPageSearchByNameSortByPrice(Integer pageNumber,String productName) {
-        Pageable pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.DESC, "price");
-        Page<Product> page = productDao.findByName(productName,pgb);
+    public Page<Product> findByPageAjax(Integer pageNumber, String keyword, String sort) {
+        Pageable pgb = null;
+        Page<Product> page;
+        if (sort.equals("default")) {
+            pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.ASC, "productId");
+
+        } else {
+            String sortBy[] = sort.split("_");
+            if (sortBy[1].equals("desc")) {
+                pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.DESC, sortBy[0]);
+            } else if (sortBy[1].equals("asc")) {
+                pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.ASC, sortBy[0]);
+            } 
+
+        }
+        if (keyword.equals("")) {
+            page = productDao.findAll(pgb);
+
+        } else {
+            page = productDao.findByName(keyword, pgb);
+        }
         return page;
+
     }
 
     @Override
@@ -106,19 +126,22 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
             if (!product.getImageFile().isEmpty()) {//如果更新的圖片不為空
                 oldProduct.setImage(product.getImageFile().getBytes());
             }
-            if(categoryDao.findCategoryByName(categoryName)!=null){
+            if (categoryDao.findCategoryByName(categoryName) != null) {
                 oldProduct.setCategory(categoryDao.findCategoryByName(categoryName));
-            }else {
-                Category newCategory=new Category();
+            } else {
+                Category newCategory = new Category();
                 newCategory.setName(categoryName);
                 oldProduct.setCategory(newCategory);
             }
         }
     }
+
     @Transactional
     @Override
-    public void productViews(Integer id){
-      Product product=findProductById(id);
-    product.setProductViews(product.getProductViews()+1);
+    public void productViews(Integer id) {
+        Product product = findProductById(id);
+        product.setProductViews(product.getProductViews() + 1);
     }
+
+
 }

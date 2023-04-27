@@ -54,7 +54,7 @@
                         <h5 class="card-title text-center fw-bold">新增二手商品</h5>
 
                         <!-- General Form Elements -->
-                        <form:form modelAttribute="bidProductRequest" method="POST" action="${contextRoot}/bidProducts" enctype="multipart/form-data">
+                        <form:form modelAttribute="bidProductRequest" method="POST" action="${contextRoot}/admin/bidProducts" enctype="multipart/form-data">
                             <!-- 印出錯誤訊息 -->
                             <c:if test="${isErrorExist}">
                                 <c:forEach items="${errors}" var="error">
@@ -132,8 +132,6 @@
 <jsp:include page="../layouts/aside.jsp"/>
 
 <jsp:include page="../layouts/footer.jsp"/>
-
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 <!-- Vendor JS Files -->
 <script src="${contextRoot}/styles/back/assets/vendor/apexcharts/apexcharts.min.js"></script>

@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.controller;
+package com.ispan.CCCMaster.controller.admin;
 
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.bid.Category;
@@ -18,7 +18,8 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-public class BidProductController {
+@RequestMapping("/admin")
+public class AdminBidProductController {
 
     private final BidProductService bidProductService;
 
@@ -27,9 +28,9 @@ public class BidProductController {
     private final BidProductValidator bidProductValidator;
 
     @Autowired
-    public BidProductController(BidProductService bidProductService,
-                                CategoryService categoryService,
-                                BidProductValidator bidProductValidator) {
+    public AdminBidProductController(BidProductService bidProductService,
+                                     CategoryService categoryService,
+                                     BidProductValidator bidProductValidator) {
         this.bidProductService = bidProductService;
         this.categoryService = categoryService;
         this.bidProductValidator = bidProductValidator;
@@ -75,11 +76,11 @@ public class BidProductController {
     @GetMapping("/bidProducts")
     public String getAllBidProducts(Model model) {
 
-//        List<BidProduct> bidProducts = bidProductService.findAllBidProducts();
+        List<BidProduct> bidProducts = bidProductService.findAllBidProducts();
 
-//        model.addAttribute("bidProducts", bidProducts);
+        model.addAttribute("bidProducts", bidProducts);
 
-        return "/front/bid/products";
+        return "/back/bid/products";
     }
 
     @GetMapping("/bidProducts/{id}/edit")

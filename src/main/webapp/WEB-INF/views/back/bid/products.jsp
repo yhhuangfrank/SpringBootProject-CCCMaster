@@ -50,7 +50,7 @@
         <div class="row align-items-top">
             <div class="col-lg-8 mx-auto">
                 <%-- 顯示訊息 --%>
-                <jsp:include page="../layouts/message.jsp"/>
+                <jsp:include page="../../message.jsp"/>
                 <%-- 顯示商品 --%>
                 <c:forEach items="${bidProducts}" var="b">
                     <div class="card mb-3">
@@ -77,7 +77,7 @@
                                             class="badge fw-bold bg-success text-white">品名</span> ${b.name}</h5>
                                     <p class="card-text">${b.description}</p>
                                     <div>
-                                        <a href="${contextRoot}/bidProducts/${b.id}/edit" class="btn btn-outline-info">修改</a>
+                                        <a href="${contextRoot}/admin/bidProducts/${b.id}/edit" class="btn btn-outline-info">修改</a>
                                         <button class="btn btn-outline-danger" style="display: inline"
                                                 data-bs-toggle="modal" data-bs-target="#modal-${b.id}">刪除
                                         </button>
@@ -97,8 +97,6 @@
 
 <jsp:include page="../layouts/footer.jsp"/>
 
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-        class="bi bi-arrow-up-short"></i></a>
 
 <%-- Modals --%>
 <c:forEach items="${bidProducts}" var="b">
@@ -114,7 +112,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">返回</button>
-                    <form:form action="/bidProducts/${b.id}" method="DELETE">
+                    <form:form action="${contextRoot}/admin/bidProducts/${b.id}" method="DELETE">
                         <button type="submit" class="btn btn-danger">刪除</button>
                     </form:form>
                 </div>

@@ -24,7 +24,7 @@ public class BidProduct {
     @Column(name = "bid_price", nullable = false)
     private Integer bidPrice;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name = "category_id", nullable = false, foreignKey = @ForeignKey(name = "BidProduct_Category"))
     private Category category;
 
@@ -121,12 +121,18 @@ public class BidProduct {
         this.createdAt = createdAt;
     }
 
-    public void addCategory(String name) {
-        if (this.category != null) return;
-
-        Category newCategory = new Category();
-        newCategory.setName(name);
-        this.setCategory(newCategory);
+    @Override
+    public String toString() {
+        return "BidProduct{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", basePrice=" + basePrice +
+                ", bidPrice=" + bidPrice +
+                ", category=" + category +
+                ", description='" + description + '\'' +
+                ", image='" + image + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
     }
   //對二手商品訂單:一對一  BY瑛仁
     @OneToOne(mappedBy = "bpbidOrder")

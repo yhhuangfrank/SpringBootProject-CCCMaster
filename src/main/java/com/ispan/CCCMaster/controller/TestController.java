@@ -13,11 +13,19 @@ public class TestController {
     @Autowired
     private BidProductService bidProductService;
 
+    // 前台
     @GetMapping("/")
     public String home() {
+        return "front/frontExample";
+    }
+
+    // 後台
+    @GetMapping("/admin")
+    public String adminHome() {
         return "back/back-test";
     }
 
+    // 測試用
     @GetMapping("/test")
     public String test() {
 

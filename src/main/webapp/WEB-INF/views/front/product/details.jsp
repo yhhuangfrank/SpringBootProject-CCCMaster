@@ -107,7 +107,23 @@
                             <li><strong>價格</strong>: ${product.price}</li>
                             <li><strong>庫存量</strong>: ${product.inventory}</li>
                             <li>
-                            	<form:form method="post" modelAttribute="sc" action="${contextRoot}/shoppingcarts/create">
+                                <strong>購買數量</strong>:
+                                <div class="input-group" style="width: 150px;">
+                                    <button id="decrement" class="btn btn-outline-secondary" type="button">-</button>
+                                    <%--                                    <input id="quantity" type="number" class="form-control text-center" min="1" value="1" max="${product.inventory}">--%>
+                                    <input id="quantity" type="text" class="form-control text-center" value="1"
+                                           data-max="${product.inventory}">
+                                    <button id="increment" class="btn btn-outline-secondary" type="button">+</button>
+                                </div>
+                            </li>
+                            <%--                            <li>--%>
+                            <%--                                <strong>購買數量</strong>:--%>
+                            <%--                                <button id="decrement" type="button">-</button>--%>
+                            <%--                                <input id="quantity" type="number" min="1" value="1" max="${product.inventory}" style="width: 50px;">--%>
+                            <%--                                <button id="increment" type="button">+</button>--%>
+                            <%--                            </li>--%>
+                            <li>
+                                <form:form method="post" modelAttribute="sc" action="${contextRoot}/shoppingcarts/create">
                             		<input name="productId" value="${product.productId}"type="hidden">                          	
 			                    	<button type="submit" class="btn btn-danger"><i class="bi bi-cart3"></i>&nbsp;加入購物車</button>	                    		
 	                    		</form:form>
@@ -147,16 +163,57 @@
 <!-- Template Main JS File -->
 <script src="${contextRoot}/styles/front/assets/js/main.js"></script>
 <script>
+    // -----------爬蟲----------------
     window.addEventListener('load', () => {
         axios.get('/admin/crawler/${product.productId}')
             .then((response) => {
                 // console.log(response.data);
-                 console.log('success');
+                console.log('success');
             })
             .catch((error) => {
                 console.log(error);
             });
     });
+    // -----------爬蟲----------------
+    // -------------- 購買數量 +1 -1 事件-----------
+    document.getElementById("increment").addEventListener("click", () => {
+        const quantityInput = document.getElementById("quantity");
+        const max = parseInt(quantityInput.getAttribute('data-max'), 10);
+        let value = parseInt(quantityInput.value, 10);
+        console.log(`max=${max}  value=${value}`)
+        if (value<max) {
+        quantityInput.value = parseInt(quantityInput.value) + 1;
+        }
+    });
+
+    document.getElementById("decrement").addEventListener("click", () => {
+        const quantityInput = document.getElementById("quantity");
+        const currentValue = parseInt(quantityInput.value);
+        if (currentValue > 1) {
+            quantityInput.value = currentValue - 1;
+        }
+    });
+    // -------------- 購買數量 +1 -1 事件-----------
+    //-------------------------------購買數量欄位數值檢查------------------
+    document.getElementById('quantity').addEventListener('input', (event) => {
+        const input = event.target;
+        const max = parseInt(input.getAttribute('data-max'), 10);
+        let value = parseInt(input.value, 10);
+
+        // 如果輸入的值不是有效的整數，將值設為 1
+        if (isNaN(value) || value < 1) {
+            value = 1;
+        }
+
+        // 如果輸入的值大於最大庫存量，將值設為最大庫存量
+        if (value > max) {
+            value = max;
+        }
+
+        // 更新 input 的值
+        input.value = value;
+    });
+    //-------------------------------購買數量欄位數值檢查------------------
 </script>
 
 
