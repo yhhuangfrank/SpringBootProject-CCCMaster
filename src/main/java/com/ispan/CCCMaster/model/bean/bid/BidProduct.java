@@ -1,8 +1,7 @@
 package com.ispan.CCCMaster.model.bean.bid;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import com.ispan.CCCMaster.model.bean.BidOrderBean;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -28,19 +27,25 @@ public class BidProduct {
     @JoinColumn(name = "category_id", nullable = false, foreignKey = @ForeignKey(name = "BidProduct_Category"))
     private Category category;
 
-    @Column(name = "description", columnDefinition = "nvarchar(255)")
+    @Column(name = "description", columnDefinition = "nvarchar(max)")
     private String description;
 
     @Column(name = "image", columnDefinition = "varchar(max)", nullable = false)
     private String image;
 
-//    @Column(name = "customer_id", nullable = false)
-//    private Integer customerId;
+//    @ManyToOne
+//    @JoinColumn(name = "customer_id", nullable = false, foreignKey = @ForeignKey(name = "BidProductBelongsToCustomer"))
+//    private Customers customers;
+
+    @Temporal(TemporalType.TIMESTAMP) // 指定 DB 中時間精度
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 使用此格式在 Java 中解析日期
+    @Column(name = "created_at", columnDefinition = "datetime", nullable = false)
+    Date createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(name = "created_at", columnDefinition = "datetime", nullable = false)
-    Date createdAt;
+    @Column(name = "expired_at", columnDefinition = "datetime")
+    Date expiredAt;
 
     @PrePersist
     public void onCreate() {
@@ -105,12 +110,12 @@ public class BidProduct {
         this.image = image;
     }
 
-//    public Integer getCustomerId() {
-//        return customerId;
+//    public Customers getCustomers() {
+//        return customers;
 //    }
-//
-//    public void setCustomerId(Integer customerId) {
-//        this.customerId = customerId;
+
+//    public void setCustomers(Customers customers) {
+//        this.customers = customers;
 //    }
 
     public Date getCreatedAt() {
@@ -119,6 +124,14 @@ public class BidProduct {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Date getExpiredAt() {
+        return expiredAt;
+    }
+
+    public void setExpiredAt(Date expiredAt) {
+        this.expiredAt = expiredAt;
     }
 
     @Override
@@ -134,7 +147,8 @@ public class BidProduct {
                 ", createdAt=" + createdAt +
                 '}';
     }
-  //對二手商品訂單:一對一  BY瑛仁
+
+    //對二手商品訂單:一對一  BY瑛仁
     @OneToOne(mappedBy = "bpbidOrder")
     BidOrderBean bidOrder;
 }
