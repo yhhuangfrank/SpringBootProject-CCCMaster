@@ -19,7 +19,7 @@ public interface ProductService {
 
 //    Page<Product> findByPageSearchByNameSortByPrice(Integer pageNumber, String productName);
 
-    Page<Product> findByPageAjax(Integer pageNumber, String keyword, String sort);
+    Page<Product> findByPageAjax(Integer pageNumber, String keyword, String sort,String catagoryName);
 
     byte[] getProductImageById(Integer productId);
 

@@ -98,44 +98,41 @@
                 <input type="text" name="productName" id="search" class="form-control" placeholder="搜尋產品">
                 <button id="searchBtn" type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
             </div>
+
             <!-- Sort Dropdown -->
             <div class="dropdown mb-3">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false">
                     排序方式
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+                <ul class="dropdown-menu" aria-labelledby="sortDropdown" id="sortDropUl">
                     <li><a class="dropdown-item" href="#" data-sort="default">預設</a></li>
                     <li><a class="dropdown-item" href="#" data-sort="price_asc">價格由低到高</a></li>
                     <li><a class="dropdown-item" href="#" data-sort="price_desc">價格由高到低</a></li>
                     <li><a class="dropdown-item" href="#" data-sort="productViews_asc">瀏覽人次由低到高</a></li>
                     <li><a class="dropdown-item" href="#" data-sort="productViews_desc">瀏覽人次由高到低</a></li>
                 </ul>
+
             </div>
             <!-- End Sort Dropdown -->
+            <!-- Category Dropdown -->
+            <div class="dropdown mb-3">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    類別
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="categoryDropdown" id="categoryDropUl">
+                    <li><a class="dropdown-item" href="#" data-category="all">全部</a></li>
+
+                </ul>
+            </div>
+            <!-- End Category Dropdown -->
         </div>
     </section><!-- End Breadcrumbs -->
 
     <!-- ======= Portfolio Section ======= -->
     <section id="portfolio" class="portfolio">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12 d-flex justify-content-center">
-                    <ul id="portfolio-flters" class="nav nav-pills mb-3">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" data-filter="*">All</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" data-filter=".filter-app">App</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" data-filter=".filter-card">Card</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" data-filter=".filter-web">Web</button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
 
             <div id="productContainer" class="row gy-4">
 
@@ -153,14 +150,28 @@
         class="bi bi-arrow-up-short"></i></a>
 
 <script>
-    async function loadProducts(page, keyword, sort) {
+    // async function loadProducts(page, keyword, sort) {
+    //     try {
+    //         const response = await axios.get('/front/product/list', {
+    //             params: {page, keyword, sort}
+    //         });
+    //         console.log(response.data)
+    //         displayProducts(response.data.products.content);
+    //         setupPagination(response.data);
+    //     } catch (error) {
+    //         console.error('Error loading products:', error);
+    //     }
+    // }
+
+    async function loadProducts(page, keyword, sort, category) {
         try {
             const response = await axios.get('/front/product/list', {
-                params: {page, keyword, sort}
+                params: {page, keyword, sort, category}
             });
             console.log(response.data)
             displayProducts(response.data.products.content);
             setupPagination(response.data);
+            displayCategoryList(response.data.categoryList);
         } catch (error) {
             console.error('Error loading products:', error);
         }
@@ -168,7 +179,7 @@
 
     document.getElementById('searchBtn').addEventListener(('click'), () => {
         const searchInput = document.getElementById('search');
-        loadProducts(1, searchInput.value,getSortValue());
+        loadProducts(1, searchInput.value, getSortValue(), getCategoryValue());
     })
 
     window.onload = () => {
@@ -180,6 +191,7 @@
             loadProducts(1, '', getSortValue());
         });
     };
+
     function setupPagination(pageData) {
         const paginationDiv = document.getElementById('divPagination');
         paginationDiv.innerHTML = '';
@@ -191,12 +203,13 @@
                 pageButton.className += " active";
             }
             pageButton.innerText = i;
-            pageButton.onclick = () => loadProducts(i, pageData.keyword,getSortValue());
+            pageButton.onclick = () => loadProducts(i, pageData.keyword, getSortValue(), getCategoryValue());
             paginationDiv.appendChild(pageButton);
         }
     }
+
     function getSortValue() {
-        const sortDropdownItems = document.querySelectorAll('.dropdown-menu a');
+        const sortDropdownItems = document.querySelectorAll('#sortDropUl a');
         let sortValue = 'default';
         sortDropdownItems.forEach((item) => {
             if (item.getAttribute('aria-current') === 'true') {
@@ -205,6 +218,7 @@
         });
         return sortValue;
     }
+
     function displayProducts(products) {
         const productsDiv = document.getElementById('productContainer');
         productsDiv.innerHTML = '';
@@ -224,11 +238,11 @@
             productName.className = "product-name mb-2";
 
             const productPrice = document.createElement('p');
-            productPrice.innerText = `價格：$`+product.price;
+            productPrice.innerText = `價格：$` + product.price;
             productPrice.className = "product-price mb-2";
 
             const productViews = document.createElement('p');
-            productViews.innerText = `瀏覽人次：`+product.productViews;
+            productViews.innerText = `瀏覽人次：` + product.productViews;
             productViews.className = "product-views";
 
 
@@ -255,8 +269,31 @@
         });
     }
 
+    function displayCategoryList(categoryList) {
+        const categoryDropdownUl=document.getElementById('categoryDropUl')
+        categoryDropdownUl.innerHTML=` <li><a class="dropdown-item" href="#" data-category="all">全部</a></li>`;
+        categoryList.forEach((category) => {
+        const categoryDropItem=document.createElement("li")
+        const categoryDropItemA=document.createElement("a")
+            categoryDropItemA.className="dropdown-item";
+            categoryDropItemA.setAttribute("data-category",category.name);
+            categoryDropItemA.innerText=category.name
+            categoryDropItem.append(categoryDropItemA);
+            categoryDropdownUl.append(categoryDropItem);
+        }
+        )
+        const categoryDropdownItems = document.querySelectorAll('#categoryDropUl a');
+        categoryDropdownItems.forEach((item) => {
+            item.addEventListener('click', (event) => {
+                event.preventDefault();
+                setCategoryValue(item.getAttribute('data-category'));
+                loadProducts(1, document.getElementById('search').value, getSortValue(), getCategoryValue());
+            });
+        });
+    }
+
     function setSortValue(value) {
-        const sortDropdownItems = document.querySelectorAll('.dropdown-menu a');
+        const sortDropdownItems = document.querySelectorAll('#sortDropUl a');
         const sortDropdownButton = document.querySelector('#sortDropdown');
 
         sortDropdownItems.forEach((item) => {
@@ -268,14 +305,50 @@
             }
         });
     }
-    const sortDropdownItems = document.querySelectorAll('.dropdown-menu a');
+
+    const sortDropdownItems = document.querySelectorAll('#sortDropUl a');
     sortDropdownItems.forEach((item) => {
         item.addEventListener('click', (event) => {
             event.preventDefault();
             setSortValue(item.getAttribute('data-sort'));
-            loadProducts(1, document.getElementById('search').value, getSortValue());
+            loadProducts(1, document.getElementById('search').value, getSortValue(), getCategoryValue());
         });
     });
+
+    function getCategoryValue() {
+        const categoryDropdownItems = document.querySelectorAll('#categoryDropUl a');
+        let categoryValue = 'all';
+        categoryDropdownItems.forEach((item) => {
+            if (item.getAttribute('aria-current') === 'true') {
+                categoryValue = item.getAttribute('data-category');
+            }
+        });
+        return categoryValue;
+    }
+
+    function setCategoryValue(value) {
+        const categoryDropdownItems = document.querySelectorAll('#categoryDropUl a');
+        const categoryDropdownButton = document.querySelector('#categoryDropdown');
+
+        categoryDropdownItems.forEach((item) => {
+            if (item.getAttribute('data-category') === value) {
+                item.setAttribute('aria-current', 'true');
+                categoryDropdownButton.innerText = item.innerText; // 更新按鈕上的文字
+            } else {
+                item.removeAttribute('aria-current');
+            }
+        });
+    }
+
+    const categoryDropdownItems = document.querySelectorAll('#categoryDropUl a');
+    categoryDropdownItems.forEach((item) => {
+        item.addEventListener('click', (event) => {
+            event.preventDefault();
+            setCategoryValue(item.getAttribute('data-category'));
+            loadProducts(1, document.getElementById('search').value, getSortValue(), getCategoryValue());
+        });
+    });
+
 </script>
 </body>
 

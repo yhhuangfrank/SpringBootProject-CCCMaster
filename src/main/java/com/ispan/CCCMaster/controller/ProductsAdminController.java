@@ -36,9 +36,9 @@ public class ProductsAdminController {
     }
 
     @PostMapping("/admin/products/create")//新增產品表單送出
-    public String createProduct(@ModelAttribute("product") Product product ,@RequestParam("categoryName") String categoryName) {
+    public String createProduct(@ModelAttribute("product") Product product, @RequestParam("categoryName") String categoryName) {
         try {
-            pService.createProduct(product,categoryName);
+            pService.createProduct(product, categoryName);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -69,18 +69,18 @@ public class ProductsAdminController {
     }
 
     @GetMapping("/admin/products/editForm") //編輯產品頁面
-    public String editPage(@RequestParam("id") Integer productId,Model model) {
-        model.addAttribute("categories",categoryService.findAllCategories());
-    model.addAttribute("product",pService.findProductById(productId));
+    public String editPage(@RequestParam("id") Integer productId, Model model) {
+        model.addAttribute("categories", categoryService.findAllCategories());
+        model.addAttribute("product", pService.findProductById(productId));
         return "back/product/editProductPage";
     }
 
     @PutMapping("/admin/products/edit")//更新產品
-    public String editProductById(@ModelAttribute("product")Product product,@RequestParam("categoryName") String categoryName) {
+    public String editProductById(@ModelAttribute("product") Product product, @RequestParam("categoryName") String categoryName) {
         try {
-            pService.editProductById(product,categoryName);
+            pService.editProductById(product, categoryName);
         } catch (IOException e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
         return "redirect:/admin/products/showAllProduct";
     }

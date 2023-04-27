@@ -8,7 +8,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 
-public interface ProductDao extends JpaRepository<Product,Integer> {
+public interface ProductDao extends JpaRepository<Product, Integer> {
+    @Query("From Product p WHERE p.active = true")
+    Page<Product> findByAllIsActive(Pageable pageable);
+
     @Query("SELECT p FROM Product p WHERE p.productName LIKE %:name%")
-    Page<Product> findByName(@Param(value = "name")String name, Pageable pageable);
+    Page<Product> findByName(@Param(value = "name") String name, Pageable pageable);
+
+    @Query("SELECT p FROM Product p WHERE p.productName LIKE %:name% AND p.active = true")
+    Page<Product> findByNameIsActive(@Param(value = "name") String name, Pageable pageable);
+
+    @Query("SELECT p FROM Product p WHERE p.productName LIKE %:name% AND p.active = true AND p.category= :categoryId")
+    Page<Product> findByNameAndCategoryIsActive(@Param(value = "name") String name,@Param(value = "categoryId") Integer categoryId, Pageable pageable);
 }
