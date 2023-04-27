@@ -65,8 +65,8 @@
                           <th scope="col">職位名稱</th>
                         </tr>
                       </thead>
-                      <c:forEach var="position" items="${positions}" >
                       <tbody>
+                      <c:forEach var="position" items="${positions}" >
                         <tr>
                           <th scope="row">${position.positionId}</th>
                           <td>${position.positionName}</td>
