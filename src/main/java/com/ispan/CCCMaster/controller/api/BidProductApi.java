@@ -6,11 +6,10 @@ import com.ispan.CCCMaster.service.BidProductService;
 import com.ispan.CCCMaster.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Min;
 
@@ -50,5 +49,11 @@ public class BidProductApi {
         queryParams.setLimit(limit);
 
         return bidProductService.findBidProducts(queryParams);
+    }
+
+    @PutMapping("/bidProducts/{id}")
+    public BidProduct updateBidPrice(@PathVariable Integer id,
+                                                     @RequestParam(name = "bidPrice") Integer bidPrice) {
+        return bidProductService.updateBidPrice(id, bidPrice);
     }
 }

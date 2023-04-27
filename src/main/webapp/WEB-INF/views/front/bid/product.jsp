@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>二手賣場-</title>
+    <title>二手賣場-商品詳情</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -63,7 +63,8 @@
                         <div class="swiper-wrapper align-items-center">
 
                             <div class="swiper-slide">
-                                <img src="${bidProduct.image}" alt="BidProduct-image" style="height: 50rem; width: 50rem">
+                                <img src="${bidProduct.image}" alt="BidProduct-image"
+                                     style="height: 50rem; width: 50rem">
                             </div>
 
                         </div>
@@ -75,14 +76,38 @@
                     <div class="portfolio-info">
                         <h3>商品詳情</h3>
                         <ul>
-                            <li><strong class="fs-6 badge bg-secondary text-white">種類</strong><span class="fs-6 ms-2">${bidProduct.category.name}</span></li>
-                            <li><strong class="fs-6 badge bg-secondary text-white">名稱</strong><span class="fs-6 ms-2">${bidProduct.name}</span></li>
-                            <li><strong class="fs-6 badge bg-secondary text-white">起始時間</strong><span class="fs-6 ms-2">${bidProduct.createdAt}</span></li>
-                            <li><strong class="fs-6 badge bg-secondary text-white">結束時間</strong><span class="fs-6 ms-2">01 March, 2020</span> </li>
-                            <li><strong class="fs-6 badge bg-secondary text-white">底價</strong><span class="fs-6 ms-2">${bidProduct.basePrice}</span></li>
-                            <li><strong class="fs-6 badge bg-secondary text-white">目前價格</strong><span class="fs-6 ms-2">${bidProduct.bidPrice}</span></li>
+                            <li>
+                                <strong class="fs-6 badge bg-secondary text-white">種類</strong>
+                                <span class="fs-6 ms-2">${bidProduct.category.name}</span>
+                            </li>
+                            <li>
+                                <strong class="fs-6 badge bg-secondary text-white">名稱</strong>
+                                <span class="fs-6 ms-2">${bidProduct.name}</span>
+                            </li>
+                            <li>
+                                <strong class="fs-6 badge bg-secondary text-white">起始時間</strong>
+                                <span class="fs-6 ms-2">${bidProduct.createdAt}</span>
+                            </li>
+                            <li>
+                                <strong class="fs-6 badge bg-secondary text-white">結束時間</strong>
+                                <span class="fs-6 ms-2">01 March, 2020</span>
+                            </li>
+                            <li>
+                                <strong class="fs-6 badge bg-secondary text-white">底價</strong>
+                                <span class="fs-6 ms-2" id="basePrice">${bidProduct.basePrice} 元</span>
+                            </li>
+                            <li>
+                                <strong class="fs-6 badge bg-secondary text-white">目前價格</strong>
+                                <span class="fs-6 ms-2" id="currentBidPrice">${bidProduct.bidPrice} 元</span>
+                            </li>
                         </ul>
-                        <button class="btn btn-outline-dark">點我下標</button>
+                        <input name="bidPrice" id="bidPrice" type="number" class="form-control" min="1"
+                               placeholder="輸入價格" required/>
+                        <button class="btn mt-2 text-white" style="background-color: #e96b56"
+                                data-bs-toggle="modal" data-bs-target="#modal-${bidProduct.id}">點我出價
+                        </button>
+                        <%--          顯示訊息              --%>
+                        <div id="messageArea"></div>
                     </div>
                     <div class="portfolio-description">
                         <h2>賣家: 某某某</h2>
@@ -100,6 +125,26 @@
 
 <jsp:include page="../layouts/footer.jsp"/>
 
+<%-- Modal --%>
+<div class="modal fade" id="modal-${bidProduct.id}" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold">送出確認</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>確定要出價 <strong>${bidProduct.name}</strong> 嗎?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">返回</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="updateBidPriceBtn"
+                        data-id="${bidProduct.id}" style="background-color: #e96b56">送出
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Vendor JS Files -->
 <script src="${contextRoot}/styles/front/assets/vendor/purecounter/purecounter_vanilla.js"></script>
@@ -111,8 +156,9 @@
 <script src="${contextRoot}/styles/front/assets/vendor/php-email-form/validate.js"></script>
 <!-- Template Main JS File -->
 <script src="${contextRoot}/styles/front/assets/js/main.js"></script>
-<%-- 自訂 JS --%>
-
+<%-- axios 與自訂 JS --%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.6/axios.min.js"></script>
+<script src="${contextRoot}/js/updateBidPrice.js"></script>
 </body>
 
 </html>

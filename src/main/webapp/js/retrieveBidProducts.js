@@ -80,7 +80,7 @@ function renderBidProducts(content) {
     for (let i = 0; i < content.length; i += 1) {
         const b = content[i]
         html += `
-                <a href="${BASE_URL}/${b.id}" class="text-black my-2">
+                <a href="http://localhost:8080/bidProducts/${b.id}" class="text-black my-2">
                     <div class="card">
                                 <img src="${b.image}" class="card-img-top"
                                      style="opacity: 0; transition: opacity 0.5s ease-in-out; height: 18rem;"
@@ -90,7 +90,7 @@ function renderBidProducts(content) {
                             <h5 class="card-title">${b.name}</h5>
                             <div class="card-text">
                                 <span class="badge bg-secondary text-white">目前價格</span>
-                                <strong class="ms-2">${b.bidPrice}</strong>
+                                <strong class="ms-2">${b.bidPrice} 元</strong>
                                 <div class="mt-2">${b.description}</div>
                             </div>
                         </div>
