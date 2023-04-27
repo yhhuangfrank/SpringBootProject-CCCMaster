@@ -37,14 +37,18 @@ public class ProductsController {
     @GetMapping("/front/product/list")
     public Map<String, Object> searchProductNameApi(@RequestParam(name = "keyword", required = false) String keyword,
                                                     @RequestParam(name = "page", defaultValue = "1") Integer pageNum,
-                                                    @RequestParam(name = "sort", defaultValue = "default") String sort) {
+                                                    @RequestParam(name = "sort", defaultValue = "default") String sort,
+                                                    @RequestParam(name = "category", defaultValue = "all") String category)
+    {
         System.out.println(sort);
+        System.out.println(category);
         Page<Product> products;
         Map<String, Object> response = new HashMap<>();
         System.out.println("enter searchProductNameApi");
         System.out.println(pageNum);
         System.out.println(keyword);
-        products=pService.findByPageAjax(pageNum,keyword,sort);
+        products = pService.findByPageAjax(pageNum, keyword, sort,category);
+        response.put("categoryList",categoryService.findAllCategories());
         response.put("pageNum", pageNum);
         response.put("keyword", keyword);
         response.put("products", products);

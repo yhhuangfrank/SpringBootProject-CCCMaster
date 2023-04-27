@@ -33,7 +33,7 @@ public class Product {
     private Integer numOfPurchases;
     @Column(name = "product_views")
     private Integer productViews;
-    @Column(name = "description")
+    @Column(name = "description",columnDefinition="nvarchar(max)")
     private String description;
     @Column(name = "number_of_ratings")
     private Integer numberOfRatings;
