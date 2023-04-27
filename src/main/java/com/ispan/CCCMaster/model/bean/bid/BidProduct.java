@@ -28,7 +28,7 @@ public class BidProduct {
     @JoinColumn(name = "category_id", nullable = false, foreignKey = @ForeignKey(name = "BidProduct_Category"))
     private Category category;
 
-    @Column(name = "description", columnDefinition = "nvarchar(255)")
+    @Column(name = "description", columnDefinition = "nvarchar(max)")
     private String description;
 
     @Column(name = "image", columnDefinition = "varchar(max)", nullable = false)
