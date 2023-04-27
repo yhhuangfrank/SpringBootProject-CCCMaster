@@ -94,11 +94,13 @@
                             </li>
                             <li>
                                 <strong class="fs-6 badge bg-secondary text-white">底價</strong>
-                                <span class="fs-6 ms-2" id="basePrice">${bidProduct.basePrice} 元</span>
+                                <span class="fs-6 ms-2" id="basePrice">${bidProduct.basePrice}</span>
+                                <span class="fs-6">  元</span>
                             </li>
                             <li>
                                 <strong class="fs-6 badge bg-secondary text-white">目前價格</strong>
-                                <span class="fs-6 ms-2" id="currentBidPrice">${bidProduct.bidPrice} 元</span>
+                                <span class="fs-6 ms-2" id="currentBidPrice">${bidProduct.bidPrice}</span>
+                                <span class="fs-6">  元</span>
                             </li>
                         </ul>
                         <input name="bidPrice" id="bidPrice" type="number" class="form-control" min="1"
