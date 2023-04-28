@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.ispan.CCCMaster.model.bean.Customers;
+import com.ispan.CCCMaster.model.bean.Customer;
 import com.ispan.CCCMaster.model.bean.weihsiang.Product;
 
 @Entity
@@ -47,7 +47,7 @@ public class ShoppingCartBean implements Serializable {
 	//雙向多對一	
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="customer_id")
-	private Customers cbShoppingCart;
+	private Customer cbShoppingCart;
 	
 	@PrePersist
 	public void onCreate() {
@@ -61,7 +61,7 @@ public class ShoppingCartBean implements Serializable {
 	}
 
 	public ShoppingCartBean(String shoppoingCartId, Integer quantity, Date settime, Product productBean,
-			Customers cbShoppingCart) {
+			Customer cbShoppingCart) {
 		this.shoppoingCartId = shoppoingCartId;
 		this.quantity = quantity;
 		this.settime = settime;
@@ -97,7 +97,7 @@ public class ShoppingCartBean implements Serializable {
 		return productBean;
 	}
 
-	public Customers getCbShoppingCart() {
+	public Customer getCbShoppingCart() {
 		return cbShoppingCart;
 	}
 
@@ -105,7 +105,7 @@ public class ShoppingCartBean implements Serializable {
 		this.productBean = productBean;
 	}
 
-	public void setCbShoppingCart(Customers cbShoppingCart) {
+	public void setCbShoppingCart(Customer cbShoppingCart) {
 		this.cbShoppingCart = cbShoppingCart;
 	}	
 	

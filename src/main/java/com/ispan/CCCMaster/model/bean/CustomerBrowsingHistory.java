@@ -27,7 +27,7 @@ public class CustomerBrowsingHistory {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "customer_id")
-	private Customers customers;
+	private Customer customers;
 	
 	@Column(name = "product_id")
 	private Integer productId;
@@ -64,11 +64,11 @@ public class CustomerBrowsingHistory {
 		this.buildTime = buildTime;
 	}
 
-	public Customers getCustomers() {
+	public Customer getCustomers() {
 		return customers;
 	}
 
-	public void setCustomers(Customers customers) {
+	public void setCustomers(Customer customers) {
 		this.customers = customers;
 	}
 

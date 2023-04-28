@@ -90,15 +90,15 @@ public class BidProductServiceImpl implements BidProductService {
         Integer limit = queryParams.getLimit();
 
         // 使用 Specification interface 建立自訂搜尋條件
-        Specification<BidProduct> spec =  (root, query, criteriaBuilder) -> {
+        Specification<BidProduct> spec = (root, query, criteriaBuilder) -> {
 
             List<Predicate> predicates = new ArrayList<>();
 
             // 判定輸入值是否為空
             if (Objects.nonNull(categoryName)) {
-                Category category = categoryDao.findCategoryByName(queryParams.getCategoryName());
+                Category category = categoryDao.findCategoryByName(categoryName);
                 // 查詢相對應種類
-                Predicate p = criteriaBuilder.equal(root.get("category"),category);
+                Predicate p = criteriaBuilder.equal(root.get("category"), category);
                 predicates.add(p);
             }
 
@@ -135,6 +135,18 @@ public class BidProductServiceImpl implements BidProductService {
         }
 
         bidProductDao.save(foundBidProduct);
+    }
+
+    @Override
+    @Transactional
+    public BidProduct updateBidPrice(Integer id, Integer bidPrice) {
+
+        BidProduct foundBidProduct = bidProductDao.findById(id).orElse(null);
+
+        if (foundBidProduct == null) throw new NotFoundException("查無對應商品，參數有誤!");
+
+        foundBidProduct.setBidPrice(bidPrice);
+        return bidProductDao.save(foundBidProduct);
     }
 
     @Override

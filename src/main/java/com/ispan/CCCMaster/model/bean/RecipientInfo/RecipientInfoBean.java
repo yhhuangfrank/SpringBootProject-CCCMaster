@@ -12,7 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.ispan.CCCMaster.model.bean.Customers;
+import com.ispan.CCCMaster.model.bean.Customer;
+
 
 @Entity
 @Table(name="RecipientInfo")
@@ -35,9 +36,9 @@ public class RecipientInfoBean implements Serializable {
 	//雙向多對一
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="customer_id")
-	private Customers cbRecipientInfo;
+	private Customer cbRecipientInfo;
 	
-	public RecipientInfoBean(String address, String name, String telephone, Customers cbRecipientInfo) {
+	public RecipientInfoBean(String address, String name, String telephone, Customer cbRecipientInfo) {
 		this.address = address;
 		this.name = name;
 		this.telephone = telephone;

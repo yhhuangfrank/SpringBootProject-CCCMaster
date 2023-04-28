@@ -53,19 +53,18 @@
         </div>
     </section><!-- End Breadcrumbs -->
 
-    <!-- ======= Portfolio Section ======= -->
     <section id="portfolio" class="portfolio">
         <div class="container">
 
             <div class="row">
                 <div class="col-lg-12 d-flex justify-content-center">
                     <ul id="portfolio-flters" class="categoryList">
-                        <li class="filter-active" data-category="all">全部</li>
-                        <li>手機</li>
-                        <li>電腦</li>
-                        <li>筆記型電腦</li>
-                        <li>滑鼠</li>
-                        <li>鍵盤</li>
+                        <li class="filter-active category" data-category="all">全部</li>
+                        <li class="category">手機</li>
+                        <li class="category">電腦</li>
+                        <li class="category">筆記型電腦</li>
+                        <li class="category">滑鼠</li>
+                        <li class="category">鍵盤</li>
                     </ul>
                 </div>
             </div>
@@ -80,7 +79,7 @@
             <ul class="pagination justify-content-center align-items-center my-0">
             </ul>
         </nav>
-    </section><!-- End Portfolio Section -->
+    </section>
 
 
 </main><!-- End #main -->
@@ -99,8 +98,8 @@
 <!-- Template Main JS File -->
 <script src="${contextRoot}/styles/front/assets/js/main.js"></script>
 <%-- axios 與自訂 JS --%>
-<script src="${contextRoot}/js/retrieveBidProducts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.6/axios.min.js"></script>
+<script src="${contextRoot}/js/retrieveBidProducts.js"></script>
 </body>
 
 </html>

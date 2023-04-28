@@ -73,13 +73,19 @@ public class BidProductController {
     }
 
     @GetMapping("/bidProducts")
-    public String getAllBidProducts(Model model) {
-
-//        List<BidProduct> bidProducts = bidProductService.findAllBidProducts();
-
-//        model.addAttribute("bidProducts", bidProducts);
-
+    public String getAllBidProducts() {
         return "/front/bid/products";
+    }
+
+    @GetMapping("/bidProducts/{id}")
+    public String getBidProduct(@PathVariable Integer id,
+                                Model model) {
+
+        BidProduct foundBidProduct = bidProductService.findBidProductById(id);
+
+        model.addAttribute("bidProduct", foundBidProduct);
+
+        return "/front/bid/product";
     }
 
     @GetMapping("/bidProducts/{id}/edit")

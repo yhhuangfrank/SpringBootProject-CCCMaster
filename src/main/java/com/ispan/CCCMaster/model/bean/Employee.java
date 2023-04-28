@@ -18,7 +18,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "Employees")
-public class Employees {
+public class Employee {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,14 +39,14 @@ public class Employees {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "position_id")
-	private Positions positions;
+	private Position positions;
 	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@Column(name = "hire_date", columnDefinition = "date")
 	private Date hireDate;
 
-	public Employees() {
+	public Employee() {
 	}
 
 	public Integer getEmployeeId() {
@@ -89,11 +89,11 @@ public class Employees {
 		this.password = password;
 	}
 
-	public Positions getPositions() {
+	public Position getPositions() {
 		return positions;
 	}
 
-	public void setPositions(Positions positions) {
+	public void setPositions(Position positions) {
 		this.positions = positions;
 	}
 

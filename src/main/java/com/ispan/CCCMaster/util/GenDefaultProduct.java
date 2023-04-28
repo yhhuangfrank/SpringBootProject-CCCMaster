@@ -43,7 +43,7 @@ public class GenDefaultProduct {
                 product.setActive(true);
                 product.setInventory(faker.number().numberBetween(0,20));
                 product.setPrice(faker.number().numberBetween(0,1000));
-                product.setDescription(faker.lorem().paragraph(3));
+                product.setDescription(faker.lorem().paragraph());
                 defaultProducts.add(product);
                // productService.createProduct(product,defaultCategoryNames[i]);
             } catch (MalformedURLException e) {

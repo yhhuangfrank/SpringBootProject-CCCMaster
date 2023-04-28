@@ -3,7 +3,6 @@ package com.ispan.CCCMaster.service;
 import java.io.IOException;
 import java.util.List;
 
-import org.springframework.transaction.annotation.Transactional;
 
 import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
 

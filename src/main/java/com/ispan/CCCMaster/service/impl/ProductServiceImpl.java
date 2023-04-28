@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.IOException;
-import java.util.Base64;
 import java.util.Optional;
 
 @Service
@@ -66,26 +65,24 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
 //    }
 
     @Override
-    public Page<Product> findByPageAjax(Integer pageNumber, String keyword, String sort) {
+    public Page<Product> findByPageAjax(Integer pageNumber, String keyword, String sort,String categoryName) {
         Pageable pgb = null;
         Page<Product> page;
         if (sort.equals("default")) {
             pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.ASC, "productId");
-
         } else {
             String sortBy[] = sort.split("_");
             if (sortBy[1].equals("desc")) {
                 pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.DESC, sortBy[0]);
             } else if (sortBy[1].equals("asc")) {
                 pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.ASC, sortBy[0]);
-            } 
-
+            }
         }
         if (keyword.equals("")) {
-            page = productDao.findAll(pgb);
+            page = productDao.findByAllIsActive(pgb);
 
         } else {
-            page = productDao.findByName(keyword, pgb);
+            page = productDao.findByNameIsActive(keyword, pgb);
         }
         return page;
 

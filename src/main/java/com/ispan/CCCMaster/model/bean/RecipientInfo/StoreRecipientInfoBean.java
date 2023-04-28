@@ -12,7 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.ispan.CCCMaster.model.bean.Customers;
+import com.ispan.CCCMaster.model.bean.Customer;
+
+
 
 @Entity
 @Table(name="StoreRecipientInfo")
@@ -38,10 +40,10 @@ public class StoreRecipientInfoBean implements Serializable {
 	//雙向多對一
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="customer_id")
-	private Customers cbStoreRecipientInfo;
+	private Customer cbStoreRecipientInfo;
 		
 	public StoreRecipientInfoBean(String storetype, String storename, String address, String name,
-			Customers cbStoreRecipientInfo) {
+			Customer cbStoreRecipientInfo) {
 		this.storetype = storetype;
 		this.storename = storename;
 		this.address = address;

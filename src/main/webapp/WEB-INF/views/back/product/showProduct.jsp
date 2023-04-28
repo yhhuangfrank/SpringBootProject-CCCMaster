@@ -64,7 +64,6 @@
                         <table class="table datatable">
                             <thead>
                             <tr>
-                                <th scope="col">產品代號</th>
                                 <th scope="col">產品名稱</th>
                                 <th scope="col">產品類別</th>
                                 <th scope="col">價格</th>
@@ -76,9 +75,7 @@
                             <tbody>
                             <c:forEach var="product" items="${page.content}">
                                 <tr>
-                                    <td>
-                                            ${product.productId}
-                                    </td>
+
                                     <td>
                                             ${product.productName}
                                     </td>
