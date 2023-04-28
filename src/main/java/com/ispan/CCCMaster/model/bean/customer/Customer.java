@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.model.bean;
+package com.ispan.CCCMaster.model.bean.customer;
 
 import java.util.Date;
 import java.util.HashSet;

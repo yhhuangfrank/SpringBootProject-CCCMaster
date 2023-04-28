@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.model.bean;
+package com.ispan.CCCMaster.model.bean.employee;
 
 import java.util.HashSet;
 import java.util.Set;

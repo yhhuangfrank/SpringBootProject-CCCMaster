@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.model.bean;
+package com.ispan.CCCMaster.model.bean.customer;
 
 import java.util.Date;
 
@@ -17,8 +17,8 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name = "CustomerCoupons")
-public class CustomerCoupon {
+@Table(name = "CustomerBrowsingHistory")
+public class CustomerBrowsingHistory {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,21 +29,15 @@ public class CustomerCoupon {
 	@JoinColumn(name = "customer_id")
 	private Customer customers;
 	
-	@Column(name = "coupon_id", columnDefinition = "nchar(36)")
-	private String couponId;
+	@Column(name = "product_id")
+	private Integer productId;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	@Column(name = "build_time", columnDefinition = "datetime")
 	private Date buildTime;
 	
-	@Column(name = "is_available", columnDefinition = "bit")
-	private Boolean isAvailable;
-	
-	@Column(name = "unavailable_reason", columnDefinition = "char(1)")
-	private String unavailableReason;
-
-	public CustomerCoupon() {
+	public CustomerBrowsingHistory() {
 	}
 
 	public Integer getId() {
@@ -54,12 +48,12 @@ public class CustomerCoupon {
 		this.id = id;
 	}
 
-	public String getCouponId() {
-		return couponId;
+	public Integer getProductId() {
+		return productId;
 	}
 
-	public void setCouponId(String couponId) {
-		this.couponId = couponId;
+	public void setProductId(Integer productId) {
+		this.productId = productId;
 	}
 
 	public Date getBuildTime() {
@@ -68,22 +62,6 @@ public class CustomerCoupon {
 
 	public void setBuildTime(Date buildTime) {
 		this.buildTime = buildTime;
-	}
-
-	public Boolean getIsAvailable() {
-		return isAvailable;
-	}
-
-	public void setIsAvailable(Boolean isAvailable) {
-		this.isAvailable = isAvailable;
-	}
-
-	public String getUnavailableReason() {
-		return unavailableReason;
-	}
-
-	public void setUnavailableReason(String unavailableReason) {
-		this.unavailableReason = unavailableReason;
 	}
 
 	public Customer getCustomers() {
