@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.model.bean.weihsiang;
+package com.ispan.CCCMaster.model.bean.product;
 
 import com.ispan.CCCMaster.model.bean.bid.Category;
 import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;

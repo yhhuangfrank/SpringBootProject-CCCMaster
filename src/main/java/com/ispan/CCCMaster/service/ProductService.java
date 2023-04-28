@@ -1,9 +1,8 @@
 package com.ispan.CCCMaster.service;
 
-import com.ispan.CCCMaster.model.bean.weihsiang.Product;
+import com.ispan.CCCMaster.model.bean.product.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
@@ -20,6 +19,11 @@ public interface ProductService {
 //    Page<Product> findByPageSearchByNameSortByPrice(Integer pageNumber, String productName);
 
     Page<Product> findByPageAjax(Integer pageNumber, String keyword, String sort,String catagoryName);
+
+
+//    Page<Product> findByCriteria(Integer pageNumber, String keyword, String sort, String categoryName);
+
+    Page<Product> findByCriteria(Integer pageNumber, String keyword, String sort, String categoryName);
 
     byte[] getProductImageById(Integer productId);
 

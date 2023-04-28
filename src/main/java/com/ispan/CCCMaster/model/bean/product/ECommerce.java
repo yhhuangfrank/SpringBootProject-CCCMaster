@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.model.bean.weihsiang;
+package com.ispan.CCCMaster.model.bean.product;
 
 import javax.persistence.*;
 

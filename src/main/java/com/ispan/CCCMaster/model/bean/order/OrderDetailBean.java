@@ -1,6 +1,6 @@
 package com.ispan.CCCMaster.model.bean.order;
 
-import com.ispan.CCCMaster.model.bean.weihsiang.Product;
+import com.ispan.CCCMaster.model.bean.product.Product;
 
 import java.io.Serializable;
 

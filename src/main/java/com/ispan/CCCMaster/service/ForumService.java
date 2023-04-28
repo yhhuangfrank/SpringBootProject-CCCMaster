@@ -1,7 +1,6 @@
 package com.ispan.CCCMaster.service;
 
 import com.ispan.CCCMaster.model.bean.Forum;
-import com.ispan.CCCMaster.model.bean.weihsiang.Product;
 import com.ispan.CCCMaster.model.dao.ForumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
-import java.text.Normalizer;
 import java.util.Optional;
 
 @Service

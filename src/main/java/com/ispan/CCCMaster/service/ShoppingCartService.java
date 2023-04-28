@@ -4,9 +4,14 @@ import java.io.IOException;
 import java.util.List;
 
 
+import com.ispan.CCCMaster.model.bean.product.Product;
+import com.ispan.CCCMaster.model.dao.ProductDao;
+import com.ispan.CCCMaster.model.dao.ShoppingCartDao;
+
 import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
 
 public interface ShoppingCartService {
+
 
 	//購物車建立
 	void createShoppingCart(ShoppingCartBean sc, Integer productId);

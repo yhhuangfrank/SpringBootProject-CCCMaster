@@ -1,9 +1,8 @@
 package com.ispan.CCCMaster.util;
 
 import com.github.javafaker.Faker;
-import com.ispan.CCCMaster.model.bean.weihsiang.Product;
+import com.ispan.CCCMaster.model.bean.product.Product;
 import com.ispan.CCCMaster.model.dao.ProductDao;
-import com.ispan.CCCMaster.service.ProductService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

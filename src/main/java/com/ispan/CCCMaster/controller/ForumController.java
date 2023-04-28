@@ -1,7 +1,6 @@
 package com.ispan.CCCMaster.controller;
 
 import com.ispan.CCCMaster.model.bean.Forum;
-import com.ispan.CCCMaster.model.bean.weihsiang.Product;
 import com.ispan.CCCMaster.service.ForumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
