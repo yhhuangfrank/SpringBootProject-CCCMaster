@@ -6,8 +6,6 @@ import com.ispan.CCCMaster.service.BidProductService;
 import com.ispan.CCCMaster.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,7 +51,7 @@ public class BidProductApi {
 
     @PutMapping("/bidProducts/{id}")
     public BidProduct updateBidPrice(@PathVariable Integer id,
-                                                     @RequestParam(name = "bidPrice") Integer bidPrice) {
+                                     @RequestParam(name = "bidPrice") Integer bidPrice) {
         return bidProductService.updateBidPrice(id, bidPrice);
     }
 }

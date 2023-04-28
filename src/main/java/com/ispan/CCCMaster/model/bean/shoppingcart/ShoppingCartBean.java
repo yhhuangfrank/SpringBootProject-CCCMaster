@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.model.bean;
+package com.ispan.CCCMaster.model.bean.shoppingcart;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -17,6 +17,8 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.ispan.CCCMaster.model.bean.product.Product;
+
+import com.ispan.CCCMaster.model.bean.customer.Customer;
 
 @Entity
 @Table(name="ShoppingCart")

@@ -33,6 +33,11 @@
   <!-- Template Main CSS File -->
   <link href="${contextRoot}/styles/front/assets/css/style.css" rel="stylesheet">
 
+<script>
+
+
+</script>
+
 </head>
 
 <body>
@@ -73,25 +78,39 @@
                 </thead>
                 <tbody>
                 <c:set var="total" value="0" />
-                <c:forEach var="sc" items="${shoppingcart}">
-                  <tr>
+                <c:forEach var="sc" items="${shoppingcart}" varStatus="status"> 
+                  <tr valign="middle">
                     <th scope="row"></th>
-                    <td>${sc.productBean.productName}</td>
-                    <td>${sc.quantity}</td>
-                    <td>${sc.productBean.price}</td>
-                    <td><c:set var="subtotal" value="${sc.quantity*sc.productBean.price}" />${sc.quantity*sc.productBean.price}</td>
-                    <td><i class="ri-delete-bin-6-line"></i></td>
-                    <c:set var="total" value="${total + subtotal}" />
-                    
+                    <td>
+                    	<img src="${contextRoot}/products/showImage/${sc.productBean.productId}" alt="" width="60px" height="60px">
+                    	${sc.productBean.productName}
+                    </td>
+                    <td>
+	                    	<div class="input-group" style="width: 150px;">
+	                    	  <button id="dec${status.count}" class="btn btn-outline-secondary" type="button" onclick="dec(${status.count})">-</button>             	  
+	                    	    <input id="quantity${status.count}" type="text" value="${sc.quantity}" class="form-control text-center" min="1" data-max="${sc.productBean.inventory}" name="quantity" oninput="check(event)">
+	                    	  <button id="inc${status.count}" class="btn btn-outline-secondary" type="button" onclick="inc(${status.count})">+</button>
+	                    	</div>                 	
+                    </td>
+                    <td><input id="price${status.count}" type="hidden" value="${sc.productBean.price}">${sc.productBean.price}</td>
+                    <td>
+                      <input id="total${status.count}" type="text" value="${sc.quantity*sc.productBean.price}">
+                      <!-- <c:set var="subtotal" value="${sc.quantity*sc.productBean.price}" />${sc.quantity*sc.productBean.price} -->
+                    </td>
+                    <td>
+                    	<form:form action="${contextRoot}/front/shoppingcart/delete" method="post" style="margin-top: 15px">
+                    		<input type="hidden" name="_method" value="delete"/>
+	                    	<input type="hidden" name="id" value="${sc.shoppoingCartId}"/>
+                    		<button type="submit"><i class="ri-delete-bin-6-line"></i></button>
+                    	</form:form>
+                    </td>
+                    <c:set var="total" value="${total + subtotal}" />                    
                   </tr>
-                  </c:forEach>
-                   
-                  
+                  	</c:forEach>                  
                 </tbody>
               </table>
             </div>
           </div>
-
           <div class="col-lg-4">
 
             <div class="sidebar">
@@ -113,7 +132,7 @@
 				</div>
 				<form:form method="post" modelAttribute="" action="${contextRoot}">
 					<div class="d-grid gap-2 mt-3">					
-						<button class="btn btn-danger">結帳去</button>					
+						<button class="btn btn-danger" >結帳去</button>					
 					</div>
 				</form:form>	
 			</div>
@@ -143,6 +162,57 @@
 <script src="${contextRoot}/styles/front/assets/vendor/php-email-form/validate.js"></script>
 <!-- Template Main JS File -->
 <script src="${contextRoot}/styles/front/assets/js/main.js"></script>
+<script>
+  //數量-1
+  function dec(count){
+    let valueInput = document.getElementById('quantity'+count);
+    let qua = document.getElementById('price'+count);
+    let tot = document.getElementById('total'+count)
+    let values = parseInt(valueInput.value)
+    // console.log(tot.value)
+    console.log(qua.value)
+    if(values>1){
+      valueInput.value=values - 1;
+      tot.value=qua.value*valueInput.value;
+      tot.innerText='tot.value'
+      console.log(tot.value)
+    }
+  }
+  
+  //數量+1
+  function inc(count){
+    let valueInput = document.getElementById('quantity'+count);
+    let qua = document.getElementById('price'+count);
+    let tot = document.getElementById('total'+count)
+    let max = parseInt(valueInput.getAttribute('data-max'),10)
+    let values = parseInt(valueInput.value)
+    // console.log(tot.value)
+    console.log(qua.value)
+    if(values<max){
+      valueInput.value=values + 1;
+      tot.value=qua.value*valueInput.value;
+      console.log(tot.value)
+    }
+  } 
+  //數量欄位檢查
+  function check(event){
+    const input = event.target;
+    const max = parseInt(input.getAttribute('data-max'),10)
+    let values = parseInt(input.value,10);
+    if(isNaN(values) || values < 1){
+      values = 1;
+    }
+    if(values > max){
+      values = max;
+    }
+    input.value=values;
+    
+  }
+  //小計
+  
+
+  
+</script>
 
 </body>
 

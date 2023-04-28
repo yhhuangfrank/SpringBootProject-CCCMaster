@@ -1,48 +1,27 @@
 package com.ispan.CCCMaster.service;
 
-import java.util.Date;
+import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import com.ispan.CCCMaster.model.bean.ShoppingCartBean;
 import com.ispan.CCCMaster.model.bean.product.Product;
 import com.ispan.CCCMaster.model.dao.ProductDao;
 import com.ispan.CCCMaster.model.dao.ShoppingCartDao;
 
-@Service
-public class ShoppingCartService {
-	
-	@Autowired
-	private ShoppingCartDao scDao;
-	
-	@Autowired
-	private ProductDao pDao;
-	
-	
-	//購物車建立
-	public void createShoppingCart(ShoppingCartBean sc,Integer productId) {
-		Optional<Product> pOption= pDao.findById(productId);
-		Product p = pOption.get();
-		sc.setProductBean(p);
-		Date date = new Date();
-		String dateString = String.valueOf(date.getTime());
-		sc.setShoppoingCartId(dateString);
-//		scDao.addCIdToSC(sc.getCbShoppingCart().getId());
-		scDao.save(sc);
-	}
-	//查詢購物車
-//	public List<ShoppingCartBean> findShoppingCartByCid(Customers c) {
-//		List<ShoppingCartBean> list = scDao.findByCid(c);
-//		 return list;
-//	}
+import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
 
-	public List<ShoppingCartBean> findtest(){
-		return scDao.findAll();
-	}
-	
-	
+public interface ShoppingCartService {
+
+
+	//購物車建立
+	void createShoppingCart(ShoppingCartBean sc, Integer productId);
+
+	List<ShoppingCartBean> findtest();
+
+	//刪除購物車
+	void deleteBySCId(String shoppoingCartId);
+
+	//修改購物車
+	void editBySCId(ShoppingCartBean sc) throws IOException;
 
 }

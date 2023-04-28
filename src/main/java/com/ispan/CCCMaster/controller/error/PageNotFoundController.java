@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.controller;
+package com.ispan.CCCMaster.controller.error;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;

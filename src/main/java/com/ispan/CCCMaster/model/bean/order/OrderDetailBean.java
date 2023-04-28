@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.model.bean;
+package com.ispan.CCCMaster.model.bean.order;
 
 import com.ispan.CCCMaster.model.bean.product.Product;
 

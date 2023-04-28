@@ -22,6 +22,8 @@ public class BidProductRequest {
 
     private MultipartFile image;
 
+    private String endDate;
+
     public String getName() {
         return name;
     }
@@ -62,6 +64,14 @@ public class BidProductRequest {
         this.image = image;
     }
 
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
     @Override
     public String toString() {
         return "BidProductRequest{" +
@@ -70,6 +80,7 @@ public class BidProductRequest {
                 ", categoryName='" + categoryName + '\'' +
                 ", description='" + description + '\'' +
                 ", image=" + image +
+                ", endDate='" + endDate + '\'' +
                 '}';
     }
 }

@@ -19,7 +19,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminBidProductController {
+public class BidProductAdminController {
 
     private final BidProductService bidProductService;
 
@@ -28,7 +28,7 @@ public class AdminBidProductController {
     private final BidProductValidator bidProductValidator;
 
     @Autowired
-    public AdminBidProductController(BidProductService bidProductService,
+    public BidProductAdminController(BidProductService bidProductService,
                                      CategoryService categoryService,
                                      BidProductValidator bidProductValidator) {
         this.bidProductService = bidProductService;
@@ -94,6 +94,9 @@ public class AdminBidProductController {
         bidProductRequest.setBasePrice(foundBidProduct.getBasePrice());
         bidProductRequest.setDescription(foundBidProduct.getDescription());
         bidProductRequest.setCategoryName(foundBidProduct.getCategory().getName());
+        if (foundBidProduct.getExpiredAt() != null) {
+            bidProductRequest.setEndDate(foundBidProduct.getExpiredAt().toString());
+        }
 
         List<Category> categories = categoryService.findAllCategories();
 

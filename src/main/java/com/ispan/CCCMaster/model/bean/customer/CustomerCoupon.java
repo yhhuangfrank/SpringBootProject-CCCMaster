@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.model.bean;
+package com.ispan.CCCMaster.model.bean.customer;
 
 import java.util.Date;
 
@@ -17,8 +17,8 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name = "CustomerFavorites")
-public class CustomerFavorite {
+@Table(name = "CustomerCoupons")
+public class CustomerCoupon {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,15 +29,21 @@ public class CustomerFavorite {
 	@JoinColumn(name = "customer_id")
 	private Customer customers;
 	
-	@Column(name = "product_id")
-	private Integer productId;
+	@Column(name = "coupon_id", columnDefinition = "nchar(36)")
+	private String couponId;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	@Column(name = "build_time", columnDefinition = "datetime")
 	private Date buildTime;
 	
-	public CustomerFavorite() {
+	@Column(name = "is_available", columnDefinition = "bit")
+	private Boolean isAvailable;
+	
+	@Column(name = "unavailable_reason", columnDefinition = "char(1)")
+	private String unavailableReason;
+
+	public CustomerCoupon() {
 	}
 
 	public Integer getId() {
@@ -48,20 +54,12 @@ public class CustomerFavorite {
 		this.id = id;
 	}
 
-	public Customer getCustomers() {
-		return customers;
+	public String getCouponId() {
+		return couponId;
 	}
 
-	public void setCustomers(Customer customers) {
-		this.customers = customers;
-	}
-
-	public Integer getProductId() {
-		return productId;
-	}
-
-	public void setProductId(Integer productId) {
-		this.productId = productId;
+	public void setCouponId(String couponId) {
+		this.couponId = couponId;
 	}
 
 	public Date getBuildTime() {
@@ -70,6 +68,30 @@ public class CustomerFavorite {
 
 	public void setBuildTime(Date buildTime) {
 		this.buildTime = buildTime;
+	}
+
+	public Boolean getIsAvailable() {
+		return isAvailable;
+	}
+
+	public void setIsAvailable(Boolean isAvailable) {
+		this.isAvailable = isAvailable;
+	}
+
+	public String getUnavailableReason() {
+		return unavailableReason;
+	}
+
+	public void setUnavailableReason(String unavailableReason) {
+		this.unavailableReason = unavailableReason;
+	}
+
+	public Customer getCustomers() {
+		return customers;
+	}
+
+	public void setCustomers(Customer customers) {
+		this.customers = customers;
 	}
 
 }

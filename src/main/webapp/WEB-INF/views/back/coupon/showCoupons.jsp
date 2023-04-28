@@ -74,37 +74,36 @@
                     <td style="vertical-align:middle">${cp.enddate}</td>
                     <td style="vertical-align:middle">${cp.instructions}</td>
                     <td>
-                    	<form action="${contextRoot}/Coupons/editCoupon" style="margin:auto 0px">
+                    	<form action="${contextRoot}/coupons/editcoupon" style="margin:auto 0px">
 	                    	<input type="hidden" name="id" value="${cp.couponid}"/>
 	                        <input type="submit" class="btn btn-outline-info btn-sm" value="編輯"/>
                     	</form>
-                    	<form:form method="put"> </form:form>
                     </td>
-                    <td>
-                    	<form:form action="${contextRoot}Coupons/delete" style="margin:auto" method="post">
-                    		<input type="hidden" name="_method" value="delete"/>
-	                    	<input type="hidden" name="id" value="${cp.couponid}"/>
-	                        <button type="button" data-bs-toggle="modal" data-bs-target="#${cp.couponid}" class="btn btn-outline-danger btn-sm" >刪除</button>
-								<div class="modal fade" id="${cp.couponid}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-									<div class="modal-dialog" role="document">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="exampleModalLabel"></h5>
-												<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-											<div class="modal-body">
-												<h3>是否確定刪除?</h3>
-											</div>
-											<div class="modal-footer">
-												<input type="reset" class="btn btn-secondary" data-bs-dismiss="modal" value="否">
-												<input type="submit" class="btn btn-primary" value="確定">
-											</div>
-										</div>
+                    <td>                    	
+                   		<button type="button" data-bs-toggle="modal" data-bs-target="#delete" class="btn btn-outline-danger btn-sm" >刪除</button>	                    		            
+						<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel"></h5>
+										<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<h3>是否確定刪除?</h3>
+									</div>
+									<div class="modal-footer">
+									<form action="${contextRoot}/coupons/delete" style="margin:auto" method="post">
+										<input type="reset" class="btn btn-secondary" data-bs-dismiss="modal" value="否">         		
+                  						<input type="hidden" name="_method" value="delete"/>
+                   						<input type="hidden" name="id" value="${cp.couponid}"/>	            
+										<input type="submit" class="btn btn-primary" value="確定">
+										</form>
 									</div>
 								</div>
-                    	</form:form>
+							</div>
+						</div>
                     </td>
                   </tr>
                   </c:forEach>

@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.model.bean;
+package com.ispan.CCCMaster.model.bean.coupon;
 
 import java.io.Serializable;
 
