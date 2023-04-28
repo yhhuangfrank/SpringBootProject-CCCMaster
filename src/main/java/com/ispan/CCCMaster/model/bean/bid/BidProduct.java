@@ -23,7 +23,7 @@ public class BidProduct {
     @Column(name = "bid_price", nullable = false)
     private Integer bidPrice;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false, foreignKey = @ForeignKey(name = "BidProduct_Category"))
     private Category category;
 
@@ -145,11 +145,12 @@ public class BidProduct {
                 ", description='" + description + '\'' +
                 ", image='" + image + '\'' +
                 ", createdAt=" + createdAt +
+                ", expiredAt=" + expiredAt +
                 '}';
     }
 
     //對二手商品訂單:一對一  BY瑛仁
-    @OneToOne(mappedBy = "bpbidOrder")
+    @OneToOne(mappedBy = "bpbidOrder", fetch = FetchType.LAZY)
     BidOrderBean bidOrder;
 }
 

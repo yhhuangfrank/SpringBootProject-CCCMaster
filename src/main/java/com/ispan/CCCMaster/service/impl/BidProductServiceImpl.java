@@ -20,7 +20,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.Predicate;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -55,6 +58,7 @@ public class BidProductServiceImpl implements BidProductService {
         bidProduct.setCategory(getOrCreateCategory(bidProductRequest.getCategoryName()));
         bidProduct.setDescription(bidProductRequest.getDescription());
 
+        // 處理圖片
         String imageLink = DEFAULT_IMAGE; // 預設圖片
 
         if (!bidProductRequest.getImage().isEmpty()) {
@@ -62,6 +66,8 @@ public class BidProductServiceImpl implements BidProductService {
             imageLink = imgurUploader.uploadImage(bidProductRequest.getImage());
         }
         bidProduct.setImage(imageLink);
+
+        bidProduct.setExpiredAt(handleDateFormat(bidProductRequest.getEndDate()));
 
         bidProductDao.save(bidProduct);
     }
@@ -134,6 +140,8 @@ public class BidProductServiceImpl implements BidProductService {
             foundBidProduct.setImage(imageLink);
         }
 
+        foundBidProduct.setExpiredAt(handleDateFormat(bidProductRequest.getEndDate()));
+
         bidProductDao.save(foundBidProduct);
     }
 
@@ -186,5 +194,21 @@ public class BidProductServiceImpl implements BidProductService {
             sorting = Sort.Direction.DESC;
         }
         return sorting;
+    }
+
+    private Date handleDateFormat(String dateString) {
+
+        // 處理日期
+        Date date;
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        try {
+            date = dateFormat.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            throw new RuntimeException("日期轉換過程發生錯誤!");
+        }
+
+        return date;
     }
 }

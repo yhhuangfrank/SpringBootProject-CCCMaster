@@ -94,6 +94,9 @@ public class BidProductAdminController {
         bidProductRequest.setBasePrice(foundBidProduct.getBasePrice());
         bidProductRequest.setDescription(foundBidProduct.getDescription());
         bidProductRequest.setCategoryName(foundBidProduct.getCategory().getName());
+        if (foundBidProduct.getExpiredAt() != null) {
+            bidProductRequest.setEndDate(foundBidProduct.getExpiredAt().toString());
+        }
 
         List<Category> categories = categoryService.findAllCategories();
 
