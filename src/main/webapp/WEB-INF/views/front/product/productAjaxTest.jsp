@@ -106,7 +106,7 @@
                     排序方式
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="sortDropdown" id="sortDropUl">
-                    <li><a class="dropdown-item" href="#" data-sort="default">預設</a></li>
+                    <li><a class="dropdown-item" href="#" data-sort="productId_asc">預設</a></li>
                     <li><a class="dropdown-item" href="#" data-sort="price_asc">價格由低到高</a></li>
                     <li><a class="dropdown-item" href="#" data-sort="price_desc">價格由高到低</a></li>
                     <li><a class="dropdown-item" href="#" data-sort="productViews_asc">瀏覽人次由低到高</a></li>
@@ -115,30 +115,30 @@
 
             </div>
             <!-- End Sort Dropdown -->
-            <!-- Category Dropdown -->
-            <div class="dropdown mb-3">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdown"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                    類別
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="categoryDropdown" id="categoryDropUl">
-                    <li><a class="dropdown-item" href="#" data-category="all">全部</a></li>
 
-                </ul>
-            </div>
-            <!-- End Category Dropdown -->
         </div>
     </section><!-- End Breadcrumbs -->
 
     <!-- ======= Portfolio Section ======= -->
     <section id="portfolio" class="portfolio">
         <div class="container">
+            <div class="row">
+                <div class="col-lg-12 d-flex justify-content-center">
+                    <ul id="portfolio-flters">
+                        <li data-filter="全部" class="filter-active">全部</li>
+                        <li data-filter="手機">手機</li>
+                        <li data-filter="滑鼠">滑鼠</li>
+                        <li data-filter="鍵盤">鍵盤</li>
+                        <li data-filter="電腦">電腦</li>
+                        <li data-filter="筆記型電腦">筆記型電腦</li>
+                    </ul>
+                </div>
+                <div id="productContainer" class="row gy-4">
 
-            <div id="productContainer" class="row gy-4">
+                </div>
 
-            </div>
-
-            <div id="divPagination" class="d-flex justify-content-center mt-4">
+                <div id="divPagination" class="d-flex justify-content-center mt-4">
+                </div>
             </div>
         </div>
     </section><!-- End Portfolio Section -->
@@ -150,18 +150,7 @@
         class="bi bi-arrow-up-short"></i></a>
 
 <script>
-    // async function loadProducts(page, keyword, sort) {
-    //     try {
-    //         const response = await axios.get('/front/product/list', {
-    //             params: {page, keyword, sort}
-    //         });
-    //         console.log(response.data)
-    //         displayProducts(response.data.products.content);
-    //         setupPagination(response.data);
-    //     } catch (error) {
-    //         console.error('Error loading products:', error);
-    //     }
-    // }
+
 
     async function loadProducts(page, keyword, sort, category) {
         try {
@@ -171,7 +160,6 @@
             console.log(response.data)
             displayProducts(response.data.products.content);
             setupPagination(response.data);
-            displayCategoryList(response.data.categoryList);
         } catch (error) {
             console.error('Error loading products:', error);
         }
@@ -188,7 +176,7 @@
                 include.addEventListener('load', resolve);
             });
         })).then(() => {
-            loadProducts(1, '', getSortValue());
+            loadProducts(1, '', getSortValue(), getCategoryValue());
         });
     };
 
@@ -203,14 +191,25 @@
                 pageButton.className += " active";
             }
             pageButton.innerText = i;
-            pageButton.onclick = () => loadProducts(i, pageData.keyword, getSortValue(), getCategoryValue());
+            pageButton.onclick = () => loadProducts(i, pageData.keyword, getSortValue());
             paginationDiv.appendChild(pageButton);
         }
     }
 
+    function getCategoryValue() {
+        const sortDropdownItems = document.querySelectorAll('#portfolio-flters li');
+        let categoryValue = "全部";
+        sortDropdownItems.forEach((item) => {
+            if (item.getAttribute('aria-current') === 'true') {
+                categoryValue = item.getAttribute('data-filter');
+            }
+        });
+        return categoryValue
+    }
+
     function getSortValue() {
         const sortDropdownItems = document.querySelectorAll('#sortDropUl a');
-        let sortValue = 'default';
+        let sortValue = 'productId_asc';
         sortDropdownItems.forEach((item) => {
             if (item.getAttribute('aria-current') === 'true') {
                 sortValue = item.getAttribute('data-sort');
@@ -269,28 +268,6 @@
         });
     }
 
-    function displayCategoryList(categoryList) {
-        const categoryDropdownUl=document.getElementById('categoryDropUl')
-        categoryDropdownUl.innerHTML=` <li><a class="dropdown-item" href="#" data-category="all">全部</a></li>`;
-        categoryList.forEach((category) => {
-        const categoryDropItem=document.createElement("li")
-        const categoryDropItemA=document.createElement("a")
-            categoryDropItemA.className="dropdown-item";
-            categoryDropItemA.setAttribute("data-category",category.name);
-            categoryDropItemA.innerText=category.name
-            categoryDropItem.append(categoryDropItemA);
-            categoryDropdownUl.append(categoryDropItem);
-        }
-        )
-        const categoryDropdownItems = document.querySelectorAll('#categoryDropUl a');
-        categoryDropdownItems.forEach((item) => {
-            item.addEventListener('click', (event) => {
-                event.preventDefault();
-                setCategoryValue(item.getAttribute('data-category'));
-                loadProducts(1, document.getElementById('search').value, getSortValue(), getCategoryValue());
-            });
-        });
-    }
 
     function setSortValue(value) {
         const sortDropdownItems = document.querySelectorAll('#sortDropUl a');
@@ -306,6 +283,20 @@
         });
     }
 
+    function setCategory(value) {
+        const categoryItems = document.querySelectorAll('#portfolio-flters li')
+        categoryItems.forEach((item)=>{
+            if (item.getAttribute('data-filter') === value) {
+                item.setAttribute('aria-current', 'true');
+                item.className+="filter-active"
+            } else {
+                item.removeAttribute('aria-current');
+                item.className="";
+            }
+        })
+    }
+
+
     const sortDropdownItems = document.querySelectorAll('#sortDropUl a');
     sortDropdownItems.forEach((item) => {
         item.addEventListener('click', (event) => {
@@ -314,41 +305,90 @@
             loadProducts(1, document.getElementById('search').value, getSortValue(), getCategoryValue());
         });
     });
-
-    function getCategoryValue() {
-        const categoryDropdownItems = document.querySelectorAll('#categoryDropUl a');
-        let categoryValue = 'all';
-        categoryDropdownItems.forEach((item) => {
-            if (item.getAttribute('aria-current') === 'true') {
-                categoryValue = item.getAttribute('data-category');
-            }
-        });
-        return categoryValue;
-    }
-
-    function setCategoryValue(value) {
-        const categoryDropdownItems = document.querySelectorAll('#categoryDropUl a');
-        const categoryDropdownButton = document.querySelector('#categoryDropdown');
-
-        categoryDropdownItems.forEach((item) => {
-            if (item.getAttribute('data-category') === value) {
-                item.setAttribute('aria-current', 'true');
-                categoryDropdownButton.innerText = item.innerText; // 更新按鈕上的文字
-            } else {
-                item.removeAttribute('aria-current');
-            }
-        });
-    }
-
-    const categoryDropdownItems = document.querySelectorAll('#categoryDropUl a');
-    categoryDropdownItems.forEach((item) => {
+    const categoryItems = document.querySelectorAll('#portfolio-flters li')
+    categoryItems.forEach((item) => {
         item.addEventListener('click', (event) => {
-            event.preventDefault();
-            setCategoryValue(item.getAttribute('data-category'));
+            event.preventDefault()
+            setCategory(item.getAttribute('data-filter'));
             loadProducts(1, document.getElementById('search').value, getSortValue(), getCategoryValue());
-        });
-    });
+        })
+    })
 
+
+    // async function loadProducts(page, keyword, sort) {
+    //     try {
+    //         const response = await axios.get('/front/product/list', {
+    //             params: {page, keyword, sort}
+    //         });
+    //         console.log(response.data)
+    //         displayProducts(response.data.products.content);
+    //         setupPagination(response.data);
+    //     } catch (error) {
+    //         console.error('Error loading products:', error);
+    //     }
+    // }
+
+    // function getCategoryValue() {
+    //     const categoryDropdownItems = document.querySelectorAll('#categoryDropUl a');
+    //     let categoryValue = '';
+    //     categoryDropdownItems.forEach((item) => {
+    //         if (item.getAttribute('aria-current') === 'true') {
+    //             categoryValue = item.getAttribute('data-category');
+    //         }
+    //     });
+    //     return categoryValue;
+    // }
+
+    // function setCategoryValue(value) {
+    //     const categoryDropdownItems = document.querySelectorAll('#categoryDropUl a');
+    //     const categoryDropdownButton = document.querySelector('#categoryDropdown');
+    //
+    //     categoryDropdownItems.forEach((item) => {
+    //         if (item.getAttribute('data-category') === value) {
+    //             item.setAttribute('aria-current', 'true');
+    //             if(item.getAttribute('data-category') == ''){
+    //                 categoryDropdownButton.innerText ='全部'
+    //             }else {
+    //             categoryDropdownButton.innerText = item.innerText; // 更新按鈕上的文字
+    //             }
+    //         } else {
+    //             item.removeAttribute('aria-current');
+    //         }
+    //     });
+    // }
+
+    // const categoryDropdownItems = document.querySelectorAll('#categoryDropUl a');
+    // categoryDropdownItems.forEach((item) => {
+    //     item.addEventListener('click', (event) => {
+    //         event.preventDefault();
+    //         setCategoryValue(item.getAttribute('data-category'));
+    //         loadProducts(1, document.getElementById('search').value, getSortValue(), getCategoryValue());
+    //     });
+    // });
+
+
+    //function displayCategoryList(categoryList) {
+    //     const categoryDropdownUl=document.getElementById('categoryDropUl')
+    //     categoryDropdownUl.innerHTML=` <li><a class="dropdown-item" href="#" data-category="">全部</a></li>`;
+    //     categoryList.forEach((category) => {
+    //     const categoryDropItem=document.createElement("li")
+    //     const categoryDropItemA=document.createElement("a")
+    //         categoryDropItemA.className="dropdown-item";
+    //         categoryDropItemA.setAttribute("data-category",category.name);
+    //         categoryDropItemA.innerText=category.name
+    //         categoryDropItem.append(categoryDropItemA);
+    //         categoryDropdownUl.append(categoryDropItem);
+    //     }
+    //     )
+    //     const categoryDropdownItems = document.querySelectorAll('#categoryDropUl a');
+    //     categoryDropdownItems.forEach((item) => {
+    //         item.addEventListener('click', (event) => {
+    //             event.preventDefault();
+    //             setCategoryValue(item.getAttribute('data-category'));
+    //             loadProducts(1, document.getElementById('search').value, getSortValue(), getCategoryValue());
+    //         });
+    //     });
+    // }
 </script>
 </body>
 

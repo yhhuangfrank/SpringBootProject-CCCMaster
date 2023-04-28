@@ -1,9 +1,8 @@
 package com.ispan.CCCMaster.controller;
 
 
-import com.ispan.CCCMaster.model.bean.weihsiang.Product;
+import com.ispan.CCCMaster.model.bean.product.Product;
 import com.ispan.CCCMaster.service.CategoryService;
-import com.ispan.CCCMaster.service.CrawlerService;
 import com.ispan.CCCMaster.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,22 +32,46 @@ public class ProductsController {
 
 
     //------------------------Ajax--------------------------------------
+//    @ResponseBody
+//    @GetMapping("/front/product/list")
+//    public Map<String, Object> searchProductNameApi(@RequestParam(name = "keyword", required = false) String keyword,
+//                                                    @RequestParam(name = "page", defaultValue = "1") Integer pageNum,
+//                                                    @RequestParam(name = "sort", defaultValue = "default") String sort,
+//                                                    @RequestParam(name = "category") String category)
+//    {
+//        System.out.println("sort"+sort);
+//        System.out.println("category:"+category);
+//        Page<Product> products;
+//        Map<String, Object> response = new HashMap<>();
+//        System.out.println("enter searchProductNameApi");
+//        System.out.println(pageNum);
+//        System.out.println(keyword);
+//        products = pService.findByPageAjax(pageNum, keyword, sort,category);
+//        response.put("categoryList",categoryService.findAllCategories());
+//        response.put("pageNum", pageNum);
+//        response.put("keyword", keyword);
+//        response.put("products", products);
+//
+//        return response;
+//    }
+
+
     @ResponseBody
     @GetMapping("/front/product/list")
     public Map<String, Object> searchProductNameApi(@RequestParam(name = "keyword", required = false) String keyword,
                                                     @RequestParam(name = "page", defaultValue = "1") Integer pageNum,
-                                                    @RequestParam(name = "sort", defaultValue = "default") String sort,
-                                                    @RequestParam(name = "category", defaultValue = "all") String category)
-    {
-        System.out.println(sort);
-        System.out.println(category);
+                                                    @RequestParam(name = "sort", defaultValue = "productId_asc") String sort,
+                                                    @RequestParam(name = "category") String category) {
+        System.out.println("sort" + sort);
+        System.out.println("category:" + category);
+        System.out.println("keyword:" + keyword);
         Page<Product> products;
         Map<String, Object> response = new HashMap<>();
         System.out.println("enter searchProductNameApi");
         System.out.println(pageNum);
         System.out.println(keyword);
-        products = pService.findByPageAjax(pageNum, keyword, sort,category);
-        response.put("categoryList",categoryService.findAllCategories());
+        products = pService.findByCriteria(pageNum, keyword, sort, category);
+        response.put("categoryList", categoryService.findAllCategories());
         response.put("pageNum", pageNum);
         response.put("keyword", keyword);
         response.put("products", products);

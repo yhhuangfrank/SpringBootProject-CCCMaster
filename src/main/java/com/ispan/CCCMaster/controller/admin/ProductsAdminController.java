@@ -1,7 +1,7 @@
-package com.ispan.CCCMaster.controller;
+package com.ispan.CCCMaster.controller.admin;
 
 import com.ispan.CCCMaster.model.bean.bid.Category;
-import com.ispan.CCCMaster.model.bean.weihsiang.Product;
+import com.ispan.CCCMaster.model.bean.product.Product;
 import com.ispan.CCCMaster.service.CategoryService;
 import com.ispan.CCCMaster.service.CrawlerService;
 import com.ispan.CCCMaster.service.ProductService;

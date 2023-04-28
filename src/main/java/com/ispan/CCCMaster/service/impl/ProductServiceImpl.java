@@ -1,7 +1,7 @@
 package com.ispan.CCCMaster.service.impl;
 
 import com.ispan.CCCMaster.model.bean.bid.Category;
-import com.ispan.CCCMaster.model.bean.weihsiang.Product;
+import com.ispan.CCCMaster.model.bean.product.Product;
 import com.ispan.CCCMaster.model.dao.CategoryDao;
 import com.ispan.CCCMaster.model.dao.ProductDao;
 
@@ -10,12 +10,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 
+import javax.persistence.criteria.Predicate;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -87,6 +91,51 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
         return page;
 
     }
+
+    @Override
+    public Page<Product> findByCriteria(Integer pageNumber, String keyword, String sort, String categoryName){
+        // 判定搜尋方向
+        System.out.println("enter findByCriteria");
+        System.out.println("sort="+sort);
+        System.out.println("categoryName="+categoryName);
+        String sortBy[] = sort.split("_");
+        String orderBy=sortBy[0]; //依甚麼排序
+        Sort.Direction direction;
+
+        //排序方式
+        if(sortBy[1].equals("asc")){
+            direction = Sort.Direction.ASC;
+        }else {
+            direction = Sort.Direction.DESC;
+        }
+
+        Specification<Product> spec = (root, query, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            Predicate p;
+            // 判定輸入值是否為空
+            if (!categoryName.equals("全部")) {
+                Category category = categoryDao.findCategoryByName(categoryName);
+                // 查詢相對應種類
+                p = criteriaBuilder.equal(root.get("category"), category);
+                predicates.add(p);
+            }
+            if(!keyword.equals("")){
+               p = criteriaBuilder.like(root.get("productName"), keyword);
+                predicates.add(p);
+            }
+
+            // 將搜尋條件從 list 複製到一空 array
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        };
+
+
+
+        // 建立 Pageable 物件帶入傳遞參數
+        Pageable pgb = PageRequest.of(pageNumber - 1, 9, direction, orderBy);
+
+        return productDao.findAll(spec, pgb);
+    }
+
 
     @Override
     public byte[] getProductImageById(Integer productId) {
