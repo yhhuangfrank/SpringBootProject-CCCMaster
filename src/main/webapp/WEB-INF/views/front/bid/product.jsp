@@ -63,8 +63,10 @@
                         <div class="swiper-wrapper align-items-center">
 
                             <div class="swiper-slide">
-                                <img src="${bidProduct.image}" alt="BidProduct-image"
-                                     style="height: 50rem; width: 50rem">
+                                <img src="${contextRoot}/${bidProduct.image}" class="card-img-top"
+                                     style="opacity: 0; transition: opacity 0.5s ease-in-out; height: 50rem; width: 50rem"
+                                     onload="this.style.opacity='1';"
+                                     alt="BidProduct-image">
                             </div>
 
                         </div>
@@ -119,15 +121,30 @@
                         <div id="messageArea"></div>
                     </div>
                     <div class="portfolio-description">
-                        <div id="countDownArea">
-                            <span class="day"></span>
-                            <span class="hour"></span>
-                            <span class="minute"></span>
-                            <span class="second"></span>
+                        <h2 class="text-center">距離截止還有</h2>
+                        <div class="container text-center">
+                            <div id="countDownArea" class="badge bg-dark text-white fs-6">
+                                <span class="day">天</span>
+                                <span class="hour">時</span>
+                                <span class="minute">分</span>
+                                <span class="second">秒</span>
+                            </div>
                         </div>
-                        <h2>賣家: 某某某</h2>
-                        <h4>關於此商品</h4>
-                        <p>${bidProduct.description}</p>
+                        <div class="card mt-3">
+                            <div class="card-header fw-bold">賣家: 某某某</div>
+                            <div class="card-body">
+                                <h5 class="card-title">關於此商品</h5>
+                                <c:choose>
+                                    <c:when test="${bidProduct.description != null}}">
+                                        ${bidProduct.description}
+                                    </c:when>
+                                    <c:otherwise>
+                                        暫無說明。。。
+                                    </c:otherwise>
+                                </c:choose>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -173,8 +190,8 @@
 <script src="${contextRoot}/styles/front/assets/js/main.js"></script>
 <%-- axios 與自訂 JS --%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.6/axios.min.js"></script>
-<script src="${contextRoot}/js/updateBidPrice.js"></script>
-<script src="${contextRoot}/js/showDateCountDown.js"></script>
+<script src="${contextRoot}/js/bid/updateBidPrice.js"></script>
+<script src="${contextRoot}/js/bid/showDateCountDown.js"></script>
 </body>
 
 </html>

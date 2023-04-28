@@ -25,10 +25,10 @@ function setCountDownTimer() {
     const hours = Math.floor(offset / 3600) % 24  // 時
     const days = Math.floor(offset / (3600 * 24)) // 天
 
-    showCounter(days, hours, minutes, seconds)
+    showTimer(days, hours, minutes, seconds)
 }
 
-function showCounter(days, hours, minutes, seconds) {
+function showTimer(days, hours, minutes, seconds) {
     timerValueContainers[0].textContent = `${days} 天`
     timerValueContainers[1].textContent = `${hours} 小時`
     timerValueContainers[2].textContent = `${minutes} 分`

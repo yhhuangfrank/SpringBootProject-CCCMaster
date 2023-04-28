@@ -82,10 +82,10 @@ function renderBidProducts(content) {
         html += `
                 <a href="http://localhost:8080/bidProducts/${b.id}" class="text-black my-2">
                     <div class="card">
-                                <img src="${b.image}" class="card-img-top"
-                                     style="opacity: 0; transition: opacity 0.5s ease-in-out; height: 18rem;"
-                                     onload="this.style.opacity='1';"
-                                     alt="BidProduct-image">
+                        <img src="${b.image}" class="card-img-top"
+                             style="opacity: 0; transition: opacity 0.5s ease-in-out; height: 18rem;"
+                             onload="this.style.opacity='1';"
+                             alt="BidProduct-image">
                         <div class="card-body">
                             <h5 class="card-title">${b.name}</h5>
                             <div class="card-text">
