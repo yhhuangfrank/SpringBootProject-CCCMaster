@@ -113,8 +113,14 @@
                             </div>
                             <div class="row mb-3">
                                 <label for="image" class="col-sm-2 col-form-label fw-bold">圖片</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-10 align-self-center">
                                     <form:input path="image" id="image" type="file" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="endDate" class="col-sm-2 col-form-label fw-bold">截止時間</label>
+                                <div class="col-sm-10">
+                                    <form:input path="endDate" id="endDate" type="datetime-local" class="form-control"/>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">送出</button>
