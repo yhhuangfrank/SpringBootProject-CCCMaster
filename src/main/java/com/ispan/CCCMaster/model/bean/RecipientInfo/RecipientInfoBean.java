@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.model.bean;
+package com.ispan.CCCMaster.model.bean.RecipientInfo;
 
 import java.io.Serializable;
 
@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.ispan.CCCMaster.model.bean.customer.Customer;
 
 @Entity
 @Table(name="RecipientInfo")

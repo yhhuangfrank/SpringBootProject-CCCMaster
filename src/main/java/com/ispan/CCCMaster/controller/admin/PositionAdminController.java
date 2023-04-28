@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.controller;
+package com.ispan.CCCMaster.controller.admin;
 
 import java.util.List;
 
@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.ispan.CCCMaster.model.bean.Position;
+import com.ispan.CCCMaster.model.bean.employee.Position;
 import com.ispan.CCCMaster.service.PositionService;
 
 @Controller
-public class PositionController {
+public class PositionAdminController {
 	
 	@Autowired
 	private PositionService pstService;

@@ -99,20 +99,20 @@
                 <div class="col-lg-6">
                     <div class="portfolio-info">
                         <h3>產品資訊</h3>
-                        <ul>
-                        
+                        <form:form method="post" modelAttribute="sc" action="${contextRoot}/shoppingcarts/create">
+                        <ul>                        	
                             <li><strong>產品名稱</strong>: ${product.productName}</li>
                             <li><strong>類別</strong>: ASU Company</li>
                             <li><strong>Project date</strong>: 01 March, 2020</li>
                             <li><strong>價格</strong>: ${product.price}</li>
                             <li><strong>庫存量</strong>: ${product.inventory}</li>
-                            <li>
+                            <li>           
                                 <strong>購買數量</strong>:
                                 <div class="input-group" style="width: 150px;">
                                     <button id="decrement" class="btn btn-outline-secondary" type="button">-</button>
                                     <%--                                    <input id="quantity" type="number" class="form-control text-center" min="1" value="1" max="${product.inventory}">--%>
                                     <input id="quantity" type="text" class="form-control text-center" value="1"
-                                           data-max="${product.inventory}">
+                                           data-max="${product.inventory}" name="quantity">
                                     <button id="increment" class="btn btn-outline-secondary" type="button">+</button>
                                 </div>
                             </li>
@@ -122,13 +122,12 @@
                             <%--                                <input id="quantity" type="number" min="1" value="1" max="${product.inventory}" style="width: 50px;">--%>
                             <%--                                <button id="increment" type="button">+</button>--%>
                             <%--                            </li>--%>
-                            <li>
-                                <form:form method="post" modelAttribute="sc" action="${contextRoot}/shoppingcarts/create">
-                            		<input name="productId" value="${product.productId}"type="hidden">                          	
-			                    	<button type="submit" class="btn btn-danger"><i class="bi bi-cart3"></i>&nbsp;加入購物車</button>	                    		
-	                    		</form:form>
-							</li>
+                            <li>                            	         
+                            		<input name="productId" value="${product.productId}"type="hidden" >                     	
+			                    	<button type="submit" class="btn btn-danger"><i class="bi bi-cart3"></i>&nbsp;加入購物車</button>	                    		                    		
+							</li>							
                         </ul>
+                        </form:form>
                     </div>
                     <div class="portfolio-description">
                         <h2>產品介紹</h2>

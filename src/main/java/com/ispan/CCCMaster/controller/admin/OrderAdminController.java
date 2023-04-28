@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.controller;
+package com.ispan.CCCMaster.controller.admin;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,13 +12,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
-import com.ispan.CCCMaster.model.bean.OrderBean;
-import com.ispan.CCCMaster.model.bean.OrderDetailBean;
+import com.ispan.CCCMaster.model.bean.order.OrderBean;
+import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;
 import com.ispan.CCCMaster.service.OrderService;
 
 @Controller
-public class OrderController {
+public class OrderAdminController {
 	
 	@Autowired
 	OrderService oService;

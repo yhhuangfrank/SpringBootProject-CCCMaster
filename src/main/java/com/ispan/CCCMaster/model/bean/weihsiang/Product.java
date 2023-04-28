@@ -1,7 +1,8 @@
 package com.ispan.CCCMaster.model.bean.weihsiang;
 
-import com.ispan.CCCMaster.model.bean.OrderDetailBean;
 import com.ispan.CCCMaster.model.bean.bid.Category;
+import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
