@@ -120,7 +120,7 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
                 predicates.add(p);
             }
             if(!keyword.equals("")){
-               p = criteriaBuilder.like(root.get("productName"), keyword);
+               p = criteriaBuilder.like(root.get("productName"), "%"+keyword+"%");
                 predicates.add(p);
             }
 
