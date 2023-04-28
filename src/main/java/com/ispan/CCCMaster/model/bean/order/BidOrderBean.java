@@ -1,7 +1,6 @@
 package com.ispan.CCCMaster.model.bean.order;
 
 
-import com.ispan.CCCMaster.model.bean.Customer;
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.customer.Customer;
 
