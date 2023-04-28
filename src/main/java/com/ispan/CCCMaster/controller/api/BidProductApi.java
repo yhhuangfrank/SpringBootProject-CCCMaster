@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Min;
 
-@Validated
 @RestController
 @RequestMapping("/api")
+@Validated
 public class BidProductApi {
 
     private final BidProductService bidProductService;

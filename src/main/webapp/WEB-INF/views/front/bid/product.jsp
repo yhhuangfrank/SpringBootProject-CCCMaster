@@ -90,7 +90,7 @@
                             </li>
                             <li>
                                 <strong class="fs-6 badge bg-secondary text-white">結束時間</strong>
-                                <span class="fs-6 ms-2">01 March, 2020</span>
+                                <span class="fs-6 ms-2">${bidProduct.expiredAt}</span>
                             </li>
                             <li>
                                 <strong class="fs-6 badge bg-secondary text-white">底價</strong>

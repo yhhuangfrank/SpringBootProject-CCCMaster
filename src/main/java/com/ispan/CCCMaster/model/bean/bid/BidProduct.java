@@ -24,7 +24,7 @@ public class BidProduct {
     @Column(name = "bid_price", nullable = false)
     private Integer bidPrice;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "category_id", nullable = false, foreignKey = @ForeignKey(name = "BidProduct_Category"))
     private Category category;
 
