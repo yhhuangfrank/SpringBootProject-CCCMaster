@@ -1,16 +1,20 @@
 package com.ispan.CCCMaster.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.ispan.CCCMaster.model.bean.ShoppingCartBean;
+
+import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
 import com.ispan.CCCMaster.service.ProductService;
 import com.ispan.CCCMaster.service.ShoppingCartService;
 
@@ -38,15 +42,29 @@ public class ShoppingCartController {
 //		model.addAttribute("sc",list);
 //		return "front/shoppingcart/shoppingcart";
 //	}
-	
+	//購物車列表
 	@GetMapping("/front/shoppingcart")
 	public String finaAll(Model model) {
 		List<ShoppingCartBean> list = scService.findtest();
 		model.addAttribute("shoppingcart",list);
 		return "/front/shoppingcarts/showshoppingcart";
 	}
-	
-	
+	//刪除購物車
+	@DeleteMapping("/front/shoppingcart/delete")
+	public String deleteBySCId(@RequestParam("id") String shoppoingCartId) {
+		scService.deleteBySCId(shoppoingCartId);
+		return "redirect:/front/shoppingcart";
+	}
+	//修改購物車
+	@PutMapping("/front/shoppingcart/edit")
+	public String editBySCId(@ModelAttribute("shoppingcart")ShoppingCartBean sc ) {
+		try {
+			scService.editBySCId(sc);
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		return "redirect:/front/shoppingcart";
+	}
 
 	
 

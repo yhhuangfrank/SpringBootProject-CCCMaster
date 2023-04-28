@@ -60,11 +60,10 @@
                     <td style="vertical-align:middle">${order.paymentcondition}</td>
                     <td style="vertical-align:middle">${od.unitprice*od.quantity}</td>
                     <td >
-                    	<form action="${contextRoot}/Orders/editOrder" style="margin:auto 0px">
+                    	<form action="${contextRoot}/orders/editorder" style="margin:auto 0px">
 	                    	<input type="hidden" name="id" value="${order.orderid}"/>
 	                        <input type="submit" class="btn btn-outline-info btn-sm" value="編輯"/>
                     	</form>
-                    	<form:form method="put"> </form:form>
                     </td>
                   </tr>
                   </c:forEach>

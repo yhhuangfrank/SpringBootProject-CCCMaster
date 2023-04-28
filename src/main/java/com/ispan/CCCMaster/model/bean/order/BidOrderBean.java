@@ -1,5 +1,6 @@
-package com.ispan.CCCMaster.model.bean;
+package com.ispan.CCCMaster.model.bean.order;
 
+import com.ispan.CCCMaster.model.bean.Customers;
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 
 import java.io.Serializable;
