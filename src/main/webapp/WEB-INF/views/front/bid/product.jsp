@@ -86,11 +86,18 @@
                             </li>
                             <li>
                                 <strong class="fs-6 badge bg-secondary text-white">起始時間</strong>
-                                <span class="fs-6 ms-2">${bidProduct.createdAt}</span>
+                                <span class="fs-6 ms-2" id="createdAt">${bidProduct.createdAt}</span>
                             </li>
                             <li>
                                 <strong class="fs-6 badge bg-secondary text-white">結束時間</strong>
-                                <span class="fs-6 ms-2">${bidProduct.expiredAt}</span>
+                                <c:choose>
+                                    <c:when test="${bidProduct.expiredAt != null}">
+                                        <span class="fs-6 ms-2" id="expiredAt">${bidProduct.expiredAt}</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="fs-6 ms-2">目前暫無</span>
+                                    </c:otherwise>
+                                </c:choose>
                             </li>
                             <li>
                                 <strong class="fs-6 badge bg-secondary text-white">底價</strong>
@@ -104,7 +111,7 @@
                             </li>
                         </ul>
                         <input name="bidPrice" id="bidPrice" type="number" class="form-control" min="1"
-                               placeholder="輸入價格" required/>
+                               placeholder="輸入欲購買價格" required/>
                         <button class="btn mt-2 text-white" style="background-color: #e96b56"
                                 data-bs-toggle="modal" data-bs-target="#modal-${bidProduct.id}">點我出價
                         </button>
@@ -112,6 +119,12 @@
                         <div id="messageArea"></div>
                     </div>
                     <div class="portfolio-description">
+                        <div id="countDownArea">
+                            <span class="day"></span>
+                            <span class="hour"></span>
+                            <span class="minute"></span>
+                            <span class="second"></span>
+                        </div>
                         <h2>賣家: 某某某</h2>
                         <h4>關於此商品</h4>
                         <p>${bidProduct.description}</p>
@@ -161,6 +174,7 @@
 <%-- axios 與自訂 JS --%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.6/axios.min.js"></script>
 <script src="${contextRoot}/js/updateBidPrice.js"></script>
+<script src="${contextRoot}/js/showDateCountDown.js"></script>
 </body>
 
 </html>
