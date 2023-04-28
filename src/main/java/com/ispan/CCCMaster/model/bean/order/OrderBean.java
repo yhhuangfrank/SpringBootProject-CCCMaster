@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.model.bean;
+package com.ispan.CCCMaster.model.bean.order;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -17,6 +17,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.ispan.CCCMaster.model.bean.Customer;
+
 
 @Entity
 @Table(name="Orders")

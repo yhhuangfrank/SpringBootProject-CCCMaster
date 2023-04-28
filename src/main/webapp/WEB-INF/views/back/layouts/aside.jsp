@@ -178,7 +178,7 @@
             </a>
             <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="${contextRoot}/Orders">
+                    <a href="${contextRoot}/orders">
                         <i class="bi bi-circle"></i><span>訂單列表</span>
                     </a>
                 </li>
@@ -260,12 +260,12 @@
             </a>
             <ul id="coupons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="${contextRoot}/Coupons">
+                    <a href="${contextRoot}/coupons">
                         <i class="bi bi-circle"></i><span>優惠券列表</span>
                     </a>
                 </li>
                 <li>
-                    <a href="${contextRoot}/Coupons/CreateForm">
+                    <a href="${contextRoot}/coupons/createform">
                         <i class="bi bi-circle"></i><span>新增優惠券</span>
                     </a>
                 </li>

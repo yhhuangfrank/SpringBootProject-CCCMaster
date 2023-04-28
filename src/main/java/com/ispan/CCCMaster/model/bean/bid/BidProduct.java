@@ -2,7 +2,7 @@ package com.ispan.CCCMaster.model.bean.bid;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.ispan.CCCMaster.model.bean.BidOrderBean;
+import com.ispan.CCCMaster.model.bean.order.BidOrderBean;
 
 import javax.persistence.*;
 import java.util.Date;

@@ -36,7 +36,7 @@
   <main id="main" class="main">
               <h1 class="card-title fs-1">編輯優惠券</h1>
 
-              <form:form method="put" modelAttribute="coupon" action="${contextRoot}/Coupons/edit">
+              <form:form method="put" modelAttribute="coupon" action="${contextRoot}/coupons/edit">
                 <div class="row mb-3">
                   <label for="inputcouponid" class="col-sm-2 col-form-label">優惠券代碼</label>
                   <div class="col-sm-10 fs-5">

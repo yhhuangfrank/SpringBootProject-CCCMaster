@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.controller;
+package com.ispan.CCCMaster.controller.admin;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -20,11 +20,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ispan.CCCMaster.model.bean.CouponBean;
+import com.ispan.CCCMaster.model.bean.coupon.CouponBean;
 import com.ispan.CCCMaster.service.CouponService;
 
 @Controller
-public class CouponController {
+public class CouponAdminController {
 	
 	@Autowired
 	CouponService cpService;

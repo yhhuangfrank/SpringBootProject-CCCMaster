@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.ispan.CCCMaster.model.bean.CouponBean;
+import com.ispan.CCCMaster.model.bean.coupon.CouponBean;
 
 
 public interface CouponDao extends JpaRepository<CouponBean, String>{

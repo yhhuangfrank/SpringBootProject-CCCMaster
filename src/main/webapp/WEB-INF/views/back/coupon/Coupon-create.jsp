@@ -53,7 +53,7 @@
                     <div class="card-body">
                         <h5 class="card-title text-center fw-bold">新增優惠券</h5>
                         
-              <form:form method="post" modelAttribute="coupon" action="${contextRoot}/Coupons/Create">
+              <form:form method="post" modelAttribute="coupon" action="${contextRoot}/coupons/create">
                 <div class="row mb-3">
                   <label for="inputName" class="col-sm-2 col-form-label fw-bold" style="text-align: right;">名稱</label>
                   <div class="col-sm-10">
