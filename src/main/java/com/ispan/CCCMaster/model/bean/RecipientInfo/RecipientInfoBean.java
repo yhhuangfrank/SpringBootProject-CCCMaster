@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.model.bean;
+package com.ispan.CCCMaster.model.bean.RecipientInfo;
 
 import java.io.Serializable;
 
@@ -15,19 +15,13 @@ import javax.persistence.Table;
 import com.ispan.CCCMaster.model.bean.customer.Customer;
 
 @Entity
-@Table(name="StoreRecipientInfo")
-public class StoreRecipientInfoBean implements Serializable {
+@Table(name="RecipientInfo")
+public class RecipientInfoBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	@Column(name = "storetype", columnDefinition = "nvarchar(10)")
-	private String storetype;
-	
-	@Column(name = "storename", columnDefinition = "nvarchar(20)")
-	private String storename;
 	
 	@Column(name = "address", columnDefinition = "nvarchar(70)")
 	private String address;
@@ -35,30 +29,19 @@ public class StoreRecipientInfoBean implements Serializable {
 	@Column(name = "name", columnDefinition = "nvarchar(50)")
 	private String name;
 	
+	@Column(name = "telephone")
+	private String telephone;
+	
 	//雙向多對一
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="customer_id")
-	private Customer cbStoreRecipientInfo;
-		
-	public StoreRecipientInfoBean(String storetype, String storename, String address, String name,
-			Customer cbStoreRecipientInfo) {
-		this.storetype = storetype;
-		this.storename = storename;
+	private Customer cbRecipientInfo;
+	
+	public RecipientInfoBean(String address, String name, String telephone, Customer cbRecipientInfo) {
 		this.address = address;
 		this.name = name;
-		this.cbStoreRecipientInfo = cbStoreRecipientInfo;
-	}
-	public String getStoretype() {
-		return storetype;
-	}
-	public void setStoretype(String storetype) {
-		this.storetype = storetype;
-	}
-	public String getStorename() {
-		return storename;
-	}
-	public void setStorename(String storename) {
-		this.storename = storename;
+		this.telephone = telephone;
+		this.cbRecipientInfo = cbRecipientInfo;
 	}
 	public String getAddress() {
 		return address;
@@ -71,6 +54,12 @@ public class StoreRecipientInfoBean implements Serializable {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getTelephone() {
+		return telephone;
+	}
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 	
 	

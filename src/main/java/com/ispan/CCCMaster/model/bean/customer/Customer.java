@@ -18,11 +18,11 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.ispan.CCCMaster.model.bean.BidOrderBean;
-import com.ispan.CCCMaster.model.bean.OrderBean;
-import com.ispan.CCCMaster.model.bean.RecipientInfoBean;
-import com.ispan.CCCMaster.model.bean.ShoppingCartBean;
-import com.ispan.CCCMaster.model.bean.StoreRecipientInfoBean;
+import com.ispan.CCCMaster.model.bean.RecipientInfo.RecipientInfoBean;
+import com.ispan.CCCMaster.model.bean.RecipientInfo.StoreRecipientInfoBean;
+import com.ispan.CCCMaster.model.bean.order.BidOrderBean;
+import com.ispan.CCCMaster.model.bean.order.OrderBean;
+import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
 
 @Entity
 @Table(name = "Customers")

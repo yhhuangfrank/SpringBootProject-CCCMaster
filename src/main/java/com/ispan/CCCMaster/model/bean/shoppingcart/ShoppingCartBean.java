@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.model.bean;
+package com.ispan.CCCMaster.model.bean.shoppingcart;
 
 import java.io.Serializable;
 import java.util.Date;
