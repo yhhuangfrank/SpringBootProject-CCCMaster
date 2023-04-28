@@ -51,25 +51,25 @@
 
           <section class="section">
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-12">
 
                 <div class="card">
                   <div class="card-body">
                     <h5 class="card-title">新增職位資料</h5>
 
                     <!-- 新增職位資料 -->
-                    <form:form method="post" modelAttribute="position" action="${contextRoot}/positions/create"
+                    <form:form method="post" modelAttribute="position" action="${contextRoot}/admin/positions/create"
                       enctype="multipart/form-data">
                       <div class="row mb-3">
                         <label for="positionId" class="col-sm-2 col-form-label">職位編號</label>
                         <div class="col-sm-10">
-                          <form:input path="positionId" id="positionId" type="text" class="form-control"></form:input>
+                          <form:input path="positionId" id="positionId" type="text" class="form-control"/>
                         </div>
                       </div>
                       <div class="row mb-3">
                         <label for="positionName" class="col-sm-2 col-form-label">職位名稱</label>
                         <div class="col-sm-10">
-                          <form:input path="positionName" id="positionName" type="text" class="form-control"></form:input>
+                          <form:input path="positionName" id="positionName" type="text" class="form-control"/>
                         </div>
                       </div>
 

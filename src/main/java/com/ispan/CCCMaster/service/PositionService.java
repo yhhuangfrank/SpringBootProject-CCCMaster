@@ -10,4 +10,6 @@ public interface PositionService {
 
 	List<Position> findAll();
 
+	void deleteById(Integer id);
+
 }

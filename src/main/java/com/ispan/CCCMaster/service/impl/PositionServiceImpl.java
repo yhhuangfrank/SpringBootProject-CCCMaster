@@ -24,5 +24,10 @@ public class PositionServiceImpl implements PositionService {
 		List<Position> positions = pstRepository.findAll();
 		return positions;
 	}
+	
+	@Override
+	public void deleteById(Integer id) {
+		pstRepository.deleteById(id);
+	}
 
 }
