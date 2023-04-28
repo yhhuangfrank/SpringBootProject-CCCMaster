@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.controller;
+package com.ispan.CCCMaster.controller.admin;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import com.ispan.CCCMaster.model.bean.employee.Position;
 import com.ispan.CCCMaster.service.PositionService;
 
 @Controller
-public class PositionController {
+public class PositionAdminController {
 	
 	@Autowired
 	private PositionService pstService;
