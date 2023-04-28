@@ -18,7 +18,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "CustomerFavorites")
-public class CustomerFavorites {
+public class CustomerFavorite {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,7 @@ public class CustomerFavorites {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "customer_id")
-	private Customers customers;
+	private Customer customers;
 	
 	@Column(name = "product_id")
 	private Integer productId;
@@ -37,7 +37,7 @@ public class CustomerFavorites {
 	@Column(name = "build_time", columnDefinition = "datetime")
 	private Date buildTime;
 	
-	public CustomerFavorites() {
+	public CustomerFavorite() {
 	}
 
 	public Integer getId() {
@@ -48,11 +48,11 @@ public class CustomerFavorites {
 		this.id = id;
 	}
 
-	public Customers getCustomers() {
+	public Customer getCustomers() {
 		return customers;
 	}
 
-	public void setCustomers(Customers customers) {
+	public void setCustomers(Customer customers) {
 		this.customers = customers;
 	}
 

@@ -27,7 +27,7 @@ public class CustomerNotify {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "customer_id")
-	private Customers customers;
+	private Customer customers;
 
 	@Column(name = "notify", columnDefinition = "nvarchar(50)")
 	private String notify;
@@ -51,11 +51,11 @@ public class CustomerNotify {
 		this.id = id;
 	}
 
-	public Customers getCustomers() {
+	public Customer getCustomers() {
 		return customers;
 	}
 
-	public void setCustomers(Customers customers) {
+	public void setCustomers(Customer customers) {
 		this.customers = customers;
 	}
 

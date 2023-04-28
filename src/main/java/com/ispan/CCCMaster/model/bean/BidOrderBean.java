@@ -60,12 +60,12 @@ public class BidOrderBean implements Serializable {
 	//買家雙向多對一	
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="buyer_id")
-	private Customers cbBuyer;
+	private Customer cbBuyer;
 	
 	//賣家雙向多對一	
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="seller_id")
-	private Customers cbSeller;
+	private Customer cbSeller;
 	
 	//雙向一對一
 	@OneToOne(cascade=CascadeType.PERSIST)
