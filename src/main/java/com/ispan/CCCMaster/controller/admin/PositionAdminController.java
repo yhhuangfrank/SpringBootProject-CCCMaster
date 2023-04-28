@@ -40,11 +40,13 @@ public class PositionAdminController {
 		return "redirect:/admin/positions";
 	}
 	
+	// 還沒寫完
 	@GetMapping("/admin/positions/edit")
 	public String editPosition(@RequestParam("id") Integer id) {
-		return null;
+		return "back/position/edit";
 	}
 	
+	// 還沒寫完
 	@PutMapping("/admin/positions/edit")	//編輯職位按鈕
 	public String putPosition() {
 		return null;
