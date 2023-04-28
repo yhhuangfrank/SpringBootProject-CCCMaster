@@ -1,6 +1,7 @@
 package com.ispan.CCCMaster.model.bean;
 
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
+import com.ispan.CCCMaster.model.bean.customer.Customer;
 
 import java.io.Serializable;
 import java.util.Date;

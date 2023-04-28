@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.ispan.CCCMaster.model.bean.customer.Customer;
+
 @Entity
 @Table(name="StoreRecipientInfo")
 public class StoreRecipientInfoBean implements Serializable {

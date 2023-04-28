@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.model.bean;
+package com.ispan.CCCMaster.model.bean.customer;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -17,6 +17,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.ispan.CCCMaster.model.bean.BidOrderBean;
+import com.ispan.CCCMaster.model.bean.OrderBean;
+import com.ispan.CCCMaster.model.bean.RecipientInfoBean;
+import com.ispan.CCCMaster.model.bean.ShoppingCartBean;
+import com.ispan.CCCMaster.model.bean.StoreRecipientInfoBean;
 
 @Entity
 @Table(name = "Customers")

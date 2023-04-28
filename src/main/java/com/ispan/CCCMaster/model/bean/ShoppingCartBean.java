@@ -19,6 +19,7 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.ispan.CCCMaster.model.bean.customer.Customer;
 import com.ispan.CCCMaster.model.bean.weihsiang.Product;
 
 @Entity
