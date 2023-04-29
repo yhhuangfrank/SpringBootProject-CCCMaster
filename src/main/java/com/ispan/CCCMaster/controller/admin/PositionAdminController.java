@@ -40,16 +40,16 @@ public class PositionAdminController {
 		return "redirect:/admin/positions";
 	}
 	
-	// 還沒寫完
-	@GetMapping("/admin/positions/edit")
-	public String editPosition(@RequestParam("id") Integer id) {
+	@GetMapping("/admin/positions/edit")	//編輯職位頁面
+	public String editPosition(@RequestParam("id") Integer id, Model model) {
+		model.addAttribute("position", pstService.findById(id));
 		return "back/position/edit";
 	}
 	
-	// 還沒寫完
-	@PutMapping("/admin/positions/edit")	//編輯職位按鈕
-	public String putPosition() {
-		return null;
+	@PutMapping("/admin/positions/edit")	//送出編輯職位表單
+	public String putPosition(@ModelAttribute("position") Position position) {
+		pstService.editById(position);
+		return "redirect:/admin/positions";
 	}
 	
 	@DeleteMapping("/admin/positions/delete")	//刪除職位按鈕

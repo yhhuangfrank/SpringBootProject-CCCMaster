@@ -58,25 +58,26 @@
                     <h5 class="card-title">編輯職位資料</h5>
 
                     <!-- 編輯職位資料 -->
-                    <form:form method="post" modelAttribute="position" action="${contextRoot}/admin/positions/create"
+                    <form:form method="put" modelAttribute="position" action="${contextRoot}/admin/positions/edit"
                       enctype="multipart/form-data">
                       <div class="row mb-3">
                         <label for="positionId" class="col-sm-2 col-form-label">職位編號</label>
                         <div class="col-sm-10">
-                          <form:input path="positionId" id="positionId" type="text" class="form-control"/>
+                          <input disabled="disabled" type="text" name="id" value="${position.positionId}" class="form-control" />
+                          <form:input readonly="true" path="positionId" id="positionId" type="hidden" class="form-control"/>
                         </div>
                       </div>
                       <div class="row mb-3">
                         <label for="positionName" class="col-sm-2 col-form-label">職位名稱</label>
                         <div class="col-sm-10">
-                          <form:input path="positionName" id="positionName" type="text" class="form-control"/>
+                          <form:input required="true" path="positionName" id="positionName" type="text" class="form-control"/>
                         </div>
                       </div>
 
                       <div class="row mb-3">
                         <label class="col-sm-2 col-form-label"></label>
                         <div class="col-sm-10">
-                          <button type="submit" class="btn btn-primary">送出</button>
+                          <button type="submit" class="btn btn-warning">確認變更</button>
                         </div>
                       </div>
 

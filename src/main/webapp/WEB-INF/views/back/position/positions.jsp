@@ -73,6 +73,9 @@
 
 					<div class="card">
 						<div class="card-body">
+							<a class="float-end mt-2 btn btn-primary" href="${contextRoot}/admin/positions/create">
+		                        新增職位資料
+		                    </a>
 							<h5 class="card-title">職位資料</h5>
 
 							<!-- Table with stripped rows -->
@@ -91,18 +94,15 @@
 											<td>${position.positionName}</td>
 											<td>
 												<div class="d-flex">
-													<form action="${contextRoot}/admin/positions/delete"
-														method="post">
-														<input type="hidden" name="_method" value="delete" /> <input
-															type="hidden" name="id" value="${position.positionId}" />
+													<form action="${contextRoot}/admin/positions/edit">
+														<input type="hidden" name="id" value="${position.positionId}" />
 														<button type="submit" class="btn btn-secondary btn-sm">
 														<i class="bi bi-pencil-square"></i>編輯
 														</button>
 													</form>
-													<form action="${contextRoot}/admin/positions/delete"
-														method="post">
-														<input type="hidden" name="_method" value="delete" /> <input
-															type="hidden" name="id" value="${position.positionId}" />
+													<form action="${contextRoot}/admin/positions/delete" method="post">
+														<input type="hidden" name="_method" value="delete" />
+														<input type="hidden" name="id" value="${position.positionId}" />
 														<button type="submit" class="btn btn-outline-danger btn-sm ms-2">
 														<i class="bi bi-exclamation-octagon"></i>刪除
 														</button>
