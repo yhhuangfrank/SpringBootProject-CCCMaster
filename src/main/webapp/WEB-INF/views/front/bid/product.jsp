@@ -63,10 +63,20 @@
                         <div class="swiper-wrapper align-items-center">
 
                             <div class="swiper-slide">
-                                <img src="${contextRoot}/${bidProduct.image}" class="card-img-top"
-                                     style="opacity: 0; transition: opacity 0.5s ease-in-out; height: 50rem; width: 50rem"
-                                     onload="this.style.opacity='1';"
-                                     alt="BidProduct-image">
+                                <c:choose>
+                                    <c:when test="${bidProduct.image.contains('http')}">
+                                        <img src="${bidProduct.image}" class="card-img-top"
+                                             style="opacity: 0; transition: opacity 0.5s ease-in-out; height: 50rem; width: 50rem"
+                                             onload="this.style.opacity='1';"
+                                             alt="BidProduct-image">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="${contextRoot}/${bidProduct.image}" class="card-img-top"
+                                             style="opacity: 0; transition: opacity 0.5s ease-in-out; height: 50rem; width: 50rem"
+                                             onload="this.style.opacity='1';"
+                                             alt="BidProduct-image">
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
 
                         </div>
@@ -113,22 +123,24 @@
                             </li>
                         </ul>
                         <input name="bidPrice" id="bidPrice" type="number" class="form-control" min="1"
-                               placeholder="輸入欲購買價格" required/>
-                        <button class="btn mt-2 text-white" style="background-color: #e96b56"
+                               placeholder="輸入欲購買價格" required disabled/>
+                        <button class="btn mt-2 text-white disabled" id="bidBtn" style="background-color: #e96b56"
                                 data-bs-toggle="modal" data-bs-target="#modal-${bidProduct.id}">點我出價
                         </button>
                         <%--          顯示訊息              --%>
                         <div id="messageArea"></div>
                     </div>
                     <div class="portfolio-description">
-                        <h2 class="text-center">距離截止還有</h2>
                         <div class="container text-center">
-                            <div id="countDownArea" class="badge bg-dark text-white fs-6">
-                                <span class="day">天</span>
-                                <span class="hour">時</span>
-                                <span class="minute">分</span>
-                                <span class="second">秒</span>
-                            </div>
+                            <c:if test="${bidProduct.expiredAt != null}">
+                                <h2 class="">距離截止還有</h2>
+                                <div id="countDownArea" class="badge bg-dark text-white fs-6">
+                                    <span class="day"></span>
+                                    <span class="hour"></span>
+                                    <span class="minute"></span>
+                                    <span class="second"></span>
+                                </div>
+                            </c:if>
                         </div>
                         <div class="card mt-3">
                             <div class="card-header fw-bold">賣家: 某某某</div>
@@ -191,7 +203,7 @@
 <%-- axios 與自訂 JS --%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.6/axios.min.js"></script>
 <script src="${contextRoot}/js/bid/updateBidPrice.js"></script>
-<script src="${contextRoot}/js/bid/showDateCountDown.js"></script>
+<script src="${contextRoot}/js/bid/dateTimerInDetailPage.js"></script>
 </body>
 
 </html>
