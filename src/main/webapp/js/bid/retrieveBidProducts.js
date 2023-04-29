@@ -100,10 +100,15 @@ function renderBidProducts(content) {
                         <div class="card-body">
                             <h5 class="card-title">${b.name}</h5>
                             <div class="card-text">
-                                <span class="badge bg-secondary text-white" style="font-size: 1rem">目前價格</span>
-                                <strong class="ms-2" style="font-size: 1rem">${b.bidPrice} 元</strong>
-                                <br>
-                                <div class="countDownArea mt-2" style="font-size: 1rem" data-created="${b.createdAt}" data-expired="${b.expiredAt}"></div>
+                                <div>
+                                    <span class="badge bg-secondary text-white" style="font-size: 1rem">底價</span>
+                                    <strong class="ms-2" style="font-size: 1rem">${b.basePrice} 元</strong>
+                                </div>
+                                <div class="my-2">
+                                    <span class="badge bg-secondary text-white" style="font-size: 1rem">目前價格</span>
+                                    <strong class="ms-2" style="font-size: 1rem">${b.bidPrice} 元</strong>
+                                </div>
+                                <div class="countDownArea" style="font-size: 1rem" data-created="${b.createdAt}" data-expired="${b.expiredAt}"></div>
                                 <div class="mt-2">${b.description}</div>
                             </div>
                         </div>
@@ -283,5 +288,3 @@ function resetCurrentSetting() {
     currentContents = []
     clearInterval(countDownTimer)
 }
-
-// 待完成  加上底價顯示在商品總頁
