@@ -283,3 +283,5 @@ function resetCurrentSetting() {
     currentContents = []
     clearInterval(countDownTimer)
 }
+
+// 待完成  加上底價顯示在商品總頁

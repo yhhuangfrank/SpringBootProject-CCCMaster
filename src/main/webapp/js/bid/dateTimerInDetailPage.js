@@ -22,12 +22,14 @@ function setCountDownTimer() {
     const currentTime = Date.now()
     const offset = Math.floor((expiredTime - currentTime) / 1000) // 以秒為單位
 
-    if (offset > 0) {
+    if (offset < 0) {
         clearInterval(timer)
-        bidPriceInput.classList.remove("disabled") // 尚未截止才可輸入出價金額
-        bidBtn.classList.remove("disabled")
         return showBidCloseMessage("已截止")
     }
+
+    // 尚未截止才可輸入出價金額
+    bidPriceInput.classList.remove("disabled")
+    bidBtn.classList.remove("disabled")
 
     // 取得還有多少 天、小時、分鐘、秒
     const seconds = offset % 60      // 秒
