@@ -46,6 +46,12 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <%--    自己加的--%>
 
+    <style>
+        .productDetailImg{
+            height: 600px;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -80,15 +86,15 @@
                         <div class="swiper-wrapper align-items-center">
 
                             <div class="swiper-slide">
-                                <img src="${contextRoot}/products/showImage/${product.productId}" alt="">
+                                <img class="productDetailImg" src="${contextRoot}/products/showImage/${product.productId}" alt="">
                             </div>
 
                             <div class="swiper-slide">
-                                <img src="${contextRoot}/products/showImage/${product.productId}" alt="">
+                                <img class="productDetailImg" src="${contextRoot}/products/showImage/${product.productId}" alt="">
                             </div>
 
                             <div class="swiper-slide">
-                                <img src="${contextRoot}/products/showImage/${product.productId}" alt="">
+                                <img class="productDetailImg" src="${contextRoot}/products/showImage/${product.productId}" alt="">
                             </div>
 
                         </div>
@@ -102,8 +108,7 @@
                         <form:form method="post" modelAttribute="sc" action="${contextRoot}/shoppingcarts/create">
                         <ul>                        	
                             <li><strong>產品名稱</strong>: ${product.productName}</li>
-                            <li><strong>類別</strong>: ASU Company</li>
-                            <li><strong>Project date</strong>: 01 March, 2020</li>
+                            <li><strong>類別</strong>: ${product.category.name}</li>
                             <li><strong>價格</strong>: ${product.price}</li>
                             <li><strong>庫存量</strong>: ${product.inventory}</li>
                             <li>           
@@ -116,12 +121,7 @@
                                     <button id="increment" class="btn btn-outline-secondary" type="button">+</button>
                                 </div>
                             </li>
-                            <%--                            <li>--%>
-                            <%--                                <strong>購買數量</strong>:--%>
-                            <%--                                <button id="decrement" type="button">-</button>--%>
-                            <%--                                <input id="quantity" type="number" min="1" value="1" max="${product.inventory}" style="width: 50px;">--%>
-                            <%--                                <button id="increment" type="button">+</button>--%>
-                            <%--                            </li>--%>
+
                             <li>                            	         
                             		<input name="productId" value="${product.productId}"type="hidden" >                     	
 			                    	<button type="submit" class="btn btn-danger"><i class="bi bi-cart3"></i>&nbsp;加入購物車</button>	                    		                    		

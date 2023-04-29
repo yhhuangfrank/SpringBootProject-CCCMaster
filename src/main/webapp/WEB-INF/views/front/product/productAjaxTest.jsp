@@ -76,6 +76,16 @@
             font-size: 14px;
             color: #777;
         }
+
+         .productImg {
+             width: 400px;
+             height: 600px;
+             object-fit: cover;
+         }
+
+        .product-info {
+            width: 400px;
+        }
     </style>
 </head>
 
@@ -250,7 +260,7 @@
 
             const productImage = document.createElement('img');
             productImage.src = "${contextRoot}/products/showImage/" + product.productId;
-            productImage.className = "img-fluid";
+            productImage.className = "img-fluid productImg";
             productImage.alt = "";
 
             productImage.addEventListener("click", () => {
