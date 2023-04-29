@@ -10,4 +10,10 @@ public interface PositionService {
 
 	List<Position> findAll();
 
+	void deleteById(Integer id);
+
+	Position findById(Integer id);
+
+	void editById(Position position);
+
 }
