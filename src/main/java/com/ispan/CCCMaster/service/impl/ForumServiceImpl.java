@@ -59,6 +59,7 @@ public class ForumService {
 
 
 
+
 //    @Transactional
 //    public Forum updateById(Integer forumId, String newForum) { //update forum
 //        Optional<Forum> option = forumRepository.findById(forumId);
@@ -72,16 +73,34 @@ public class ForumService {
 //    }
 
     @Transactional
-    public void updateById(Forum forum) throws IOException {//update forum
-        Optional<Forum> option = forumRepository.findById(forum.getForumId());
-        if(option.isPresent()){
-            Forum oldforum = option.get();
-            oldforum.setForumName(forum.getForumName());
-            if(forum.getImageFile().isEmpty()){
-                oldforum.setImage(forum.getImageFile().getBytes());
-            }
-
+    public void updateById(Forum input) throws IOException {//update forum
+        Optional<Forum> option = forumRepository.findById(input.getForumId());
+        if (option.isPresent()) { //如果有找到資料就執行
+            Forum forum = option.get();//把資料庫的資料存到forum
+            forum.setForumName(input.getForumName());//把新的討論版名稱存到資料庫
+            forum.setImage(input.getImage());
+            forumRepository.save(forum);//存到資料庫
+        } else {
+            throw new RuntimeException("找不到資料");
         }
+
+//                option.ifPresentOrElse(//如果有找到資料就執行
+//                (existed) -> {//如果有找到資料就執行
+//                    existed.setForumName(input.getForumName());//把新的討論版名稱存到資料庫
+//                    existed.setImage(input.getImage());//把新的圖片存到資料庫
+//
+//                    forumRepository.save(existed);
+//
+//
+//                },
+//                () -> {//如果沒有找到資料就執行
+//                    throw new RuntimeException("找不到資料");
+//                }
+//        );
+
+
+
+
 
     }
 
