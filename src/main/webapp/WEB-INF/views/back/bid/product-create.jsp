@@ -152,6 +152,6 @@
 <!-- Template Main JS File -->
 <script src="${contextRoot}/styles/back/assets/js/main.js"></script>
 <%-- 自訂 js --%>
-<script src="${contextRoot}/js/fileSizeValidation.js"></script>
+<script src="${contextRoot}/js/bid/fileSizeValidation.js"></script>
 </body>
 </html>

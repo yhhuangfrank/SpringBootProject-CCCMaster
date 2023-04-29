@@ -4,7 +4,6 @@ const updateBidPriceBtn = document.querySelector("#updateBidPriceBtn")
 const bidPriceInput = document.querySelector("#bidPrice")
 const currentBidPrice = document.querySelector("#currentBidPrice")
 const basePrice = document.querySelector("#basePrice").textContent
-const modal = document.querySelector(".modal")
 
 updateBidPriceBtn.addEventListener("click", async () => {
 
