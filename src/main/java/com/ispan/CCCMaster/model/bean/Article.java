@@ -3,6 +3,7 @@ package com.ispan.CCCMaster.model.bean;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.repository.cdi.Eager;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -33,20 +34,30 @@ public class Article {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss EEEE",timezone = "GMT+8")
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
-    @Column(name = "created_at", columnDefinition = "datetime")
-    private Date createdAt;
+    @Column(name = "added", columnDefinition = "datetime")
+    private Date added;
 
     @Column(name = "like_count")
     private Integer likeCount;
 
     public void onCreated() {
-        if(createdAt == null) {
-            createdAt = new Date();
+        if(added == null) {
+            added = new Date();
         }
     }
 
     @Column(name = "response_count")
     private Integer responseCount;
+
+    @Lob
+    @Column(name = "image", columnDefinition = "varbinary(max)")
+    private byte[] image;
+    @Transient
+    private MultipartFile imageFile;
+
+    public byte[] getImage() {
+        return image;
+    }
 
 
     public Article() {
@@ -93,11 +104,11 @@ public class Article {
     }
 
     public Date getCreatedAt() {
-        return createdAt;
+        return added;
     }
 
     public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+        this.added = createdAt;
     }
 
     public Integer getLikeCount() {
@@ -115,5 +126,7 @@ public class Article {
     public void setResponseCount(Integer responseCount) {
         this.responseCount = responseCount;
     }
+
+
 }
 

@@ -53,10 +53,16 @@
                     <div class="card-body">
 
                         <form:form class="form-control" modelAttribute="forum"
-                                   method="put" action="${contextRoot}/Forum/edit">
+                                   method="put" action="${contextRoot}/Forum/edit" enctype="multipart/form-data">
                             <form:input type="hidden" path="forumId"/>
 
                             <form:input type="text" path="forumName" class="form-control" id="inputName"></form:input>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label">File Upload</label>
+                                <div class="col-sm-10">
+                                    <form:input class="form-control" type="file" id="formFile" path="imageFile"></form:input>
+                                </div>
+                            </div>
                             <button type="submit" class="btn btn-primary">送出</button>
                         </form:form>
 

@@ -57,6 +57,7 @@
                         </div>
                         <img style="width: 300px; height: 300px;"
                              src="${contextRoot}/Forums/showAllForum/${forum.forumId}"/>
+
                         <div class="card-body">
 
                             <div style="display:flex">
