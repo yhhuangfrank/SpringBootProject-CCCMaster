@@ -1,6 +1,6 @@
 package com.ispan.CCCMaster.service;
 
-import com.ispan.CCCMaster.model.bean.Article;
+import com.ispan.CCCMaster.model.bean.Forum.Article;
 import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 

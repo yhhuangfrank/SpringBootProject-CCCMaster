@@ -41,7 +41,7 @@
 </head>
 <body>
 
-<jsp:include page="layouts/header.jsp"/>
+<jsp:include page="../layouts/header.jsp"/>
 
 <main id="main" class="main">
     <h1>修改討論版</h1>
@@ -53,7 +53,7 @@
                     <div class="card-body">
 
                         <form:form class="form-control" modelAttribute="forum"
-                                   method="put" action="${contextRoot}/Forum/edit" enctype="multipart/form-data">
+                                   method="put" action="${contextRoot}/forum/edit" enctype="multipart/form-data">
                             <form:input type="hidden" path="forumId"/>
 
                             <form:input type="text" path="forumName" class="form-control" id="inputName"></form:input>
@@ -73,9 +73,9 @@
     </div>
 </main>
 
-<jsp:include page="layouts/aside.jsp"/>
+<jsp:include page="../layouts/aside.jsp"/>
 
-<jsp:include page="layouts/footer.jsp"/>
+<jsp:include page="../layouts/footer.jsp"/>
 
 <!-- Vendor JS Files -->
 <script src="${contextRoot}/styles/back/assets/vendor/apexcharts/apexcharts.min.js"></script>

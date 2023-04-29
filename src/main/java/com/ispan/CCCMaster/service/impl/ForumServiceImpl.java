@@ -1,6 +1,6 @@
 package com.ispan.CCCMaster.service.impl;
 
-import com.ispan.CCCMaster.model.bean.Forum;
+import com.ispan.CCCMaster.model.bean.Forum.Forum;
 import com.ispan.CCCMaster.model.dao.ForumRepository;
 import com.ispan.CCCMaster.service.ForumService;
 import org.springframework.beans.factory.annotation.Autowired;

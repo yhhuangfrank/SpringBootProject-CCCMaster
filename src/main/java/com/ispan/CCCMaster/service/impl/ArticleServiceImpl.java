@@ -1,6 +1,6 @@
 package com.ispan.CCCMaster.service.impl;
 
-import com.ispan.CCCMaster.model.bean.Article;
+import com.ispan.CCCMaster.model.bean.Forum.Article;
 import com.ispan.CCCMaster.model.dao.ArticleDao;
 import com.ispan.CCCMaster.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;

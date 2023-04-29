@@ -40,7 +40,7 @@
 </head>
 <body>
 
-<jsp:include page="layouts/header.jsp"/>
+<jsp:include page="../layouts/header.jsp"/>
 
 <main id="main" class="main">
     <h1>討論版列表</h1>
@@ -56,17 +56,17 @@
                         </div>
                         </div>
                         <img style="width: 300px; height: 300px;"
-                             src="${contextRoot}/Forums/showAllForum/${forum.forumId}"/>
+                             src="${contextRoot}/forums/showAllForum/${forum.forumId}"/>
 
                         <div class="card-body">
 
                             <div style="display:flex">
-                                <form action="${contextRoot}/Forum/editPage">
+                                <form action="${contextRoot}/forum/editPage">
                                     <input type="hidden" name="id" value="${forum.forumId}" />
                                     <input type="submit" class="btn btn-outline-info btn-sm" value="編輯" />
                                 </form>
 
-                                <form action="${contextRoot}/Forums/delete" method="post">
+                                <form action="${contextRoot}/forums/delete" method="post">
                                     <input type="hidden" name="_method" value="delete" />
                                     <input type="hidden" name="id" value="${forum.forumId}" />
                                     <input type="submit" class="btn btn-outline-danger btn-sm" value="刪除" />
@@ -98,9 +98,9 @@
     </div>
 </main>
 
-<jsp:include page="layouts/aside.jsp"/>
+<jsp:include page="../layouts/aside.jsp"/>
 
-<jsp:include page="layouts/footer.jsp"/>
+<jsp:include page="../layouts/footer.jsp"/>
 
 <!-- Vendor JS Files -->
 <script src="${contextRoot}/styles/back/assets/vendor/apexcharts/apexcharts.min.js"></script>
