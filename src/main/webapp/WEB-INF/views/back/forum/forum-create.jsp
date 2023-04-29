@@ -40,12 +40,12 @@
 </head>
 <body>
 
-<jsp:include page="layouts/header.jsp"/>
+<jsp:include page="../layouts/header.jsp"/>
 
 <main id="main" class="main">
   <h1>新增討論版</h1>
   <form:form method="post" modelAttribute="forum"
-             action="${contextRoot}/Forums/create" enctype="multipart/form-data">
+             action="${contextRoot}/forums/create" enctype="multipart/form-data">
   <div class="row mb-3">
     <label for="inputName" class="col-sm-2 col-form-label">討論版名稱</label>
     <div class="col-sm-10">
@@ -79,9 +79,9 @@
   ${latest.forumName}
 </main>
 
-<jsp:include page="layouts/aside.jsp"/>
+<jsp:include page="../layouts/aside.jsp"/>
 
-<jsp:include page="layouts/footer.jsp"/>
+<jsp:include page="../layouts/footer.jsp"/>
 
 <!-- Vendor JS Files -->
 <script src="${contextRoot}/styles/back/assets/vendor/apexcharts/apexcharts.min.js"></script>

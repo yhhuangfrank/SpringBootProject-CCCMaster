@@ -1,7 +1,7 @@
 package com.ispan.CCCMaster.controller;
 
-import com.ispan.CCCMaster.model.bean.Forum;
-import com.ispan.CCCMaster.service.ForumService;
+import com.ispan.CCCMaster.model.bean.Forum.Forum;
+import com.ispan.CCCMaster.service.impl.ForumServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
@@ -19,79 +19,53 @@ import java.io.IOException;
 public class ForumController {
 
     @Autowired
-    private ForumService fService;
+    private ForumServiceImpl fService;
 
-    @GetMapping("/Forums/createform") //新增討論版
-    public String addForum(Model model, ModelAndView modelAndView){
-        model.addAttribute("forum", new Forum());
+    @GetMapping("/forums/createform") //新增討論版
+    public String addForum(Model model, ModelAndView modelAndView) {//新增討論版
+        model.addAttribute("forum", new Forum());//新增討論版
 
-        Forum latest = fService.getLatest();
+        Forum latest = fService.getLatest();//新增討論版
         model.addAttribute("latest", latest);
-        return "back/Forum-create";
+        return "forum-create";
     }
 
 
+    @PostMapping("/forums/create") //送出新增討論版
+    public String createForum(@ModelAttribute("forum") Forum forum, Model model) throws IOException {
+            forum.setImage(forum.getImageFile().getBytes());//把圖片轉成byte[]
+            fService.creatForum(forum);//把圖片存到資料庫
+        return "redirect:/forums/showAllForum";
 
-//    @PostMapping("/Forums/create") //送出新增討論版
-//    public String createForum(@ModelAttribute("forum") Forum forum, Model model){
-//        fService.creatForum(forum);
-//
-//
-//        model.addAttribute("forum", new Forum());
-//
-//        Forum latest = fService.getLatest();
-//        model.addAttribute("latest", latest);
-//
-//        return "redirect:/Forums/showAllForum";
-//
-//    }
-
-    @PostMapping("/Forums/create") //送出新增討論版
-    public String createForum(@ModelAttribute("forum") Forum forum) {
-        try {
-            forum.setImage(forum.getImageFile().getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        fService.creatForum(forum);
-        return "redirect:/Forums/showAllForum";
     }
 
-
-
-
-
-    @GetMapping("/Forums/showAllForum") //顯示所有討論版
+    @GetMapping("/forums/showAllForum") //顯示所有討論版
     public String showAllForum(@RequestParam(name = "p", defaultValue = "1") Integer pageNumber, Model model) {
         Page<Forum> page = fService.findByPage(pageNumber);
         model.addAttribute("page", page);
         Forum latest = fService.getLatest();
         model.addAttribute("latest", latest);
-        return "back/showForum";
+        return "back/forum/showForum";
     }
 
 
+    @GetMapping("/forum/editPage") //編輯討論版
+    public String editPage(@RequestParam("id") Integer forumId, Model model) {//編輯討論版
 
-    @GetMapping("/Forum/editPage") //編輯討論版
-    public String editPage(@RequestParam("id") Integer forumId, Model model) {
-        Forum forum = fService.findForumById(forumId);
-        model.addAttribute("forum", forum);
-        return "back/editForum";
+        model.addAttribute("forum", fService.findForumById(forumId));//編輯討論版
+        return "back/forum/editForum";
     }
 
-    @PutMapping("/Forum/edit")
-    public String putEditedForum(@ModelAttribute("forum") Forum forum) {
-//        fService.updateById(forum.getForumId(),forum.getForumName());
-        try{
-            fService.updateById(forum);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return "redirect:/Forums/showAllForum";
+    @PutMapping("/forum/edit")
+    public String putEditedForum(@ModelAttribute("forum") Forum forum) throws IOException {
+        forum.setImage(forum.getImageFile().getBytes());
+        fService.updateById(forum);
+
+        return "redirect:/forums/showAllForum";
 
     }
 
-    @GetMapping(value = "/Forums/showAllForum/{forumId}") //顯示討論版圖片
+    @GetMapping(value = "/forums/showAllForum/{forumId}") //顯示討論版圖片
     public ResponseEntity<byte[]> getImage(@PathVariable("forumId") Integer forumId) {
         byte[] image = fService.getForumImageById(forumId);
         HttpHeaders headers = new HttpHeaders();
@@ -101,17 +75,12 @@ public class ForumController {
     }
 
 
-
-
-
-
-    @DeleteMapping("/Forums/delete") //刪除討論版
-   public String deleteForum(@RequestParam("id") Integer id) {
+    @DeleteMapping("/forums/delete") //刪除討論版
+    public String deleteForum(@RequestParam("id") Integer id) {
         fService.deleteForumById(id);
 
-        return "redirect:/Forums/showAllForum";
+        return "redirect:/forums/showAllForum";
     }
-
 
 
 }
