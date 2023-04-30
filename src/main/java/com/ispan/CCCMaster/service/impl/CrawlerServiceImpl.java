@@ -15,6 +15,10 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
@@ -134,8 +138,13 @@ public class CrawlerServiceImpl implements CrawlerService {
            System.out.println("crawlerDate="+crawlerDate+"   now="+now+"  diffInMillies="+diffInMillies+"  diffInHours="+diffInHours);
            return diffInHours >= 1;
        }
+    }
 
-
+    @Override
+    public Page<Crawler> findCrawlerProductById(Integer pageNumber, Integer productId){
+        Pageable pgb = PageRequest.of(pageNumber - 1, 5, Sort.Direction.DESC, "crawlerDate");
+        Page<Crawler> page =crawlerDao.findLatestCrawlerPageByProductId(productId,pgb);
+        return page;
     }
 }
 
