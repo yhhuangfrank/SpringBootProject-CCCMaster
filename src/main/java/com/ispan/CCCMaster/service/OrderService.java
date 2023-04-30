@@ -21,5 +21,7 @@ public interface OrderService {
 
 	//更改訂單資料
 	void updateById(OrderBean orderBean) throws IOException;
+	
+	void createOrder(OrderBean orderBean,OrderDetailBean orderDetailBean);
 
 }

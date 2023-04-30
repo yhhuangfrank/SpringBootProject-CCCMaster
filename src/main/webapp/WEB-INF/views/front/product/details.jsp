@@ -35,6 +35,7 @@
     <link href="${contextRoot}/styles/front/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
     <link href="${contextRoot}/styles/front/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
     <link href="${contextRoot}/styles/front/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="${contextRoot}/styles/back/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
     <link href="${contextRoot}/styles/front/assets/css/style.css" rel="stylesheet">
@@ -47,7 +48,51 @@
     <%--    自己加的--%>
 
     <style>
-        .productDetailImg {
+
+        .popup{
+            width: 350px;
+            background-color: #fff;
+            border-radius: 10px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%) scale(0.1);
+            text-align: center;
+            padding: 0,30px,30px;
+            color: #333;
+            visibility: hidden;
+            transition:transform 0.4s,top 0.4s;
+            z-index:9998;
+            border: 2px rgb(216, 213, 213) solid;
+        }
+        .open-popup{
+            visibility: visible;
+            top: 50%;
+            transform: translate(-50%,-50%) scale(1);
+        }
+        .popup h2{
+            font-size: 35px;
+            font-weight: 500;
+            margin: 30px 0 10px;
+            font-family:DFKai-sb
+        }
+        .popup button{
+            width: 100%;
+            margin-top: 50px;
+            padding: 10px 0;
+            background-color: #6fd649;
+            color: #fff;
+            border: 0;
+            outline: none;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+
+        .productDetailImg{
+
             height: 600px;
         }
         .list-group-item {
@@ -134,12 +179,20 @@
                                     </div>
                                 </li>
 
-                                <li>
-                                    <input name="productId" value="${product.productId}" type="hidden">
-                                    <button type="submit" class="btn btn-danger"><i class="bi bi-cart3"></i>&nbsp;加入購物車
-                                    </button>
-                                </li>
-                            </ul>
+
+                            <li>                            	         
+                            		<input name="productId" value="${product.productId}"type="hidden" >                     	
+			                    	<button type="button" onclick="openPopup()" id="shoppingcart" class="btn btn-danger"><i class="bi bi-cart3"></i>&nbsp;加入購物車</button></a>	                    		                    		
+                                    <div class="popup" id="popup">
+                                        <h2>成功加入購物車!</h2>
+                                        <div class="checkimg">
+										  <i class="bi bi-check-circle text-success" style="font-size: 50px"></i>
+                                        </div>
+                                        <button type="submit" onclick="closePopup()" style="margin-top: 20px">確認</button>
+                                    </div>
+							</li>
+                        </ul>
+                                </div>
                         </form:form>
                     </div>
                     <div class="portfolio-description">
@@ -270,6 +323,7 @@
                 }
             });
 
+
             //顯示爬蟲紀錄
             //---------------------------------------
             function displayCrawlerInfo(crawlerProducts){
@@ -336,7 +390,20 @@
                 input.value = value;
             });
             //-------------------------------購買數量欄位數值檢查------------------
-        </script>
+
+
+    //-------------------------------購買數量欄位數值檢查------------------
+    //-------------------------------加入購物車訊息-----------------------
+    let popup = document.getElementById('popup')
+    function openPopup(){
+        popup.classList.add("open-popup")
+    }
+    function closePopup(){
+        popup.classList.remove("open-popup")
+    }
+  	//-------------------------------加入購物車訊息-----------------------
+</script>
+
 
 
 </body>

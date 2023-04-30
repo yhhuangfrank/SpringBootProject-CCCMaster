@@ -32,8 +32,11 @@
 
   <!-- Template Main CSS File -->
   <link href="${contextRoot}/styles/front/assets/css/style.css" rel="stylesheet">
-  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+<script>
+
+
+</script>
 
 </head>
 
@@ -56,8 +59,7 @@
       <h2>購物車</h2>
 
     </div>
-  </section><!-- End Breadcrumbs -->
-   
+  </section><!-- End Breadcrumbs -->  
 	 <section id="blog" class="blog">
       <div class="container" data-aos="fade-up">
         <div class="row">
@@ -70,70 +72,65 @@
                     <th scope="col">商品名稱</th>
                     <th scope="col">數量</th>
                     <th scope="col">單價</th>
-                    <th scope="col" style="text-align: center;">小計</th>
-                    <th scope="col"></th>
+                    <th scope="col">小計</th>
                   </tr>
                 </thead>
                 <tbody>
                 <c:forEach var="sc" items="${shoppingcart}" varStatus="status"> 
-                  <tr valign="middle" id="row${status.count}" data-id="${sc.shoppoingCartId}">
+                  <tr valign="middle">
                     <th scope="row"></th>
                     <td>
-                    	<img src="${contextRoot}/products/showImage/${sc.productBean.productId}" alt="" width="60px" height="60px">
                     	${sc.productBean.productName}
                     </td>
-	                    <td>
-	                    	<div class="input-group" style="width: 150px;">
-	                    	  <button id="dec${status.count}" class="btn btn-outline-secondary" type="button" onclick="dec(${status.count})" >-</button>             	  
-	                    	    <input id="quantity${status.count}" type="text" value="${sc.quantity}" class="form-control text-center" min="1" data-max="${sc.productBean.inventory}" onchange="check(event)" name="quantity">
-	                    	  <button id="inc${status.count}" class="btn btn-outline-secondary" type="button" onclick="inc(${status.count})">+</button>
-	                    	</div>                 	
-	                    </td>
-                    <td><input id="price${status.count}" type="hidden" value="${sc.productBean.price}">${sc.productBean.price}</td>
                     <td>
-                      <input id="total${status.count}" type="text" value="${sc.quantity*sc.productBean.price}" 
-                      readonly="readonly" style="outline: none;text-align: right;width: 50px;border: 0px;" class="countstotal">
+                    	${sc.quantity}
                     </td>
+                    <td>${sc.productBean.price}</td>
                     <td>
-                    	<form:form action="${contextRoot}/front/shoppingcart/delete" method="post" style="margin-top: 15px">
-                    		<input type="hidden" name="_method" value="delete"/>
-	                    	<input type="hidden" name="id" value="${sc.shoppoingCartId}"/>
-                    		<button type="submit"><i class="ri-delete-bin-6-line"></i></button>
-                    	</form:form>
-                    </td>             
+                      ${sc.quantity*sc.productBean.price}
+                    </td>       
                   </tr>
                   	</c:forEach>                  
                 </tbody>
               </table>
             </div>
           </div>
-          <div class="col-lg-4">
-            <div class="sidebar">
-            <div class="row">
-				<div class="col-lg-3">總金額&nbsp;:</div>
-				<div class="col-lg-9" style="text-align: right">
-					<span id="totalamount"></span>
-				</div>
-					<div class="col-lg-3" style="margin-top: 5px">運&nbsp;&nbsp;&nbsp;&nbsp;費&nbsp;:</div>
-					<div class="col-lg-9" style="text-align: right;margin-top: 5px">
-						<span id="freight"></span>
-					</div>
-				<br>
-				<br>
-				<hr>
-				<div class="col-lg-3">總&nbsp;&nbsp;&nbsp;&nbsp;計:</div>
-				<div class="col-lg-9" style="text-align:right">
-					<span id="finalamount"></span>
-				</div>										
-						<div class="d-grid gap-2 mt-3">				
-							<button class="btn btn-danger" type="button">結帳去</button>		
-						</div>					
-				</div>
-            </div><!-- End sidebar -->
-          </div><!-- End blog sidebar -->
+          <div class="col-lg-8 entries">
+            <div class="entry entry-single">
+              <h5>優惠方式</h5>
+              	<ul>
+              		<div class="form-check">
+              			<input class="form-check-input" type="checkbox">
+              			<label class="form-check-label" for="gridCheck1">
+              				使用點數              	
+            			</label>
+            			<input type="number">
+            		</div>
+              		<div class="form-check">
+              			<input class="form-check-input" type="checkbox">
+              			<label class="form-check-label" for="gridCheck1">
+              				使用優惠券              	
+            			</label>
+            		</div>
+              	</ul>
+            	
+            </div>
+          </div>
+          <div class="col-lg-8 entries">
+            <div class="entry entry-single">
+				<h5>運送方式</h5>
+            </div>
+          </div>
+          <div class="col-lg-8 entries">
+            <div class="entry entry-single">
+				<h5>付款方式</h5>
+            </div>
+          </div>
         </div>
       </div>   
     </section><!-- End Blog Single Section -->
+
+
 </main><!-- End #main -->
 
 <jsp:include page="../layouts/footer.jsp"/>
@@ -151,7 +148,6 @@
 <!-- Template Main JS File -->
 <script src="${contextRoot}/styles/front/assets/js/main.js"></script>
 <script>
-  //原始總金額
   let totalamount = 0;
   let counttotal = document.getElementsByClassName("countstotal");
   for(let i=0;i<counttotal.length;i++){
@@ -169,73 +165,58 @@
     
   //數量-1
   function dec(count){
-    let valueInput = document.getElementById('quantity'+count); //數量
-    let qua = document.getElementById('price'+count);           //價格
+    let valueInput = document.getElementById('quantity'+count);
+    let qua = document.getElementById('price'+count);
+    var totde = document.getElementById('total'+count)
     let values = parseInt(valueInput.value)
-    let scid = document.getElementById('row'+count).getAttribute('data-id')  //取得shoppingcartid
     if(values>1){
       valueInput.value=values - 1;
-      $.ajax({
-        type:"PUT",
-        url:"http://localhost:8080/front/shoppingcart",
-        data:{
-          shoppoingCartId:scid,
-          quantity:valueInput.value
-        }
-      })
-      document.getElementById('total'+count).value=qua.value*valueInput.value;  //小計
-      //累加小計
+      totde.value=qua.value*valueInput.value;
+      totde.innerText='totde.value'
       let totalamount = 0;
-      let counttotal = document.getElementsByClassName("countstotal"); 
-      for(let i=0;i<counttotal.length;i++){
-      totalamount += parseInt(counttotal[i].value,10)
-    }
+     let counttotal = document.getElementsByClassName("countstotal");
+     for(let i=0;i<counttotal.length;i++){
+    totalamount += parseInt(counttotal[i].value,10)
+   }
     document.getElementById('totalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
     if(totalamount<1000 && totalamount>0){
-        document.getElementById('freight').innerHTML = "30";
-        totalamount += 30;
-        document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-      }else{
-        document.getElementById('freight').innerHTML = 0;
-        document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-      }
+      document.getElementById('freight').innerHTML = "30";
+      totalamount += 30;
+      document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
+    }else{
+      document.getElementById('freight').innerHTML = 0;
+      document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
+    }
     }
   }
+  
   //數量+1
-	function inc(count){
-	    let valueInput = document.getElementById('quantity'+count);
-	    let qua = document.getElementById('price'+count);
-	    let max = parseInt(valueInput.getAttribute('data-max'),10)
-      let scid = document.getElementById('row'+count).getAttribute('data-id')  //scid
-	    let values = parseInt(valueInput.value)
-	    if(values<max){
-	      valueInput.value=values + 1;
-        $.ajax({
-        type:"PUT",
-        url:"http://localhost:8080/front/shoppingcart",
-        data:{
-          shoppoingCartId:scid,
-          quantity:valueInput.value
-        }
-      })
-	      document.getElementById('total'+count).value=qua.value*valueInput.value;
-	      let totalamount = 0;
-      //累加小計
-	    let counttotal = document.getElementsByClassName("countstotal");
-	    for(let i=0;i<counttotal.length;i++){
-	      totalamount += parseInt(counttotal[i].value,10)
-	    }
-	    document.getElementById('totalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-      if(totalamount<1000 && totalamount>0){
-          document.getElementById('freight').innerHTML = "30";
-          totalamount += 30;
-          document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-        }else{
-          document.getElementById('freight').innerHTML = 0;
-          document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-        }    
-	    }  
-	  }   
+  function inc(count){
+    let valueInput = document.getElementById('quantity'+count);
+    let qua = document.getElementById('price'+count);
+    var totinc = document.getElementById('total'+count)
+    let max = parseInt(valueInput.getAttribute('data-max'),10)
+    let values = parseInt(valueInput.value)
+    if(values<max){
+      valueInput.value=values + 1;
+      totinc.value=qua.value*valueInput.value;
+      document.getElementById("")
+      let totalamount = 0;
+    let counttotal = document.getElementsByClassName("countstotal");
+    for(let i=0;i<counttotal.length;i++){
+      totalamount += parseInt(counttotal[i].value,10)
+    }
+  document.getElementById('totalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
+  if(totalamount<1000 && totalamount>0){
+      document.getElementById('freight').innerHTML = "30";
+      totalamount += 30;
+      document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
+    }else{
+      document.getElementById('freight').innerHTML = 0;
+      document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
+    }    
+    }  
+  } 
   //數量欄位檢查
   function check(event){
     const max = parseInt(input.getAttribute('data-max'),10)
@@ -248,7 +229,6 @@
     }
     input.value=values;
   }
-  
   
 </script>
 

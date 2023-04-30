@@ -3,6 +3,8 @@ package com.ispan.CCCMaster.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +28,8 @@ public class ShoppingCartController {
     
 	@Autowired
 	private ShoppingCartService scService;
+	
+	private EntityManager entityManager;
 
 
 	//創立購物車，並將畫面重新導向為商品詳細頁面
@@ -42,10 +46,10 @@ public class ShoppingCartController {
 //		model.addAttribute("sc",list);
 //		return "front/shoppingcart/shoppingcart";
 //	}
-	//購物車列表
+//	//購物車列表
 	@GetMapping("/front/shoppingcart")
 	public String finaAll(Model model) {
-		List<ShoppingCartBean> list = scService.findtest();
+		List<ShoppingCartBean> list = scService.findAll();
 		model.addAttribute("shoppingcart",list);
 		return "/front/shoppingcarts/showshoppingcart";
 	}
@@ -56,14 +60,29 @@ public class ShoppingCartController {
 		return "redirect:/front/shoppingcart";
 	}
 	//修改購物車
-	@PutMapping("/front/shoppingcart/edit")
-	public String editBySCId(@ModelAttribute("shoppingcart")ShoppingCartBean sc ) {
+	@PutMapping("/front/shoppingcart")
+	public String editBySCId(@ModelAttribute("shoppingcart")ShoppingCartBean shoppingcart) {
 		try {
-			scService.editBySCId(sc);
+			scService.editBySCId(shoppingcart);
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
 		return "redirect:/front/shoppingcart";
+	}
+	
+//	@PutMapping("/front/shoppingcart/edit")
+//	public String editAll(List<ShoppingCartBean> sc) throws IOException {
+//		for(ShoppingCartBean shoppingCartBean:sc) {
+//			entityManager.merge(shoppingCartBean);
+//		}
+//		return "redirect:/front/shoppingcart";
+//	}
+	//購物車列表
+	@GetMapping("/front/shoppingcart/shoppingcartdetail")
+	public String findSCByCid(Model model) {
+		List<ShoppingCartBean> list = scService.findAll();
+		model.addAttribute("shoppingcart",list);
+		return "/front/shoppingcarts/showshoppingcartdetail";
 	}
 
 	
