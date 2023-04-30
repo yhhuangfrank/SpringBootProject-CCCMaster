@@ -32,7 +32,12 @@
             </li>
             <li><a class="active" href="about.html">通知</a></li>
             <li><a href="${contextRoot}/front/product">商城</a></li>
-            <li><a href="${contextRoot}/bidProducts">二手賣場</a></li>
+            <li class="dropdown"><a href="#"><span>二手賣場</span></a>
+              <ul>
+                <li><a href="${contextRoot}/bidProducts">所有商品</a></li>
+                <li><a href="${contextRoot}/bidProducts/create">新增商品</a></li>
+              </ul>
+            </li>
             <li><a href="team.html">論壇</a></li>
             <li><a href="pricing.html">聯絡客服</a></li>
             <li><a href="blog.html">會員中心</a></li>

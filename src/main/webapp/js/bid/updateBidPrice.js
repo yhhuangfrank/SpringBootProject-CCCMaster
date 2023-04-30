@@ -1,7 +1,6 @@
 const BASE_URL = "http://localhost:8080/api/bidProducts"
 const messageArea = document.querySelector("#messageArea")
 const updateBidPriceBtn = document.querySelector("#updateBidPriceBtn")
-const bidPriceInput = document.querySelector("#bidPrice")
 const currentBidPrice = document.querySelector("#currentBidPrice")
 const basePrice = document.querySelector("#basePrice").textContent
 

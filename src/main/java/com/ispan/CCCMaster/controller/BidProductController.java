@@ -44,7 +44,7 @@ public class BidProductController {
         model.addAttribute("categories", categories);
         model.addAttribute("bidProductRequest", new BidProductRequest());
 
-        return "/back/bid/product-create";
+        return "/front/bid/product-create";
     }
 
     @PostMapping("/bidProducts")
@@ -61,7 +61,9 @@ public class BidProductController {
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();
             model.addAttribute("isErrorExist", true);
             model.addAttribute("errors", fieldErrors);
-            return "/back/bid/product-create";
+            List<Category> categories = categoryService.findAllCategories();
+            model.addAttribute("categories", categories);
+            return "front/bid/product-create";
         }
 
         bidProductService.createBidProduct(bidProductRequest);
@@ -69,7 +71,7 @@ public class BidProductController {
         redirectAttributes.addFlashAttribute("isSuccess", true);
         redirectAttributes.addFlashAttribute("successMsg", "新增成功!");
 
-        return "redirect:/admin/bidProducts";
+        return "redirect:/bidProducts";
     }
 
     @GetMapping("/bidProducts")
@@ -99,6 +101,7 @@ public class BidProductController {
         bidProductRequest.setBasePrice(foundBidProduct.getBasePrice());
         bidProductRequest.setDescription(foundBidProduct.getDescription());
         bidProductRequest.setCategoryName(foundBidProduct.getCategory().getName());
+        bidProductRequest.setEndDate(foundBidProduct.getExpiredAt().toString());
 
         List<Category> categories = categoryService.findAllCategories();
 
@@ -106,7 +109,7 @@ public class BidProductController {
         model.addAttribute("bidProductRequest", bidProductRequest);
         model.addAttribute("id", id);
 
-        return "/back/bid/product-edit";
+        return "/front/bid/product-edit";
     }
 
     @PostMapping("/bidProducts/{id}")
@@ -123,7 +126,7 @@ public class BidProductController {
             model.addAttribute("isErrorExist", true);
             model.addAttribute("errors", fieldErrors);
 
-            return "/back/bid/product-edit";
+            return "/front/bid/product-edit";
         }
 
         bidProductService.updateBidProduct(id, bidProductRequest);
@@ -131,18 +134,6 @@ public class BidProductController {
         redirectAttributes.addFlashAttribute("isSuccess", true);
         redirectAttributes.addFlashAttribute("successMsg", "修改成功!");
 
-        return "redirect:/admin/bidProducts";
-    }
-
-    @DeleteMapping("/bidProducts/{id}")
-    public String deleteBidProduct(@PathVariable Integer id,
-                                  RedirectAttributes redirectAttributes) {
-
-        bidProductService.deleteBidProduct(id);
-
-        redirectAttributes.addFlashAttribute("isSuccess", true);
-        redirectAttributes.addFlashAttribute("successMsg", "刪除成功!");
-
-        return "redirect:/admin/bidProducts";
+        return "redirect:/bidProducts/{id}";
     }
 }
