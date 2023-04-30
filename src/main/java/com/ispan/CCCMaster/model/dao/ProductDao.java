@@ -1,14 +1,15 @@
 package com.ispan.CCCMaster.model.dao;
 
-import com.ispan.CCCMaster.model.bean.weihsiang.Product;
+import com.ispan.CCCMaster.model.bean.product.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 
-public interface ProductDao extends JpaRepository<Product, Integer> {
+public interface ProductDao extends JpaRepository<Product, Integer>, JpaSpecificationExecutor<Product> {
     @Query("From Product p WHERE p.active = true")
     Page<Product> findByAllIsActive(Pageable pageable);
 

@@ -63,8 +63,20 @@
                         <div class="swiper-wrapper align-items-center">
 
                             <div class="swiper-slide">
-                                <img src="${bidProduct.image}" alt="BidProduct-image"
-                                     style="height: 50rem; width: 50rem">
+                                <c:choose>
+                                    <c:when test="${bidProduct.image.contains('http')}">
+                                        <img src="${bidProduct.image}" class="card-img-top"
+                                             style="opacity: 0; transition: opacity 0.5s ease-in-out; height: 50rem; width: 50rem"
+                                             onload="this.style.opacity='1';"
+                                             alt="BidProduct-image">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="${contextRoot}/${bidProduct.image}" class="card-img-top"
+                                             style="opacity: 0; transition: opacity 0.5s ease-in-out; height: 50rem; width: 50rem"
+                                             onload="this.style.opacity='1';"
+                                             alt="BidProduct-image">
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
 
                         </div>
@@ -86,33 +98,65 @@
                             </li>
                             <li>
                                 <strong class="fs-6 badge bg-secondary text-white">起始時間</strong>
-                                <span class="fs-6 ms-2">${bidProduct.createdAt}</span>
+                                <span class="fs-6 ms-2" id="createdAt">${bidProduct.createdAt}</span>
                             </li>
                             <li>
                                 <strong class="fs-6 badge bg-secondary text-white">結束時間</strong>
-                                <span class="fs-6 ms-2">01 March, 2020</span>
+                                <c:choose>
+                                    <c:when test="${bidProduct.expiredAt != null}">
+                                        <span class="fs-6 ms-2" id="expiredAt">${bidProduct.expiredAt}</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="fs-6 ms-2">目前暫無</span>
+                                    </c:otherwise>
+                                </c:choose>
                             </li>
                             <li>
                                 <strong class="fs-6 badge bg-secondary text-white">底價</strong>
-                                <span class="fs-6 ms-2" id="basePrice">${bidProduct.basePrice} 元</span>
+                                <span class="fs-6 ms-2" id="basePrice">${bidProduct.basePrice}</span>
+                                <span class="fs-6">  元</span>
                             </li>
                             <li>
                                 <strong class="fs-6 badge bg-secondary text-white">目前價格</strong>
-                                <span class="fs-6 ms-2" id="currentBidPrice">${bidProduct.bidPrice} 元</span>
+                                <span class="fs-6 ms-2" id="currentBidPrice">${bidProduct.bidPrice}</span>
+                                <span class="fs-6">  元</span>
                             </li>
                         </ul>
                         <input name="bidPrice" id="bidPrice" type="number" class="form-control" min="1"
-                               placeholder="輸入價格" required/>
-                        <button class="btn mt-2 text-white" style="background-color: #e96b56"
+                               placeholder="輸入欲購買價格" required disabled/>
+                        <button class="btn mt-2 text-white disabled" id="bidBtn" style="background-color: #e96b56"
                                 data-bs-toggle="modal" data-bs-target="#modal-${bidProduct.id}">點我出價
                         </button>
                         <%--          顯示訊息              --%>
                         <div id="messageArea"></div>
                     </div>
                     <div class="portfolio-description">
-                        <h2>賣家: 某某某</h2>
-                        <h4>關於此商品</h4>
-                        <p>${bidProduct.description}</p>
+                        <div class="container text-center">
+                            <c:if test="${bidProduct.expiredAt != null}">
+                                <h2 class="">距離截止還有</h2>
+                                <div id="countDownArea" class="badge bg-dark text-white fs-6">
+                                    <span class="day"></span>
+                                    <span class="hour"></span>
+                                    <span class="minute"></span>
+                                    <span class="second"></span>
+                                </div>
+                            </c:if>
+                        </div>
+                        <div class="card mt-3">
+                            <div class="card-header fw-bold">賣家: 某某某</div>
+                            <div class="card-body">
+                                <h5 class="card-title">關於此商品</h5>
+                                <c:choose>
+                                    <c:when test="${bidProduct.description != null}}">
+                                        ${bidProduct.description}
+                                    </c:when>
+                                    <c:otherwise>
+                                        暫無說明。。。
+                                    </c:otherwise>
+                                </c:choose>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -158,7 +202,8 @@
 <script src="${contextRoot}/styles/front/assets/js/main.js"></script>
 <%-- axios 與自訂 JS --%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.6/axios.min.js"></script>
-<script src="${contextRoot}/js/updateBidPrice.js"></script>
+<script src="${contextRoot}/js/bid/updateBidPrice.js"></script>
+<script src="${contextRoot}/js/bid/dateTimerInDetailPage.js"></script>
 </body>
 
 </html>

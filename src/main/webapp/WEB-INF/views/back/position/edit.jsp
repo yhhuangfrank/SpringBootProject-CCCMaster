@@ -4,7 +4,7 @@
       <html>
 
       <head>
-        <title>新增職位資料</title>
+        <title>編輯職位資料</title>
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -39,12 +39,12 @@
 
         <main id="main" class="main">
           <div class="pagetitle">
-            <h1>新增職位資料</h1>
+            <h1>編輯職位資料</h1>
             <nav>
               <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                 <li class="breadcrumb-item">員工管理</li>
-                <li class="breadcrumb-item active">新增職位資料</li>
+                <li class="breadcrumb-item active">編輯職位資料</li>
               </ol>
             </nav>
           </div>
@@ -55,15 +55,16 @@
 
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title">新增職位資料</h5>
+                    <h5 class="card-title">編輯職位資料</h5>
 
-                    <!-- 新增職位資料 -->
-                    <form:form method="post" modelAttribute="position" action="${contextRoot}/admin/positions/create"
+                    <!-- 編輯職位資料 -->
+                    <form:form method="put" modelAttribute="position" action="${contextRoot}/admin/positions/edit"
                       enctype="multipart/form-data">
                       <div class="row mb-3">
                         <label for="positionId" class="col-sm-2 col-form-label">職位編號</label>
                         <div class="col-sm-10">
-                          <form:input required="true" path="positionId" id="positionId" type="number" class="form-control" placeholder="只能填入數字" min="0" max="9999"/>
+                          <input disabled="disabled" type="text" name="id" value="${position.positionId}" class="form-control" />
+                          <form:input readonly="true" path="positionId" id="positionId" type="hidden" class="form-control"/>
                         </div>
                       </div>
                       <div class="row mb-3">
@@ -76,7 +77,7 @@
                       <div class="row mb-3">
                         <label class="col-sm-2 col-form-label"></label>
                         <div class="col-sm-10">
-                          <button type="submit" class="btn btn-primary">送出</button>
+                          <button type="submit" class="btn btn-warning">確認變更</button>
                         </div>
                       </div>
 

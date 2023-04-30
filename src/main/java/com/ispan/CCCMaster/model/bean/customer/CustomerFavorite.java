@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.model.bean;
+package com.ispan.CCCMaster.model.bean.customer;
 
 import java.util.Date;
 
@@ -17,8 +17,8 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name = "CustomerBrowsingHistory")
-public class CustomerBrowsingHistory {
+@Table(name = "CustomerFavorites")
+public class CustomerFavorite {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +37,7 @@ public class CustomerBrowsingHistory {
 	@Column(name = "build_time", columnDefinition = "datetime")
 	private Date buildTime;
 	
-	public CustomerBrowsingHistory() {
+	public CustomerFavorite() {
 	}
 
 	public Integer getId() {
@@ -46,6 +46,14 @@ public class CustomerBrowsingHistory {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Customer getCustomers() {
+		return customers;
+	}
+
+	public void setCustomers(Customer customers) {
+		this.customers = customers;
 	}
 
 	public Integer getProductId() {
@@ -62,14 +70,6 @@ public class CustomerBrowsingHistory {
 
 	public void setBuildTime(Date buildTime) {
 		this.buildTime = buildTime;
-	}
-
-	public Customer getCustomers() {
-		return customers;
-	}
-
-	public void setCustomers(Customer customers) {
-		this.customers = customers;
 	}
 
 }

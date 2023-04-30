@@ -5,14 +5,18 @@ const categories = document.querySelectorAll("li.category")
 const BASE_URL = "http://localhost:8080/api/bidProducts"
 const DEFAULT_SHOWING_PAGES = 5
 let currentPage = 1 // 預設在第一頁
+let currentContents;
+let countDownTimer;
 
 // 網頁載入時發起預設請求
 window.addEventListener("load", async () => {
     try {
         const response = await axios.get(BASE_URL)
         const {data} = response
-        renderBidProducts(data.content)
+        currentContents = data.content
+        renderBidProducts(currentContents)
         paginator(data)
+        countDownTimer = setInterval(setCountDownTimer, 1000) // 設定計時
     } catch (error) {
         console.log(error)
     }
@@ -41,9 +45,12 @@ pagination.addEventListener("click", async (e) => {
 
         const response = await axios.get(BASE_URL, config)
         const {data} = response
-        renderBidProducts(data.content)
-        paginator(data)
 
+        resetCurrentSetting()
+        currentContents = data.content // 設定目前頁面資料
+        renderBidProducts(currentContents)  // 重新渲染
+        paginator(data) // 重新製作分頁
+        countDownTimer = setInterval(setCountDownTimer, 1000) // 設定計時
     } catch (error) {
         console.log(error)
     }
@@ -65,8 +72,12 @@ categoryList.addEventListener("click", async (e) => {
         const config = {params}
         const response = await axios(BASE_URL, config)
         const {data} = response
-        renderBidProducts(data.content)
+
+        resetCurrentSetting()
+        currentContents = data.content
+        renderBidProducts(currentContents)
         paginator(data)
+        countDownTimer = setInterval(setCountDownTimer, 1000)
     } catch (error) {
         console.log(error)
     }
@@ -74,7 +85,7 @@ categoryList.addEventListener("click", async (e) => {
 
 
 function renderBidProducts(content) {
-    window.document.body.scrollTop = 0 // 將 scroll bar 移至頂端
+
     let html = ``;
 
     for (let i = 0; i < content.length; i += 1) {
@@ -82,15 +93,22 @@ function renderBidProducts(content) {
         html += `
                 <a href="http://localhost:8080/bidProducts/${b.id}" class="text-black my-2">
                     <div class="card">
-                                <img src="${b.image}" class="card-img-top"
-                                     style="opacity: 0; transition: opacity 0.5s ease-in-out; height: 18rem;"
-                                     onload="this.style.opacity='1';"
-                                     alt="BidProduct-image">
+                        <img src="${b.image}" class="card-img-top"
+                             style="opacity: 0; transition: opacity 0.5s ease-in-out; height: 18rem;"
+                             onload="this.style.opacity='1';"
+                             alt="BidProduct-image">
                         <div class="card-body">
                             <h5 class="card-title">${b.name}</h5>
                             <div class="card-text">
-                                <span class="badge bg-secondary text-white">目前價格</span>
-                                <strong class="ms-2">${b.bidPrice} 元</strong>
+                                <div>
+                                    <span class="badge bg-secondary text-white" style="font-size: 1rem">底價</span>
+                                    <strong class="ms-2" style="font-size: 1rem">${b.basePrice} 元</strong>
+                                </div>
+                                <div class="my-2">
+                                    <span class="badge bg-secondary text-white" style="font-size: 1rem">目前價格</span>
+                                    <strong class="ms-2" style="font-size: 1rem">${b.bidPrice} 元</strong>
+                                </div>
+                                <div class="countDownArea" style="font-size: 1rem" data-created="${b.createdAt}" data-expired="${b.expiredAt}"></div>
                                 <div class="mt-2">${b.description}</div>
                             </div>
                         </div>
@@ -213,4 +231,60 @@ function getCurrentQueryParams() {
     })
 
     return param
+}
+
+function setCountDownTimer() {
+    // 遍歷目前頁面的商品，設定倒數
+    currentContents.forEach((c, index) => {
+        const expiredTime = Date.parse(c.expiredAt)
+        if (!expiredTime) return showNotStartYetMessage(index);
+
+        const currentTime = Date.now()
+        const offset = Math.floor((expiredTime - currentTime) / 1000) // 以秒為單位
+        const seconds = offset % 60      // 秒
+        const minutes = Math.floor(offset / 60) % 60 // 分
+        const hours = Math.floor(offset / 3600) % 24  // 時
+        const days = Math.floor(offset / (3600 * 24)) // 天
+
+        if (offset <= 0) {
+            return  showTimer(index, days, hours, minutes, seconds, true)
+        }
+
+        return  showTimer(index, days, hours, minutes, seconds, false)
+    })
+}
+
+function showTimer(index, days, hours, minutes, seconds, isClosed) {
+    const countDownArea = document.querySelectorAll(".countDownArea")[index]
+    countDownArea.classList.add("badge")
+    countDownArea.classList.add("bg-dark")
+    countDownArea.classList.add("text-white")
+    if (isClosed) {
+        return  countDownArea.innerHTML = `
+            <span>已截止</span>
+        `
+    }
+    return  countDownArea.innerHTML = `
+        <span class="day">${days} 天</span>
+        <span class="hour">${hours} 小時</span>
+        <span class="minute">${minutes} 分</span>
+        <span class="second">${seconds} 秒</span>
+    `
+}
+
+function showNotStartYetMessage(index) {
+    const countDownArea = document.querySelectorAll(".countDownArea")[index]
+    countDownArea.classList.add("badge")
+    countDownArea.classList.add("bg-dark")
+    countDownArea.classList.add("text-white")
+    return countDownArea.innerHTML = `
+        <span>尚未開始拍賣</span>
+    `
+}
+
+function resetCurrentSetting() {
+    window.document.body.scrollTop = 0 // 將 scroll bar 移至頂端
+    // reset 變數
+    currentContents = []
+    clearInterval(countDownTimer)
 }

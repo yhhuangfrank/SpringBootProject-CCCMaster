@@ -117,6 +117,12 @@
                                     <form:input path="image" id="image" type="file" class="form-control"/>
                                 </div>
                             </div>
+                            <div class="row mb-3">
+                                <label for="endDate" class="col-sm-2 col-form-label fw-bold">截止時間</label>
+                                <div class="col-sm-10 align-self-center">
+                                    <form:input path="endDate" id="endDate" type="datetime-local" class="form-control"/>
+                                </div>
+                            </div>
                             <button type="submit" class="btn btn-primary">送出</button>
                             <a href="javascript:history.back()" class="btn btn-dark">上一頁</a>
                         </form:form><!-- End General Form Elements -->
@@ -147,6 +153,6 @@
 <!-- Template Main JS File -->
 <script src="${contextRoot}/styles/back/assets/js/main.js"></script>
 <%-- 自訂 js --%>
-<script src="${contextRoot}/js/fileSizeValidation.js"></script>
+<script src="${contextRoot}/js/bid/fileSizeValidation.js"></script>
 </body>
 </html>

@@ -1,7 +1,6 @@
 package com.ispan.CCCMaster.model.dao;
 
-import com.ispan.CCCMaster.model.bean.weihsiang.Crawler;
-import com.ispan.CCCMaster.model.dto.ImgurResponse;
+import com.ispan.CCCMaster.model.bean.product.Crawler;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

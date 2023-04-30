@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ispan.CCCMaster.model.bean.Customer;
 import com.ispan.CCCMaster.model.bean.coupon.CouponBean;
 import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
-import com.ispan.CCCMaster.model.bean.weihsiang.Product;
+import com.ispan.CCCMaster.model.bean.product.Product;
 import com.ispan.CCCMaster.model.dao.ProductDao;
 import com.ispan.CCCMaster.model.dao.ShoppingCartDao;
 import com.ispan.CCCMaster.service.ShoppingCartService;
