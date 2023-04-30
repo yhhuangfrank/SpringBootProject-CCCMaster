@@ -14,14 +14,7 @@ public interface ProductService {
 
     Page<Product> findByPage(Integer pageNumber);
 
-//    Page<Product> findByPageSortByPrice(Integer pageNumber);
 
-//    Page<Product> findByPageSearchByNameSortByPrice(Integer pageNumber, String productName);
-
-    Page<Product> findByPageAjax(Integer pageNumber, String keyword, String sort,String catagoryName);
-
-
-//    Page<Product> findByCriteria(Integer pageNumber, String keyword, String sort, String categoryName);
 
     Page<Product> findByCriteria(Integer pageNumber, String keyword, String sort, String categoryName);
 

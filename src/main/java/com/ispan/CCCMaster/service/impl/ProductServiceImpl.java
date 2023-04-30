@@ -54,50 +54,13 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
         return page;
     }
 
-//    @Override
-//    public Page<Product> findByPageSortByPrice(Integer pageNumber) {
-//        Pageable pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.DESC, "price");
-//        Page<Product> page = productDao.findAll(pgb);
-//        return page;
-//    }
 
-//    @Override
-//    public Page<Product> findByPageSearchByNameSortByPrice(Integer pageNumber, String productName) {
-//        Pageable pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.DESC, "price");
-//        Page<Product> page = productDao.findByName(productName, pgb);
-//        return page;
-//    }
 
-    @Override
-    public Page<Product> findByPageAjax(Integer pageNumber, String keyword, String sort,String categoryName) {
-        Pageable pgb = null;
-        Page<Product> page;
-        if (sort.equals("default")) {
-            pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.ASC, "productId");
-        } else {
-            String sortBy[] = sort.split("_");
-            if (sortBy[1].equals("desc")) {
-                pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.DESC, sortBy[0]);
-            } else if (sortBy[1].equals("asc")) {
-                pgb = PageRequest.of(pageNumber - 1, 9, Sort.Direction.ASC, sortBy[0]);
-            }
-        }
-        if (keyword.equals("")) {
-            page = productDao.findByAllIsActive(pgb);
 
-        } else {
-            page = productDao.findByNameIsActive(keyword, pgb);
-        }
-        return page;
-
-    }
 
     @Override
     public Page<Product> findByCriteria(Integer pageNumber, String keyword, String sort, String categoryName){
         // 判定搜尋方向
-        System.out.println("enter findByCriteria");
-        System.out.println("sort="+sort);
-        System.out.println("categoryName="+categoryName);
         String sortBy[] = sort.split("_");
         String orderBy=sortBy[0]; //依甚麼排序
         Sort.Direction direction;

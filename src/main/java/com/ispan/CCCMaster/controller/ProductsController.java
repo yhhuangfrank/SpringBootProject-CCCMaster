@@ -22,54 +22,25 @@ public class ProductsController {
     private CategoryService categoryService;
 
 
-    @GetMapping("/front/product/details/{id}")
+    @GetMapping("/front/product/details/{id}")//商品列表跳轉到商品細節頁面
     public String productDetails(@PathVariable("id") Integer id, Model model) {
         pService.productViews(id);
-
         model.addAttribute("product", pService.findProductById(id));
         return "front/product/details";
     }
 
 
-    //------------------------Ajax--------------------------------------
-//    @ResponseBody
-//    @GetMapping("/front/product/list")
-//    public Map<String, Object> searchProductNameApi(@RequestParam(name = "keyword", required = false) String keyword,
-//                                                    @RequestParam(name = "page", defaultValue = "1") Integer pageNum,
-//                                                    @RequestParam(name = "sort", defaultValue = "default") String sort,
-//                                                    @RequestParam(name = "category") String category)
-//    {
-//        System.out.println("sort"+sort);
-//        System.out.println("category:"+category);
-//        Page<Product> products;
-//        Map<String, Object> response = new HashMap<>();
-//        System.out.println("enter searchProductNameApi");
-//        System.out.println(pageNum);
-//        System.out.println(keyword);
-//        products = pService.findByPageAjax(pageNum, keyword, sort,category);
-//        response.put("categoryList",categoryService.findAllCategories());
-//        response.put("pageNum", pageNum);
-//        response.put("keyword", keyword);
-//        response.put("products", products);
-//
-//        return response;
-//    }
 
 
     @ResponseBody
-    @GetMapping("/front/product/list")
+    @GetMapping("/front/product/list")//商品列表多條件搜尋
     public Map<String, Object> searchProductNameApi(@RequestParam(name = "keyword", required = false) String keyword,
                                                     @RequestParam(name = "page", defaultValue = "1") Integer pageNum,
                                                     @RequestParam(name = "sort", defaultValue = "productId_asc") String sort,
                                                     @RequestParam(name = "category") String category) {
-        System.out.println("sort" + sort);
-        System.out.println("category:" + category);
-        System.out.println("keyword:" + keyword);
+
         Page<Product> products;
         Map<String, Object> response = new HashMap<>();
-        System.out.println("enter searchProductNameApi");
-        System.out.println(pageNum);
-        System.out.println(keyword);
         products = pService.findByCriteria(pageNum, keyword, sort, category);
         response.put("categoryList", categoryService.findAllCategories());
         response.put("pageNum", pageNum);
@@ -79,33 +50,13 @@ public class ProductsController {
         return response;
     }
 
-    @GetMapping("/front/product")
+    @GetMapping("/front/product") //topbar跳轉到商品列表
     public String defaultProductPage(Model model) {
         System.out.println("enter defaultProductPage");
         return "front/product/productAjaxTest";
     }
+
+
     //------------------------Ajax--------------------------------------
-//    @GetMapping("/front/product/search")
-//    public String productSearchByName(@RequestParam("productName") String keyword, @RequestParam(name = "p", defaultValue = "1") Integer pageNumber, Model model) {
-//        if(keyword.equals(""))return "redirect:/front/product";
-//        Page<Product> page = pService.findByPageSearchByNameSortByPrice(pageNumber, keyword);
-//        model.addAttribute("page", page);
-//        model.addAttribute("keyword",keyword);
-//        return "front/product/product";
-//    }
-    //    @ResponseBody
-//    @GetMapping("/front/product/all")
-//    public Page<Product> showAllProductByPage(@RequestParam(name = "pageNum",defaultValue = "1") Integer pageNum) {
-//        Page<Product> page = pService.findByPageSortByPrice(pageNum);
-//        return page;
-//    }
-//    @ResponseBody
-//    @GetMapping({"/front/product/all","/front/product/all/{page}"})
-//    public Page<Product> defaultProductPage(@PathVariable(name = "page",required = false) Integer pageNum, Model model) {
-//        System.out.println("enter defaultProductPage");
-//        if(pageNum==null)pageNum=1;
-//        Page<Product> page = pService.findByPageSortByPrice(pageNum);
-//
-//        return page;
-//    }
+
 }
