@@ -3,10 +3,7 @@ package com.ispan.CCCMaster.service;
 import java.io.IOException;
 import java.util.List;
 
-
-import com.ispan.CCCMaster.model.bean.product.Product;
-import com.ispan.CCCMaster.model.dao.ProductDao;
-import com.ispan.CCCMaster.model.dao.ShoppingCartDao;
+import com.ispan.CCCMaster.model.bean.customer.Customer;
 
 import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
 
