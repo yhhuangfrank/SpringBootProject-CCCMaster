@@ -36,43 +36,6 @@ public class BidProductAdminController {
         this.bidProductValidator = bidProductValidator;
     }
 
-    @GetMapping("/bidProducts/create")
-    public String getCreateBidProductForm(Model model) {
-
-        // 取得目前有的種類清單
-        List<Category> categories = categoryService.findAllCategories();
-
-        model.addAttribute("categories", categories);
-        model.addAttribute("bidProductRequest", new BidProductRequest());
-
-        return "/back/bid/product-create";
-    }
-
-    @PostMapping("/bidProducts")
-    public String createBidProduct(
-            @RequestBody @Valid @ModelAttribute("bidProductRequest") BidProductRequest bidProductRequest,
-            BindingResult bindingResult,
-            Model model,
-            RedirectAttributes redirectAttributes) {
-
-        // 驗證表單
-        bidProductValidator.validate(bidProductRequest, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-            model.addAttribute("isErrorExist", true);
-            model.addAttribute("errors", fieldErrors);
-            return "/back/bid/product-create";
-        }
-
-        bidProductService.createBidProduct(bidProductRequest);
-
-        redirectAttributes.addFlashAttribute("isSuccess", true);
-        redirectAttributes.addFlashAttribute("successMsg", "新增成功!");
-
-        return "redirect:/admin/bidProducts";
-    }
-
     @GetMapping("/bidProducts")
     public String getAllBidProducts(Model model) {
 

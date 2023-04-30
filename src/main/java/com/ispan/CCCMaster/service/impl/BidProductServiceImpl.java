@@ -67,7 +67,9 @@ public class BidProductServiceImpl implements BidProductService {
         }
         bidProduct.setImage(imageLink);
 
-        bidProduct.setExpiredAt(handleDateFormat(bidProductRequest.getEndDate()));
+        if (!bidProductRequest.getEndDate().equals("")) {
+            bidProduct.setExpiredAt(handleDateFormat(bidProductRequest.getEndDate()));
+        }
 
         bidProductDao.save(bidProduct);
     }
