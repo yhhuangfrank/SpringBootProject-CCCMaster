@@ -1,6 +1,7 @@
 package com.ispan.CCCMaster.service.impl;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,6 +57,14 @@ public class OrderServiceImpl implements OrderService {
 			oldOrder.setShipperaddress(orderBean.getShipperaddress());
 			oldOrder.setOrdercondition(orderBean.getOrdercondition());			
 		}
+	}
+	@Override
+	public void createOrder(OrderBean o,OrderDetailBean od) {
+		Date date = new Date();
+		String dateString = String.valueOf(date.getTime());
+		o.setOrderid(dateString);
+		o.setOrderdate(date);
+		oDao.save(o);
 	}
 
 }

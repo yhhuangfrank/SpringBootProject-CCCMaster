@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -52,5 +53,12 @@ public class OrderAdminController {
           e.printStackTrace();
        }
 		return "redirect:/orders";
+	}
+	
+	//新增訂單
+	@PostMapping("/orders/create")
+	public String createorder(@ModelAttribute("order") OrderBean o,OrderDetailBean od) {
+		oService.createOrder(o, od);
+		return "/front/shoppingcarts/showshoppingcart";
 	}
 }
