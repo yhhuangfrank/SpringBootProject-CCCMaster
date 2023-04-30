@@ -2,6 +2,7 @@ const expiredAt = document.querySelector("#expiredAt")
 const createdAt = document.querySelector("#createdAt")
 const countDownArea = document.querySelector("#countDownArea")
 const timerValueContainers = document.querySelectorAll("#countDownArea span")
+const bidPriceInput = document.querySelector("#bidPrice")
 const bidBtn = document.querySelector("#bidBtn")
 const expiredText = expiredAt.textContent
 let expiredTime = Date.parse(expiredText)
@@ -28,7 +29,7 @@ function setCountDownTimer() {
     }
 
     // 尚未截止才可輸入出價金額
-    bidPriceInput.classList.remove("disabled")
+    bidPriceInput.removeAttribute("disabled")
     bidBtn.classList.remove("disabled")
 
     // 取得還有多少 天、小時、分鐘、秒

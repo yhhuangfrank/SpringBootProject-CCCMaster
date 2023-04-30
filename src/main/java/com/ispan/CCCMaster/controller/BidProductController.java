@@ -101,6 +101,7 @@ public class BidProductController {
         bidProductRequest.setBasePrice(foundBidProduct.getBasePrice());
         bidProductRequest.setDescription(foundBidProduct.getDescription());
         bidProductRequest.setCategoryName(foundBidProduct.getCategory().getName());
+        bidProductRequest.setEndDate(foundBidProduct.getExpiredAt().toString());
 
         List<Category> categories = categoryService.findAllCategories();
 
@@ -108,7 +109,7 @@ public class BidProductController {
         model.addAttribute("bidProductRequest", bidProductRequest);
         model.addAttribute("id", id);
 
-        return "/back/bid/product-edit";
+        return "/front/bid/product-edit";
     }
 
     @PostMapping("/bidProducts/{id}")
@@ -125,7 +126,7 @@ public class BidProductController {
             model.addAttribute("isErrorExist", true);
             model.addAttribute("errors", fieldErrors);
 
-            return "/back/bid/product-edit";
+            return "/front/bid/product-edit";
         }
 
         bidProductService.updateBidProduct(id, bidProductRequest);
@@ -133,7 +134,7 @@ public class BidProductController {
         redirectAttributes.addFlashAttribute("isSuccess", true);
         redirectAttributes.addFlashAttribute("successMsg", "修改成功!");
 
-        return "redirect:/admin/bidProducts";
+        return "redirect:/bidProducts/{id}";
     }
 
     @DeleteMapping("/bidProducts/{id}")

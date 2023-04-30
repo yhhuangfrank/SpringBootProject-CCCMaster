@@ -46,55 +46,6 @@ public class BidProductAdminController {
         return "/back/bid/products";
     }
 
-    @GetMapping("/bidProducts/{id}/edit")
-    public String getEditBidProductForm(@PathVariable Integer id, Model model) {
-
-        // 查詢商品
-        BidProduct foundBidProduct = bidProductService.findBidProductById(id);
-
-        BidProductRequest bidProductRequest = new BidProductRequest();
-        bidProductRequest.setName(foundBidProduct.getName());
-        bidProductRequest.setBasePrice(foundBidProduct.getBasePrice());
-        bidProductRequest.setDescription(foundBidProduct.getDescription());
-        bidProductRequest.setCategoryName(foundBidProduct.getCategory().getName());
-        if (foundBidProduct.getExpiredAt() != null) {
-            bidProductRequest.setEndDate(foundBidProduct.getExpiredAt().toString());
-        }
-
-        List<Category> categories = categoryService.findAllCategories();
-
-        model.addAttribute("categories", categories);
-        model.addAttribute("bidProductRequest", bidProductRequest);
-        model.addAttribute("id", id);
-
-        return "/back/bid/product-edit";
-    }
-
-    @PostMapping("/bidProducts/{id}")
-    public String editBidProduct(@PathVariable Integer id,
-                                 @RequestBody @Valid @ModelAttribute("bidProductRequest") BidProductRequest bidProductRequest,
-                                 BindingResult bindingResult,
-                                 Model model,
-                                 RedirectAttributes redirectAttributes) {
-
-        bidProductValidator.validate(bidProductRequest, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-            model.addAttribute("isErrorExist", true);
-            model.addAttribute("errors", fieldErrors);
-
-            return "/back/bid/product-edit";
-        }
-
-        bidProductService.updateBidProduct(id, bidProductRequest);
-
-        redirectAttributes.addFlashAttribute("isSuccess", true);
-        redirectAttributes.addFlashAttribute("successMsg", "修改成功!");
-
-        return "redirect:/admin/bidProducts";
-    }
-
     @DeleteMapping("/bidProducts/{id}")
     public String deleteBidProduct(@PathVariable Integer id,
                                   RedirectAttributes redirectAttributes) {

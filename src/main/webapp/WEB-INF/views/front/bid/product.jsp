@@ -56,6 +56,8 @@
     <section id="portfolio-details" class="portfolio-details">
         <div class="container">
 
+            <jsp:include page="../../message.jsp"/>
+
             <div class="row gy-4">
 
                 <div class="col-lg-8">
@@ -86,7 +88,10 @@
 
                 <div class="col-lg-4">
                     <div class="portfolio-info">
-                        <h3>商品詳情</h3>
+                        <%--待設定只有登入的賣家能編輯自己的商品判斷--%>
+                        <h3>商品詳情
+                            <a href="${contextRoot}/bidProducts/${bidProduct.id}/edit" class="btn btn-outline-info">修改</a>
+                        </h3>
                         <ul>
                             <li>
                                 <strong class="fs-6 badge bg-secondary text-white">種類</strong>
@@ -147,7 +152,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">關於此商品</h5>
                                 <c:choose>
-                                    <c:when test="${bidProduct.description != null}}">
+                                    <c:when test="${bidProduct.description != null}">
                                         ${bidProduct.description}
                                     </c:when>
                                     <c:otherwise>
@@ -202,8 +207,8 @@
 <script src="${contextRoot}/styles/front/assets/js/main.js"></script>
 <%-- axios 與自訂 JS --%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.6/axios.min.js"></script>
-<script src="${contextRoot}/js/bid/updateBidPrice.js"></script>
 <script src="${contextRoot}/js/bid/dateTimerInDetailPage.js"></script>
+<script src="${contextRoot}/js/bid/updateBidPrice.js"></script>
 </body>
 
 </html>
