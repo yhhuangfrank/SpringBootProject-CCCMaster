@@ -4,6 +4,8 @@ public class BidProductQueryParams {
 
     private String categoryName;
 
+    private String keyword;
+
     private String orderBy;
 
     private String sort;
@@ -18,6 +20,14 @@ public class BidProductQueryParams {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 
     public String getOrderBy() {

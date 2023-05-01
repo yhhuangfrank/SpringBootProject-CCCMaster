@@ -92,6 +92,7 @@ public class BidProductServiceImpl implements BidProductService {
     public Page<BidProduct> findBidProducts(BidProductQueryParams queryParams) {
 
         String categoryName = queryParams.getCategoryName();
+        String keyword = queryParams.getKeyword();
         String orderBy = queryParams.getOrderBy();
         String sort = queryParams.getSort();
         Integer page = queryParams.getPage();
@@ -107,6 +108,12 @@ public class BidProductServiceImpl implements BidProductService {
                 Category category = categoryDao.findCategoryByName(categoryName);
                 // 查詢相對應種類
                 Predicate p = criteriaBuilder.equal(root.get("category"), category);
+                predicates.add(p);
+            }
+
+            // keyword search
+            if (Objects.nonNull(keyword)) {
+                Predicate p = criteriaBuilder.like(root.get("name"), "%" + keyword + "%");
                 predicates.add(p);
             }
 

@@ -60,17 +60,19 @@
                 <div class="col-6 mx-auto">
                     <div class="row justify-content-around">
                         <div class="col-6">
-                            <div class="input-group justify-content-center">
-                                <input type="text" class="form-control-sm" placeholder="查詢商品">
-                                <button class="btn btn-outline-light border-dark" style="display: inline; background-color: #e96b56">搜尋</button>
+                            <div class="input-group">
+                                <input type="text" class="form-control-sm" id="searchInput" placeholder="查詢商品">
+                                <button class="btn btn-outline-light border-dark" id="searchBtn"
+                                        style="display: inline; background-color: #e96b56">搜尋
+                                </button>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-5">
                             <div>
                                 <select class="form-select" id="sortingSelect">
-                                    <option value="123">最新</option>
-                                    <option value="123">價格低到高</option>
-                                    <option value="123">價格高到低</option>
+                                    <option value="createdAt_desc">最新</option>
+                                    <option value="price_asc">價格低到高</option>
+                                    <option value="price_desc">價格高到低</option>
                                 </select>
                             </div>
                         </div>
@@ -88,6 +90,8 @@
                 </div>
             </div>
 
+            <%--顯示訊息--%>
+            <div id="messageArea"></div>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3" id="bidProductArea">
                 <%--使用 api 替換此區資料--%>
             </div>

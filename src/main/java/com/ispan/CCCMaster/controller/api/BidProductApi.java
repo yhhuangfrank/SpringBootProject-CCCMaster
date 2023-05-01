@@ -30,6 +30,7 @@ public class BidProductApi {
     @GetMapping("/bidProducts")
     public Page<BidProduct> getBidProducts(
             @RequestParam(required = false) String categoryName,
+            @RequestParam(required = false) String keyword,
 
             @RequestParam(defaultValue = "createdAt") String orderBy,
             @RequestParam(defaultValue = "DESC") String sort,
@@ -41,6 +42,7 @@ public class BidProductApi {
         // 設定參數傳遞物件
         BidProductQueryParams queryParams = new BidProductQueryParams();
         queryParams.setCategoryName(categoryName);
+        queryParams.setKeyword(keyword);
         queryParams.setOrderBy(orderBy);
         queryParams.setSort(sort);
         queryParams.setPage(page);
