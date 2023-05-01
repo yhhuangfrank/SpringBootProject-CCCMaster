@@ -92,6 +92,9 @@ public class BidProductServiceImpl implements BidProductService {
     public Page<BidProduct> findBidProducts(BidProductQueryParams queryParams) {
 
         String categoryName = queryParams.getCategoryName();
+        String keyword = queryParams.getKeyword();
+        Boolean nonClosed = queryParams.getNonClosed();
+        Boolean started = queryParams.getStarted();
         String orderBy = queryParams.getOrderBy();
         String sort = queryParams.getSort();
         Integer page = queryParams.getPage();
@@ -103,10 +106,29 @@ public class BidProductServiceImpl implements BidProductService {
             List<Predicate> predicates = new ArrayList<>();
 
             // 判定輸入值是否為空
-            if (Objects.nonNull(categoryName)) {
+            if (Objects.nonNull(categoryName) && !categoryName.equals("")) {
                 Category category = categoryDao.findCategoryByName(categoryName);
                 // 查詢相對應種類
                 Predicate p = criteriaBuilder.equal(root.get("category"), category);
+                predicates.add(p);
+            }
+
+            // keyword search
+            if (Objects.nonNull(keyword)) {
+                Predicate p = criteriaBuilder.like(root.get("name"), "%" + keyword + "%");
+                predicates.add(p);
+            }
+
+            // 是否尚未截止
+            if (nonClosed) {
+                Date now = new Date();
+                Predicate p = criteriaBuilder.greaterThan(root.get("expiredAt"), now);
+                predicates.add(p);
+            }
+
+            // 是否已開始拍賣
+            if (started) {
+                Predicate p = criteriaBuilder.isNotNull(root.get("expiredAt"));
                 predicates.add(p);
             }
 

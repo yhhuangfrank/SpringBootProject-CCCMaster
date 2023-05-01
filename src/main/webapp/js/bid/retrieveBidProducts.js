@@ -1,7 +1,14 @@
 const bidProductArea = document.querySelector("#bidProductArea")
 const pagination = document.querySelector(".pagination")
+const messageArea = document.querySelector("#messageArea")
+const searchInput = document.querySelector("#searchInput")
+const searchBtn = document.querySelector("#searchBtn")
+const sortingSelect = document.querySelector("#sortingSelect")
 const categoryList = document.querySelector(".categoryList")
 const categories = document.querySelectorAll("li.category")
+const checkBox = document.querySelector("#checkBox")
+const nonClosedCheck = document.querySelector("#nonClosedCheck")
+const startedCheck = document.querySelector("#startedCheck")
 const BASE_URL = "http://localhost:8080/api/bidProducts"
 const DEFAULT_SHOWING_PAGES = 5
 let currentPage = 1 // 預設在第一頁
@@ -12,16 +19,13 @@ let countDownTimer;
 window.addEventListener("load", async () => {
     try {
         const response = await axios.get(BASE_URL)
-        const {data} = response
-        currentContents = data.content
-        renderBidProducts(currentContents)
-        paginator(data)
-        countDownTimer = setInterval(setCountDownTimer, 1000) // 設定計時
+        executeResetAndRender(response.data)
     } catch (error) {
         console.log(error)
     }
 })
 
+// 分頁
 pagination.addEventListener("click", async (e) => {
     try {
         const {target} = e
@@ -39,23 +43,18 @@ pagination.addEventListener("click", async (e) => {
         }
 
         // 向 api 請求攜帶的參數
-        const params = getCurrentQueryParams()
-        params.page = goToPage
-        const config = {params}
+        const config = {params: getCurrentQueryParams()}
+        config.params.page = goToPage
 
         const response = await axios.get(BASE_URL, config)
-        const {data} = response
 
-        resetCurrentSetting()
-        currentContents = data.content // 設定目前頁面資料
-        renderBidProducts(currentContents)  // 重新渲染
-        paginator(data) // 重新製作分頁
-        countDownTimer = setInterval(setCountDownTimer, 1000) // 設定計時
+        executeResetAndRender(response.data)
     } catch (error) {
         console.log(error)
     }
 })
 
+// 種類篩選
 categoryList.addEventListener("click", async (e) => {
     try {
         const {target} = e
@@ -68,25 +67,79 @@ categoryList.addEventListener("click", async (e) => {
         updateCategoryListStyle(categoryName)
 
         // 向 api 請求攜帶的參數
-        const params = getCurrentQueryParams()
-        const config = {params}
+        const config = {params: getCurrentQueryParams()}
         const response = await axios(BASE_URL, config)
-        const {data} = response
 
-        resetCurrentSetting()
-        currentContents = data.content
-        renderBidProducts(currentContents)
-        paginator(data)
-        countDownTimer = setInterval(setCountDownTimer, 1000)
+        executeResetAndRender(response.data)
     } catch (error) {
         console.log(error)
     }
 })
 
+// 搜尋
+searchBtn.addEventListener("click", async () => {
+    try {
+        const keyword = searchInput.value
+        if (keyword.includes("<script>")) return
+
+        const config = {params: getCurrentQueryParams()}
+
+        const response = await axios.get(BASE_URL, config)
+
+        executeResetAndRender(response.data)
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+// 排序切換
+sortingSelect.addEventListener("change", async () => {
+    try {
+        const config = {params: getCurrentQueryParams()}
+
+        const response = await axios.get(BASE_URL, config)
+
+        executeResetAndRender(response.data)
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+// 確認 checkBox 選擇
+checkBox.addEventListener("click", async (e) => {
+    try {
+        const {tagName} = e.target
+
+        if (tagName !== "INPUT") return
+
+        const config = {params: getCurrentQueryParams()}
+        const response = await axios.get(BASE_URL, config)
+
+        executeResetAndRender(response.data)
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+function executeResetAndRender(data) {
+    resetCurrentSetting() // 設定重置
+    currentContents = data.content
+    renderBidProducts(currentContents) // 重新渲染
+    paginator(data) // 重製分頁
+    countDownTimer = setInterval(setCountDownTimer, 1000) // 重新計時
+}
 
 function renderBidProducts(content) {
 
     let html = ``;
+
+    if (!content.length) {
+        bidProductArea.innerHTML = html
+        messageArea.innerHTML = `<h1 class="text-center">查無資料</h1>`
+        return
+    }
+
+    messageArea.innerHTML = ``
 
     for (let i = 0; i < content.length; i += 1) {
         const b = content[i]
@@ -100,11 +153,15 @@ function renderBidProducts(content) {
                         <div class="card-body">
                             <h5 class="card-title">${b.name}</h5>
                             <div class="card-text">
-                                <div>
+                                <div class="mb-2">
+                                    <span class="badge bg-secondary text-white" style="font-size: 1rem">種類</span>
+                                    <strong class="ms-2" style="font-size: 1rem">${b.category.name}</strong>
+                                </div>
+                                <div class="mb-2">
                                     <span class="badge bg-secondary text-white" style="font-size: 1rem">底價</span>
                                     <strong class="ms-2" style="font-size: 1rem">${b.basePrice} 元</strong>
                                 </div>
-                                <div class="my-2">
+                                <div class="mb-2">
                                     <span class="badge bg-secondary text-white" style="font-size: 1rem">目前價格</span>
                                     <strong class="ms-2" style="font-size: 1rem">${b.bidPrice} 元</strong>
                                 </div>
@@ -123,7 +180,10 @@ function renderBidProducts(content) {
 function paginator(data) {
     const {totalPages, number, empty, first, last} = data
 
-    if (empty) return
+    if (empty) {
+        pagination.innerHTML = ``; // 清空分頁
+        return
+    }
 
     currentPage = number + 1
 
@@ -222,6 +282,7 @@ function updateCategoryListStyle(categoryName) {
 function getCurrentQueryParams() {
     const param = {}
 
+    // 種類
     categories.forEach(category => {
         const isActive = category.classList.contains("filter-active")
         if (category.dataset.category === "all" && isActive) return param
@@ -229,6 +290,21 @@ function getCurrentQueryParams() {
             param.categoryName = category.textContent
         }
     })
+
+    // 關鍵字 (需不包含特定字元如<script>)
+    const keyword = searchInput.value
+    if (keyword || !keyword.includes("<script>")) {
+        param.keyword = keyword
+    }
+
+    // 排序
+    const sortOption = sortingSelect.value
+    param.orderBy = sortOption.split("_")[0]
+    param.sort = sortOption.split("_")[1]
+
+    // 是否顯示已截止、未拍賣商品
+    param.started = startedCheck.checked
+    param.nonClosed = nonClosedCheck.checked
 
     return param
 }

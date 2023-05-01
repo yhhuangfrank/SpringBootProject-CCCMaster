@@ -25,6 +25,7 @@
     <link href="${contextRoot}/styles/front/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="${contextRoot}/styles/front/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
     <link href="${contextRoot}/styles/front/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="${contextRoot}/styles/back/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
     <link href="${contextRoot}/styles/front/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
     <link href="${contextRoot}/styles/front/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
@@ -57,7 +58,38 @@
         <div class="container">
 
             <div class="row">
-                <div class="col-lg-12 d-flex justify-content-center">
+                <div class="col-6 mx-auto">
+                    <form class="row g-3">
+                        <div class="col-12 input-group">
+                            <input type="text" class="form-control" id="searchInput" placeholder="查詢商品">
+                            <button type="button" class="btn btn-outline-light border-secondary" id="searchBtn"
+                                    style="display: inline; background-color: #e96b56"><i class="bx bx-search-alt"></i>
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <select class="form-select" id="sortingSelect">
+                                <option value="createdAt_desc">最新</option>
+                                <option value="basePrice_asc">底價由低到高</option>
+                                <option value="basePrice_desc">底價由高到低</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 ms-auto" id="checkBox">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="nonClosedCheck">
+                                <label class="form-check-label">
+                                    不顯示已截止
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="startedCheck">
+                                <label class="form-check-label">
+                                    不顯示未開始拍賣
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-12 d-flex justify-content-center mt-2">
                     <ul id="portfolio-flters" class="categoryList">
                         <li class="filter-active category" data-category="all">全部</li>
                         <li class="category">手機</li>
@@ -69,6 +101,8 @@
                 </div>
             </div>
 
+            <%--顯示訊息--%>
+            <div id="messageArea"></div>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3" id="bidProductArea">
                 <%--使用 api 替換此區資料--%>
             </div>
