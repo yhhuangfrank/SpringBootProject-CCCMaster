@@ -6,6 +6,10 @@ public class BidProductQueryParams {
 
     private String keyword;
 
+    private Boolean nonClosed;
+
+    private Boolean started;
+
     private String orderBy;
 
     private String sort;
@@ -28,6 +32,22 @@ public class BidProductQueryParams {
 
     public void setKeyword(String keyword) {
         this.keyword = keyword;
+    }
+
+    public Boolean getNonClosed() {
+        return nonClosed;
+    }
+
+    public void setNonClosed(Boolean nonClosed) {
+        this.nonClosed = nonClosed;
+    }
+
+    public Boolean getStarted() {
+        return started;
+    }
+
+    public void setStarted(Boolean started) {
+        this.started = started;
     }
 
     public String getOrderBy() {

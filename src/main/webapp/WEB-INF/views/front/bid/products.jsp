@@ -25,6 +25,7 @@
     <link href="${contextRoot}/styles/front/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="${contextRoot}/styles/front/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
     <link href="${contextRoot}/styles/front/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="${contextRoot}/styles/back/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
     <link href="${contextRoot}/styles/front/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
     <link href="${contextRoot}/styles/front/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
@@ -61,8 +62,8 @@
                     <form class="row g-3">
                         <div class="col-12 input-group">
                             <input type="text" class="form-control" id="searchInput" placeholder="查詢商品">
-                            <button type="button" class="btn btn-outline-light border-dark" id="searchBtn"
-                                    style="display: inline; background-color: #e96b56">搜尋
+                            <button type="button" class="btn btn-outline-light border-secondary" id="searchBtn"
+                                    style="display: inline; background-color: #e96b56"><i class="bx bx-search-alt"></i>
                             </button>
                         </div>
                         <div class="col-md-6">
@@ -72,16 +73,16 @@
                                 <option value="basePrice_desc">底價由高到低</option>
                             </select>
                         </div>
-                        <div class="col-md-4 ms-auto">
+                        <div class="col-md-4 ms-auto" id="checkBox">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="noEndCheck">
-                                <label class="form-check-label" for="noEndCheck">
+                                <input class="form-check-input" type="checkbox" id="nonClosedCheck">
+                                <label class="form-check-label">
                                     不顯示已截止
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="noNonStartYetCheck">
-                                <label class="form-check-label" for="noNonStartYetCheck">
+                                <input class="form-check-input" type="checkbox" id="startedCheck">
+                                <label class="form-check-label">
                                     不顯示未開始拍賣
                                 </label>
                             </div>

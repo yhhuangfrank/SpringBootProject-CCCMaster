@@ -6,6 +6,9 @@ const searchBtn = document.querySelector("#searchBtn")
 const sortingSelect = document.querySelector("#sortingSelect")
 const categoryList = document.querySelector(".categoryList")
 const categories = document.querySelectorAll("li.category")
+const checkBox = document.querySelector("#checkBox")
+const nonClosedCheck = document.querySelector("#nonClosedCheck")
+const startedCheck = document.querySelector("#startedCheck")
 const BASE_URL = "http://localhost:8080/api/bidProducts"
 const DEFAULT_SHOWING_PAGES = 5
 let currentPage = 1 // 預設在第一頁
@@ -94,6 +97,22 @@ sortingSelect.addEventListener("change", async () => {
     try {
         const config = {params: getCurrentQueryParams()}
 
+        const response = await axios.get(BASE_URL, config)
+
+        executeResetAndRender(response.data)
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+// 確認 checkBox 選擇
+checkBox.addEventListener("click", async (e) => {
+    try {
+        const {tagName} = e.target
+
+        if (tagName !== "INPUT") return
+
+        const config = {params: getCurrentQueryParams()}
         const response = await axios.get(BASE_URL, config)
 
         executeResetAndRender(response.data)
@@ -282,6 +301,10 @@ function getCurrentQueryParams() {
     const sortOption = sortingSelect.value
     param.orderBy = sortOption.split("_")[0]
     param.sort = sortOption.split("_")[1]
+
+    // 是否顯示已截止、未拍賣商品
+    param.started = startedCheck.checked
+    param.nonClosed = nonClosedCheck.checked
 
     return param
 }

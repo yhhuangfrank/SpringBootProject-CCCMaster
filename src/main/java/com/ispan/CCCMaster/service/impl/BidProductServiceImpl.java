@@ -93,6 +93,8 @@ public class BidProductServiceImpl implements BidProductService {
 
         String categoryName = queryParams.getCategoryName();
         String keyword = queryParams.getKeyword();
+        Boolean nonClosed = queryParams.getNonClosed();
+        Boolean started = queryParams.getStarted();
         String orderBy = queryParams.getOrderBy();
         String sort = queryParams.getSort();
         Integer page = queryParams.getPage();
@@ -114,6 +116,19 @@ public class BidProductServiceImpl implements BidProductService {
             // keyword search
             if (Objects.nonNull(keyword)) {
                 Predicate p = criteriaBuilder.like(root.get("name"), "%" + keyword + "%");
+                predicates.add(p);
+            }
+
+            // 是否尚未截止
+            if (nonClosed) {
+                Date now = new Date();
+                Predicate p = criteriaBuilder.greaterThan(root.get("expiredAt"), now);
+                predicates.add(p);
+            }
+
+            // 是否已開始拍賣
+            if (started) {
+                Predicate p = criteriaBuilder.isNotNull(root.get("expiredAt"));
                 predicates.add(p);
             }
 

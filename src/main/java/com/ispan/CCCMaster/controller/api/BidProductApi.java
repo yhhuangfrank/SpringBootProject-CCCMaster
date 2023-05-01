@@ -3,7 +3,6 @@ package com.ispan.CCCMaster.controller.api;
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.dto.BidProductQueryParams;
 import com.ispan.CCCMaster.service.BidProductService;
-import com.ispan.CCCMaster.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
@@ -18,23 +17,24 @@ public class BidProductApi {
 
     private final BidProductService bidProductService;
 
-    private final CategoryService categoryService;
-
     @Autowired
-    public BidProductApi(BidProductService bidProductService,
-                         CategoryService categoryService) {
+    public BidProductApi(BidProductService bidProductService) {
         this.bidProductService = bidProductService;
-        this.categoryService = categoryService;
     }
 
     @GetMapping("/bidProducts")
     public Page<BidProduct> getBidProducts(
+            // 搜尋
             @RequestParam(required = false) String categoryName,
             @RequestParam(required = false) String keyword,
+            @RequestParam(required = false, defaultValue = "false") Boolean nonClosed,
+            @RequestParam(required = false, defaultValue = "false") Boolean started,
 
+            // 排序
             @RequestParam(defaultValue = "createdAt") String orderBy,
             @RequestParam(defaultValue = "DESC") String sort,
 
+            // 分頁
             @RequestParam(defaultValue = "1") @Min(1) Integer page,
             @RequestParam(defaultValue = "4") @Min(0) Integer limit
     ) {
@@ -43,6 +43,8 @@ public class BidProductApi {
         BidProductQueryParams queryParams = new BidProductQueryParams();
         queryParams.setCategoryName(categoryName);
         queryParams.setKeyword(keyword);
+        queryParams.setNonClosed(nonClosed);
+        queryParams.setStarted(started);
         queryParams.setOrderBy(orderBy);
         queryParams.setSort(sort);
         queryParams.setPage(page);
