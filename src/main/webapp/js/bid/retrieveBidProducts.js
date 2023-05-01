@@ -76,6 +76,9 @@ categoryList.addEventListener("click", async (e) => {
 // 搜尋
 searchBtn.addEventListener("click", async () => {
     try {
+        const keyword = searchInput.value
+        if (keyword.includes("<script>")) return
+
         const config = {params: getCurrentQueryParams()}
 
         const response = await axios.get(BASE_URL, config)
@@ -131,11 +134,15 @@ function renderBidProducts(content) {
                         <div class="card-body">
                             <h5 class="card-title">${b.name}</h5>
                             <div class="card-text">
-                                <div>
+                                <div class="mb-2">
+                                    <span class="badge bg-secondary text-white" style="font-size: 1rem">種類</span>
+                                    <strong class="ms-2" style="font-size: 1rem">${b.category.name}</strong>
+                                </div>
+                                <div class="mb-2">
                                     <span class="badge bg-secondary text-white" style="font-size: 1rem">底價</span>
                                     <strong class="ms-2" style="font-size: 1rem">${b.basePrice} 元</strong>
                                 </div>
-                                <div class="my-2">
+                                <div class="mb-2">
                                     <span class="badge bg-secondary text-white" style="font-size: 1rem">目前價格</span>
                                     <strong class="ms-2" style="font-size: 1rem">${b.bidPrice} 元</strong>
                                 </div>
@@ -265,9 +272,9 @@ function getCurrentQueryParams() {
         }
     })
 
-    // 關鍵字
+    // 關鍵字 (需不包含特定字元如<script>)
     const keyword = searchInput.value
-    if (keyword) {
+    if (keyword || !keyword.includes("<script>")) {
         param.keyword = keyword
     }
 

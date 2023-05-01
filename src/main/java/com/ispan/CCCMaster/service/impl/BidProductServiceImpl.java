@@ -104,7 +104,7 @@ public class BidProductServiceImpl implements BidProductService {
             List<Predicate> predicates = new ArrayList<>();
 
             // 判定輸入值是否為空
-            if (Objects.nonNull(categoryName)) {
+            if (Objects.nonNull(categoryName) && !categoryName.equals("")) {
                 Category category = categoryDao.findCategoryByName(categoryName);
                 // 查詢相對應種類
                 Predicate p = criteriaBuilder.equal(root.get("category"), category);
