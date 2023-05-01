@@ -57,7 +57,26 @@
         <div class="container">
 
             <div class="row">
-                <div class="col-lg-12 d-flex justify-content-center">
+                <div class="col-6 mx-auto">
+                    <div class="row justify-content-around">
+                        <div class="col-6">
+                            <div class="input-group justify-content-center">
+                                <input type="text" class="form-control-sm" placeholder="查詢商品">
+                                <button class="btn btn-outline-light border-dark" style="display: inline; background-color: #e96b56">搜尋</button>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div>
+                                <select class="form-select" id="sortingSelect">
+                                    <option value="123">最新</option>
+                                    <option value="123">價格低到高</option>
+                                    <option value="123">價格高到低</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 d-flex justify-content-center mt-2">
                     <ul id="portfolio-flters" class="categoryList">
                         <li class="filter-active category" data-category="all">全部</li>
                         <li class="category">手機</li>

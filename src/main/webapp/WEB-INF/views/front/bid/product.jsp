@@ -159,7 +159,6 @@
                                         暫無說明。。。
                                     </c:otherwise>
                                 </c:choose>
-
                             </div>
                         </div>
                     </div>
