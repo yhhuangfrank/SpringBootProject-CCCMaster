@@ -3,6 +3,7 @@ const pagination = document.querySelector(".pagination")
 const messageArea = document.querySelector("#messageArea")
 const searchInput = document.querySelector("#searchInput")
 const searchBtn = document.querySelector("#searchBtn")
+const sortingSelect = document.querySelector("#sortingSelect")
 const categoryList = document.querySelector(".categoryList")
 const categories = document.querySelectorAll("li.category")
 const BASE_URL = "http://localhost:8080/api/bidProducts"
@@ -39,9 +40,8 @@ pagination.addEventListener("click", async (e) => {
         }
 
         // 向 api 請求攜帶的參數
-        const params = getCurrentQueryParams()
-        params.page = goToPage
-        const config = {params}
+        const config = {params: getCurrentQueryParams()}
+        config.params.page = goToPage
 
         const response = await axios.get(BASE_URL, config)
 
@@ -64,8 +64,7 @@ categoryList.addEventListener("click", async (e) => {
         updateCategoryListStyle(categoryName)
 
         // 向 api 請求攜帶的參數
-        const params = getCurrentQueryParams()
-        const config = {params}
+        const config = {params: getCurrentQueryParams()}
         const response = await axios(BASE_URL, config)
 
         executeResetAndRender(response.data)
@@ -77,8 +76,20 @@ categoryList.addEventListener("click", async (e) => {
 // 搜尋
 searchBtn.addEventListener("click", async () => {
     try {
-        const params = getCurrentQueryParams()
-        const config = {params}
+        const config = {params: getCurrentQueryParams()}
+
+        const response = await axios.get(BASE_URL, config)
+
+        executeResetAndRender(response.data)
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+// 排序切換
+sortingSelect.addEventListener("change", async () => {
+    try {
+        const config = {params: getCurrentQueryParams()}
 
         const response = await axios.get(BASE_URL, config)
 
@@ -259,6 +270,11 @@ function getCurrentQueryParams() {
     if (keyword) {
         param.keyword = keyword
     }
+
+    // 排序
+    const sortOption = sortingSelect.value
+    param.orderBy = sortOption.split("_")[0]
+    param.sort = sortOption.split("_")[1]
 
     return param
 }

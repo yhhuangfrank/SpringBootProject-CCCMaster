@@ -71,8 +71,8 @@
                             <div>
                                 <select class="form-select" id="sortingSelect">
                                     <option value="createdAt_desc">最新</option>
-                                    <option value="price_asc">價格低到高</option>
-                                    <option value="price_desc">價格高到低</option>
+                                    <option value="basePrice_asc">底價由低到高</option>
+                                    <option value="basePrice_desc">底價由高到低</option>
                                 </select>
                             </div>
                         </div>
