@@ -58,25 +58,35 @@
 
             <div class="row">
                 <div class="col-6 mx-auto">
-                    <div class="row justify-content-around">
-                        <div class="col-6">
-                            <div class="input-group">
-                                <input type="text" class="form-control-sm" id="searchInput" placeholder="查詢商品">
-                                <button class="btn btn-outline-light border-dark" id="searchBtn"
-                                        style="display: inline; background-color: #e96b56">搜尋
-                                </button>
+                    <form class="row g-3">
+                        <div class="col-12 input-group">
+                            <input type="text" class="form-control" id="searchInput" placeholder="查詢商品">
+                            <button type="button" class="btn btn-outline-light border-dark" id="searchBtn"
+                                    style="display: inline; background-color: #e96b56">搜尋
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <select class="form-select" id="sortingSelect">
+                                <option value="createdAt_desc">最新</option>
+                                <option value="basePrice_asc">底價由低到高</option>
+                                <option value="basePrice_desc">底價由高到低</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 ms-auto">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="noEndCheck">
+                                <label class="form-check-label" for="noEndCheck">
+                                    不顯示已截止
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="noNonStartYetCheck">
+                                <label class="form-check-label" for="noNonStartYetCheck">
+                                    不顯示未開始拍賣
+                                </label>
                             </div>
                         </div>
-                        <div class="col-5">
-                            <div>
-                                <select class="form-select" id="sortingSelect">
-                                    <option value="createdAt_desc">最新</option>
-                                    <option value="basePrice_asc">底價由低到高</option>
-                                    <option value="basePrice_desc">底價由高到低</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="col-lg-12 d-flex justify-content-center mt-2">
                     <ul id="portfolio-flters" class="categoryList">
