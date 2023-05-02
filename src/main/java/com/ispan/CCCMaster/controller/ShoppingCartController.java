@@ -70,13 +70,6 @@ public class ShoppingCartController {
 		return "redirect:/front/shoppingcart";
 	}
 	
-//	@PutMapping("/front/shoppingcart/edit")
-//	public String editAll(List<ShoppingCartBean> sc) throws IOException {
-//		for(ShoppingCartBean shoppingCartBean:sc) {
-//			entityManager.merge(shoppingCartBean);
-//		}
-//		return "redirect:/front/shoppingcart";
-//	}
 	//購物車列表
 	@GetMapping("/front/shoppingcart/shoppingcartdetail")
 	public String findSCByCid(Model model) {

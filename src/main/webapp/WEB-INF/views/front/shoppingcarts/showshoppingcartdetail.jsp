@@ -59,11 +59,10 @@
       <h2>購物車</h2>
 
     </div>
-  </section><!-- End Breadcrumbs -->  
+  </section><!-- End Breadcrumbs --> 
 	 <section id="blog" class="blog">
       <div class="container" data-aos="fade-up">
         <div class="row">
-          <div class="col-lg-8 entries">
             <div class="entry entry-single">
 				<table class="table">
                 <thead>
@@ -85,51 +84,73 @@
                     <td>
                     	${sc.quantity}
                     </td>
-                    <td>${sc.productBean.price}</td>
                     <td>
-                      ${sc.quantity*sc.productBean.price}
+                    	${sc.productBean.price}           
+                    </td>
+                    <td>
+                    	${sc.quantity*sc.productBean.price}                   
                     </td>       
                   </tr>
                   	</c:forEach>                  
                 </tbody>
               </table>
             </div>
-          </div>
-          <div class="col-lg-8 entries">
             <div class="entry entry-single">
               <h5>優惠方式</h5>
-              	<ul>
-              		<div class="form-check">
+              	<div class="form-check">
               			<input class="form-check-input" type="checkbox">
-              			<label class="form-check-label" for="gridCheck1">
+              			<label class="form-check-label" for="gridCheck1" for="points">
               				使用點數              	
             			</label>
-            			<input type="number">
+            			<div class="col-sm-4">
+            				<input type="text" id="points" class="form-control col-sm-4"></input>
+            			</div>
             		</div>
-              		<div class="form-check">
-              			<input class="form-check-input" type="checkbox">
-              			<label class="form-check-label" for="gridCheck1">
-              				使用優惠券              	
-            			</label>
-            		</div>
-              	</ul>
-            	
+              			<div class="form-check">
+	              			<input class="form-check-input" type="checkbox">
+	              			<label class="form-check-label" for="gridCheck1">
+	              				使用優惠券              	
+	            			</label>
+            			</div>          	
             </div>
-          </div>
-          <div class="col-lg-8 entries">
             <div class="entry entry-single">
 				<h5>運送方式</h5>
+					<div class="form-check">
+                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="store" onclick="hiddenInput()">
+                      <label class="form-check-label" for="gridRadios1">
+                        超商取貨
+                      </label>
+                      <div></div>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="home" onclick="showInput(event)">
+                      <label class="form-check-label" for="gridRadios2">
+                        宅配到家
+                      </label>
+                      <div id="address">
+                      </div>
+                    </div>
             </div>
-          </div>
-          <div class="col-lg-8 entries">
             <div class="entry entry-single">
 				<h5>付款方式</h5>
+					<div class="form-check">
+                      <input class="form-check-input" type="radio" name="gridRadios2" id="gridRadios" value="cash">
+                      <label class="form-check-label" for="gridRadios1">
+                        貨到付款
+                      </label>
+                      <div></div>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="gridRadios2" id="gridRadios2" value="credit">
+                      <label class="form-check-label" for="gridRadios2">
+                        信用卡
+                      </label>
+                    </div>
             </div>
-          </div>
+          <button type="submit" class="btn btn-primary">結帳</button>
         </div>
       </div>   
     </section><!-- End Blog Single Section -->
-
 
 </main><!-- End #main -->
 
@@ -148,87 +169,56 @@
 <!-- Template Main JS File -->
 <script src="${contextRoot}/styles/front/assets/js/main.js"></script>
 <script>
-  let totalamount = 0;
-  let counttotal = document.getElementsByClassName("countstotal");
-  for(let i=0;i<counttotal.length;i++){
-    totalamount += parseInt(counttotal[i].value,10)
+function showInput(){
+  let address = document.getElementById('address');
+  let label = document.createElement("label");
+  let add = document.createTextNode("地址:")
+  label.appendChild(add);
+  label.setAttribute("for","inputaddress")
+  label.setAttribute("id","addre")
+  let input = document.createElement("input");
+  input.id="inputaddress";
+  input.type="text"
+  input.name="input";
+  label.appendChild(input)
+  address.appendChild(label);
+}
+
+function showInput(event){
+  let address = document.getElementById('address');
+  let input = document.getElementById("inputaddress");
+  let label = document.getElementById("addre");
+  if(input && label){
+    label.innerHTML="";
+    label.removeChild(input)
+    address.removeChild(label)
   }
-  document.getElementById('totalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-  if(totalamount<1000 && totalamount>0){
-      document.getElementById('freight').innerHTML = "30";
-      totalamount = totalamount + 30;
-      document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-    }else{
-      document.getElementById('freight').innerHTML = 0;
-      document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-    }
-    
-  //數量-1
-  function dec(count){
-    let valueInput = document.getElementById('quantity'+count);
-    let qua = document.getElementById('price'+count);
-    var totde = document.getElementById('total'+count)
-    let values = parseInt(valueInput.value)
-    if(values>1){
-      valueInput.value=values - 1;
-      totde.value=qua.value*valueInput.value;
-      totde.innerText='totde.value'
-      let totalamount = 0;
-     let counttotal = document.getElementsByClassName("countstotal");
-     for(let i=0;i<counttotal.length;i++){
-    totalamount += parseInt(counttotal[i].value,10)
-   }
-    document.getElementById('totalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-    if(totalamount<1000 && totalamount>0){
-      document.getElementById('freight').innerHTML = "30";
-      totalamount += 30;
-      document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-    }else{
-      document.getElementById('freight').innerHTML = 0;
-      document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-    }
+  if(event.target.value ==='home'){
+    let label = document.createElement("label");
+    let add = document.createTextNode("地址:")
+    label.appendChild(add);
+    label.setAttribute("for","inputaddress")
+    label.setAttribute("id","addre")
+    let input = document.createElement("input");
+    input.id="inputaddress";
+    input.type="text"
+    input.name="input";
+    label.appendChild(input)
+    address.appendChild(label);
+  }
+}
+function hiddenInput(){
+  let address = document.getElementById("address");
+  let input = document.getElementById("inputaddress");
+  let label = document.getElementById("addre");
+  if(input || label){
+    if(address.contains(label)){
+      label.innerHTML="";
+      address.removeChild(label)     
     }
   }
-  
-  //數量+1
-  function inc(count){
-    let valueInput = document.getElementById('quantity'+count);
-    let qua = document.getElementById('price'+count);
-    var totinc = document.getElementById('total'+count)
-    let max = parseInt(valueInput.getAttribute('data-max'),10)
-    let values = parseInt(valueInput.value)
-    if(values<max){
-      valueInput.value=values + 1;
-      totinc.value=qua.value*valueInput.value;
-      document.getElementById("")
-      let totalamount = 0;
-    let counttotal = document.getElementsByClassName("countstotal");
-    for(let i=0;i<counttotal.length;i++){
-      totalamount += parseInt(counttotal[i].value,10)
-    }
-  document.getElementById('totalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-  if(totalamount<1000 && totalamount>0){
-      document.getElementById('freight').innerHTML = "30";
-      totalamount += 30;
-      document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-    }else{
-      document.getElementById('freight').innerHTML = 0;
-      document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-    }    
-    }  
-  } 
-  //數量欄位檢查
-  function check(event){
-    const max = parseInt(input.getAttribute('data-max'),10)
-    let values = parseInt(input.value,10);
-    if(isNaN(values) || values < 1){
-      values = 1;
-    }
-    if(values > max){
-      values = max;
-    }
-    input.value=values;
-  }
+}
+
   
 </script>
 

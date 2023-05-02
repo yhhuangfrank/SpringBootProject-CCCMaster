@@ -32,6 +32,9 @@ public class ShoppingCartBean implements Serializable {
 	@Column(name="quantity")
 	private Integer quantity;
 	
+	@Column(name="unit_price")
+	private Integer unitprice;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "settime", columnDefinition = "datetime", nullable = false)
@@ -59,12 +62,13 @@ public class ShoppingCartBean implements Serializable {
 	}
 
 	public ShoppingCartBean(String shoppoingCartId, Integer quantity, Date settime, Product productBean,
-			Customer cbShoppingCart) {
+			Customer cbShoppingCart,Integer unitprice) {
 		this.shoppoingCartId = shoppoingCartId;
 		this.quantity = quantity;
 		this.settime = settime;
 		this.productBean = productBean;
 		this.cbShoppingCart = cbShoppingCart;
+		this.unitprice = unitprice;
 	}
 
 	public String getShoppoingCartId() {
@@ -105,6 +109,14 @@ public class ShoppingCartBean implements Serializable {
 
 	public void setCbShoppingCart(Customer cbShoppingCart) {
 		this.cbShoppingCart = cbShoppingCart;
+	}
+
+	public Integer getUnitprice() {
+		return unitprice;
+	}
+
+	public void setUnitprice(Integer unitprice) {
+		this.unitprice = unitprice;
 	}	
 	
 }

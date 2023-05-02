@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,9 @@ import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;
 import com.ispan.CCCMaster.model.dao.OrderDao;
 import com.ispan.CCCMaster.model.dao.OrderDetailDao;
 import com.ispan.CCCMaster.service.OrderService;
+
+import ecpay.payment.integration.AllInOne;
+import ecpay.payment.integration.domain.AioCheckOutALL;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -59,12 +63,26 @@ public class OrderServiceImpl implements OrderService {
 		}
 	}
 	@Override
-	public void createOrder(OrderBean o,OrderDetailBean od) {
+	public void createOrder(OrderBean o) {
 		Date date = new Date();
 		String dateString = String.valueOf(date.getTime());
 		o.setOrderid(dateString);
 		o.setOrderdate(date);
+		Integer totalamount = 0;
+		for(OrderDetailBean orderDetailBean : o.getSeto()) {
+			totalamount += orderDetailBean.getUnitprice()*orderDetailBean.getQuantity();
+		}
+		o.setTotalamount(totalamount);
 		oDao.save(o);
 	}
+	//金流
+//	@Override
+//	public String ecpayCheckout() {
+////		obj.setTotalAmount("50");
+////		obj.setItemName("TestItem");
+////		obj.setNeedExtraPaidInfo("N");
+//		String form = all.aioCheckOut(obj, null);
+//		return form;
+//	}
 
 }

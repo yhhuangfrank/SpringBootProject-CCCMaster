@@ -33,7 +33,7 @@ public class CouponServiceImpl implements CouponService {
 	@Override
 	public void createCoupon(CouponBean couponBean) {
 		UUID uuid = UUID.randomUUID();
-		String uuidString  = uuid.toString();
+		String uuidString  = uuid.toString().replace("-", "").substring(0,20);
 		couponBean.setCouponid(uuidString);
 		cpDao.save(couponBean);
 	}

@@ -168,7 +168,7 @@
             </a>
             <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="${contextRoot}/orders">
+                    <a href="${contextRoot}/admin/orders">
                         <i class="bi bi-circle"></i><span>訂單列表</span>
                     </a>
                 </li>

@@ -61,6 +61,9 @@ public class OrderBean implements Serializable {
 	@Column(name="payment_condition",columnDefinition = "nvarchar(20)")
 	private String paymentcondition;
 	
+	@Column(name="total_amount")
+	private Integer totalamount;
+	
 //	private Integer customer_id;
 	
 
@@ -75,7 +78,7 @@ public class OrderBean implements Serializable {
 	
 	public OrderBean(String orderid, Integer freight, Integer pointsdiscount, String couponid, Date orderdate,
 			String arrivaldate, String shipper, String shipperaddress, String payment, String ordercondition,
-			String paymentcondition, Customer cbOrder) {
+			String paymentcondition, Customer cbOrder,Integer totalamount) {
 		this.orderid = orderid;
 		this.freight = freight;
 		this.pointsdiscount = pointsdiscount;
@@ -88,6 +91,7 @@ public class OrderBean implements Serializable {
 		this.ordercondition = ordercondition;
 		this.paymentcondition = paymentcondition;
 		this.cbOrder = cbOrder;
+		this.totalamount = totalamount;
 	}
 
 	public OrderBean() {		
@@ -187,6 +191,21 @@ public class OrderBean implements Serializable {
 
 	public void setCbOrder(Customer cbOrder) {
 		this.cbOrder = cbOrder;
+	}
+	public Integer getTotalamount() {
+		return totalamount;
+	}
+
+	public void setTotalamount(Integer totalamount) {
+		this.totalamount = totalamount;
+	}
+
+	public Set<OrderDetailBean> getSeto() {
+		return seto;
+	}
+
+	public void setSeto(Set<OrderDetailBean> seto) {
+		this.seto = seto;
 	}
 
 		
