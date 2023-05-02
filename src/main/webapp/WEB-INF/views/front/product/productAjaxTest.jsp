@@ -201,7 +201,7 @@
                 pageButton.className += " active";
             }
             pageButton.innerText = i;
-            pageButton.onclick = () => loadProducts(i, pageData.keyword, getSortValue());
+            pageButton.onclick = () => loadProducts(i, pageData.keyword, getSortValue(),getCategoryValue());
             paginationDiv.appendChild(pageButton);
         }
     }
@@ -259,7 +259,7 @@
             productA.href = "${contextRoot}/front/product/details/" + product.productId;
 
             const productImage = document.createElement('img');
-            productImage.src = "${contextRoot}/products/showImage/" + product.productId;
+            productImage.src = "${contextRoot}/product/mainImage/" + product.productId;
             productImage.className = "img-fluid productImg";
             productImage.alt = "";
 

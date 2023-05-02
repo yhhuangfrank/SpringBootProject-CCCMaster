@@ -38,7 +38,7 @@ public class ProductsController {
                                                     @RequestParam(name = "page", defaultValue = "1") Integer pageNum,
                                                     @RequestParam(name = "sort", defaultValue = "productId_asc") String sort,
                                                     @RequestParam(name = "category") String category) {
-
+//        System.out.println(category);
         Page<Product> products;
         Map<String, Object> response = new HashMap<>();
         products = pService.findByCriteria(pageNum, keyword, sort, category);
@@ -52,7 +52,7 @@ public class ProductsController {
 
     @GetMapping("/front/product") //topbar跳轉到商品列表
     public String defaultProductPage(Model model) {
-        System.out.println("enter defaultProductPage");
+//        System.out.println("enter defaultProductPage");
         return "front/product/productAjaxTest";
     }
 

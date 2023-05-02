@@ -1,5 +1,6 @@
 package com.ispan.CCCMaster.model.bean.product;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ispan.CCCMaster.model.bean.bid.Category;
 import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;
 
@@ -7,9 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "Products")
@@ -22,19 +21,23 @@ public class Product {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})//產品種類Bean
     @JoinColumn(name = "category_id")
     private Category category;
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(name = "create_date", nullable = false)
+    private Date createDate;
     @Column(name = "product_brand")
     private String productBrand;
-    @Column(name = "product_name",nullable = false)
+    @Column(name = "product_name", nullable = false)
     private String productName;
     @Column(name = "price")
     private Integer price;
-    @Column(name = "inventory",nullable = false)
+    @Column(name = "inventory", nullable = false)
     private Integer inventory;
     @Column(name = "num_of_purchases")
     private Integer numOfPurchases;
     @Column(name = "product_views")
     private Integer productViews;
-    @Column(name = "description",columnDefinition="nvarchar(max)")
+    @Column(name = "description", columnDefinition = "nvarchar(max)")
     private String description;
     @Column(name = "number_of_ratings")
     private Integer numberOfRatings;
@@ -43,36 +46,53 @@ public class Product {
 
     @Column(name = "number_of_comments")
     private Integer numberOfComments;
-    @Column(name = "active",nullable = false)
+    @Column(name = "active", nullable = false)
     private Boolean active;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(name = "create_date",nullable = false)
-    private Date createDate;
+    public MultipartFile getMainImageFile() {
+        return mainImageFile;
+    }
+
+    public void setMainImageFile(MultipartFile mainImageFile) {
+        this.mainImageFile = mainImageFile;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,mappedBy = "product")
+    @JsonIgnore
+    private List<ProductImg> productImgs = new ArrayList<>();
+
+    @Transient
+    private MultipartFile mainImageFile;
+    @Transient
+    private MultipartFile[] imageFile;
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public List<ProductImg> getProductImgs() {
+        return productImgs;
+    }
+
+    public void setProductImgs(List<ProductImg> productImgs) {
+        this.productImgs = productImgs;
+    }
 
     @PrePersist
     public void onCreate() {
         if (createDate == null) {
             createDate = new Date();
         }
-        if(productViews==null){
-            productViews=0;
+        if (productViews == null) {
+            productViews = 0;
         }
     }
 
 
-
-
-    @Lob
-    @Column(name = "image", columnDefinition = "varbinary(max)")
-    private byte[] image;
-//@OneToMany(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "fk_product_id",referencedColumnName = "product_id")
-    //private List<ProductImg> productImgs;
-
-    @Transient
-    private MultipartFile imageFile;
 
     public Integer getProductId() {
         return productId;
@@ -175,38 +195,21 @@ public class Product {
     }
 
 
-
     public void setActive(Boolean active) {
         this.active = active;
     }
 
-    /*public List<ProductImg> getProductImgs() {
-        return productImgs;
-    }
-
-    public void setProductImgs(List<ProductImg> productImgs) {
-        this.productImgs = productImgs;
-    }*/
-
-
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    public MultipartFile getImageFile() {
+    public MultipartFile[] getImageFile() {
         return imageFile;
     }
 
-    public void setImageFile(MultipartFile imageFile) {
+    public void setImageFile(MultipartFile[] imageFile) {
         this.imageFile = imageFile;
     }
+
     //對產品明細:一對多  by瑛仁
-  	@OneToMany(mappedBy="pOrderDetail")
-  	Set<OrderDetailBean> setpod = new HashSet<>();
+    @OneToMany(mappedBy = "pOrderDetail")
+    Set<OrderDetailBean> setpod = new HashSet<>();
 }
 
 

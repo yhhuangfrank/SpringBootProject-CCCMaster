@@ -70,11 +70,18 @@
         </div>
     </div>
     <div class="row mb-3">
-        <label class="col-sm-2 col-form-label">上傳圖片</label>
+        <label class="col-sm-2 col-form-label">上傳主要圖片</label>
         <div class="col-sm-10">
-            <form:input class="form-control" type="file" id="formFile" path="imageFile"></form:input>
+            <form:input class="form-control" type="file" id="formFile" path="mainImageFile"  accept="image/*"></form:input>
         </div>
     </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">上傳次要圖片</label>
+            <div class="col-sm-10">
+                <form:input class="form-control" type="file" id="formFile" path="imageFile" multiple="true" accept="image/*"></form:input>
+            </div>
+        </div>
         <div class="form-floating mb-3">
             <form:textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
                       style="height: 100px;" path="description"></form:textarea>

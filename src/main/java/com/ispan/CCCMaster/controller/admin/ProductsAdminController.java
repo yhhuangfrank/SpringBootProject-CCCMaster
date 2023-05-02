@@ -3,14 +3,9 @@ package com.ispan.CCCMaster.controller.admin;
 import com.ispan.CCCMaster.model.bean.bid.Category;
 import com.ispan.CCCMaster.model.bean.product.Product;
 import com.ispan.CCCMaster.service.CategoryService;
-import com.ispan.CCCMaster.service.CrawlerService;
 import com.ispan.CCCMaster.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +19,7 @@ public class ProductsAdminController {
     private ProductService pService;
     @Autowired
     private CategoryService categoryService;
-    @Autowired
-    private CrawlerService crawlerService;
+
 
     @GetMapping("/admin/products/create/form")//新增產品表單
     public String getCreateProductForm(Model model) {
@@ -53,14 +47,9 @@ public class ProductsAdminController {
         return "back/product/showProduct";
     }
 
-    @GetMapping(value = "products/showImage/{productId}")//顯示產品的圖片
-    public ResponseEntity<byte[]> getImage(@PathVariable("productId") Integer productId) {
-        byte[] image = pService.getProductImageById(productId);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.IMAGE_JPEG);
-        headers.setContentLength(image.length);
-        return new ResponseEntity<>(image, headers, HttpStatus.OK);
-    }
+
+
+
 
     @DeleteMapping("/admin/products/delete") //刪除產品
     public String deleteProductById(@RequestParam("id") Integer productId) {

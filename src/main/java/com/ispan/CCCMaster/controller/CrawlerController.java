@@ -18,8 +18,8 @@ public class CrawlerController {
 
     @GetMapping("/front/product/crawler/{id}")//爬蟲程式
     public String crawlerOneProduct(@PathVariable("id") Integer id) {
-        System.out.println("enter crawlerOneProduct");
-        System.out.println(id);
+//        System.out.println("enter crawlerOneProduct");
+//        System.out.println(id);
         crawlerService.crawlerPchome(id);
         return "redirect:/admin/products/showAllProduct";
     }
