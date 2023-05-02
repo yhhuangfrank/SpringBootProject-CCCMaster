@@ -1,5 +1,7 @@
 package com.ispan.CCCMaster.service.impl;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,6 +29,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 		Pageable pgb = PageRequest.of(pageNumber-1, 10, Sort.Direction.ASC, "employeeId");
 		Page<Employee> page = epyRepository.findAll(pgb);
 		return page;
+	}
+	
+	@Override
+	public Employee findById(Integer id) {
+		Optional<Employee> option = epyRepository.findById(id);
+		if(option.isEmpty()) {
+			return null;
+		} else {
+			return option.get();
+		}
 	}
 
 }

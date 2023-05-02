@@ -10,4 +10,6 @@ public interface EmployeeService {
 
 	Page<Employee> findByPage(Integer pageNumber);
 
+	Employee findById(Integer id);
+
 }

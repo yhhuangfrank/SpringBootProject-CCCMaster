@@ -81,7 +81,7 @@
 							<table class="table table-hover">
 								<thead>
 									<tr>
-										<th scope="col">編號</th>
+										<th scope="col">員工編號</th>
 										<th scope="col">姓名</th>
 										<th scope="col">職位</th>
 										<th scope="col">電話</th>
@@ -104,14 +104,14 @@
 											<td>
 												<div class="d-flex">
 													<form action="${contextRoot}/admin/employees/edit">
-														<input type="hidden" name="id" value="${position.employeeId}" />
+														<input type="hidden" name="id" value="${employee.employeeId}" />
 														<button type="submit" class="btn btn-secondary btn-sm">
 														<i class="bi bi-pencil-square"></i>編輯
 														</button>
 													</form>
 													<form action="${contextRoot}/admin/employees/delete" method="post">
 														<input type="hidden" name="_method" value="delete" />
-														<input type="hidden" name="id" value="${position.employeeId}" />
+														<input type="hidden" name="id" value="${employee.employeeId}" />
 														<button type="submit" class="btn btn-outline-danger btn-sm ms-2">
 														<i class="bi bi-exclamation-octagon"></i>刪除
 														</button>

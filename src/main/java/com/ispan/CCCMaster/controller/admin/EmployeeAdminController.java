@@ -37,5 +37,11 @@ public class EmployeeAdminController {
 		return "redirect:/admin/employees";	//總覽的GetMapping路徑
 	}
 	
+	@GetMapping("/admin/employees/edit")	//編輯員工資料頁面
+	public String editEmployee(@RequestParam("id") Integer id, Model model) {
+		model.addAttribute("employee", epyService.findById(id));
+		return "back/employee/edit";
+	}
+	
 
 }
