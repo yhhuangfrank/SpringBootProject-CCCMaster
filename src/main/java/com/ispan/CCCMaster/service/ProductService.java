@@ -1,10 +1,12 @@
 package com.ispan.CCCMaster.service;
 
 import com.ispan.CCCMaster.model.bean.product.Product;
+import com.ispan.CCCMaster.model.bean.product.ProductImg;
 import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface ProductService {
 
@@ -18,7 +20,6 @@ public interface ProductService {
 
     Page<Product> findByCriteria(Integer pageNumber, String keyword, String sort, String categoryName);
 
-    byte[] getProductImageById(Integer productId);
 
     void deleteProduct(Integer productId);
 

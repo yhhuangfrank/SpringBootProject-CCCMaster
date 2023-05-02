@@ -1,12 +1,15 @@
 package com.ispan.CCCMaster.model.dao;
 
 import com.ispan.CCCMaster.model.bean.product.Product;
+import com.ispan.CCCMaster.model.bean.product.ProductImg;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 
 public interface ProductDao extends JpaRepository<Product, Integer>, JpaSpecificationExecutor<Product> {
@@ -21,4 +24,6 @@ public interface ProductDao extends JpaRepository<Product, Integer>, JpaSpecific
 
     @Query("SELECT p FROM Product p WHERE p.productName LIKE %:name% AND p.active = true AND p.category= :categoryId")
     Page<Product> findByNameAndCategoryIsActive(@Param(value = "name") String name,@Param(value = "categoryId") Integer categoryId, Pageable pageable);
+
+
 }

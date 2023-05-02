@@ -93,7 +93,7 @@
                                     </td>
 
                                     <td><img style="width: 300px; height: 300px;"
-                                             src="${contextRoot}/products/showImage/${product.productId}"/></td>
+                                             src="${contextRoot}/product/mainImage/${product.productId}"/></td>
                                     <td>
                                         <form action="${contextRoot}/admin/products/editForm">
                                             <input type="hidden" name="id" value="${product.productId}"/>

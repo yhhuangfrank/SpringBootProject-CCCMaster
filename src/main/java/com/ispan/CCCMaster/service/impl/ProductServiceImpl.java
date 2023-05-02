@@ -2,9 +2,11 @@ package com.ispan.CCCMaster.service.impl;
 
 import com.ispan.CCCMaster.model.bean.bid.Category;
 import com.ispan.CCCMaster.model.bean.product.Product;
+import com.ispan.CCCMaster.model.bean.product.ProductImg;
 import com.ispan.CCCMaster.model.dao.CategoryDao;
 import com.ispan.CCCMaster.model.dao.ProductDao;
 
+import com.ispan.CCCMaster.model.dao.ProductImgDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,13 +15,13 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import javax.persistence.criteria.Predicate;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -28,26 +30,43 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
     private ProductDao productDao;
     @Autowired
     private CategoryDao categoryDao;
+    @Autowired
+    private ProductImgDao productImgDao;
 
-    @Override
-    public void createProduct(Product product, String categoryName) throws IOException {
+    @Override//建立產品
+    public void createProduct(Product product, String categoryName) throws IOException {//
+        List<ProductImg> productImgs = new ArrayList<>();
+        ProductImg img = new ProductImg();
         Category category = categoryDao.findCategoryByName(categoryName);
-        if (category != null) {
+        if (category != null) {//判斷是否已有該類別
             product.setCategory(category);
         } else {
             Category newCategory = new Category();
             newCategory.setName(categoryName);
             product.setCategory(newCategory);
         }
-        if (product.getImageFile() != null) {
-            product.setImage(product.getImageFile().getBytes());
+        if(product.getMainImageFile()!=null){//主要圖片處理
+            img=new ProductImg();
+            img.setImage(product.getMainImageFile().getBytes());
+            img.setMainImage(true);
+            img.setProduct(product);
+            productImgs.add(img);
         }
-
+        for (MultipartFile imageFile : product.getImageFile()) {//次要圖片處理
+            if (imageFile != null) {
+                img = new ProductImg();
+                img.setImage(imageFile.getBytes());
+                img.setProduct(product);
+                img.setMainImage(false);
+                productImgs.add(img);
+            }
+        }
+        product.setProductImgs(productImgs);
         productDao.save(product);
     }
 
 
-    @Override
+    @Override//搜尋產品並分頁 後台使用中
     public Page<Product> findByPage(Integer pageNumber) {
         Pageable pgb = PageRequest.of(pageNumber - 1, 10, Sort.Direction.ASC, "productId");
         Page<Product> page = productDao.findAll(pgb);
@@ -55,20 +74,17 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
     }
 
 
-
-
-
-    @Override
-    public Page<Product> findByCriteria(Integer pageNumber, String keyword, String sort, String categoryName){
+    @Override //多條件搜尋 分頁 前台使用中
+    public Page<Product> findByCriteria(Integer pageNumber, String keyword, String sort, String categoryName) {
         // 判定搜尋方向
         String sortBy[] = sort.split("_");
-        String orderBy=sortBy[0]; //依甚麼排序
+        String orderBy = sortBy[0]; //依甚麼排序
         Sort.Direction direction;
 
         //排序方式
-        if(sortBy[1].equals("asc")){
+        if (sortBy[1].equals("asc")) {
             direction = Sort.Direction.ASC;
-        }else {
+        } else {
             direction = Sort.Direction.DESC;
         }
 
@@ -82,15 +98,14 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
                 p = criteriaBuilder.equal(root.get("category"), category);
                 predicates.add(p);
             }
-            if(!keyword.equals("")){
-               p = criteriaBuilder.like(root.get("productName"), "%"+keyword+"%");
+            if (!keyword.equals("")) {
+                p = criteriaBuilder.like(root.get("productName"), "%" + keyword + "%");
                 predicates.add(p);
             }
 
             // 將搜尋條件從 list 複製到一空 array
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };
-
 
 
         // 建立 Pageable 物件帶入傳遞參數
@@ -100,21 +115,14 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
     }
 
 
-    @Override
-    public byte[] getProductImageById(Integer productId) {
-        Optional<Product> option = productDao.findById(productId);
-        if (option.isPresent()) {
-            Product product = option.get();
-            return product.getImage();
-        } else return null;
-    }
 
-    @Override
+
+    @Override//刪除產品
     public void deleteProduct(Integer productId) {
         productDao.deleteById(productId);
     }
 
-    @Override
+    @Override//查詢產品 by id
     public Product findProductById(Integer productId) {
         Optional<Product> option = productDao.findById(productId);
         if (option.isEmpty()) {
@@ -122,19 +130,26 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
         } else return option.get();
     }
 
-    @Override
+    @Override//修改產品 by id
     @Transactional
     public void editProductById(Product product, String categoryName) throws IOException {//也許可做更新失敗的判斷
         Optional<Product> option = productDao.findById(product.getProductId());
+        List<ProductImg> productImgs = new ArrayList<>();
+        ProductImg img = new ProductImg();
         if (option.isPresent()) {
             Product oldProduct = option.get();
             oldProduct.setProductName(product.getProductName());
             oldProduct.setPrice(product.getPrice());
             oldProduct.setInventory(product.getInventory());
             oldProduct.setActive(product.getActive());
-            if (!product.getImageFile().isEmpty()) {//如果更新的圖片不為空
-                oldProduct.setImage(product.getImageFile().getBytes());
+            for (MultipartFile imageFile : product.getImageFile()) {
+                if (imageFile != null) {//如果更新的圖片不為空
+                    img.setImage(imageFile.getBytes());
+                    productImgs.add(img);
+                }
             }
+            oldProduct.setProductImgs(productImgs);
+
             if (categoryDao.findCategoryByName(categoryName) != null) {
                 oldProduct.setCategory(categoryDao.findCategoryByName(categoryName));
             } else {
@@ -146,7 +161,7 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
     }
 
     @Transactional
-    @Override
+    @Override// 計算瀏覽人次
     public void productViews(Integer id) {
         Product product = findProductById(id);
         product.setProductViews(product.getProductViews() + 1);
