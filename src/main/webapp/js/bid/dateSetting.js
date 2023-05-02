@@ -11,13 +11,15 @@ endDate.setAttribute("max", dateFormatter(maxDate))
 
 function dateFormatter(targetDate) {
     const year = targetDate.getFullYear()
-    const month = targetDate.getMonth() + 1 < 10
-        ? "0" + (targetDate.getMonth() + 1) // 若小於 10 則補上 0
-        : targetDate.getMonth() + 1
-    const date = targetDate.getDate() < 10
-        ? "0" + targetDate.getDate()
-        : targetDate.getDate()
-    const hour = targetDate.getHours()
-    const minute = targetDate.getMinutes()
+    const month = twoUnitFormatter(targetDate.getMonth() + 1)
+    const date = twoUnitFormatter(targetDate.getDate() )
+    const hour = twoUnitFormatter(targetDate.getHours())
+    const minute = twoUnitFormatter(targetDate.getMinutes())
     return `${year}-${month}-${date}T${hour}:${minute}`
+}
+
+function twoUnitFormatter(value) {
+    return value < 10 // 若小於 10 則補上 0
+        ? "0" + value
+        : value
 }
