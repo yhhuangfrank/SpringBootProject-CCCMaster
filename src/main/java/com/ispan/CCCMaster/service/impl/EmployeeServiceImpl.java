@@ -24,7 +24,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 	@Override
 	public Page<Employee> findByPage(Integer pageNumber){
-		Pageable pgb = PageRequest.of(pageNumber-1, 3, Sort.Direction.ASC, "employeeId");
+		Pageable pgb = PageRequest.of(pageNumber-1, 10, Sort.Direction.ASC, "employeeId");
 		Page<Employee> page = epyRepository.findAll(pgb);
 		return page;
 	}
