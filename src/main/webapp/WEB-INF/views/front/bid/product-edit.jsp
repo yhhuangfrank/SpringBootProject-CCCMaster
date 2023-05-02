@@ -155,5 +155,6 @@
 <script src="${contextRoot}/styles/front/assets/js/main.js"></script>
 <%-- 自訂 js --%>
 <script src="${contextRoot}/js/bid/fileSizeValidation.js"></script>
+<script src="${contextRoot}/js/bid/dateSetting.js"></script>
 </body>
 </html>
