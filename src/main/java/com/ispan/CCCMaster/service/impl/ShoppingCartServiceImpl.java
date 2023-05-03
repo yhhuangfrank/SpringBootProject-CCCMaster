@@ -35,6 +35,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		Optional<Product> pOption= pDao.findById(productId);
 		Product p = pOption.get();
 		sc.setProductBean(p);
+		sc.setUnitprice(p.getPrice());
 		//取ShoppingCartID
 		Date date = new Date();
 		String dateString = String.valueOf(date.getTime());

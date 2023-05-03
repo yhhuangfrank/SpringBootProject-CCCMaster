@@ -38,7 +38,7 @@ public class CouponAdminController {
 	
 	//新增優惠券
 	@PostMapping("/coupons/create")
-	public String createCoupon(@ModelAttribute("CouponBean") CouponBean couponBean) {
+	public String createCoupon(@ModelAttribute("coupon") CouponBean couponBean) {
 		cpService.createCoupon(couponBean);
 		return "redirect:/coupons";
 	}

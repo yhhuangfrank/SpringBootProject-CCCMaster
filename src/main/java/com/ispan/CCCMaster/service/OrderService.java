@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ispan.CCCMaster.model.bean.order.OrderBean;
 import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;
+import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
 
 public interface OrderService {
 
@@ -22,7 +23,7 @@ public interface OrderService {
 	//更改訂單資料
 	void updateById(OrderBean orderBean) throws IOException;
 	
-	void createOrder(OrderBean orderBean);
+	void createOrder(OrderBean order);
 	
 //	String ecpayCheckout();
 

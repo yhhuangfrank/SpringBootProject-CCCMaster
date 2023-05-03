@@ -59,8 +59,9 @@
       <h2>購物車</h2>
 
     </div>
-  </section><!-- End Breadcrumbs --> 
-	 <section id="blog" class="blog">
+  </section><!-- End Breadcrumbs -->
+   <form:form method="post" modelAttribute="orderBean" action="${contextRoot}/admin/orders/create">
+	<section id="blog" class="blog">
       <div class="container" data-aos="fade-up">
         <div class="row">
             <div class="entry entry-single">
@@ -80,20 +81,27 @@
                     <th scope="row"></th>
                     <td>
                     	${sc.productBean.productName}
+                    	                  	
                     </td>
                     <td>
-                    	${sc.quantity}
+                    	<input value="${sc.quantity}" type="hidden" id="quantity${status.count}">
+                    	${sc.quantity} 
                     </td>
                     <td>
+                    	<input value="${sc.productBean.price}" type="hidden" id="price${status.count}">
                     	${sc.productBean.price}           
                     </td>
                     <td>
+                    	<input value="${sc.quantity*sc.productBean.price}" type="hidden" id="total${status.count}" class="countstotal"/>
                     	${sc.quantity*sc.productBean.price}                   
                     </td>       
                   </tr>
                   	</c:forEach>                  
                 </tbody>
               </table>
+              	
+	              
+	            </div>
             </div>
             <div class="entry entry-single">
               <h5>優惠方式</h5>
@@ -102,7 +110,7 @@
               			<label class="form-check-label" for="gridCheck1" for="points">
               				使用點數              	
             			</label>
-            			<div class="col-sm-4">
+            			<div class="col col-lg-2">
             				<input type="text" id="points" class="form-control col-sm-4"></input>
             			</div>
             		</div>
@@ -116,42 +124,38 @@
             <div class="entry entry-single">
 				<h5>運送方式</h5>
 					<div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="store" onclick="hiddenInput()">
+					 <form:radiobutton class="form-check-input" path="payment" id="gridRadios4" value="超商取貨" required="required"/>
                       <label class="form-check-label" for="gridRadios1">
                         超商取貨
                       </label>
-                      <div></div>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="home" onclick="showInput(event)">
+                      <form:radiobutton class="form-check-input" path="payment" id="gridRadios3" value="宅配到家" />
                       <label class="form-check-label" for="gridRadios2">
                         宅配到家
                       </label>
-                      <div id="address">
-                      </div>
                     </div>
             </div>
             <div class="entry entry-single">
 				<h5>付款方式</h5>
 					<div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridRadios2" id="gridRadios" value="cash">
-                      <label class="form-check-label" for="gridRadios1">
+					 <form:radiobutton class="form-check-input" path="shipper" id="gridRadios2" value="貨到付款" required="required"/>
+                      <label class="form-check-label" for="gridRadios3">
                         貨到付款
                       </label>
-                      <div></div>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridRadios2" id="gridRadios2" value="credit">
-                      <label class="form-check-label" for="gridRadios2">
+                     <form:radiobutton class="form-check-input" path="shipper" id="gridRadios1" value="信用卡"/>
+                      <label class="form-check-label" for="gridRadios4">
                         信用卡
                       </label>
                     </div>
             </div>
-          <button type="submit" class="btn btn-primary">結帳</button>
+          <button type="submit" class="btn btn-primary" >結帳</button>
         </div>
       </div>   
     </section><!-- End Blog Single Section -->
-
+    </form:form>
 </main><!-- End #main -->
 
 <jsp:include page="../layouts/footer.jsp"/>
@@ -169,55 +173,7 @@
 <!-- Template Main JS File -->
 <script src="${contextRoot}/styles/front/assets/js/main.js"></script>
 <script>
-function showInput(){
-  let address = document.getElementById('address');
-  let label = document.createElement("label");
-  let add = document.createTextNode("地址:")
-  label.appendChild(add);
-  label.setAttribute("for","inputaddress")
-  label.setAttribute("id","addre")
-  let input = document.createElement("input");
-  input.id="inputaddress";
-  input.type="text"
-  input.name="input";
-  label.appendChild(input)
-  address.appendChild(label);
-}
 
-function showInput(event){
-  let address = document.getElementById('address');
-  let input = document.getElementById("inputaddress");
-  let label = document.getElementById("addre");
-  if(input && label){
-    label.innerHTML="";
-    label.removeChild(input)
-    address.removeChild(label)
-  }
-  if(event.target.value ==='home'){
-    let label = document.createElement("label");
-    let add = document.createTextNode("地址:")
-    label.appendChild(add);
-    label.setAttribute("for","inputaddress")
-    label.setAttribute("id","addre")
-    let input = document.createElement("input");
-    input.id="inputaddress";
-    input.type="text"
-    input.name="input";
-    label.appendChild(input)
-    address.appendChild(label);
-  }
-}
-function hiddenInput(){
-  let address = document.getElementById("address");
-  let input = document.getElementById("inputaddress");
-  let label = document.getElementById("addre");
-  if(input || label){
-    if(address.contains(label)){
-      label.innerHTML="";
-      address.removeChild(label)     
-    }
-  }
-}
 
   
 </script>

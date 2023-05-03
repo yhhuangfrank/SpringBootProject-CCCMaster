@@ -1,9 +1,12 @@
 package com.ispan.CCCMaster.service.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ispan.CCCMaster.model.bean.order.OrderBean;
 import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;
+import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
 import com.ispan.CCCMaster.model.dao.OrderDao;
 import com.ispan.CCCMaster.model.dao.OrderDetailDao;
+import com.ispan.CCCMaster.model.dao.ShoppingCartDao;
 import com.ispan.CCCMaster.service.OrderService;
 
 import ecpay.payment.integration.AllInOne;
@@ -27,6 +32,9 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Autowired
 	OrderDetailDao odDao;
+	
+	@Autowired
+	ShoppingCartDao scDao;
 	
 	//依訂單編號找訂單
 	@Override
@@ -63,17 +71,39 @@ public class OrderServiceImpl implements OrderService {
 		}
 	}
 	@Override
-	public void createOrder(OrderBean o) {
+	public void createOrder(OrderBean order) {
 		Date date = new Date();
 		String dateString = String.valueOf(date.getTime());
-		o.setOrderid(dateString);
-		o.setOrderdate(date);
-		Integer totalamount = 0;
-		for(OrderDetailBean orderDetailBean : o.getSeto()) {
-			totalamount += orderDetailBean.getUnitprice()*orderDetailBean.getQuantity();
+		//id
+		order.setOrderid(dateString);
+		//日期
+		order.setOrderdate(date);
+		//訂單狀態
+		order.setOrdercondition("處理中");
+		//將購物車明細加入訂單明細內
+		Set<OrderDetailBean> orderdetails = new HashSet<>();
+		List<ShoppingCartBean> scBean = scDao.findAll();
+		for(ShoppingCartBean sc : scBean) {
+			OrderDetailBean od = new OrderDetailBean();
+			od.setQuantity(sc.getQuantity());
+			od.setUnitprice(sc.getUnitprice());
+			od.setpOrderDetail(sc.getProductBean());
+			od.setOrderBean(order);
+			orderdetails.add(od);
 		}
-		o.setTotalamount(totalamount);
-		oDao.save(o);
+		//計算訂單總額
+		Integer totalamount = 0;
+		for(ShoppingCartBean sc : scBean) {		
+			totalamount += sc.getQuantity()*sc.getUnitprice();			
+		}
+		if(totalamount >1000) {
+			order.setFreight(0);
+		}else {
+			order.setFreight(30);
+		}
+		order.setTotalamount(totalamount);
+		order.setSeto(orderdetails);
+		oDao.save(order);
 	}
 	//金流
 //	@Override
