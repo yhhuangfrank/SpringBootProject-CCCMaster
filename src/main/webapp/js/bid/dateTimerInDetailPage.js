@@ -1,7 +1,6 @@
 const expiredAt = document.querySelector("#expiredAt")
 const createdAt = document.querySelector("#createdAt")
 const countDownArea = document.querySelector("#countDownArea")
-const timerValueContainers = document.querySelectorAll("#countDownArea span")
 const bidPriceInput = document.querySelector("#bidPrice")
 const bidBtn = document.querySelector("#bidBtn")
 const expiredText = expiredAt.textContent
@@ -42,10 +41,12 @@ function setCountDownTimer() {
 }
 
 function showTimer(days, hours, minutes, seconds) {
-    timerValueContainers[0].textContent = `${days} 天`
-    timerValueContainers[1].textContent = `${hours} 小時`
-    timerValueContainers[2].textContent = `${minutes} 分`
-    timerValueContainers[3].textContent = `${seconds} 秒`
+    countDownArea.innerHTML = `
+        <span class="day">${days} 天</span>
+        <span class="hour">${hours} 小時</span>
+        <span class="minute">${minutes} 分</span>
+        <span class="second">${seconds} 秒</span>
+    `
 }
 
 function handleDateShowingFormat(date) {
