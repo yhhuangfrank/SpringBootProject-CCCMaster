@@ -90,7 +90,8 @@
                     <div class="portfolio-info">
                         <%--待設定只有登入的賣家能編輯自己的商品判斷--%>
                         <h3>商品詳情
-                            <a href="${contextRoot}/bidProducts/${bidProduct.id}/edit" class="btn btn-outline-info">修改</a>
+                            <a href="${contextRoot}/bidProducts/${bidProduct.id}/edit"
+                               class="btn btn-outline-info">修改</a>
                         </h3>
                         <ul>
                             <li>
@@ -140,10 +141,10 @@
                             <c:if test="${bidProduct.expiredAt != null}">
                                 <h2 class="">距離截止還有</h2>
                                 <div id="countDownArea" class="badge bg-dark text-white fs-6">
-                                    <span class="day"></span>
-                                    <span class="hour"></span>
-                                    <span class="minute"></span>
-                                    <span class="second"></span>
+                                    <%--顯示倒數計時前先顯示loading--%>
+                                    <div class="spinner-border text-white" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
                                 </div>
                             </c:if>
                         </div>
