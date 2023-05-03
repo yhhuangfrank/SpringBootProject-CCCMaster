@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.controller;
+package com.ispan.CCCMaster.controller.admin;
 
 import com.ispan.CCCMaster.model.bean.Forum.Forum;
 import com.ispan.CCCMaster.service.impl.ForumServiceImpl;
@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.io.IOException;
 
 @Controller
-public class ForumController {
+public class ForumAdminController {
 
     @Autowired
     private ForumServiceImpl fService;
@@ -27,7 +27,7 @@ public class ForumController {
 
         Forum latest = fService.getLatest();//新增討論版
         model.addAttribute("latest", latest);
-        return "forum-create";
+        return "back/forum/forum-create";
     }
 
 
@@ -59,6 +59,7 @@ public class ForumController {
     @PutMapping("/forum/edit")
     public String putEditedForum(@ModelAttribute("forum") Forum forum) throws IOException {
         forum.setImage(forum.getImageFile().getBytes());
+
         fService.updateById(forum);
 
         return "redirect:/forums/showAllForum";

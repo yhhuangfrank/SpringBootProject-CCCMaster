@@ -54,7 +54,7 @@ public class ForumServiceImpl implements ForumService {
 
     @Override
     public byte[] getForumImageById(Integer forumId) {
-        Optional<Forum> option = forumRepository.findById(forumId);
+        Optional<Forum> option = forumRepository.findById(forumId);//找到資料庫的資料
         if (option.isPresent()) {
             Forum forum = option.get();
             return forum.getImage();

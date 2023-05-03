@@ -7,13 +7,21 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 
 public interface ArticleService {
-    void creatArticle(Article article);
+    void createArticle(Article article);
+
     Article findArticleById(Integer id);
+
     void deleteArticleById(Integer id);
+
     Page<Article> findByPage(Integer pageNumber);
+
     byte[] getArticleImageById(Integer articleId);
+
 
     @Transactional
     void updateById(Article input) throws IOException;
     Article getLatest();
+
+
+
 }

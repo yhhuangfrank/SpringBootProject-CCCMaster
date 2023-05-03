@@ -19,7 +19,8 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired//自動注入
     private ArticleDao articleDao;
 
-    public void creatArticle(Article article) { //create article
+    @Override
+    public void createArticle(Article article) { //create article
         articleDao.save(article);
     }
 
@@ -74,6 +75,7 @@ public class ArticleServiceImpl implements ArticleService {
 
         return articleDao.findFirstByOrderByAddedDesc();
     }
+
 
 
 

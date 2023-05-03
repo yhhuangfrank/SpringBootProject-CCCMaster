@@ -75,24 +75,53 @@
 
                         </div>
                     </div>
-                </jstl:forEach>
-                <br />
-                <jstl:forEach var="pageNumber" begin="1" end="${page.totalPages}">
-                    <jstl:choose>
-                        <jstl:when test="${page.number != pageNumber-1 }">
-                            <a href="${contextRoot}/Forums/showAllForum?p=${pageNumber}">${pageNumber}</a>
-                        </jstl:when>
-                        <jstl:otherwise>
-                            ${pageNumber}
-                        </jstl:otherwise>
-
-                    </jstl:choose>
-
-                    <jstl:if test="${page.number != page.totalPages }">
-                        <span> | </span>
-                    </jstl:if>
 
                 </jstl:forEach>
+
+
+<%--                <c:forEach var="pageNumber" begin="1" end="${page.totalPages}">--%>
+<%--                    <c:choose>--%>
+<%--                        <c:when test="${page.number != pageNumber-1 }">--%>
+<%--                            <a href="${contextRoot}/forums/showAllForum?p=${pageNumber}">${pageNumber}</a>--%>
+<%--                        </c:when>--%>
+<%--                        <c:otherwise>--%>
+<%--                            ${pageNumber}--%>
+<%--                        </c:otherwise>--%>
+
+<%--                    </c:choose>--%>
+
+<%--                    <c:if test="${pageNumber != page.totalPages }">--%>
+<%--                        ---%>
+<%--                    </c:if>--%>
+
+<%--                </c:forEach>--%>
+
+
+                <nav aria-label="...">
+                    <ul class="pagination">
+
+                        </li>
+                        <c:forEach var="pageNumber" begin="1" end="${page.totalPages}">
+                            <c:choose>
+                                <c:when test="${page.number eq pageNumber-1}">
+                                    <li class="page-item active" aria-current="page">
+                                        <a class="page-link" href="#">${pageNumber}</a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item">
+                                        <a class="page-link" href="${contextRoot}/forums/showAllForum?p=${pageNumber}">${pageNumber}</a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+                            <c:if test="${pageNumber eq page.totalPages}">
+
+                            </c:if>
+                        </c:forEach>
+                    </ul>
+                </nav>
+
+
             </div>
         </div>
     </div>
