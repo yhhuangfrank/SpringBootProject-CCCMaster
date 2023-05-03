@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ispan.CCCMaster.model.bean.employee.Employee;
 import com.ispan.CCCMaster.model.dao.EmployeeRepository;
@@ -38,6 +39,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 			return null;
 		} else {
 			return option.get();
+		}
+	}
+	
+	@Override
+	@Transactional
+	public void editById(Employee employee) {
+		Optional<Employee> option = epyRepository.findById(employee.getEmployeeId());
+		if(option.isPresent()) {
+			Employee old = option.get();
+			old.setEmployeeName(employee.getEmployeeName());
+			old.setPositionId(employee.getPositionId());
+			old.setPhoneNumber(employee.getPhoneNumber());
+			old.setIdNumber(employee.getIdNumber());
+			old.setPassword(employee.getPassword());
 		}
 	}
 

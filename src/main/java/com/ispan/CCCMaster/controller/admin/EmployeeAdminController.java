@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ispan.CCCMaster.model.bean.employee.Employee;
@@ -43,5 +44,10 @@ public class EmployeeAdminController {
 		return "back/employee/edit";
 	}
 	
+	@PutMapping("/admin/employees/edit")	//送出編輯員工資料表單
+	public String putEmployee(@ModelAttribute("employee") Employee employee) {
+		epyService.editById(employee);
+		return "redirect:/admin/employees";
+	}
 
 }

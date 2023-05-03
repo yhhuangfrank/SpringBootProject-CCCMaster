@@ -12,4 +12,6 @@ public interface EmployeeService {
 
 	Employee findById(Integer id);
 
+	void editById(Employee employee);
+
 }
