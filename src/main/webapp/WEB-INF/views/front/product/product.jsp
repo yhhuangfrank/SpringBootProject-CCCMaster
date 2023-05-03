@@ -97,7 +97,7 @@
                 </div>
             </div>
 
-            <div class="row portfolio-container">
+            <div class="row portfolio-container ">
                 <c:forEach var="product" items="${page.content}">
                     <div class="col-lg-4 col-md-6 portfolio-item filter-app">
                         <div class="portfolio-wrap">

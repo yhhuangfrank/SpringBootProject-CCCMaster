@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.model.bean;
+package com.ispan.CCCMaster.model.bean.Forum;
 
 import javax.persistence.*;
 import java.util.Date;

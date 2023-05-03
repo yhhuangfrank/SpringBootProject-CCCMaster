@@ -181,12 +181,12 @@
             </a>
             <ul id="forum-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="${contextRoot}/Forums/showAllForum">
+                    <a href="${contextRoot}/forums/showAllForum">
                         <i class="bi bi-circle"></i><span>所有討論版</span>
                     </a>
                 </li>
                 <li>
-                    <a href="${contextRoot}/Forums/createform">
+                    <a href="${contextRoot}/forums/createform">
                         <i class="bi bi-circle"></i><span>新增討論版</span>
                     </a>
                 </li>
