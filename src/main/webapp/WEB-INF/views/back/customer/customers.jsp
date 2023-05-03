@@ -90,30 +90,30 @@
 										<th scope="col">棄標次數</th>
 										<th scope="col">註冊時間</th>
 										<th scope="col">操作</th>
-									<!-- 改到這邊，作業時此行刪除 -->
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach var="employee" items="${page.content}">
+									<c:forEach var="customer" items="${page.content}">
 										<tr>
-											<th scope="row">${employee.employeeId}</th>
-											<td>${employee.employeeName}</td>
-											<td>${employee.positionId.positionName}</td>
-											<td>${employee.phoneNumber}</td>
-											<td>${employee.idNumber}</td>
-											<td>${employee.password}</td>
-											<td>${employee.hireDate}</td>
+											<th scope="row">${customer.customerId}</th>
+											<td>${customer.email}</td>
+											<td>${customer.name}</td>
+											<td>${customer.password}</td>
+											<td>${customer.phoneNumber}</td>
+											<td>${customer.point}</td>
+											<td>${customer.abandonCount}</td>
+											<td>${customer.startDate}</td>
 											<td>
 												<div class="d-flex">
-													<form action="${contextRoot}/admin/employees/edit">
-														<input type="hidden" name="id" value="${employee.employeeId}" />
+													<form action="${contextRoot}/admin/customers/edit">
+														<input type="hidden" name="id" value="${customer.customerId}" />
 														<button type="submit" class="btn btn-secondary btn-sm">
 														<i class="bi bi-pencil-square"></i>編輯
 														</button>
 													</form>
-													<form action="${contextRoot}/admin/employees/delete" method="post">
+													<form action="${contextRoot}/admin/customers/delete" method="post">
 														<input type="hidden" name="_method" value="delete" />
-														<input type="hidden" name="id" value="${employee.employeeId}" />
+														<input type="hidden" name="id" value="${customer.customerId}" />
 														<button type="submit" class="btn btn-outline-danger btn-sm ms-2">
 														<i class="bi bi-exclamation-octagon"></i>刪除
 														</button>

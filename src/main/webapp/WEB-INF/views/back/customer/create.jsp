@@ -66,15 +66,15 @@
                         </div>
                       </div>
                       <div class="row mb-3">
-                        <label for="password" class="col-sm-2 col-form-label">密碼</label>
-                        <div class="col-sm-10">
-                          <form:input required="true" path="password" id="password" type="text" class="form-control"/>
-                        </div>
-                      </div>
-                      <div class="row mb-3">
                         <label for="name" class="col-sm-2 col-form-label">會員名稱</label>
                         <div class="col-sm-10">
                           <form:input required="true" path="name" id="name" type="text" class="form-control"/>
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label for="password" class="col-sm-2 col-form-label">密碼</label>
+                        <div class="col-sm-10">
+                          <form:input required="true" path="password" id="password" type="text" class="form-control"/>
                         </div>
                       </div>
                       <div class="row mb-3">

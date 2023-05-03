@@ -18,11 +18,11 @@ public class CustomerAdminController {
 	@Autowired
 	private CustomerService ctmService;
 	
-	@GetMapping("/admin/customers")	//會員資料總覽	未完成!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	@GetMapping("/admin/customers")	//會員資料總覽
 	public String showAll(@RequestParam(name="p", defaultValue = "1") Integer pageNumber, Model model) {
 		Page<Customer> page = ctmService.findByPage(pageNumber);
 		model.addAttribute("page", page);
-		return "back/employee/customers";
+		return "back/customer/customers";
 	}
 	
 	@GetMapping("/admin/customers/create")	//新增會員頁面

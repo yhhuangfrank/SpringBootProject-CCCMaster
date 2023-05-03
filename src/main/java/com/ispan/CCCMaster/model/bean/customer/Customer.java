@@ -32,7 +32,7 @@ public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "customer_id")
-	private Integer id;
+	private Integer customerId;
 	
 	@Column(name = "email", columnDefinition = "varchar(50)")
 	private String email;
@@ -90,12 +90,12 @@ public class Customer {
 	public Customer() {
 	}
 
-	public Integer getId() {
-		return id;
+	public Integer getCustomerId() {
+		return customerId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
 	}
 
 	public String getEmail() {
