@@ -4,7 +4,7 @@
 <html>
 
 <head>
-<title>職位資料</title>
+<title>員工資料</title>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -56,12 +56,12 @@
 
 	<main id="main" class="main">
 		<div class="pagetitle">
-			<h1>職位資料</h1>
+			<h1>員工資料</h1>
 			<nav>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="index.html">Home</a></li>
 					<li class="breadcrumb-item">員工管理</li>
-					<li class="breadcrumb-item active">職位資料</li>
+					<li class="breadcrumb-item active">員工資料</li>
 				</ol>
 			</nav>
 		</div>
@@ -70,77 +70,51 @@
 		<section class="section">
 			<div class="row">
 				<div class="col-lg-12">
-
 					<div class="card">
 						<div class="card-body">
-							<a class="float-end mt-2 btn btn-primary" href="${contextRoot}/admin/positions/create">
-		                        新增職位資料
+							<a class="float-end mt-2 btn btn-primary" href="${contextRoot}/admin/employees/create">
+		                        新增員工資料
 		                    </a>
-							<h5 class="card-title">職位資料</h5>
+							<h5 class="card-title">員工資料</h5>
 
 							<!-- Table with stripped rows -->
-							<table class="table datatable table-hover">
+							<table class="table table-hover">
 								<thead>
 									<tr>
-										<th scope="col">職位編號</th>
-										<th scope="col">職位名稱</th>
-										<th class="col-2" scope="col">操作</th>
+										<th scope="col">員工編號</th>
+										<th scope="col">姓名</th>
+										<th scope="col">職位</th>
+										<th scope="col">電話</th>
+										<th scope="col">身分證字號</th>
+										<th scope="col">登入密碼</th>
+										<th scope="col">到職日期</th>
+										<th scope="col">操作</th>
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach var="position" items="${positions}">
+									<c:forEach var="employee" items="${page.content}">
 										<tr>
-											<th scope="row">${position.positionId}</th>
-											<td>${position.positionName}</td>
+											<th scope="row">${employee.employeeId}</th>
+											<td>${employee.employeeName}</td>
+											<td>${employee.positionId.positionName}</td>
+											<td>${employee.phoneNumber}</td>
+											<td>${employee.idNumber}</td>
+											<td>${employee.password}</td>
+											<td>${employee.hireDate}</td>
 											<td>
 												<div class="d-flex">
-													<form action="${contextRoot}/admin/positions/edit">
-														<input type="hidden" name="id" value="${position.positionId}" />
+													<form action="${contextRoot}/admin/employees/edit">
+														<input type="hidden" name="id" value="${employee.employeeId}" />
 														<button type="submit" class="btn btn-secondary btn-sm">
 														<i class="bi bi-pencil-square"></i>編輯
 														</button>
 													</form>
-													<form action="${contextRoot}/admin/positions/delete" method="post">
+													<form action="${contextRoot}/admin/employees/delete" method="post">
 														<input type="hidden" name="_method" value="delete" />
-														<input type="hidden" name="id" value="${position.positionId}" />
+														<input type="hidden" name="id" value="${employee.employeeId}" />
 														<button type="submit" class="btn btn-outline-danger btn-sm ms-2">
 														<i class="bi bi-exclamation-octagon"></i>刪除
 														</button>
-														
-														
-														
-														
-														
-<!-- ===============這裡開始實驗=================== -->
-<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Open modal for @mdo</button> -->
-
-<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
-<!--   <div class="modal-dialog"> -->
-<!--     <div class="modal-content"> -->
-<!--       <div class="modal-header"> -->
-<!--         <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1> -->
-<!--         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
-<!--       </div> -->
-<!--       <div class="modal-body"> -->
-<%--         <form> --%>
-<!--           <div class="mb-3"> -->
-<!--             <label for="recipient-name" class="col-form-label">Recipient:</label> -->
-<!--             <input type="text" class="form-control" id="recipient-name"> -->
-<!--           </div> -->
-<!--           <div class="mb-3"> -->
-<!--             <label for="message-text" class="col-form-label">Message:</label> -->
-<!--             <textarea class="form-control" id="message-text"></textarea> -->
-<!--           </div> -->
-<%--         </form> --%>
-<!--       </div> -->
-<!--       <div class="modal-footer"> -->
-<!--         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-<!--         <button type="button" class="btn btn-primary">Send message</button> -->
-<!--       </div> -->
-<!--     </div> -->
-<!--   </div> -->
-<!-- </div> -->
-<!-- ===========實驗到這================ -->
 													</form>
 												</div>
 											</td>
@@ -149,10 +123,18 @@
 								</tbody>
 							</table>
 							<!-- End Table with stripped rows -->
-
+							<!-- 以下為分頁按紐 -->
+							<c:forEach var="pageNumber" begin="1" end="${page.totalPages}">
+								<c:choose>
+									<c:when test="${page.number != pageNumber-1 }">
+										<a href="${contextRoot}/admin/employees?p=${pageNumber}">${pageNumber}</a>
+									</c:when>
+									<c:otherwise>${pageNumber}</c:otherwise>
+								</c:choose>
+							<c:if test="${pageNumber != page.totalPages }">-</c:if>
+							</c:forEach>
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</section>

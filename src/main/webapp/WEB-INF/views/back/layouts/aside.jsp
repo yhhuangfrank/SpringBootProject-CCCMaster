@@ -99,13 +99,18 @@
             </a>
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="${contextRoot}/admin/positions">
-                        <i class="bi bi-circle"></i><span>職位資料</span>
+                    <a href="${contextRoot}/admin/employees">
+                        <i class="bi bi-circle"></i><span>員工資料</span>
                     </a>
                 </li>
                 <li>
-                    <a href="${contextRoot}/admin/positions/create">
-                        <i class="bi bi-circle"></i><span>新增職位資料</span>
+                    <a href="${contextRoot}/admin/employees/create">
+                        <i class="bi bi-circle"></i><span>新增員工資料</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="${contextRoot}/admin/positions">
+                        <i class="bi bi-circle"></i><span>職位資料</span>
                     </a>
                 </li>
             </ul>
