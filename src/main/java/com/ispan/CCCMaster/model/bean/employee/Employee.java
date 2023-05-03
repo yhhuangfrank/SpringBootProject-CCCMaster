@@ -47,7 +47,7 @@ public class Employee {
 	@Column(name = "hire_date", columnDefinition = "date")
 	private Date hireDate;
 	
-	@PrePersist	//建立紀錄時自動產生當天日期
+	@PrePersist	//建立該筆資料時自動產生當天日期
 	public void onCreate() {
 		if(hireDate == null) {
 			hireDate = new Date();

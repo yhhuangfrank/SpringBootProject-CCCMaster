@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -44,6 +45,13 @@ public class Customer {
 	@Column(name = "start_date", columnDefinition = "datetime")
 	private Date startDate;
 	
+	@PrePersist	//建立該筆資料時自動產生當天日期
+	public void startDate() {
+		if(startDate == null) {
+			startDate = new Date();
+		}
+	}
+	
 	@Column(name = "name", columnDefinition = "nvarchar(15)")
 	private String name;
 	
@@ -55,6 +63,13 @@ public class Customer {
 	
 	@Column(name = "abandon_count")
 	private Integer abandonCount;
+	
+//	@PrePersist	//建立該筆資料時將棄標次數設為0
+//	public void initialPoint() {
+//		if(abandonCount == null) {
+//			abandonCount = 0;
+//		}
+//	}
 	
 	@OneToMany(mappedBy = "customers", cascade = CascadeType.ALL)
 	private Set<CustomerCoupon> customerCoupons = new HashSet<>();
