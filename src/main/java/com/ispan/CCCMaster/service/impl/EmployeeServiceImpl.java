@@ -55,5 +55,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 			old.setPassword(employee.getPassword());
 		}
 	}
+	
+	@Override
+	public void deleteById(Integer id) {
+		epyRepository.deleteById(id);
+	}
 
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,6 +48,12 @@ public class EmployeeAdminController {
 	@PutMapping("/admin/employees/edit")	//送出編輯員工資料表單
 	public String putEmployee(@ModelAttribute("employee") Employee employee) {
 		epyService.editById(employee);
+		return "redirect:/admin/employees";
+	}
+	
+	@DeleteMapping("/admin/employees/delete")	//刪除員工按鈕
+	public String deleteEmployee(@RequestParam("id") Integer id) {
+		epyService.deleteById(id);
 		return "redirect:/admin/employees";
 	}
 

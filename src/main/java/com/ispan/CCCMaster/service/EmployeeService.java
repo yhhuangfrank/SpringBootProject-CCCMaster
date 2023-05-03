@@ -14,4 +14,6 @@ public interface EmployeeService {
 
 	void editById(Employee employee);
 
+	void deleteById(Integer id);
+
 }

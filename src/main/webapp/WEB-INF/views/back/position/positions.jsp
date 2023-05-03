@@ -84,7 +84,7 @@
 									<tr>
 										<th scope="col">職位編號</th>
 										<th scope="col">職位名稱</th>
-										<th scope="col">操作</th>
+										<th class="col-2" scope="col">操作</th>
 									</tr>
 								</thead>
 								<tbody>
