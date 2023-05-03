@@ -48,45 +48,37 @@
     </div>
     <section class="section">
         <div class="row align-items-top">
-            <div class="col-lg-8 mx-auto">
+            <div class="col-lg-10 mx-auto">
                 <%-- 顯示訊息 --%>
                 <jsp:include page="../../message.jsp"/>
                 <%-- 顯示商品 --%>
-                <c:forEach items="${bidProducts}" var="b">
-                    <div class="card mb-3">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <c:choose>
-                                    <c:when test="${ b.image.startsWith('http') }">
-                                        <img src="${b.image}" class="img-fluid rounded-start"
-                                             style="opacity: 0; transition: opacity 0.5s ease-in-out;"
-                                             onload="this.style.opacity='1';"
-                                             alt="BidProduct-image">
-                                    </c:when>
-                                    <c:otherwise>
-                                        <img src="${contextRoot}/${b.image}" class="img-fluid rounded-start"
-                                             style="opacity: 0; transition: opacity 0.5s ease-in-out;"
-                                             onload="this.style.opacity='1';"
-                                             alt="BidProduct-image">
-                                    </c:otherwise>
-                                </c:choose>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title"><span
-                                            class="badge fw-bold bg-success text-white">品名</span> ${b.name}</h5>
-                                    <p class="card-text">${b.description}</p>
-                                    <div>
-                                        <a href="${contextRoot}/admin/bidProducts/${b.id}/edit" class="btn btn-outline-info">修改</a>
+                    <table class="table datatable">
+                        <thead>
+                            <tr>
+                                <th scope="col">商品名</th>
+                                <th scope="col">種類</th>
+                                <th scope="col">底價</th>
+                                <th scope="col">目前出價</th>
+                                <th scope="col">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${bidProducts}" var="b">
+                                <tr>
+                                    <td>${b.name}</td>
+                                    <td>${b.category.name}</td>
+                                    <td>${b.basePrice}</td>
+                                    <td>${b.bidPrice}</td>
+                                    <td>
                                         <button class="btn btn-outline-danger" style="display: inline"
-                                                data-bs-toggle="modal" data-bs-target="#modal-${b.id}">刪除
+                                                data-bs-toggle="modal" data-bs-target="#modal-${b.id}">
+                                            <i class="bx bxs-trash"></i>
                                         </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </c:forEach>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
                 <%-- 顯示商品結束 --%>
             </div>
         </div>
