@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.controller.api;
+package com.ispan.CCCMaster.api;
 
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.dto.BidProductQueryParams;
