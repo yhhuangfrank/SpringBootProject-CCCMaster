@@ -17,7 +17,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@Table(name = "Message")
+@Table(name = "messages")
 public class MessageModel {
 	
 	@Id
@@ -25,8 +25,8 @@ public class MessageModel {
 	@Column(name = "id")
 	private Integer id;
 	
-	@Column(name = "chatroom_id")
-	private Integer chatroom_id;
+	@Column(name = "chatroomid")
+	private Integer chatroomid;
 	
 	@Column(name = "initiator")
 	private Integer initiator;
@@ -37,55 +37,68 @@ public class MessageModel {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss EEEE",timezone = "GMT+8")
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
-	@Column(name = "create_time", columnDefinition = "datetime")
-	private Date create_time;
+	@Column(name = "createtime", columnDefinition = "datetime")
+	private Date createtime;
 	
 
 	@PrePersist
 	public void onCreate() {
-		if(create_time == null) {
-			create_time = new Date();
+		if(createtime == null) {
+			createtime = new Date();
 		}
 	}
-	
+
+	public MessageModel() {
+	}
+
 	public Integer getId() {
 		return id;
 	}
+
 
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
 
-	public Integer getChatroom_id() {
-		return chatroom_id;
+	public Integer getChatroomid() {
+		return chatroomid;
 	}
 
-	public void setChatroom_id(Integer chatroom_id) {
-		this.chatroom_id = chatroom_id;
+
+	public void setChatroomid(Integer chatroomid) {
+		this.chatroomid = chatroomid;
 	}
+
 
 	public Integer getInitiator() {
 		return initiator;
 	}
 
+
 	public void setInitiator(Integer initiator) {
 		this.initiator = initiator;
 	}
+
 
 	public String getContent() {
 		return content;
 	}
 
+
 	public void setContent(String content) {
 		this.content = content;
 	}
 
-	public Date getCreate_time() {
-		return create_time;
+
+	public Date getCreatetime() {
+		return createtime;
 	}
 
-	public void setCreate_time(Date create_time) {
-		this.create_time = create_time;
+
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
 	}
+	
+
 }
