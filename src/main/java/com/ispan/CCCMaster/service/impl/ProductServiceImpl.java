@@ -6,7 +6,6 @@ import com.ispan.CCCMaster.model.bean.product.ProductImg;
 import com.ispan.CCCMaster.model.dao.CategoryDao;
 import com.ispan.CCCMaster.model.dao.ProductDao;
 
-import com.ispan.CCCMaster.model.dao.ProductImgDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,8 +29,7 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
     private ProductDao productDao;
     @Autowired
     private CategoryDao categoryDao;
-    @Autowired
-    private ProductImgDao productImgDao;
+
 
     @Override//建立產品
     public void createProduct(Product product, String categoryName) throws IOException {//
