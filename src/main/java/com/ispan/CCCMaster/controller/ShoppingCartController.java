@@ -29,7 +29,6 @@ public class ShoppingCartController {
 	@Autowired
 	private ShoppingCartService scService;
 	
-	private EntityManager entityManager;
 
 
 	//創立購物車，並將畫面重新導向為商品詳細頁面
@@ -70,20 +69,7 @@ public class ShoppingCartController {
 		return "redirect:/front/shoppingcart";
 	}
 	
-//	@PutMapping("/front/shoppingcart/edit")
-//	public String editAll(List<ShoppingCartBean> sc) throws IOException {
-//		for(ShoppingCartBean shoppingCartBean:sc) {
-//			entityManager.merge(shoppingCartBean);
-//		}
-//		return "redirect:/front/shoppingcart";
-//	}
-	//購物車列表
-	@GetMapping("/front/shoppingcart/shoppingcartdetail")
-	public String findSCByCid(Model model) {
-		List<ShoppingCartBean> list = scService.findAll();
-		model.addAttribute("shoppingcart",list);
-		return "/front/shoppingcarts/showshoppingcartdetail";
-	}
+
 
 	
 

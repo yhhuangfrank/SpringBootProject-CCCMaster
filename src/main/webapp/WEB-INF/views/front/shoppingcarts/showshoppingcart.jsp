@@ -126,7 +126,9 @@
 					<span id="finalamount"></span>
 				</div>										
 						<div class="d-grid gap-2 mt-3">				
-							<button class="btn btn-danger" type="button">結帳去</button>		
+							<button class="btn btn-danger" type="button">
+								<a href="${contextRoot}/front/shoppingcart/shoppingcartdetail" style="color: white;">結帳去</a>
+							</button>		
 						</div>					
 				</div>
             </div><!-- End sidebar -->

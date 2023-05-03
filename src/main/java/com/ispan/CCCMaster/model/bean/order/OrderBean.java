@@ -29,7 +29,7 @@ public class OrderBean implements Serializable {
 	@Column(name="order_id", nullable = false)
 	private String orderid;
 	
-	@Column(name="freight", nullable = false)
+	@Column(name="freight")
 	private Integer freight;
 	
 	@Column(name="points_discount")
@@ -39,7 +39,7 @@ public class OrderBean implements Serializable {
 	private String couponid;
 	
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "order_date", columnDefinition = "datetime", nullable = false)
 	private Date orderdate;
 	
@@ -61,6 +61,9 @@ public class OrderBean implements Serializable {
 	@Column(name="payment_condition",columnDefinition = "nvarchar(20)")
 	private String paymentcondition;
 	
+	@Column(name="total_amount")
+	private Integer totalamount;
+	
 //	private Integer customer_id;
 	
 
@@ -72,10 +75,11 @@ public class OrderBean implements Serializable {
 	//對訂單明細:一對多  
 	@OneToMany(mappedBy="orderBean",cascade=CascadeType.ALL)
 	Set<OrderDetailBean> seto = new HashSet<>();
-	
+
 	public OrderBean(String orderid, Integer freight, Integer pointsdiscount, String couponid, Date orderdate,
 			String arrivaldate, String shipper, String shipperaddress, String payment, String ordercondition,
-			String paymentcondition, Customer cbOrder) {
+			String paymentcondition, Integer totalamount, Customer cbOrder) {
+		super();
 		this.orderid = orderid;
 		this.freight = freight;
 		this.pointsdiscount = pointsdiscount;
@@ -87,10 +91,11 @@ public class OrderBean implements Serializable {
 		this.payment = payment;
 		this.ordercondition = ordercondition;
 		this.paymentcondition = paymentcondition;
+		this.totalamount = totalamount;
 		this.cbOrder = cbOrder;
 	}
-
-	public OrderBean() {		
+	public OrderBean() {
+		
 	}
 
 	public String getOrderid() {
@@ -181,6 +186,14 @@ public class OrderBean implements Serializable {
 		this.paymentcondition = paymentcondition;
 	}
 
+	public Integer getTotalamount() {
+		return totalamount;
+	}
+
+	public void setTotalamount(Integer totalamount) {
+		this.totalamount = totalamount;
+	}
+
 	public Customer getCbOrder() {
 		return cbOrder;
 	}
@@ -189,5 +202,14 @@ public class OrderBean implements Serializable {
 		this.cbOrder = cbOrder;
 	}
 
+	public Set<OrderDetailBean> getSeto() {
+		return seto;
+	}
+
+	public void setSeto(Set<OrderDetailBean> seto) {
+		this.seto = seto;
+	}
+	
+	
 		
 }

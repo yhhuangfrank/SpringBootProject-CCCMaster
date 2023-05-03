@@ -36,7 +36,7 @@
   <main id="main" class="main">
               <h1 class="card-title fs-1">訂單詳細資料</h1>
 
-              <form:form method="put" modelAttribute="singleorder" action="${contextRoot}/orders/edit">
+              <form:form method="put" modelAttribute="singleorder" action="${contextRoot}/admin/orders/edit">
                 <div class="row mb-3">
                   <label for="inputorderid" class="col-sm-2 col-form-label">訂單編號</label>
                   <div class="col-sm-10 fs-5">
