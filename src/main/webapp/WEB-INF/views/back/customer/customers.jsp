@@ -4,7 +4,7 @@
 <html>
 
 <head>
-<title>員工資料</title>
+<title>會員資料</title>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -56,12 +56,12 @@
 
 	<main id="main" class="main">
 		<div class="pagetitle">
-			<h1>員工資料</h1>
+			<h1>會員資料</h1>
 			<nav>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-					<li class="breadcrumb-item">員工管理</li>
-					<li class="breadcrumb-item active">員工資料</li>
+					<li class="breadcrumb-item">會員管理</li>
+					<li class="breadcrumb-item active">會員資料</li>
 				</ol>
 			</nav>
 		</div>
@@ -72,23 +72,25 @@
 				<div class="col-lg-12">
 					<div class="card">
 						<div class="card-body">
-							<a class="float-end mt-2 btn btn-primary" href="${contextRoot}/admin/employees/create">
-		                        新增員工資料
+							<a class="float-end mt-2 btn btn-primary" href="${contextRoot}/admin/customers/create">
+		                        新增會員資料
 		                    </a>
-							<h5 class="card-title">員工資料</h5>
+							<h5 class="card-title">會員資料</h5>
 
 							<!-- Table with stripped rows -->
 							<table class="table table-hover">
 								<thead>
 									<tr>
-										<th scope="col">員工編號</th>
-										<th scope="col">姓名</th>
-										<th scope="col">職位</th>
+										<th scope="col">編號</th>
+										<th scope="col">電子郵件</th>
+										<th scope="col">名稱</th>
+										<th scope="col">密碼</th>
 										<th scope="col">電話</th>
-										<th scope="col">身分證字號</th>
-										<th scope="col">登入密碼</th>
-										<th scope="col">到職日期</th>
+										<th scope="col">點數</th>
+										<th scope="col">棄標次數</th>
+										<th scope="col">註冊時間</th>
 										<th scope="col">操作</th>
+									<!-- 改到這邊，作業時此行刪除 -->
 									</tr>
 								</thead>
 								<tbody>
