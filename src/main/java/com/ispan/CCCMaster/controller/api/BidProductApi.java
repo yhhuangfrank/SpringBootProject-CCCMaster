@@ -36,7 +36,7 @@ public class BidProductApi {
 
             // 分頁
             @RequestParam(defaultValue = "1") @Min(1) Integer page,
-            @RequestParam(defaultValue = "4") @Min(0) Integer limit
+            @RequestParam(defaultValue = "3") @Min(0) Integer limit
     ) {
 
         // 設定參數傳遞物件

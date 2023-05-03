@@ -5,6 +5,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Component
 public class BidProductValidator implements Validator {
     @Override
@@ -37,5 +41,25 @@ public class BidProductValidator implements Validator {
             errors.rejectValue("description", "BidProductRequest.description.invalidInput", "欄位:描述 " + message);
         }
 
+        if (!isValidEndDate(request.getEndDate())) {
+            errors.rejectValue("endDate", "BidProductRequest.endDate.invalidInput", "欄位: 日期 輸入值有誤");
+        }
+
+    }
+
+    private boolean isValidEndDate(String dateString) {
+        // 處理日期
+        Date date;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        try {
+            date = dateFormat.parse(dateString);
+            long now = System.currentTimeMillis();
+            long offset = (7 * 24 * 60 * 60 * 1000); // offset 為一周
+            // 判斷是否大於一周以上 且 大於現在
+            return (date.getTime() <= now + offset) && date.getTime() > now;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            throw new RuntimeException("日期轉換過程發生錯誤!");
+        }
     }
 }
