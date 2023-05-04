@@ -11,13 +11,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ispan.CCCMaster.model.bean.service.MessageModel;
-import com.ispan.CCCMaster.model.dao.MessagesRepository;
+import com.ispan.CCCMaster.model.dao.MessagesDao;
 
 @Service
 public class MessageService {
 	
     @Autowired
-	private MessagesRepository msgRepository;
+	private MessagesDao msgRepository;
     
     public void addMessage(MessageModel msg) {
     	msgRepository.save(msg);

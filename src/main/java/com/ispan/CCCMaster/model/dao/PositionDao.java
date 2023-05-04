@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.ispan.CCCMaster.model.bean.employee.Position;
 
-public interface PositionRepository extends JpaRepository<Position, Integer> {
+public interface PositionDao extends JpaRepository<Position, Integer> {
 
 }

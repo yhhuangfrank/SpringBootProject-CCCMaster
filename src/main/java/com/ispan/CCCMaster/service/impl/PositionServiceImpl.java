@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ispan.CCCMaster.model.bean.employee.Position;
-import com.ispan.CCCMaster.model.dao.PositionRepository;
+import com.ispan.CCCMaster.model.dao.PositionDao;
 import com.ispan.CCCMaster.service.PositionService;
 
 @Service
 public class PositionServiceImpl implements PositionService {
 	
 	@Autowired
-	private PositionRepository pstRepository;
+	private PositionDao pstRepository;
 	
 	@Override
 	public void createPosition(Position pst) {

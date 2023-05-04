@@ -11,14 +11,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ispan.CCCMaster.model.bean.customer.Customer;
-import com.ispan.CCCMaster.model.dao.CustomerRepository;
+import com.ispan.CCCMaster.model.dao.CustomerDao;
 import com.ispan.CCCMaster.service.CustomerService;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
 	
 	@Autowired
-	private CustomerRepository ctmRepository;
+	private CustomerDao ctmRepository;
 	
 	@Override
 	public void createCustomer(Customer ctm) {
