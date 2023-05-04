@@ -60,7 +60,7 @@
 
     </div>
   </section><!-- End Breadcrumbs -->
-   <form:form method="post" modelAttribute="orderBean" action="${contextRoot}/admin/orders/create">
+   <form:form method="post" modelAttribute="orderBean" action="${contextRoot}/front/orders/create">
 	<section id="blog" class="blog">
       <div class="container" data-aos="fade-up">
         <div class="row">
@@ -78,7 +78,8 @@
                 <tbody>
                 <c:forEach var="sc" items="${shoppingcart}" varStatus="status"> 
                   <tr valign="middle">
-                    <th scope="row"></th>
+                    <th scope="row">
+                    </th>
                     <td>
                     	${sc.productBean.productName}
                     	                  	
@@ -151,9 +152,9 @@
                       </label>
                     </div>
             </div>
-          <button type="submit" class="btn btn-primary" >結帳</button>
-        </div>
-      </div>   
+         		<button type="submit" class="btn btn-primary" >資料填寫</button>
+
+        </div> 
     </section><!-- End Blog Single Section -->
     </form:form>
 </main><!-- End #main -->

@@ -24,4 +24,10 @@ public interface ShoppingCartService {
 	List<ShoppingCartBean> findByCid(Customer c,ShoppingCartBean sc);
 
 	void editBySCId(ShoppingCartBean sc) throws IOException;
+	
+	//刪除所有購物車
+//	void deletescByCId(Integer id);
+	
+	//刪除購物車
+	void deleteAll();
 }

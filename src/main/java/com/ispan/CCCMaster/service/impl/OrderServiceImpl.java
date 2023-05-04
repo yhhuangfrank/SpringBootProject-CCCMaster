@@ -1,5 +1,6 @@
 package com.ispan.CCCMaster.service.impl;
 
+import java.beans.Expression;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,13 +16,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ispan.CCCMaster.model.bean.order.OrderBean;
 import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;
+import com.ispan.CCCMaster.model.bean.product.Product;
 import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
 import com.ispan.CCCMaster.model.dao.OrderDao;
 import com.ispan.CCCMaster.model.dao.OrderDetailDao;
+import com.ispan.CCCMaster.model.dao.ProductDao;
 import com.ispan.CCCMaster.model.dao.ShoppingCartDao;
 import com.ispan.CCCMaster.service.OrderService;
 
-import ecpay.payment.integration.AllInOne;
+import ecpay.logistics.integration.AllInOne;
+import ecpay.logistics.integration.domain.CreateCVSObj;
+import ecpay.logistics.integration.domain.ExpressMapObj;
+//import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
 
 @Service
@@ -35,6 +41,9 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Autowired
 	ShoppingCartDao scDao;
+	
+	@Autowired
+	ProductDao pDao;
 	
 	//依訂單編號找訂單
 	@Override
@@ -67,11 +76,30 @@ public class OrderServiceImpl implements OrderService {
 			OrderBean oldOrder = option.get();
 			oldOrder.setArrivaldate(orderBean.getArrivaldate());
 			oldOrder.setShipperaddress(orderBean.getShipperaddress());
-			oldOrder.setOrdercondition(orderBean.getOrdercondition());			
+			oldOrder.setOrdercondition(orderBean.getOrdercondition());
+			oldOrder.setShipperaddress(orderBean.getShipperaddress());
 		}
+		List<ShoppingCartBean> scBean = scDao.findAll();
+		for(ShoppingCartBean sc : scBean) {
+		//更新存貨
+		Optional<Product> poption = pDao.findById(sc.getProductBean().getProductId());
+		Optional<ShoppingCartBean> scoption = scDao.findByPid(sc.getProductBean().getProductId());
+		if(option.isPresent()) {
+			if(scoption.isPresent()) {				
+				ShoppingCartBean oldsc = scoption.get();
+				Integer min= oldsc.getQuantity();
+				Product oldp = poption.get();
+				Integer inventory = oldp.getInventory();
+				inventory -= min;
+				oldp.setInventory(inventory);
+			}
+		}			
 	}
+}
+	//建立訂單
 	@Override
-	public void createOrder(OrderBean order) {
+	@Transactional
+	public void createOrder(OrderBean order) throws IOException{
 		Date date = new Date();
 		String dateString = String.valueOf(date.getTime());
 		//id
@@ -103,15 +131,27 @@ public class OrderServiceImpl implements OrderService {
 		}
 		order.setTotalamount(totalamount);
 		order.setSeto(orderdetails);
+		
 		oDao.save(order);
 	}
-	//金流
+	//訂單的詳細資料
+	@Override
+	public List<OrderDetailBean> findorderdetailbyOId(String orderid) {
+		return odDao.findByOid(orderid);	  
+	}
+
+	
+	//物流
 //	@Override
-//	public String ecpayCheckout() {
-////		obj.setTotalAmount("50");
-////		obj.setItemName("TestItem");
-////		obj.setNeedExtraPaidInfo("N");
-//		String form = all.aioCheckOut(obj, null);
+//	public String ecpaylog() {
+//		AllInOne all = new AllInOne("");
+//		ExpressMapObj map= new ExpressMapObj();
+//		map.setMerchantID("2000214");
+//		map.setMerchantTradeNo("testCompany0004");
+//		map.setIsCollection("NO");
+//		map.setServerReplyURL("http://211.23.128.214:5000");
+//		map.setLogisticsSubType("UNIMART");
+//		String form = all.expressMap(map);
 //		return form;
 //	}
 

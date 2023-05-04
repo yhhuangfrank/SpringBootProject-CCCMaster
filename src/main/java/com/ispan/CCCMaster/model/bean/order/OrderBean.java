@@ -38,7 +38,7 @@ public class OrderBean implements Serializable {
 	@Column(name="coupon_id",columnDefinition = "nchar(36)")
 	private String couponid;
 	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "order_date", columnDefinition = "datetime", nullable = false)
 	private Date orderdate;
@@ -64,7 +64,11 @@ public class OrderBean implements Serializable {
 	@Column(name="total_amount")
 	private Integer totalamount;
 	
-//	private Integer customer_id;
+	@Column(name="addressee",columnDefinition = "nvarchar(20)")
+	private String addressee;
+	
+	@Column(name="telephone",columnDefinition = "nvarchar(20)")
+	private String telephone;
 	
 
 	//雙向多對一
@@ -76,9 +80,10 @@ public class OrderBean implements Serializable {
 	@OneToMany(mappedBy="orderBean",cascade=CascadeType.ALL)
 	Set<OrderDetailBean> seto = new HashSet<>();
 
+	
 	public OrderBean(String orderid, Integer freight, Integer pointsdiscount, String couponid, Date orderdate,
 			String arrivaldate, String shipper, String shipperaddress, String payment, String ordercondition,
-			String paymentcondition, Integer totalamount, Customer cbOrder) {
+			String paymentcondition, Integer totalamount, String addressee, String telephone, Customer cbOrder) {
 		super();
 		this.orderid = orderid;
 		this.freight = freight;
@@ -92,8 +97,11 @@ public class OrderBean implements Serializable {
 		this.ordercondition = ordercondition;
 		this.paymentcondition = paymentcondition;
 		this.totalamount = totalamount;
+		this.addressee = addressee;
+		this.telephone = telephone;
 		this.cbOrder = cbOrder;
 	}
+
 	public OrderBean() {
 		
 	}
@@ -208,6 +216,18 @@ public class OrderBean implements Serializable {
 
 	public void setSeto(Set<OrderDetailBean> seto) {
 		this.seto = seto;
+	}
+	public String getAddressee() {
+		return addressee;
+	}
+	public void setAddressee(String addressee) {
+		this.addressee = addressee;
+	}
+	public String getTelephone() {
+		return telephone;
+	}
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 	
 	
