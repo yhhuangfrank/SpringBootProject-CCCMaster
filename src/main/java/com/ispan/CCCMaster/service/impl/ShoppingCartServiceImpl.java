@@ -82,6 +82,18 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		return scDao.findByCid(sc.getCbShoppingCart().getId());
 	}
 
+	//刪除購物車
+	@Override
+	public void deleteAll() {
+		scDao.deleteAll();
+	}
+
+//	//依照cid刪除各自的購物車
+//	@Override
+//	public void deletescByCId(Integer id) {
+//		scDao.deleteByCid(id);		
+//	}
+
 
 
 }
