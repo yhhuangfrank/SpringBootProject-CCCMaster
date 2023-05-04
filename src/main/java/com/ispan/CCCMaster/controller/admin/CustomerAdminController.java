@@ -48,7 +48,7 @@ public class CustomerAdminController {
 	@PutMapping("/admin/customers/edit")	//送出編輯會員資料表單
 	public String putCustomer(@ModelAttribute("customer") Customer customer) {
 		ctmService.editById(customer);
-		return "";
+		return "redirect:/admin/customers";
 	}
 	
 	@DeleteMapping("/admin/customers/delete")	//刪除會員按鈕

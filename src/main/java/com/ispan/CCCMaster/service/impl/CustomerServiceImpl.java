@@ -45,7 +45,16 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	@Transactional
 	public void editById(Customer customer) {
-		ctmRepository.save(customer);
+		Optional<Customer> option = ctmRepository.findById(customer.getCustomerId());
+		if(option.isPresent()) {
+			Customer old = option.get();
+			old.setEmail(customer.getEmail());
+			old.setName(customer.getName());
+			old.setPassword(customer.getPassword());
+			old.setPhoneNumber(customer.getPhoneNumber());
+			old.setPoint(customer.getPoint());
+			old.setAbandonCount(customer.getAbandonCount());
+		}
 	}
 	
 	@Override
