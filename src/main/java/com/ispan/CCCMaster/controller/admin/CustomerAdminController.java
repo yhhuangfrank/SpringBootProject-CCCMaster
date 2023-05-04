@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ispan.CCCMaster.model.bean.customer.Customer;
@@ -36,6 +37,18 @@ public class CustomerAdminController {
 	public String postCustomer(@ModelAttribute("customer") Customer customer) {
 		ctmService.createCustomer(customer);
 		return "redirect:/admin/customers";	//總覽的GetMapping路徑
+	}
+	
+	@GetMapping("/admin/customers/edit")	//編輯會員資料頁面
+	public String editCustomer(@RequestParam("id") Integer id, Model model) {
+		model.addAttribute("customer", ctmService.findById(id));
+		return "back/customer/edit";
+	}
+	
+	@PutMapping("/admin/customers/edit")	//送出編輯會員資料表單
+	public String putCustomer(@ModelAttribute("customer") Customer customer) {
+		ctmService.editById(customer);
+		return "";
 	}
 	
 	@DeleteMapping("/admin/customers/delete")	//刪除會員按鈕

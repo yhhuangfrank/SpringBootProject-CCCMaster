@@ -1,11 +1,14 @@
 package com.ispan.CCCMaster.service.impl;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ispan.CCCMaster.model.bean.customer.Customer;
 import com.ispan.CCCMaster.model.dao.CustomerRepository;
@@ -27,6 +30,22 @@ public class CustomerServiceImpl implements CustomerService {
 		Pageable pgb = PageRequest.of(pageNumber-1, 10, Sort.Direction.ASC, "customerId");
 		Page<Customer> page = ctmRepository.findAll(pgb);
 		return page;
+	}
+	
+	@Override
+	public Customer findById(Integer id) {
+		Optional<Customer> option = ctmRepository.findById(id);
+		if(option.isEmpty()) {
+			return null;
+		} else {
+			return option.get();
+		}
+	}
+	
+	@Override
+	@Transactional
+	public void editById(Customer customer) {
+		ctmRepository.save(customer);
 	}
 	
 	@Override
