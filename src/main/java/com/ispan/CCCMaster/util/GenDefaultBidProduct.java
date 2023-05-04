@@ -3,8 +3,10 @@ package com.ispan.CCCMaster.util;
 import com.github.javafaker.Faker;
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.bid.Category;
+import com.ispan.CCCMaster.model.bean.customer.Customer;
 import com.ispan.CCCMaster.model.dao.BidProductDao;
 import com.ispan.CCCMaster.model.dao.CategoryDao;
+import com.ispan.CCCMaster.model.dao.CustomerDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +24,9 @@ public class GenDefaultBidProduct {
 
     @Autowired
     private CategoryDao categoryDao;
+
+    @Autowired
+    private CustomerDao customerDao;
 
     private List<BidProduct> defaultBidProducts = new ArrayList<>();
 
@@ -46,6 +51,15 @@ public class GenDefaultBidProduct {
 
         Faker faker = new Faker();
         int total = defaultImageLinks.length * 5;
+
+        // 設定預設 customer
+        Customer customer1 = new Customer();
+        Customer customer2 = new Customer();
+        customer1.setName("小明");
+        customer2.setName("小華");
+        customerDao.save(customer1);
+        customerDao.save(customer2);
+
         for (int i = 0; i < total; i += 1) {
             BidProduct bidProduct = new BidProduct();
             int index = i / 5;
@@ -57,6 +71,11 @@ public class GenDefaultBidProduct {
             bidProduct.setBidPrice(0);
             bidProduct.setDescription(faker.lorem().paragraph());
             bidProduct.setImage(defaultImageLinks[index]);
+            if (i % 5 == 0) {
+                bidProduct.setCustomer(customer1);
+            } else {
+                bidProduct.setCustomer(customer2);
+            }
             defaultBidProducts.add(bidProduct);
         }
 
