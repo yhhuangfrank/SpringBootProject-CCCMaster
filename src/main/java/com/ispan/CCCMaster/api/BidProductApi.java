@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 
 @RestController
@@ -56,7 +57,7 @@ public class BidProductApi {
 
     @PutMapping("/bidProducts/{id}")
     public BidProduct updateBidPrice(@PathVariable Integer id,
-                                     @ModelAttribute("bidRecordRequest")BidRecordRequest bidRecordRequest) {
+                                     @RequestBody @Valid BidRecordRequest bidRecordRequest) {
         return bidProductService.updateBidPrice(id, bidRecordRequest);
     }
 }

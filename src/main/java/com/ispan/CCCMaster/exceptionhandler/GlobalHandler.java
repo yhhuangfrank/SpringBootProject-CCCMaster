@@ -2,8 +2,10 @@ package com.ispan.CCCMaster.exceptionhandler;
 
 import com.ispan.CCCMaster.model.customexception.ApiErrorException;
 import com.ispan.CCCMaster.model.customexception.NotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -47,4 +49,12 @@ public class GlobalHandler {
         return ResponseEntity.status(e.getStatusCode()).body(e.getMessage());
 
     }
+
+    // 處理違反 validation 的 api 請求
+    @ExceptionHandler(BindException.class)
+    public ResponseEntity<Object> handleConstraintViolationException(BindException e) {
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
 }
