@@ -1,22 +1,12 @@
-const expiredAt = document.querySelector("#expiredAt")
-const createdAt = document.querySelector("#createdAt")
+const expiredText = document.querySelector("#expiredAt").textContent
 const countDownArea = document.querySelector("#countDownArea")
 const bidPriceInput = document.querySelector("#bidPrice")
 const bidBtn = document.querySelector("#bidBtn")
-const expiredText = expiredAt.textContent
+
 let expiredTime = Date.parse(expiredText)
 
 // 每秒刷新倒數計時
 const timer = setInterval(setCountDownTimer, 1000)
-
-window.addEventListener("load", () => {
-    const startDate = new Date(Date.parse(createdAt.textContent))
-    const endDate = new Date(Date.parse(expiredAt.textContent))
-    // 格式化顯示日期
-    createdAt.textContent = handleDateShowingFormat(startDate)
-    expiredAt.textContent = handleDateShowingFormat(endDate)
-})
-
 
 function setCountDownTimer() {
     const currentTime = Date.now()
@@ -46,13 +36,6 @@ function showTimer(days, hours, minutes, seconds) {
         <span class="hour">${hours} 小時</span>
         <span class="minute">${minutes} 分</span>
         <span class="second">${seconds} 秒</span>
-    `
-}
-
-function handleDateShowingFormat(date) {
-    return `
-    ${date.getFullYear()} 年 ${date.getMonth() + 1} 月 ${date.getDate()}日
-    ${date.getHours()}:${date.getMinutes()}
     `
 }
 

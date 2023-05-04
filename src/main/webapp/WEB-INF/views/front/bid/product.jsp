@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="en">
 
 <head>
@@ -104,13 +105,13 @@
                             </li>
                             <li>
                                 <strong class="fs-6 badge bg-secondary text-white">起始時間</strong>
-                                <span class="fs-6 ms-2" id="createdAt">${bidProduct.createdAt}</span>
+                                <span class="fs-6 ms-2" id="createdAt"><fmt:formatDate value="${bidProduct.createdAt}" pattern="yyyy-MM-dd HH:mm"/></span>
                             </li>
                             <li>
                                 <strong class="fs-6 badge bg-secondary text-white">結束時間</strong>
                                 <c:choose>
                                     <c:when test="${bidProduct.expiredAt != null}">
-                                        <span class="fs-6 ms-2" id="expiredAt">${bidProduct.expiredAt}</span>
+                                        <span class="fs-6 ms-2" id="expiredAt"><fmt:formatDate value="${bidProduct.expiredAt}" pattern="yyyy-MM-dd HH:mm"/></span>
                                     </c:when>
                                     <c:otherwise>
                                         <span class="fs-6 ms-2">目前暫無</span>
