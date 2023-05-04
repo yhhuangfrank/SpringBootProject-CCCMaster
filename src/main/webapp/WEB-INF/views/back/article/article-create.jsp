@@ -48,20 +48,15 @@
         </ol>
       </nav>
     </div><!-- End Page Title -->
-  <h1>新增文章</h1>
 
 
     <section class="section">
       <div class="row">
         <div class="col-lg-6">
 
-
-
-
-
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">編輯文章</h5>
+              <h5 class="card-title">新增文章</h5>
               <div class="row mb-3">
 
             <form:form method="post" modelAttribute="article"
@@ -69,13 +64,33 @@
               <label for="inputTitle" class="col-sm-2 col-form-label">文章名稱</label>
               <div class="col-sm-10">
                 <form:input type="text" path="title" class="form-control" id="inputTitle"></form:input>
-              </div>
+                <br>
+                <form:textarea cssStyle="width: 610px;height: 300px"  type="text" path="content"  id="content"></form:textarea>
               </div>
 
-              <!-- Quill Editor Full -->
-              <div class="quill-editor-full">
-                <form:textarea type="text" path="content"  id="inputContent"></form:textarea>
               </div>
+
+
+
+
+
+
+
+              <!-- Quill Editor Full -->
+<%--              <div class="quill-editor-full">--%>
+
+<%--              <form:textarea  type="text" path="content"  id="content"></form:textarea>--%>
+<%--              </div>--%>
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -98,6 +113,7 @@
               </form:form>
 
         </div>
+
 
 
       </div>

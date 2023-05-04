@@ -26,8 +26,10 @@ public class ArticleAdminController {
     }
 
     @PostMapping("/articles/create")//送出新增文章
-    public String createArticle(@ModelAttribute("article") Article article, Model model){
-        articleService.createArticle(article);
+    public String createArticle(@ModelAttribute("article") Article article, Model model) {
+        article.getContent();
+        System.out.println(article.getContent());
+//        articleService.createArticle(article);
         return "redirect:/articles/showAllArticle";
     }
 
