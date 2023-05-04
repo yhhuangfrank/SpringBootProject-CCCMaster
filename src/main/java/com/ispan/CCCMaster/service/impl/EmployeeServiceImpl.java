@@ -11,14 +11,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ispan.CCCMaster.model.bean.employee.Employee;
-import com.ispan.CCCMaster.model.dao.EmployeeRepository;
+import com.ispan.CCCMaster.model.dao.EmployeeDao;
 import com.ispan.CCCMaster.service.EmployeeService;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 	
 	@Autowired
-	private EmployeeRepository epyRepository;
+	private EmployeeDao epyRepository;
 	
 	@Override
 	public void createEmployee(Employee epy) {

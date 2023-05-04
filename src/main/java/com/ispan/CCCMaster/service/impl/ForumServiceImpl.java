@@ -1,7 +1,7 @@
 package com.ispan.CCCMaster.service.impl;
 
 import com.ispan.CCCMaster.model.bean.Forum.Forum;
-import com.ispan.CCCMaster.model.dao.ForumRepository;
+import com.ispan.CCCMaster.model.dao.ForumDao;
 import com.ispan.CCCMaster.service.ForumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,7 +18,7 @@ import java.util.Optional;
 public class ForumServiceImpl implements ForumService {
 
     @Autowired
-    private ForumRepository forumRepository;
+    private ForumDao forumRepository;
 
 
     @Override
