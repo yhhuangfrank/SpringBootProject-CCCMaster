@@ -150,7 +150,7 @@
                             </c:if>
                         </div>
                         <div class="card mt-3">
-                            <div class="card-header fw-bold">賣家: 某某某</div>
+                            <div class="card-header fw-bold">賣家: ${bidProduct.customer.name}</div>
                             <div class="card-body">
                                 <h5 class="card-title">關於此商品</h5>
                                 <c:choose>
@@ -189,7 +189,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">返回</button>
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="updateBidPriceBtn"
-                        data-id="${bidProduct.id}" style="background-color: #e96b56">送出
+                        data-bidproduct_id="${bidProduct.id}" data-currentuser_id="2" style="background-color: #e96b56">送出
                 </button>
             </div>
         </div>

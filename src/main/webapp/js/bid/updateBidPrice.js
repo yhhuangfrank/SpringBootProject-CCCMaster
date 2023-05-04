@@ -32,7 +32,7 @@ updateBidPriceBtn.addEventListener("click", async () => {
         }
     } catch (error) {
         console.log(error)
-        showMessage("發生錯誤，出價成功失敗!", false)
+        showMessage("發生錯誤，出價失敗!", false)
     }
 
 })
