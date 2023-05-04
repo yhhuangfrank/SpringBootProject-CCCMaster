@@ -1,6 +1,6 @@
 package com.ispan.CCCMaster.service.impl;
 
-import com.ispan.CCCMaster.model.bean.bid.Category;
+import com.ispan.CCCMaster.model.bean.category.Category;
 import com.ispan.CCCMaster.model.bean.product.Product;
 import com.ispan.CCCMaster.model.bean.product.ProductImg;
 import com.ispan.CCCMaster.model.dao.CategoryDao;

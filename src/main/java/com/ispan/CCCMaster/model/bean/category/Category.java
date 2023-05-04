@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.model.bean.bid;
+package com.ispan.CCCMaster.model.bean.category;
 
 import org.springframework.format.annotation.DateTimeFormat;
 

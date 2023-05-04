@@ -1,7 +1,7 @@
 package com.ispan.CCCMaster.service.impl;
 
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
-import com.ispan.CCCMaster.model.bean.bid.Category;
+import com.ispan.CCCMaster.model.bean.category.Category;
 import com.ispan.CCCMaster.model.customexception.NotFoundException;
 import com.ispan.CCCMaster.model.dao.BidProductDao;
 import com.ispan.CCCMaster.model.dao.CategoryDao;

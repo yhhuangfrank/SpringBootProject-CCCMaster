@@ -2,7 +2,7 @@ package com.ispan.CCCMaster.util;
 
 import com.github.javafaker.Faker;
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
-import com.ispan.CCCMaster.model.bean.bid.Category;
+import com.ispan.CCCMaster.model.bean.category.Category;
 import com.ispan.CCCMaster.model.bean.customer.Customer;
 import com.ispan.CCCMaster.model.dao.BidProductDao;
 import com.ispan.CCCMaster.model.dao.CategoryDao;

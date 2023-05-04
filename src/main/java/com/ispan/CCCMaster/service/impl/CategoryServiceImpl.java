@@ -1,6 +1,6 @@
 package com.ispan.CCCMaster.service.impl;
 
-import com.ispan.CCCMaster.model.bean.bid.Category;
+import com.ispan.CCCMaster.model.bean.category.Category;
 import com.ispan.CCCMaster.model.dao.CategoryDao;
 import com.ispan.CCCMaster.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;

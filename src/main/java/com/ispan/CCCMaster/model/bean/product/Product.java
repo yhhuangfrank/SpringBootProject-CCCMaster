@@ -1,7 +1,7 @@
 package com.ispan.CCCMaster.model.bean.product;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ispan.CCCMaster.model.bean.bid.Category;
+import com.ispan.CCCMaster.model.bean.category.Category;
 import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;
 
 import org.springframework.format.annotation.DateTimeFormat;

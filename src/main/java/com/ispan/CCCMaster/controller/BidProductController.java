@@ -1,7 +1,7 @@
 package com.ispan.CCCMaster.controller;
 
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
-import com.ispan.CCCMaster.model.bean.bid.Category;
+import com.ispan.CCCMaster.model.bean.category.Category;
 import com.ispan.CCCMaster.model.dto.BidProductRequest;
 import com.ispan.CCCMaster.service.BidProductService;
 import com.ispan.CCCMaster.service.CategoryService;
