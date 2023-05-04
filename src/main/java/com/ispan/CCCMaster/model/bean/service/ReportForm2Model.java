@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.model.bean;
+package com.ispan.CCCMaster.model.bean.service;
 
 import java.util.Date;
 
@@ -26,7 +26,7 @@ public class ReportForm2Model {
 	private Integer id;
 	
 	@Column(name = "order_id")
-	private Integer order_id;
+	private Integer orderid;
 	
 	@Column(name = "question")
 	private String question;
@@ -35,7 +35,7 @@ public class ReportForm2Model {
 	private String narrative;
 	
 	@Column(name = "customer_id")
-	private Integer customer_id;
+	private Integer customerid;
 
 	@Column(name = "phone")
 	private String phone;
@@ -48,13 +48,13 @@ public class ReportForm2Model {
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	@Column(name = "create_time", columnDefinition = "datetime")
-	private Date create_time;
+	private Date createtime;
 	
 
 	@PrePersist
 	public void onCreate() {
-		if(create_time == null) {
-			create_time = new Date();
+		if(createtime == null) {
+			createtime = new Date();
 		}
 	}
 
@@ -69,13 +69,13 @@ public class ReportForm2Model {
 	}
 
 
-	public Integer getOrder_id() {
-		return order_id;
+	public Integer getOrderid() {
+		return orderid;
 	}
 
 
-	public void setOrder_id(Integer order_id) {
-		this.order_id = order_id;
+	public void setOrderid(Integer orderid) {
+		this.orderid = orderid;
 	}
 
 
@@ -99,13 +99,13 @@ public class ReportForm2Model {
 	}
 
 
-	public Integer getCustomer_id() {
-		return customer_id;
+	public Integer getCustomerid() {
+		return customerid;
 	}
 
 
-	public void setCustomer_id(Integer customer_id) {
-		this.customer_id = customer_id;
+	public void setCustomerid(Integer customerid) {
+		this.customerid = customerid;
 	}
 
 
@@ -129,13 +129,13 @@ public class ReportForm2Model {
 	}
 
 
-	public Date getCreate_time() {
-		return create_time;
+	public Date getCreatetime() {
+		return createtime;
 	}
 
 
-	public void setCreate_time(Date create_time) {
-		this.create_time = create_time;
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
 	}
 
 }

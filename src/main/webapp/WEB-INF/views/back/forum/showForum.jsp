@@ -42,39 +42,77 @@
 
 <jsp:include page="../layouts/header.jsp"/>
 
-<main id="main" class="main">
-    <h1>討論版列表</h1>
+<main id="main" class="main pagetitle">
+    <h1>論壇列表</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item">Tables</li>
+            <li class="breadcrumb-item active">論壇</li>
+        </ol>
+    </nav>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-8">
 
 
                 <jstl:forEach var="forum" items="${page.content}">
-                    <div class="card">
-                        <div class="card-header">
-                        <div class="d-flex justify-content-around">討論版名稱:${forum.forumName}<span>開版時間:<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss EEEE" value="${forum.added}"/></span>
-                        </div>
-                        </div>
-                        <img style="width: 300px; height: 300px;"
+                    <div class="card border-2 m-auto">
+
+                        <div class="d-flex justify-content-around">
+
+                        <img style="width: 300px;" class="img-thumbnail m-3 "
                              src="${contextRoot}/forums/showAllForum/${forum.forumId}"/>
 
-                        <div class="card-body">
-
-                            <div style="display:flex">
-                                <form action="${contextRoot}/forum/editPage">
-                                    <input type="hidden" name="id" value="${forum.forumId}" />
-                                    <input type="submit" class="btn btn-outline-info btn-sm" value="編輯" />
-                                </form>
-
-                                <form action="${contextRoot}/forums/delete" method="post">
-                                    <input type="hidden" name="_method" value="delete" />
-                                    <input type="hidden" name="id" value="${forum.forumId}" />
-                                    <input type="submit" class="btn btn-outline-danger btn-sm" value="刪除" />
-                                </form>
+                            <div class="d-flex align-items-lg-center ">
+                            <div>
+                            <div style=" color:#117e96" class=" "><h4 style="font-weight: bold; font-family: 巴哈正黑體 , 思源黑體 , 微軟正黑體 , 蘋方黑體 , 華康麗黑體 , Helvetica , Arial , sans-serif , serif;">${forum.forumName}</h4>
+                            </div>
+                                <div style="font-size: small; color:#ADADAD;" class="" >
+                                開版時間:<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss EEEE" value="${forum.added}"/>
+                                </div>
+                            </div>
                             </div>
 
+
+
+                            <div class="d-flex align-items-center">
+
+                                <div style="display:flex">
+                                    <form class="m-3" action="${contextRoot}/forum/editPage">
+                                        <input type="hidden" name="id" value="${forum.forumId}" />
+                                        <input type="submit" class="btn btn-primary" value="編輯" />
+                                    </form>
+
+                                    <form class="m-3" action="${contextRoot}/forums/delete" method="post">
+                                        <input type="hidden" name="_method" value="delete" />
+                                        <input type="hidden" name="id" value="${forum.forumId}" />
+                                        <input type="submit" class="btn btn-danger" value="刪除" />
+                                    </form>
+                                </div>
+
+                            </div>
                         </div>
-                    </div>
+                        </div>
+
+
+<%--                        <div class="card-body">--%>
+
+<%--                            <div style="display:flex">--%>
+<%--                                <form action="${contextRoot}/forum/editPage">--%>
+<%--                                    <input type="hidden" name="id" value="${forum.forumId}" />--%>
+<%--                                    <input type="submit" class="btn btn-outline-info btn-sm" value="編輯" />--%>
+<%--                                </form>--%>
+
+<%--                                <form action="${contextRoot}/forums/delete" method="post">--%>
+<%--                                    <input type="hidden" name="_method" value="delete" />--%>
+<%--                                    <input type="hidden" name="id" value="${forum.forumId}" />--%>
+<%--                                    <input type="submit" class="btn btn-outline-danger btn-sm" value="刪除" />--%>
+<%--                                </form>--%>
+<%--                            </div>--%>
+
+<%--                        </div>--%>
+<%--                    </div>--%>
 
                 </jstl:forEach>
 

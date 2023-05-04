@@ -71,12 +71,12 @@
 
 
 
-  <label for="inputName" class="col-sm-2 col-form-label">最新的資料 時間:</label>
+<%--  <label for="inputName" class="col-sm-2 col-form-label">最新的資料 時間:</label>--%>
 
-  <div class="col-sm-10">
-    <span><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss EEEE" value="${latest.added}"/></span>
-  </div>
-  ${latest.forumName}
+<%--  <div class="col-sm-10">--%>
+<%--    <span><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss EEEE" value="${latest.added}"/></span>--%>
+<%--  </div>--%>
+<%--  ${latest.forumName}--%>
 </main>
 
 <jsp:include page="../layouts/aside.jsp"/>

@@ -1,7 +1,6 @@
 package com.ispan.CCCMaster.model.bean.customer;
 
 import java.util.*;
-import java.util.ArrayList;
 
 import javax.persistence.*;
 
@@ -21,7 +20,7 @@ public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "customer_id")
-	private Integer id;
+	private Integer customerId;
 	
 	@Column(name = "email", columnDefinition = "varchar(50)")
 	private String email;
@@ -50,7 +49,26 @@ public class Customer {
 	@Transient
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
 	private List<BidProduct> bidProductList;
-	
+
+	@PrePersist	//建立該筆資料時自動產生當天日期，以及把點數、棄標次數設為0
+	public void onCreate() {
+		if(startDate == null) {
+			startDate = new Date();
+		}
+		if(point == null) {
+			point=0;
+		}
+		if(abandonCount == null) {
+			abandonCount = 0;
+		}
+	}
+//	@PrePersist	//建立該筆資料時將棄標次數設為0
+//	public void initialPoint() {
+//		if(abandonCount == null) {
+//			abandonCount = 0;
+//		}
+//	}
+
 	@OneToMany(mappedBy = "customers", cascade = CascadeType.ALL)
 	private Set<CustomerCoupon> customerCoupons = new HashSet<>();
 	
@@ -70,12 +88,12 @@ public class Customer {
 	public Customer() {
 	}
 
-	public Integer getId() {
-		return id;
+	public Integer getCustomerId() {
+		return customerId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
 	}
 
 	public String getEmail() {

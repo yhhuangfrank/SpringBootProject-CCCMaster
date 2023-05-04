@@ -4,7 +4,7 @@
       <html>
 
       <head>
-        <title>編輯員工資料</title>
+        <title>新增會員資料</title>
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -39,12 +39,12 @@
 
         <main id="main" class="main">
           <div class="pagetitle">
-            <h1>編輯員工資料</h1>
+            <h1>新增會員資料</h1>
             <nav>
               <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item">員工管理</li>
-                <li class="breadcrumb-item active">編輯員工資料</li>
+                <li class="breadcrumb-item">會員管理</li>
+                <li class="breadcrumb-item active">新增會員資料</li>
               </ol>
             </nav>
           </div>
@@ -55,59 +55,39 @@
 
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title">編輯員工資料</h5>
+                    <h5 class="card-title">新增會員資料</h5>
 
-                    <!-- 編輯員工資料 -->
-                    <form:form method="put" modelAttribute="employee" action="${contextRoot}/admin/employees/edit"
+                    <form:form method="post" modelAttribute="customer" action="${contextRoot}/admin/customers/create"
                       enctype="multipart/form-data">
                       <div class="row mb-3">
-                        <label for="employeeId" class="col-sm-2 col-form-label">員工編號</label>
+                        <label for="email" class="col-sm-2 col-form-label">電子郵件</label>
                         <div class="col-sm-10">
-                          <input disabled="disabled" type="text" name="id" value="${employee.employeeId}" class="form-control" />	<!-- 這個標籤為前端顯示用，不參與程式運作 -->
-                          <form:input readonly="true" path="employeeId" id="employeeId" type="hidden" class="form-control"/>	<!-- 這個標籤為程式內部取得 id 數值用，不顯示在前端畫面上 -->
+                          <form:input required="true" path="email" id="email" type="email" class="form-control"/>
                         </div>
                       </div>
                       <div class="row mb-3">
-                        <label for="employeeName" class="col-sm-2 col-form-label">姓名</label>
+                        <label for="name" class="col-sm-2 col-form-label">會員名稱</label>
                         <div class="col-sm-10">
-                          <form:input required="true" path="employeeName" id="employeeName" type="text" class="form-control"/>
-                        </div>
-                      </div>
-                      <div class="row mb-3"><!--這個要用下拉式選單來做，【{編號} {職位名}】 -->
-                        <label for="positionId" class="col-sm-2 col-form-label">職位</label>
-                        <div class="col-sm-10">
-                          <form:input required="true" path="positionId" id="positionId" type="text" class="form-control"/>
+                          <form:input required="true" path="name" id="name" type="text" class="form-control"/>
                         </div>
                       </div>
                       <div class="row mb-3">
-                        <label for="phoneNumber" class="col-sm-2 col-form-label">員工電話</label>
-                        <div class="col-sm-10">
-                          <form:input required="true" path="phoneNumber" id="phoneNumber" type="text" class="form-control"/>
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <label for="idNumber" class="col-sm-2 col-form-label">身分證字號</label>
-                        <div class="col-sm-10">
-                          <form:input required="true" path="idNumber" id="idNumber" type="text" class="form-control"/>
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <label for="password" class="col-sm-2 col-form-label">員工密碼</label>
+                        <label for="password" class="col-sm-2 col-form-label">密碼</label>
                         <div class="col-sm-10">
                           <form:input required="true" path="password" id="password" type="text" class="form-control"/>
                         </div>
                       </div>
                       <div class="row mb-3">
-                        <label for="hireDate" class="col-sm-2 col-form-label">到職日期</label>
+                        <label for="phoneNumber" class="col-sm-2 col-form-label">電話</label>
                         <div class="col-sm-10">
-                          <input disabled="disabled" type="text" name="id" value="${employee.hireDate}" class="form-control" />	<!-- 這個標籤為前端顯示用，不參與程式運作 -->
+                          <form:input required="true" path="phoneNumber" id="phoneNumber" type="text" class="form-control"/>
                         </div>
                       </div>
 
                       <div class="row mb-3">
                         <label class="col-sm-2 col-form-label"></label>
                         <div class="col-sm-10">
-                          <button type="submit" class="btn btn-warning">確認變更</button>
+                          <button type="submit" class="btn btn-primary">送出</button>
                         </div>
                       </div>
 

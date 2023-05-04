@@ -253,7 +253,7 @@
                 <h1 class="service-title">客服操作平台</h1>
               </div>
               <!-- 橫向並排div -->
-              <div class="felx-container">
+              <div class="felx-container" >
                 <!-- 並排div left -->
                 <div class="felx-container-left">
                   <!-- 工作資料1-1 -->
