@@ -4,7 +4,6 @@ import com.ispan.CCCMaster.model.bean.customer.Customer;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.persistence.FetchType;
 import java.util.Date;
 
 @Entity
@@ -15,11 +14,11 @@ public class BidRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false, foreignKey = @ForeignKey(name = "fk_customer_id"))
     private Customer customer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "bidproduct_id", nullable = false, foreignKey = @ForeignKey(name = "fk_bidproduct_id"))
     private BidProduct bidProduct;
 
