@@ -1,12 +1,18 @@
 package com.ispan.CCCMaster.service.impl;
 
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
-import com.ispan.CCCMaster.model.bean.bid.Category;
+import com.ispan.CCCMaster.model.bean.bid.BidRecord;
+import com.ispan.CCCMaster.model.bean.category.Category;
+import com.ispan.CCCMaster.model.bean.customer.Customer;
+import com.ispan.CCCMaster.model.customexception.ApiErrorException;
 import com.ispan.CCCMaster.model.customexception.NotFoundException;
 import com.ispan.CCCMaster.model.dao.BidProductDao;
+import com.ispan.CCCMaster.model.dao.BidRecordDao;
 import com.ispan.CCCMaster.model.dao.CategoryDao;
+import com.ispan.CCCMaster.model.dao.CustomerDao;
 import com.ispan.CCCMaster.model.dto.BidProductQueryParams;
 import com.ispan.CCCMaster.model.dto.BidProductRequest;
+import com.ispan.CCCMaster.model.dto.BidRecordRequest;
 import com.ispan.CCCMaster.service.BidProductService;
 import com.ispan.CCCMaster.util.ImgurUploader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +40,10 @@ public class BidProductServiceImpl implements BidProductService {
 
     private final CategoryDao categoryDao;
 
+    private final CustomerDao customerDao;
+
+    private final BidRecordDao bidRecordDao;
+
     private final ImgurUploader imgurUploader;
 
     @Value("${default.image}")
@@ -42,9 +52,13 @@ public class BidProductServiceImpl implements BidProductService {
     @Autowired
     public BidProductServiceImpl(BidProductDao bidProductDao,
                                  CategoryDao categoryDao,
+                                 CustomerDao customerDao,
+                                 BidRecordDao bidRecordDao,
                                  ImgurUploader imgurUploader) {
         this.bidProductDao = bidProductDao;
         this.categoryDao = categoryDao;
+        this.customerDao = customerDao;
+        this.bidRecordDao = bidRecordDao;
         this.imgurUploader = imgurUploader;
     }
 
@@ -173,14 +187,33 @@ public class BidProductServiceImpl implements BidProductService {
 
     @Override
     @Transactional
-    public BidProduct updateBidPrice(Integer id, Integer bidPrice) {
+    public BidProduct updateBidPrice(Integer id, BidRecordRequest bidRecordRequest) {
+
+        Integer bidPrice = bidRecordRequest.getBidPrice();
+        Integer customerId = bidRecordRequest.getCustomerId();
 
         BidProduct foundBidProduct = bidProductDao.findById(id).orElse(null);
+        Customer foundCustomer = customerDao.findById(customerId).orElse(null);
 
-        if (foundBidProduct == null) throw new NotFoundException("查無對應商品，參數有誤!");
+        if (foundCustomer == null) throw new ApiErrorException(404, "查無對應使用者，參數有誤!");
+
+        if (foundBidProduct == null) throw new ApiErrorException(404, "查無對應商品，參數有誤!");
+
+        if (bidPrice <= foundBidProduct.getBidPrice()) throw new ApiErrorException(400, "出價不可小於等於目前價格!");
+
+        if (bidPrice <= foundBidProduct.getBasePrice()) throw new ApiErrorException(400, "出價不可小於等於底價");
 
         foundBidProduct.setBidPrice(bidPrice);
-        return bidProductDao.save(foundBidProduct);
+        BidProduct savedBidProduct = bidProductDao.save(foundBidProduct);
+
+        // store BidRecord
+        BidRecord bidRecord = new BidRecord();
+        bidRecord.setBidProduct(savedBidProduct);
+        bidRecord.setCustomer(foundCustomer);
+        bidRecord.setBidPrice(bidPrice);
+        bidRecordDao.save(bidRecord);
+
+        return savedBidProduct;
     }
 
     @Override

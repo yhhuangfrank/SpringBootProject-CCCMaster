@@ -1,6 +1,6 @@
 package com.ispan.CCCMaster.util;
 
-import com.ispan.CCCMaster.model.bean.bid.Category;
+import com.ispan.CCCMaster.model.bean.category.Category;
 import com.ispan.CCCMaster.model.dao.CategoryDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

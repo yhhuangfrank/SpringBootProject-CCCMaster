@@ -2,6 +2,7 @@ package com.ispan.CCCMaster.api;
 
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.dto.BidProductQueryParams;
+import com.ispan.CCCMaster.model.dto.BidRecordRequest;
 import com.ispan.CCCMaster.service.BidProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -55,7 +56,7 @@ public class BidProductApi {
 
     @PutMapping("/bidProducts/{id}")
     public BidProduct updateBidPrice(@PathVariable Integer id,
-                                     @RequestParam(name = "bidPrice") Integer bidPrice) {
-        return bidProductService.updateBidPrice(id, bidPrice);
+                                     @ModelAttribute("bidRecordRequest")BidRecordRequest bidRecordRequest) {
+        return bidProductService.updateBidPrice(id, bidRecordRequest);
     }
 }
