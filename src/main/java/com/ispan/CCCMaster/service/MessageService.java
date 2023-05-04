@@ -10,7 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ispan.CCCMaster.model.bean.MessageModel;
+import com.ispan.CCCMaster.model.bean.service.MessageModel;
 import com.ispan.CCCMaster.model.dao.MessagesRepository;
 
 @Service
