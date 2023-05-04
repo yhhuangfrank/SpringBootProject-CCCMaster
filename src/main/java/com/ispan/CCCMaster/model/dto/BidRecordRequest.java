@@ -5,11 +5,11 @@ import javax.validation.constraints.NotNull;
 
 public class BidRecordRequest {
     @NotNull(message = "customerId is required")
-    @Min(1)
+    @Min(value = 1,  message = "customerId 需大於 0")
     private Integer customerId;
 
     @NotNull(message = "bidPrice is required")
-    @Min(1)
+    @Min(value = 1,  message = "bidPrice 需大於 0")
     private Integer bidPrice;
 
     public Integer getCustomerId() {
