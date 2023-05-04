@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,7 +32,7 @@ public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "customer_id")
-	private Integer id;
+	private Integer customerId;
 	
 	@Column(name = "email", columnDefinition = "varchar(50)")
 	private String email;
@@ -56,6 +57,25 @@ public class Customer {
 	@Column(name = "abandon_count")
 	private Integer abandonCount;
 	
+	@PrePersist	//建立該筆資料時自動產生當天日期，以及把點數、棄標次數設為0
+	public void onCreate() {
+		if(startDate == null) {
+			startDate = new Date();
+		}
+		if(point == null) {
+			point=0;
+		}
+		if(abandonCount == null) {
+			abandonCount = 0;
+		}
+	}
+//	@PrePersist	//建立該筆資料時將棄標次數設為0
+//	public void initialPoint() {
+//		if(abandonCount == null) {
+//			abandonCount = 0;
+//		}
+//	}
+	
 	@OneToMany(mappedBy = "customers", cascade = CascadeType.ALL)
 	private Set<CustomerCoupon> customerCoupons = new HashSet<>();
 	
@@ -75,12 +95,12 @@ public class Customer {
 	public Customer() {
 	}
 
-	public Integer getId() {
-		return id;
+	public Integer getCustomerId() {
+		return customerId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
 	}
 
 	public String getEmail() {

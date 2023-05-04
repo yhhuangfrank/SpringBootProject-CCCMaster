@@ -79,7 +79,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 	@Override
 	public List<ShoppingCartBean> findByCid(Customer c, ShoppingCartBean sc) {
-		return scDao.findByCid(sc.getCbShoppingCart().getId());
+		return scDao.findByCid(sc.getCbShoppingCart().getCustomerId());
 	}
 
 
