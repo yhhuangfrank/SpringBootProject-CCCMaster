@@ -45,13 +45,6 @@ public class Customer {
 	@Column(name = "start_date", columnDefinition = "datetime")
 	private Date startDate;
 	
-	@PrePersist	//建立該筆資料時自動產生當天日期
-	public void startDate() {
-		if(startDate == null) {
-			startDate = new Date();
-		}
-	}
-	
 	@Column(name = "name", columnDefinition = "nvarchar(15)")
 	private String name;
 	
@@ -64,6 +57,18 @@ public class Customer {
 	@Column(name = "abandon_count")
 	private Integer abandonCount;
 	
+	@PrePersist	//建立該筆資料時自動產生當天日期，以及把點數、棄標次數設為0
+	public void onCreate() {
+		if(startDate == null) {
+			startDate = new Date();
+		}
+		if(point == null) {
+			point=0;
+		}
+		if(abandonCount == null) {
+			abandonCount = 0;
+		}
+	}
 //	@PrePersist	//建立該筆資料時將棄標次數設為0
 //	public void initialPoint() {
 //		if(abandonCount == null) {

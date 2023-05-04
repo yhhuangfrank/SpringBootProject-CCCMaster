@@ -70,7 +70,7 @@
                       <div class="row mb-3">
                         <label for="email" class="col-sm-2 col-form-label">電子郵件</label>
                         <div class="col-sm-10">
-                          <form:input required="true" path="email" id="email" type="text" class="form-control"/>
+                          <form:input required="true" path="email" id="email" type="email" class="form-control"/>
                         </div>
                       </div>
                       <div class="row mb-3">
