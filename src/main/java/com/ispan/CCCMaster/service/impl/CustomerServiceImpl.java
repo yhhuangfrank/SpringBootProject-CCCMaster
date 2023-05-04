@@ -28,5 +28,10 @@ public class CustomerServiceImpl implements CustomerService {
 		Page<Customer> page = ctmRepository.findAll(pgb);
 		return page;
 	}
+	
+	@Override
+	public void deleteById(Integer id) {
+		ctmRepository.deleteById(id);
+	}
 
 }

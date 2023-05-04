@@ -10,4 +10,6 @@ public interface CustomerService {
 
 	Page<Customer> findByPage(Integer pageNumber);
 
+	void deleteById(Integer id);
+
 }
