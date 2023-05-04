@@ -37,8 +37,13 @@ public class Article {
     @Column(name = "added", columnDefinition = "datetime")
     private Date added;
 
+
+
+
     @Column(name = "like_count")
     private Integer likeCount;
+
+
 
     public void onCreated() {
         if(added == null) {

@@ -65,7 +65,7 @@
               <div class="col-sm-10">
                 <form:input type="text" path="title" class="form-control" id="inputTitle"></form:input>
                 <br>
-                <form:textarea cssStyle="width: 610px;height: 300px"  type="text" path="content"  id="content"></form:textarea>
+<%--                <form:textarea cssStyle="width: 610px;height: 300px"  type="text" path="content"  id="content"></form:textarea>--%>
               </div>
 
               </div>
@@ -77,10 +77,10 @@
 
 
               <!-- Quill Editor Full -->
-<%--              <div class="quill-editor-full">--%>
+              <div class="quill-editor-full">
 
-<%--              <form:textarea  type="text" path="content"  id="content"></form:textarea>--%>
-<%--              </div>--%>
+              <form:textarea  type="text" path="content"  id="content"></form:textarea>
+              </div>
 
 
 
