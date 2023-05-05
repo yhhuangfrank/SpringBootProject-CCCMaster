@@ -7,6 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ispan.CCCMaster.model.bean.order.OrderBean;
 import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;
+import com.ispan.CCCMaster.model.bean.product.Product;
+import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
 
 public interface OrderService {
 
@@ -22,6 +24,14 @@ public interface OrderService {
 	//更改訂單資料
 	void updateById(OrderBean orderBean) throws IOException;
 	
-	void createOrder(OrderBean orderBean,OrderDetailBean orderDetailBean);
+	//創立訂單
+	void createOrder(OrderBean order) throws IOException;
+	
+	//依照訂單找尋各自的訂單詳細資料
+	List<OrderDetailBean> findorderdetailbyOId(String orderid);
+	
+//	String ecpayCheckout();
+	
+//	String ecpaylog();
 
 }

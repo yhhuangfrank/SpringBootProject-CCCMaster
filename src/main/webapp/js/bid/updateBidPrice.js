@@ -17,22 +17,23 @@ updateBidPriceBtn.addEventListener("click", async () => {
     }
 
     bidPriceInput.value = "" // 清空 input
-    currentBidPrice.textContent = "" + bidPriceInputValue // 更新頁面顯示
-
-    const config = {
-        method: "PUT",
-        url: BASE_URL + `/${updateBidPriceBtn.dataset.id}`,
-        params: {bidPrice: bidPriceInputValue}
+    const {bidproduct_id, currentuser_id} = updateBidPriceBtn.dataset
+    const data = {
+        bidPrice: bidPriceInputValue,
+        customerId: currentuser_id
     }
+
     // 送出 api 請求
     try {
-        const response = await axios(config)
-        if (response.status === 200) {
-            showMessage("出價成功!", false)
+        const response = await axios.put(`${BASE_URL}/${bidproduct_id}`, data)
+        if (response.status !== 200) {
+            return  showMessage("出價失敗!", true)
         }
+        showMessage("出價成功!", false)
+        currentBidPrice.textContent = "" + bidPriceInputValue // 更新頁面顯示
     } catch (error) {
         console.log(error)
-        showMessage("發生錯誤，出價成功失敗!", false)
+        showMessage("發生錯誤，出價失敗!", true)
     }
 
 })

@@ -2,13 +2,12 @@ package com.ispan.CCCMaster.service.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ispan.CCCMaster.model.bean.bid.Category;
+import com.ispan.CCCMaster.model.bean.category.Category;
 import com.ispan.CCCMaster.model.bean.product.Product;
 import com.ispan.CCCMaster.model.bean.product.ProductImg;
 import com.ispan.CCCMaster.model.dao.CategoryDao;
 import com.ispan.CCCMaster.model.dao.ProductDao;
 
-import com.ispan.CCCMaster.model.dao.ProductImgDao;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -17,6 +16,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -41,8 +41,7 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
     private ProductDao productDao;
     @Autowired
     private CategoryDao categoryDao;
-    @Autowired
-    private ProductImgDao productImgDao;
+
 
     @Value("${chatgptApiKey}")
     private String apiKey;

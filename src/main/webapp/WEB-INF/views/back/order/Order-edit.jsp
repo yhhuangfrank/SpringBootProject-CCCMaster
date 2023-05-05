@@ -36,7 +36,7 @@
   <main id="main" class="main">
               <h1 class="card-title fs-1">訂單詳細資料</h1>
 
-              <form:form method="put" modelAttribute="singleorder" action="${contextRoot}/orders/edit">
+              <form:form method="put" modelAttribute="singleorder" action="${contextRoot}/admin/orders/edit">
                 <div class="row mb-3">
                   <label for="inputorderid" class="col-sm-2 col-form-label">訂單編號</label>
                   <div class="col-sm-10 fs-5">
@@ -106,13 +106,13 @@
 		                  </tr>
 		                </thead>
 		                <tbody>
-		                <c:forEach var="osd" items="${orderdetails}">
-		                  <tr>
+		                <c:forEach var="od" items="${orderdetails}">
+		                  <tr>		                  
 		                    <th scope="row">1</th>
-		                    <td>${osd.pOrderDetail.productId}</td>
-		                    <td>${osd.pOrderDetail.productName}</td>
-		                    <td>${osd.quantity}</td>
-		                    <td>${osd.unitprice}</td>
+		                    <td>${od.pOrderDetail.productId}</td>
+		                    <td>${od.pOrderDetail.productName}</td>
+		                    <td>${od.quantity}</td>
+		                    <td>${od.unitprice}</td>
 		                  </tr>
 		                  </c:forEach>
 		                </tbody>

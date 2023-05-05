@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,12 +40,19 @@ public class Employee {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "position_id")
-	private Position positions;
+	private Position positionId;
 	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@Column(name = "hire_date", columnDefinition = "date")
 	private Date hireDate;
+	
+	@PrePersist	//建立該筆資料時自動產生當天日期
+	public void onCreate() {
+		if(hireDate == null) {
+			hireDate = new Date();
+		}
+	}
 
 	public Employee() {
 	}
@@ -89,12 +97,12 @@ public class Employee {
 		this.password = password;
 	}
 
-	public Position getPositions() {
-		return positions;
+	public Position getPositionId() {
+		return positionId;
 	}
 
-	public void setPositions(Position positions) {
-		this.positions = positions;
+	public void setPositionId(Position positionId) {
+		this.positionId = positionId;
 	}
 
 	public Date getHireDate() {

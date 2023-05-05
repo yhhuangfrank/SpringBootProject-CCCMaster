@@ -34,10 +34,20 @@
   <jsp:include page="../layouts/header.jsp"/>
 
   <main id="main" class="main">
-  <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">訂單列表</h5>
-              <table class="table" style="text-align: center;">
+    <div class="pagetitle">
+      <h1>訂單列表</h1>
+      <nav>
+          <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="${contextRoot}/">首頁</a></li>
+              <li class="breadcrumb-item">訂單管理</li>
+              <li class="breadcrumb-item active">訂單列表</li>
+          </ol>
+      </nav>
+  </div>
+  <section class="section">
+    <div class="row align-items-top">
+        <div class="col-lg-10 mx-auto">
+              <table class="table datatable">
                 <thead>
                   <tr>
                     <th scope="col">訂單編號</th>
@@ -50,28 +60,28 @@
                   </tr>
                 </thead>
                 <tbody>
-                 <c:forEach var="order" items="${allorders}">
-                 	<c:forEach var="od" items="${orderdetails}">
-                  <tr>
-                    <td style="vertical-align:middle">${order.orderid}</td>
-                    <td style="vertical-align:middle">${order.cbOrder.name}</td>
-                    <td style="vertical-align:middle">${order.orderdate}</td>
-                    <td style="vertical-align:middle">${order.ordercondition}</td>
-                    <td style="vertical-align:middle">${order.paymentcondition}</td>
-                    <td style="vertical-align:middle">${od.unitprice*od.quantity}</td>
-                    <td >
-                    	<form action="${contextRoot}/orders/editorder" style="margin:auto 0px">
-	                    	<input type="hidden" name="id" value="${order.orderid}"/>
-	                        <input type="submit" class="btn btn-outline-info btn-sm" value="編輯"/>
-                    	</form>
-                    </td>
-                  </tr>
-                  </c:forEach>
-                  </c:forEach>
-                </tbody>
+                  <c:forEach var="order" items="${allorders}">
+                   <tr>
+                     <td style="vertical-align:middle">${order.orderid}</td>
+                     <td style="vertical-align:middle">${order.cbOrder.name}</td>
+                     <td style="vertical-align:middle">${order.orderdate}</td>
+                     <td style="vertical-align:middle">${order.ordercondition}</td>
+                     <td style="vertical-align:middle">${order.paymentcondition}</td>
+                     <td style="vertical-align:middle">${order.totalamount}</td>
+                     <td >
+                       <form action="${contextRoot}/admin/orders/editorder" style="margin:auto 0px">
+                         <input type="hidden" name="id" value="${order.orderid}"/>
+                           <input type="submit" class="btn btn-outline-info btn-sm" value="編輯"/>
+                       </form>
+                     </td>
+                   </tr>
+                   </c:forEach>
+                 </tbody>
               </table>
+              <!-- End Table with stripped rows -->
             </div>
           </div>
+  </section>
   </main>
 
   <jsp:include page="../layouts/aside.jsp"/>

@@ -59,11 +59,11 @@
       <h2>購物車</h2>
 
     </div>
-  </section><!-- End Breadcrumbs -->  
-	 <section id="blog" class="blog">
+  </section><!-- End Breadcrumbs -->
+   <form:form method="post" modelAttribute="orderBean" action="${contextRoot}/front/orders/create">
+	<section id="blog" class="blog">
       <div class="container" data-aos="fade-up">
         <div class="row">
-          <div class="col-lg-8 entries">
             <div class="entry entry-single">
 				<table class="table">
                 <thead>
@@ -78,59 +78,85 @@
                 <tbody>
                 <c:forEach var="sc" items="${shoppingcart}" varStatus="status"> 
                   <tr valign="middle">
-                    <th scope="row"></th>
+                    <th scope="row">
+                    </th>
                     <td>
                     	${sc.productBean.productName}
+                    	                  	
                     </td>
                     <td>
-                    	${sc.quantity}
+                    	<input value="${sc.quantity}" type="hidden" id="quantity${status.count}">
+                    	${sc.quantity} 
                     </td>
-                    <td>${sc.productBean.price}</td>
                     <td>
-                      ${sc.quantity*sc.productBean.price}
+                    	<input value="${sc.productBean.price}" type="hidden" id="price${status.count}">
+                    	${sc.productBean.price}           
+                    </td>
+                    <td>
+                    	<input value="${sc.quantity*sc.productBean.price}" type="hidden" id="total${status.count}" class="countstotal"/>
+                    	${sc.quantity*sc.productBean.price}                   
                     </td>       
                   </tr>
                   	</c:forEach>                  
                 </tbody>
               </table>
+              	
+	              
+	            </div>
             </div>
-          </div>
-          <div class="col-lg-8 entries">
             <div class="entry entry-single">
               <h5>優惠方式</h5>
-              	<ul>
-              		<div class="form-check">
+              	<div class="form-check">
               			<input class="form-check-input" type="checkbox">
-              			<label class="form-check-label" for="gridCheck1">
+              			<label class="form-check-label" for="gridCheck1" for="points">
               				使用點數              	
             			</label>
-            			<input type="number">
+            			<div class="col col-lg-2">
+            				<input type="text" id="points" class="form-control col-sm-4"></input>
+            			</div>
             		</div>
-              		<div class="form-check">
-              			<input class="form-check-input" type="checkbox">
-              			<label class="form-check-label" for="gridCheck1">
-              				使用優惠券              	
-            			</label>
-            		</div>
-              	</ul>
-            	
+              			<div class="form-check">
+	              			<input class="form-check-input" type="checkbox">
+	              			<label class="form-check-label" for="gridCheck1">
+	              				使用優惠券              	
+	            			</label>
+            			</div>          	
             </div>
-          </div>
-          <div class="col-lg-8 entries">
             <div class="entry entry-single">
 				<h5>運送方式</h5>
+					<div class="form-check">
+					 <form:radiobutton class="form-check-input" path="payment" id="gridRadios4" value="超商取貨" required="required"/>
+                      <label class="form-check-label" for="gridRadios1">
+                        超商取貨
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <form:radiobutton class="form-check-input" path="payment" id="gridRadios3" value="宅配到家" />
+                      <label class="form-check-label" for="gridRadios2">
+                        宅配到家
+                      </label>
+                    </div>
             </div>
-          </div>
-          <div class="col-lg-8 entries">
             <div class="entry entry-single">
 				<h5>付款方式</h5>
+					<div class="form-check">
+					 <form:radiobutton class="form-check-input" path="shipper" id="gridRadios2" value="貨到付款" required="required"/>
+                      <label class="form-check-label" for="gridRadios3">
+                        貨到付款
+                      </label>
+                    </div>
+                    <div class="form-check">
+                     <form:radiobutton class="form-check-input" path="shipper" id="gridRadios1" value="信用卡"/>
+                      <label class="form-check-label" for="gridRadios4">
+                        信用卡
+                      </label>
+                    </div>
             </div>
-          </div>
-        </div>
-      </div>   
+         		<button type="submit" class="btn btn-primary" >資料填寫</button>
+
+        </div> 
     </section><!-- End Blog Single Section -->
-
-
+    </form:form>
 </main><!-- End #main -->
 
 <jsp:include page="../layouts/footer.jsp"/>
@@ -148,87 +174,8 @@
 <!-- Template Main JS File -->
 <script src="${contextRoot}/styles/front/assets/js/main.js"></script>
 <script>
-  let totalamount = 0;
-  let counttotal = document.getElementsByClassName("countstotal");
-  for(let i=0;i<counttotal.length;i++){
-    totalamount += parseInt(counttotal[i].value,10)
-  }
-  document.getElementById('totalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-  if(totalamount<1000 && totalamount>0){
-      document.getElementById('freight').innerHTML = "30";
-      totalamount = totalamount + 30;
-      document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-    }else{
-      document.getElementById('freight').innerHTML = 0;
-      document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-    }
-    
-  //數量-1
-  function dec(count){
-    let valueInput = document.getElementById('quantity'+count);
-    let qua = document.getElementById('price'+count);
-    var totde = document.getElementById('total'+count)
-    let values = parseInt(valueInput.value)
-    if(values>1){
-      valueInput.value=values - 1;
-      totde.value=qua.value*valueInput.value;
-      totde.innerText='totde.value'
-      let totalamount = 0;
-     let counttotal = document.getElementsByClassName("countstotal");
-     for(let i=0;i<counttotal.length;i++){
-    totalamount += parseInt(counttotal[i].value,10)
-   }
-    document.getElementById('totalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-    if(totalamount<1000 && totalamount>0){
-      document.getElementById('freight').innerHTML = "30";
-      totalamount += 30;
-      document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-    }else{
-      document.getElementById('freight').innerHTML = 0;
-      document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-    }
-    }
-  }
-  
-  //數量+1
-  function inc(count){
-    let valueInput = document.getElementById('quantity'+count);
-    let qua = document.getElementById('price'+count);
-    var totinc = document.getElementById('total'+count)
-    let max = parseInt(valueInput.getAttribute('data-max'),10)
-    let values = parseInt(valueInput.value)
-    if(values<max){
-      valueInput.value=values + 1;
-      totinc.value=qua.value*valueInput.value;
-      document.getElementById("")
-      let totalamount = 0;
-    let counttotal = document.getElementsByClassName("countstotal");
-    for(let i=0;i<counttotal.length;i++){
-      totalamount += parseInt(counttotal[i].value,10)
-    }
-  document.getElementById('totalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-  if(totalamount<1000 && totalamount>0){
-      document.getElementById('freight').innerHTML = "30";
-      totalamount += 30;
-      document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-    }else{
-      document.getElementById('freight').innerHTML = 0;
-      document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-    }    
-    }  
-  } 
-  //數量欄位檢查
-  function check(event){
-    const max = parseInt(input.getAttribute('data-max'),10)
-    let values = parseInt(input.value,10);
-    if(isNaN(values) || values < 1){
-      values = 1;
-    }
-    if(values > max){
-      values = max;
-    }
-    input.value=values;
-  }
+
+
   
 </script>
 

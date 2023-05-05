@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="en">
 
 <head>
@@ -90,7 +91,8 @@
                     <div class="portfolio-info">
                         <%--待設定只有登入的賣家能編輯自己的商品判斷--%>
                         <h3>商品詳情
-                            <a href="${contextRoot}/bidProducts/${bidProduct.id}/edit" class="btn btn-outline-info">修改</a>
+                            <a href="${contextRoot}/bidProducts/${bidProduct.id}/edit"
+                               class="btn btn-outline-info">修改</a>
                         </h3>
                         <ul>
                             <li>
@@ -103,13 +105,13 @@
                             </li>
                             <li>
                                 <strong class="fs-6 badge bg-secondary text-white">起始時間</strong>
-                                <span class="fs-6 ms-2" id="createdAt">${bidProduct.createdAt}</span>
+                                <span class="fs-6 ms-2" id="createdAt"><fmt:formatDate value="${bidProduct.createdAt}" pattern="yyyy-MM-dd HH:mm"/></span>
                             </li>
                             <li>
                                 <strong class="fs-6 badge bg-secondary text-white">結束時間</strong>
                                 <c:choose>
                                     <c:when test="${bidProduct.expiredAt != null}">
-                                        <span class="fs-6 ms-2" id="expiredAt">${bidProduct.expiredAt}</span>
+                                        <span class="fs-6 ms-2" id="expiredAt"><fmt:formatDate value="${bidProduct.expiredAt}" pattern="yyyy-MM-dd HH:mm"/></span>
                                     </c:when>
                                     <c:otherwise>
                                         <span class="fs-6 ms-2">目前暫無</span>
@@ -140,15 +142,15 @@
                             <c:if test="${bidProduct.expiredAt != null}">
                                 <h2 class="">距離截止還有</h2>
                                 <div id="countDownArea" class="badge bg-dark text-white fs-6">
-                                    <span class="day"></span>
-                                    <span class="hour"></span>
-                                    <span class="minute"></span>
-                                    <span class="second"></span>
+                                    <%--顯示倒數計時前先顯示loading--%>
+                                    <div class="spinner-border text-white" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
                                 </div>
                             </c:if>
                         </div>
                         <div class="card mt-3">
-                            <div class="card-header fw-bold">賣家: 某某某</div>
+                            <div class="card-header fw-bold">賣家: ${bidProduct.customer.name}</div>
                             <div class="card-body">
                                 <h5 class="card-title">關於此商品</h5>
                                 <c:choose>
@@ -187,7 +189,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">返回</button>
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="updateBidPriceBtn"
-                        data-id="${bidProduct.id}" style="background-color: #e96b56">送出
+                        data-bidproduct_id="${bidProduct.id}" data-currentuser_id="2" style="background-color: #e96b56">送出
                 </button>
             </div>
         </div>

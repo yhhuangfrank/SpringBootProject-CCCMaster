@@ -63,7 +63,7 @@
                       <div class="row mb-3">
                         <label for="positionId" class="col-sm-2 col-form-label">職位編號</label>
                         <div class="col-sm-10">
-                          <form:input required="true" path="positionId" id="positionId" type="number" class="form-control" placeholder="只能填入數字" min="0" max="9999"/>
+                          <form:input required="true" path="positionId" id="positionId" type="number" class="form-control" placeholder="只能填入數字" min="1" max="9999"/>
                         </div>
                       </div>
                       <div class="row mb-3">

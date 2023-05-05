@@ -78,6 +78,9 @@
                                             <c:if test="${error.field.equals('description')}">
                                                 <form:errors path="description"/>
                                             </c:if>
+                                            <c:if test="${error.field.equals('endDate')}">
+                                                <form:errors path="endDate"/>
+                                            </c:if>
                                         </code>
                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>
@@ -155,5 +158,6 @@
 <script src="${contextRoot}/styles/front/assets/js/main.js"></script>
 <%-- 自訂 js --%>
 <script src="${contextRoot}/js/bid/fileSizeValidation.js"></script>
+<script src="${contextRoot}/js/bid/dateSetting.js"></script>
 </body>
 </html>

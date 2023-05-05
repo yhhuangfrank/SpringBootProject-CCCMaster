@@ -35,6 +35,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		Optional<Product> pOption= pDao.findById(productId);
 		Product p = pOption.get();
 		sc.setProductBean(p);
+		sc.setUnitprice(p.getPrice());
 		//取ShoppingCartID
 		Date date = new Date();
 		String dateString = String.valueOf(date.getTime());
@@ -78,8 +79,20 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 	@Override
 	public List<ShoppingCartBean> findByCid(Customer c, ShoppingCartBean sc) {
-		return scDao.findByCid(sc.getCbShoppingCart().getId());
+		return scDao.findByCid(sc.getCbShoppingCart().getCustomerId());
 	}
+
+	//刪除購物車
+	@Override
+	public void deleteAll() {
+		scDao.deleteAll();
+	}
+
+//	//依照cid刪除各自的購物車
+//	@Override
+//	public void deletescByCId(Integer id) {
+//		scDao.deleteByCid(id);		
+//	}
 
 
 

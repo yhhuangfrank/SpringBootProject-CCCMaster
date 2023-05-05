@@ -1,21 +1,10 @@
 package com.ispan.CCCMaster.model.bean.customer;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
+import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.ispan.CCCMaster.model.bean.RecipientInfo.RecipientInfoBean;
@@ -31,7 +20,7 @@ public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "customer_id")
-	private Integer id;
+	private Integer customerId;
 	
 	@Column(name = "email", columnDefinition = "varchar(50)")
 	private String email;
@@ -55,7 +44,31 @@ public class Customer {
 	
 	@Column(name = "abandon_count")
 	private Integer abandonCount;
-	
+
+	// 二手商品關聯 by Frank
+	@Transient
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
+	private List<BidProduct> bidProductList;
+
+	@PrePersist	//建立該筆資料時自動產生當天日期，以及把點數、棄標次數設為0
+	public void onCreate() {
+		if(startDate == null) {
+			startDate = new Date();
+		}
+		if(point == null) {
+			point=0;
+		}
+		if(abandonCount == null) {
+			abandonCount = 0;
+		}
+	}
+//	@PrePersist	//建立該筆資料時將棄標次數設為0
+//	public void initialPoint() {
+//		if(abandonCount == null) {
+//			abandonCount = 0;
+//		}
+//	}
+
 	@OneToMany(mappedBy = "customers", cascade = CascadeType.ALL)
 	private Set<CustomerCoupon> customerCoupons = new HashSet<>();
 	
@@ -75,12 +88,12 @@ public class Customer {
 	public Customer() {
 	}
 
-	public Integer getId() {
-		return id;
+	public Integer getCustomerId() {
+		return customerId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
 	}
 
 	public String getEmail() {
@@ -138,7 +151,24 @@ public class Customer {
 	public void setAbandonCount(Integer abandonCount) {
 		this.abandonCount = abandonCount;
 	}
-	
+
+	// bidProduct getter & setter
+	public List<BidProduct> getBidProductList() {
+		return bidProductList;
+	}
+
+	public void setBidProductList(List<BidProduct> bidProductList) {
+		this.bidProductList = bidProductList;
+	}
+
+	// private 方法 - 新增 bidProduct
+	private void addBidProduct(BidProduct bidProduct) {
+		if (bidProductList == null) {
+            bidProductList = new ArrayList<>();
+        }
+        bidProductList.add(bidProduct);
+	}
+
 	//對收件地址(超商):一對多  by瑛仁
 	@OneToMany(mappedBy="cbStoreRecipientInfo")
 	Set<StoreRecipientInfoBean> setcsri = new HashSet<>();

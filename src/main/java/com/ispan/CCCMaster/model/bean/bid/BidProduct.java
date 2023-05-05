@@ -1,5 +1,7 @@
 package com.ispan.CCCMaster.model.bean.bid;
 
+import com.ispan.CCCMaster.model.bean.category.Category;
+import com.ispan.CCCMaster.model.bean.customer.Customer;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.ispan.CCCMaster.model.bean.order.BidOrderBean;
@@ -34,9 +36,9 @@ public class BidProduct {
     @Column(name = "image", columnDefinition = "varchar(max)", nullable = false)
     private String image;
 
-//    @ManyToOne
-//    @JoinColumn(name = "customer_id", nullable = false, foreignKey = @ForeignKey(name = "BidProductBelongsToCustomer"))
-//    private Customers customers;
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false, foreignKey = @ForeignKey(name = "BidProductBelongsToCustomer"))
+    private Customer customer;
 
     @Temporal(TemporalType.TIMESTAMP) // 指定 DB 中時間精度
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 使用此格式在 Java 中解析日期
@@ -111,13 +113,13 @@ public class BidProduct {
         this.image = image;
     }
 
-//    public Customers getCustomers() {
-//        return customers;
-//    }
+    public Customer getCustomer() {
+        return customer;
+    }
 
-//    public void setCustomers(Customers customers) {
-//        this.customers = customers;
-//    }
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 
     public Date getCreatedAt() {
         return createdAt;

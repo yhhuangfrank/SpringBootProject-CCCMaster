@@ -68,5 +68,9 @@ public class OrderDetailBean implements Serializable {
 		this.pOrderDetail = pOrderDetail;
 	}
 
+	public void setOrderBean(OrderBean orderBean) {
+		this.orderBean = orderBean;
+	}
+
 
 }
