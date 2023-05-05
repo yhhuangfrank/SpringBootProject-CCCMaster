@@ -1,6 +1,7 @@
 package com.ispan.CCCMaster.api;
 
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
+import com.ispan.CCCMaster.model.bean.bid.DealRecord;
 import com.ispan.CCCMaster.model.dto.BidProductQueryParams;
 import com.ispan.CCCMaster.model.dto.BidRecordRequest;
 import com.ispan.CCCMaster.service.BidProductService;
@@ -67,8 +68,8 @@ public class BidProductApi {
     }
 
     @PostMapping("/bidProducts/{id}/dealRecords")
-    public void createDealRecord(@PathVariable Integer id) {
-        dealRecordService.createDealRecord(id);
+    public DealRecord createDealRecord(@PathVariable Integer id) {
+        return dealRecordService.createDealRecord(id);
     }
 
 }

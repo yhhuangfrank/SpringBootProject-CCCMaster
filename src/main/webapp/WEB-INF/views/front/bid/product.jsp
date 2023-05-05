@@ -189,7 +189,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">返回</button>
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="updateBidPriceBtn"
-                        data-bidproduct_id="${bidProduct.id}" data-currentuser_id="2" style="background-color: #e96b56">送出
+                        data-bidproduct_id="${bidProduct.id}" data-currentuser_id="1" style="background-color: #e96b56">送出
                 </button>
             </div>
         </div>
