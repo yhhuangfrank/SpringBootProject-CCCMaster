@@ -38,11 +38,14 @@ public class ServiceFromServiceImpl implements com.ispan.CCCMaster.service.Servi
     }
 
     public Page<ReportForm2Model> findByPage(Integer pageNumber){
-    	Pageable pgb = PageRequest.of(pageNumber-1, 3, Sort.Direction.DESC,"createtime");
+    	Pageable pgb = PageRequest.of(pageNumber-1, 5, Sort.Direction.DESC,"createtime");
     	Page<ReportForm2Model> page = serviceFromDao.findAll(pgb);
     	return page;
     }
-    
+
+	public ReportForm2Model getLatest() {
+		return serviceFromDao.findFirstByOrderByCreatetimeDesc();
+	}
 
 
 }

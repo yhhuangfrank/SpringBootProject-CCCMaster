@@ -6,7 +6,7 @@
       <div class="container d-flex justify-content-between align-items-center">
 
         <div class="logo">
-          <h1><a href="index.html">Eterna</a></h1>
+          <h1 style="font-family:Cursive;font-size:50px;"><a href="${contextRoot}/">山西達人</a></h1>
           <!-- Uncomment below if you prefer to use an image logo -->
           <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
         </div>
@@ -39,7 +39,12 @@
               </ul>
             </li>
             <li><a href="team.html">論壇</a></li>
-            <li><a href="pricing.html">聯絡客服</a></li>
+           <li class="dropdown"><a href="#"><span>聯絡客服</span></a>
+              <ul>
+                <li><a href="${contextRoot}/Service/common">常見問題</a></li>
+                <li><a href="${contextRoot}/service/from/create">表單回報問答中心</a></li>
+              </ul>
+            </li>
             <li><a href="blog.html">會員中心</a></li>
             <li><a href="${contextRoot}/front/shoppingcart">購物車</a></li>
             <li><a href="index.html">註冊</a></li>
