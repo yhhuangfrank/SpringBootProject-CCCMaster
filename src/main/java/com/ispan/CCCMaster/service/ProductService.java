@@ -33,4 +33,7 @@ public interface ProductService {
 
 
     void productViews(Integer id);
+
+
+    String generateDescription(String productName, String features, String target);
 }
