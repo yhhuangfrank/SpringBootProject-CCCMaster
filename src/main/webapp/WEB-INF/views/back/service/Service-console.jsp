@@ -171,7 +171,7 @@
                 border: 2px blue solid;
                 height: 80%;
                 width: 100%;
-                display: flex;
+                padding:0%;
               }
 
               .felx-container-right {
@@ -229,15 +229,11 @@
                 top: 84%;
               }
 
-              .btn {
-
-                background-color: #003C9D;
-                color: #fff;
-                border-radius: 10px;
-                cursor: pointer;
+              #btn {
+                right: 0%;
               }
 
-              .btn:hover {
+              #btn:hover {
                 background-color: teal;
               }
             </style>
@@ -253,7 +249,7 @@
                 <h1 class="service-title">客服操作平台</h1>
               </div>
               <!-- 橫向並排div -->
-              <div class="felx-container" >
+              <div class="felx-container">
                 <!-- 並排div left -->
                 <div class="felx-container-left">
                   <!-- 工作資料1-1 -->
@@ -327,15 +323,16 @@
                     <div class="felx-container-center-down-down">
                       <form:form class="form-control" modelAttribute="messages" method="post"
                         action="${contextRoot}/messages/post">
-                        <form:textarea path="content" class="form-control" id="" cols="30" rows="10" ></form:textarea>
-
-                        <form:input type="text" path="chatroomid" class="form-control" id="inputName" ></form:input>
-                        <form:input type="text" path="initiator" class="form-control" id="inputName" ></form:input>
 
 
-
-                        <div class="btndiv">
-                          <button type="submit" class="btn">送出</button>
+                        <div class="form-floating mb-3">
+                          <form:textarea class="form-control"
+                              placeholder="Leave a comment here" id="floatingTextarea"
+                              style="height: 100px;" path="content" maxlength="50"></form:textarea>
+                          <label for="floatingTextarea"></label>
+                      </div>
+                        <div class="col-sm-10" style="text-align: right;margin:auto;float:right;">
+                          <button type="submit" class="btn btn-primary" id="btn">送出</button>
                         </div>
                       </form:form>
                     </div>

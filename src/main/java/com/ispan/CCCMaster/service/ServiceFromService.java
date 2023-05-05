@@ -14,4 +14,6 @@ public interface ServiceFromService {
 	
 	Page<ReportForm2Model> findByPage(Integer pageNumber);
 	
+	ReportForm2Model getLatest();
+	
 }
