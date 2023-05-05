@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%-- <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> --%>
+
 <html lang="en">
 
 <head>
@@ -47,6 +49,36 @@
 <!-- Template Main CSS File -->
 <link href="${contextRoot}/styles/front/assets/css/style.css"
 	rel="stylesheet">
+	
+	
+	
+	
+	<style>
+		.form-login {
+	      background-color: #ffffff;
+	      border-radius: 10px;
+	      padding: 40px;
+	      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+	    }
+	    
+	    .form-control:focus {
+	      border-color: #e96b56;
+	      box-shadow: 0 0 0 0.2rem rgba(233, 107, 86, 0.25);
+	    }
+	    
+	    button[type=submit] {
+		  background: #e96b56;
+		  border: 0;
+		  border-radius: 50px;
+		  padding: 10px 24px;
+		  color: #fff;
+		  transition: 0.4s;
+		}
+		
+		button[type=submit]:hover {
+		  background: #e6573f;
+		}
+	</style>
 </head>
 
 <body>
@@ -71,26 +103,26 @@
 		</section>
 		<!-- End Breadcrumbs -->
 
-		<!-- ======= Contact Section ======= -->
+
 		<section id="contact" class="contact">
 			<div class="container">
 				<div class="row justify-content-center">
 					<div class="col-md-4">
-						<form action="forms/contact.php" method="post" role="form" class="php-email-form">
+						<form:form modelAttribute="customer" action="${contextRoot}/login" method="post" class="form-login">
 							<h3 class="text-center mb-4">歡迎登入山西達人</h3>
-
+				
 							<div class="form-group">
 								<label for="username">帳號</label>
-								<input type="text" class="form-control" id="username" placeholder="輸入帳號">
+								<form:input required="true" path="email" type="text" class="form-control" id="email" placeholder="輸入帳號"/>
 							</div>
 							<div class="form-group">
 								<label for="password">密碼</label>
-								<input type="password" class="form-control" id="password" placeholder="輸入密碼">
+								<form:input required="true" path="password" type="password" class="form-control" id="password" placeholder="輸入密碼"/>
 							</div>
 							<div class="text-center">
-								<button type="submit" class="mt-4">登入</button>
+								<button type="submit" class="btn-primary mt-4">登入</button>
 							</div>
-						</form>
+						</form:form>
 						<div class="text-center mt-4">
 							<a href="#">忘記密碼</a> <span class="mx-2">|</span> <a href="#">註冊帳號</a>
 						</div>
@@ -98,8 +130,10 @@
 				</div>
 			</div>
 		</section>
-		<!-- End Contact Section -->
-
+			
+			
+			
+			
 	</main>
 
 	<jsp:include page="../layouts/footer.jsp" />
