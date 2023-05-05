@@ -77,12 +77,21 @@
             <form:input type="text" path="price" class="form-control" id="inputPrice"></form:input>
         </div>
     </div>
-    <div class="row mb-3">
-        <label class="col-sm-2 col-form-label">File Upload</label>
-        <div class="col-sm-10">
-            <form:input class="form-control" type="file" id="formFile" path="imageFile"></form:input>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">上傳主要圖片</label>
+            <div class="col-sm-10">
+                <form:input class="form-control" type="file" id="formFile" path="mainImageFile"
+                            accept="image/*"></form:input>
+            </div>
         </div>
-    </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">上傳次要圖片</label>
+            <div class="col-sm-10">
+                <form:input class="form-control" type="file" id="formFile" path="imageFile" multiple="true"
+                            accept="image/*"></form:input>
+            </div>
+        </div>
         <div class="form-floating mb-3">
             <form:textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
                            style="height: 100px;" path="description"></form:textarea>
@@ -108,7 +117,7 @@
         </fieldset>
 
         <div class="row mb-3">
-            <label class="col-sm-2 col-form-label">Submit Button</label>
+            <label class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
                 <button type="submit" class="btn btn-primary">Submit Form</button>
             </div>

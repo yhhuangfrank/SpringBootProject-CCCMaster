@@ -136,8 +136,6 @@
                             <c:if test="${pageNumber != page.totalPages }">
                                 -
                             </c:if>
-
-
                         </c:forEach>
                     </div>
                 </div>

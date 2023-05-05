@@ -74,5 +74,12 @@ public class ProductsAdminController {
         return "redirect:/admin/products/showAllProduct";
     }
 
+    @ResponseBody
+    @GetMapping("/admin/products/generateDescription")
+    public String generateDescription(@RequestParam(name = "productName")String productName,@RequestParam(name = "features")String features,@RequestParam(name = "target")String target){
+        System.out.println("enter  generate Description");
+        return pService.generateDescription(productName,features,target);
+    }
+
 }
 
