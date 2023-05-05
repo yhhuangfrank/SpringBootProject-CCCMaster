@@ -14,6 +14,8 @@ function setCountDownTimer() {
 
     if (offset < 0) {
         clearInterval(timer)
+        bidPriceInput.setAttribute("disabled", true)
+        bidBtn.classList.add("disabled")
         return showBidCloseMessage("已截止")
     }
 
