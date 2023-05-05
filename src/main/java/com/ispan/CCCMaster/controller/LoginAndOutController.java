@@ -24,8 +24,11 @@ public class LoginAndOutController {
 	
 	@PostMapping("/login")	//打完帳號密碼，送出表單
 	public String login(@ModelAttribute("customer") Customer customer) {
-		lgService
-		return "redirect:/";	//回首頁	之後要改成回到上一個瀏覽畫面
+		if(lgService.login(customer)) {
+			return "redirect:/";	//回首頁	之後要改成回到上一個瀏覽畫面
+		} else {
+			return "redirect:/login";
+		}
 	}
 
 }
