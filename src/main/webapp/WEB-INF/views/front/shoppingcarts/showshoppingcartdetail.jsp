@@ -60,7 +60,6 @@
 
     </div>
   </section><!-- End Breadcrumbs -->
-   <form:form method="post" modelAttribute="orderBean" action="${contextRoot}/front/orders/create">
 	<section id="blog" class="blog">
       <div class="container" data-aos="fade-up">
         <div class="row">
@@ -81,29 +80,24 @@
                     <th scope="row">
                     </th>
                     <td>
-                    	${sc.productBean.productName}
-                    	                  	
+                    	${sc.productBean.productName}	                  	
                     </td>
                     <td>
-                    	<input value="${sc.quantity}" type="hidden" id="quantity${status.count}">
                     	${sc.quantity} 
                     </td>
                     <td>
-                    	<input value="${sc.productBean.price}" type="hidden" id="price${status.count}">
                     	${sc.productBean.price}           
                     </td>
                     <td>
-                    	<input value="${sc.quantity*sc.productBean.price}" type="hidden" id="total${status.count}" class="countstotal"/>
                     	${sc.quantity*sc.productBean.price}                   
                     </td>       
                   </tr>
                   	</c:forEach>                  
                 </tbody>
-              </table>
-              	
-	              
+              </table>          
 	            </div>
             </div>
+            <form:form method="PUT" modelAttribute="sc" action="${contextRoot}/front/shoppingcart/shoppingcartdetail">
             <div class="entry entry-single">
               <h5>優惠方式</h5>
               	<div class="form-check">
@@ -125,38 +119,52 @@
             <div class="entry entry-single">
 				<h5>運送方式</h5>
 					<div class="form-check">
-					 <form:radiobutton class="form-check-input" path="payment" id="gridRadios4" value="超商取貨" required="required"/>
-                      <label class="form-check-label" for="gridRadios1">
+					 <form:radiobutton class="form-check-input" path="scpayment" id="store" value="超商取貨" required="required" onclick="hiddenInput(event),okcash()"/>
+                      <label class="form-check-label" for="store">
                         超商取貨
                       </label>
                     </div>
                     <div class="form-check">
-                      <form:radiobutton class="form-check-input" path="payment" id="gridRadios3" value="宅配到家" />
-                      <label class="form-check-label" for="gridRadios2">
+                      <form:radiobutton class="form-check-input" path="scpayment" id="home" value="宅配到家" onclick="showInput(event),nocash()" />
+                      <label class="form-check-label" for="home">
                         宅配到家
                       </label>
+                      <div id="address" style="display: none;width: 400px">   
+                      	<div style="width: 300px">
+	                  		<label style="text-align:ceneter;float: left;width: 60px">收件人:</label>
+	                  		<form:input path="addressee" type="text" class="form-control"/>
+	                     </div>
+	                     <div style="width: 300px">
+	                  		<label style="text-align: ceneter;float: left;">地&nbsp;&nbsp;&nbsp;址:</label>
+	                  		<form:input path="shipperaddress" type="text" class="form-control"/>
+	                     </div>
+	                     <div style="width: 300px">
+	                  		<label style="text-align: ceneter;float: left;">電&nbsp;&nbsp;&nbsp;話:</label>
+	                  		<form:input path="telephone" type="text" class="form-control"/>
+	                     </div> 	
+                      </div>
                     </div>
             </div>
             <div class="entry entry-single">
 				<h5>付款方式</h5>
 					<div class="form-check">
-					 <form:radiobutton class="form-check-input" path="shipper" id="gridRadios2" value="貨到付款" required="required"/>
-                      <label class="form-check-label" for="gridRadios3">
+					 <form:radiobutton class="form-check-input" path="shipper" id="cash" required="required" value="貨到付款"/>
+                      <label class="form-check-label" for="cash">
                         貨到付款
                       </label>
                     </div>
                     <div class="form-check">
-                     <form:radiobutton class="form-check-input" path="shipper" id="gridRadios1" value="信用卡"/>
-                      <label class="form-check-label" for="gridRadios4">
+                     <form:radiobutton class="form-check-input" path="shipper" id="credit" value="信用卡"/>
+                      <label class="form-check-label" for="credit">
                         信用卡
                       </label>
                     </div>
             </div>
-         		<button type="submit" class="btn btn-primary" >資料填寫</button>
-
+         		<button type="submit" class="btn btn-primary" >確認資料</button>
+ 		</form:form>
         </div> 
     </section><!-- End Blog Single Section -->
-    </form:form>
+   
 </main><!-- End #main -->
 
 <jsp:include page="../layouts/footer.jsp"/>
@@ -174,7 +182,20 @@
 <!-- Template Main JS File -->
 <script src="${contextRoot}/styles/front/assets/js/main.js"></script>
 <script>
-
+	function showInput(event){
+	  let address = document.getElementById("address");
+	  address.style.display="block"
+	}
+	function hiddenInput(event){
+		let address = document.getElementById("address");
+		address.style.display="none"
+	}
+	function nocash() {
+		document.getElementById("cash").disabled = true;
+	}
+	function okcash() {
+		document.getElementById("cash").disabled = false;
+	}
 
   
 </script>

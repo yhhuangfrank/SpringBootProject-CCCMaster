@@ -56,8 +56,7 @@
       <h2>購物車</h2>
 
     </div>
-  </section><!-- End Breadcrumbs -->
-   
+  </section><!-- End Breadcrumbs --> 
 	 <section id="blog" class="blog">
       <div class="container" data-aos="fade-up">
         <div class="row">
@@ -75,11 +74,11 @@
                   </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="sc" items="${shoppingcart}" varStatus="status"> 
+                   <c:forEach var="sc" items="${shoppingcart}" varStatus="status">
                   <tr valign="middle" id="row${status.count}" data-id="${sc.shoppoingCartId}">
                     <th scope="row"></th>
                     <td>
-                    	<img src="${contextRoot}/products/showImage/${sc.productBean.productId}" alt="" width="60px" height="60px">
+                    	<img src="${contextRoot}/product/mainImage/${sc.productBean.productId}" alt="" width="60px" height="60px">
                     	${sc.productBean.productName}
                     </td>
 	                    <td>
@@ -102,7 +101,7 @@
                     	</form:form>
                     </td>             
                   </tr>
-                  	</c:forEach>                  
+                 </c:forEach>   	               
                 </tbody>
               </table>
             </div>
@@ -125,17 +124,17 @@
 				<div class="col-lg-9" style="text-align:right">
 					<span id="finalamount"></span>
 				</div>										
-						<div class="d-grid gap-2 mt-3">				
-							<button class="btn btn-danger" type="button">
-								<a href="${contextRoot}/front/shoppingcart/shoppingcartdetail" style="color: white;">結帳去</a>
-							</button>		
+						<div class="d-grid gap-2 mt-3">
+							<botton style="color: white;">
+		                        <a href="${contextRoot}/front/shoppingcart/shoppingcartdetail">結帳去</a>
+	                    	</botton>											
 						</div>					
 				</div>
             </div><!-- End sidebar -->
           </div><!-- End blog sidebar -->
         </div>
       </div>   
-    </section><!-- End Blog Single Section -->
+    </section>
 </main><!-- End #main -->
 
 <jsp:include page="../layouts/footer.jsp"/>

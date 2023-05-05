@@ -66,79 +66,80 @@ public class OrderServiceImpl implements OrderService {
 	public List<OrderDetailBean> findOrder(){
 		return odDao.findAll();
 	}
+
 	
 	//更改訂單資料
-	@Override
-	@Transactional
-	public void updateById(OrderBean orderBean) throws IOException{
-		Optional<OrderBean> option = oDao.findById(orderBean.getOrderid());
-		if(option.isPresent()) {
-			OrderBean oldOrder = option.get();
-			oldOrder.setArrivaldate(orderBean.getArrivaldate());
-			oldOrder.setShipperaddress(orderBean.getShipperaddress());
-			oldOrder.setOrdercondition(orderBean.getOrdercondition());
-			oldOrder.setShipperaddress(orderBean.getShipperaddress());
-		}
-		List<ShoppingCartBean> scBean = scDao.findAll();
-		for(ShoppingCartBean sc : scBean) {
-		//更新存貨
-		Optional<Product> poption = pDao.findById(sc.getProductBean().getProductId());
-		Optional<ShoppingCartBean> scoption = scDao.findByPid(sc.getProductBean().getProductId());
-		if(option.isPresent()) {
-			if(scoption.isPresent()) {				
-				ShoppingCartBean oldsc = scoption.get();
-				Integer min= oldsc.getQuantity();
-				Product oldp = poption.get();
-				Integer inventory = oldp.getInventory();
-				inventory -= min;
-				oldp.setInventory(inventory);
-			}
-		}			
-	}
-}
+//	@Override
+//	@Transactional
+//	public void updateById(OrderBean orderBean) throws IOException{
+//		Optional<OrderBean> option = oDao.findById(orderBean.getOrderid());
+//		if(option.isPresent()) {
+//			OrderBean oldOrder = option.get();
+//			oldOrder.setArrivaldate(orderBean.getArrivaldate());
+//			oldOrder.setShipperaddress(orderBean.getShipperaddress());
+//			oldOrder.setOrdercondition(orderBean.getOrdercondition());
+//			oldOrder.setShipperaddress(orderBean.getShipperaddress());
+//		}
+//		List<ShoppingCartBean> scBean = scDao.findAll();
+//		for(ShoppingCartBean sc : scBean) {
+//		//更新存貨
+//		Optional<Product> poption = pDao.findById(sc.getProductBean().getProductId());
+//		Optional<ShoppingCartBean> scoption = scDao.findByPid(sc.getProductBean().getProductId());
+//		if(option.isPresent()) {
+//			if(scoption.isPresent()) {				
+//				ShoppingCartBean oldsc = scoption.get();
+//				Integer min= oldsc.getQuantity();
+//				Product oldp = poption.get();
+//				Integer inventory = oldp.getInventory();
+//				inventory -= min;
+//				oldp.setInventory(inventory);
+//			}
+//		}			
+//	}
+//}
 	//建立訂單
-	@Override
-	@Transactional
-	public void createOrder(OrderBean order) throws IOException{
-		Date date = new Date();
-		String dateString = String.valueOf(date.getTime());
-		//id
-		order.setOrderid(dateString);
-		//日期
-		order.setOrderdate(date);
-		//訂單狀態
-		order.setOrdercondition("處理中");
-		//將購物車明細加入訂單明細內
-		Set<OrderDetailBean> orderdetails = new HashSet<>();
-		List<ShoppingCartBean> scBean = scDao.findAll();
-		for(ShoppingCartBean sc : scBean) {
-			OrderDetailBean od = new OrderDetailBean();
-			od.setQuantity(sc.getQuantity());
-			od.setUnitprice(sc.getUnitprice());
-			od.setpOrderDetail(sc.getProductBean());
-			od.setOrderBean(order);
-			orderdetails.add(od);
-		}
-		//計算訂單總額
-		Integer totalamount = 0;
-		for(ShoppingCartBean sc : scBean) {		
-			totalamount += sc.getQuantity()*sc.getUnitprice();			
-		}
-		if(totalamount >1000) {
-			order.setFreight(0);
-		}else {
-			order.setFreight(30);
-		}
-		order.setTotalamount(totalamount);
-		order.setSeto(orderdetails);
-		
-		oDao.save(order);
-	}
+//	@Override
+//	@Transactional
+//	public void createOrder(OrderBean order) throws IOException{
+//		Date date = new Date();
+//		String dateString = String.valueOf(date.getTime());
+//		//id
+//		order.setOrderid(dateString);
+//		//日期
+//		order.setOrderdate(date);
+//		//訂單狀態
+//		order.setOrdercondition("處理中");
+//		//將購物車明細加入訂單明細內
+//		Set<OrderDetailBean> orderdetails = new HashSet<>();
+//		List<ShoppingCartBean> scBean = scDao.findAll();
+//		for(ShoppingCartBean sc : scBean) {
+//			OrderDetailBean od = new OrderDetailBean();
+////			od.setQuantity(sc.getQuantity());
+////			od.setUnitprice(sc.getUnitprice());
+////			od.setpOrderDetail(sc.getProductBean());
+//			od.setOrderBean(order);
+//			orderdetails.add(od);
+//		}
+//		//計算訂單總額
+//		Integer totalamount = 0;
+//		for(ShoppingCartBean sc : scBean) {		
+//			totalamount += sc.getQuantity()*sc.getUnitprice();			
+//		}
+//		if(totalamount >1000) {
+//			order.setFreight(0);
+//		}else {
+//			order.setFreight(30);
+//		}
+//		order.setTotalamount(totalamount);
+//		order.setSeto(orderdetails);
+//		
+//		oDao.save(order);
+//	}
 	//訂單的詳細資料
-	@Override
-	public List<OrderDetailBean> findorderdetailbyOId(String orderid) {
-		return odDao.findByOid(orderid);	  
-	}
+//	@Override
+//	public List<OrderDetailBean> findorderdetailbyOId(String orderid) {
+//		return odDao.findByOid(orderid);	  
+//	}
 
 	
 	//物流
