@@ -15,18 +15,18 @@ public class DealRecord {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "bidProduct_id",  nullable = false, foreignKey = @ForeignKey(name = "fk_dealedRecords_bidProduct"))
+    @JoinColumn(name = "bidProduct_id",  nullable = false, foreignKey = @ForeignKey(name = "fk_dealRecords_bidProduct"))
     private BidProduct bidProduct;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id",  nullable = false, foreignKey = @ForeignKey(name = "fk_dealedRecords_customer"))
+    @JoinColumn(name = "customer_id",  nullable = false, foreignKey = @ForeignKey(name = "fk_dealRecords_customer"))
     private Customer customer;
 
     @Column(name = "deal_price", nullable = false)
     private Integer dealPrice;
 
-    @Column(name = "is_not_paid",nullable = false, columnDefinition = "bit default 0")
-    private Boolean isNotPaid;
+    @Column(name = "is_paid",nullable = false, columnDefinition = "bit default 0")
+    private Boolean isPaid;
 
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -38,8 +38,8 @@ public class DealRecord {
         if (createdAt == null) {
             createdAt = new Date();
         }
-        if (isNotPaid == null) {
-            isNotPaid = false;
+        if (isPaid == null) {
+            isPaid = false;
         }
     }
 
@@ -75,12 +75,12 @@ public class DealRecord {
         this.dealPrice = dealPrice;
     }
 
-    public Boolean getNotPaid() {
-        return isNotPaid;
+    public Boolean getIsPaid() {
+        return isPaid;
     }
 
-    public void setNotPaid(Boolean notPaid) {
-        isNotPaid = notPaid;
+    public void setIsPaid(Boolean isPaid) {
+        this.isPaid = isPaid;
     }
 
     public Date getCreatedAt() {

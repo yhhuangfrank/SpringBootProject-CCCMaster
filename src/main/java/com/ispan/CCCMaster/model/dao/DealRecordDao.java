@@ -11,4 +11,7 @@ public interface DealRecordDao extends JpaRepository<DealRecord, Integer> {
     @Query("FROM DealRecord WHERE bidProduct = :bidProduct AND customer = :customer")
     DealRecord findByBidProductAndCustomer(@Param("bidProduct") BidProduct bidProduct,
                                            @Param("customer") Customer customer);
+
+    @Query("FROM DealRecord WHERE bidProduct = :bidProduct")
+    DealRecord findByBidProduct(@Param("bidProduct") BidProduct bidProduct);
 }

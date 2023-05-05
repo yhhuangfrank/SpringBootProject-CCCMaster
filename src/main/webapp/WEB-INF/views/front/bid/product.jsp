@@ -135,7 +135,13 @@
                                 data-bs-toggle="modal" data-bs-target="#modal-${bidProduct.id}">點我出價
                         </button>
                         <%--          顯示訊息              --%>
-                        <div id="messageArea"></div>
+                        <div id="messageArea">
+                            <c:if test="${dealRecord != null}">
+                                <div class="alert alert-success mt-2 fw-bold" role="alert">
+                                    恭喜使用者: ${dealRecord.customer.name} 得標!
+                                </div>
+                            </c:if>
+                        </div>
                     </div>
                     <div class="portfolio-description">
                         <div class="container text-center">

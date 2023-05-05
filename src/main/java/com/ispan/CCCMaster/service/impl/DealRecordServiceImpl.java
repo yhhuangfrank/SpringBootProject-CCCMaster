@@ -62,4 +62,9 @@ public class DealRecordServiceImpl implements DealRecordService {
 
         return dealRecordDao.save(dealRecord);
     }
+
+    @Override
+    public DealRecord findByBidProduct(BidProduct bidProduct) {
+        return dealRecordDao.findByBidProduct(bidProduct);
+    }
 }
