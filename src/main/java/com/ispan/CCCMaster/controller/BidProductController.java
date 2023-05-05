@@ -1,10 +1,12 @@
 package com.ispan.CCCMaster.controller;
 
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
+import com.ispan.CCCMaster.model.bean.bid.DealRecord;
 import com.ispan.CCCMaster.model.bean.category.Category;
 import com.ispan.CCCMaster.model.dto.BidProductRequest;
 import com.ispan.CCCMaster.service.BidProductService;
 import com.ispan.CCCMaster.service.CategoryService;
+import com.ispan.CCCMaster.service.DealRecordService;
 import com.ispan.CCCMaster.util.BidProductValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,14 +26,18 @@ public class BidProductController {
 
     private final CategoryService categoryService;
 
+    private final DealRecordService dealRecordService;
+
     private final BidProductValidator bidProductValidator;
 
     @Autowired
     public BidProductController(BidProductService bidProductService,
                                 CategoryService categoryService,
+                                DealRecordService dealRecordService,
                                 BidProductValidator bidProductValidator) {
         this.bidProductService = bidProductService;
         this.categoryService = categoryService;
+        this.dealRecordService = dealRecordService;
         this.bidProductValidator = bidProductValidator;
     }
 
@@ -84,8 +90,10 @@ public class BidProductController {
                                 Model model) {
 
         BidProduct foundBidProduct = bidProductService.findBidProductById(id);
+        DealRecord foundDealRecord = dealRecordService.findByBidProduct(foundBidProduct);
 
         model.addAttribute("bidProduct", foundBidProduct);
+        model.addAttribute("dealRecord", foundDealRecord);
 
         return "/front/bid/product";
     }
