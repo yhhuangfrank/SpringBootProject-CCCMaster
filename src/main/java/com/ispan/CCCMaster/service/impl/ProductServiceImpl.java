@@ -1,5 +1,7 @@
 package com.ispan.CCCMaster.service.impl;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ispan.CCCMaster.model.bean.category.Category;
 import com.ispan.CCCMaster.model.bean.product.Product;
 import com.ispan.CCCMaster.model.bean.product.ProductImg;
@@ -7,7 +9,18 @@ import com.ispan.CCCMaster.model.dao.CategoryDao;
 import com.ispan.CCCMaster.model.dao.ProductDao;
 
 import com.ispan.CCCMaster.model.dao.ProductImgDao;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,10 +32,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import javax.persistence.criteria.Predicate;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.io.*;
+
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 @Service
 public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductService {
@@ -32,6 +45,12 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
     private CategoryDao categoryDao;
     @Autowired
     private ProductImgDao productImgDao;
+
+
+    @Value("${chatgptApiKey}")
+    private String apiKey;
+
+    private String API_URL = "https://api.openai.com/v1/chat/completions";
 
 
     @Override//建立產品
@@ -192,5 +211,62 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
         product.setProductViews(product.getProductViews() + 1);
     }
 
+    @Override
+    public String generateDescription(String productName, String features, String target) {
+        String content = "有一個產品名稱叫做"+productName+"，產品特色是"+features+"，主打的客群是"+target+"，幫我產生這個產品的文案";
+        String response = null;
+        try {
+            response = sendGPTRequest(content);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("ChatGPT 產生的文案: " + response);
+        return response;
+    }
+
+
+    private String sendGPTRequest(String content) throws IOException {
+        String model = "gpt-3.5-turbo";
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("model", model);
+        requestBody.put("messages", new JSONArray().put(new JSONObject()
+                .put("role", "user")
+                .put("content", content)));
+        requestBody.put("temperature",0.5);
+        String requestBodyString = requestBody.toString();
+
+        HttpPost request = new HttpPost(API_URL);
+        StringEntity params = new StringEntity(requestBodyString, StandardCharsets.UTF_8);
+        request.addHeader("Authorization", "Bearer " + apiKey);
+        request.addHeader("content-type", "application/json");
+        request.setEntity(params);
+
+        try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
+            HttpResponse response = httpClient.execute(request);
+            String responseBody = EntityUtils.toString(response.getEntity());
+           String responseContent=getContentFromJsonString(responseBody);
+            return responseContent;
+        }
+
+    }
+
+    public static String getContentFromJsonString(String jsonString) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            JsonNode rootNode = objectMapper.readTree(jsonString);
+
+            String content = rootNode
+                    .get("choices")
+                    .get(0)
+                    .get("message")
+                    .get("content")
+                    .asText();
+
+            return content;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 }
