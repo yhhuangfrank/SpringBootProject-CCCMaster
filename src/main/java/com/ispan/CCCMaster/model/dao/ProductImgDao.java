@@ -16,4 +16,7 @@ public interface ProductImgDao extends JpaRepository<ProductImg, Integer> {
 
     @Query("select pi.productImgId from ProductImg pi WHERE pi.product.productId=:productId")
     List<Integer>findProductImgIdList(@Param("productId") Integer productId);
+
+    @Query("SELECT pi.productImgId FROM ProductImg pi WHERE pi.product.productId = :productId and pi.mainImage=false ")
+    List<Integer>findNotMainImageByProductId(@Param("productId") Integer productId);
 }

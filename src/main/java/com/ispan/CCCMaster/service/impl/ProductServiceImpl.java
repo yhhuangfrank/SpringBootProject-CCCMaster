@@ -6,6 +6,7 @@ import com.ispan.CCCMaster.model.bean.product.ProductImg;
 import com.ispan.CCCMaster.model.dao.CategoryDao;
 import com.ispan.CCCMaster.model.dao.ProductDao;
 
+import com.ispan.CCCMaster.model.dao.ProductImgDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,6 +30,8 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
     private ProductDao productDao;
     @Autowired
     private CategoryDao categoryDao;
+    @Autowired
+    private ProductImgDao productImgDao;
 
 
     @Override//建立產品
@@ -43,8 +46,8 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
             newCategory.setName(categoryName);
             product.setCategory(newCategory);
         }
-        if(product.getMainImageFile()!=null){//主要圖片處理
-            img=new ProductImg();
+        if (product.getMainImageFile() != null) {//主要圖片處理
+            img = new ProductImg();
             img.setImage(product.getMainImageFile().getBytes());
             img.setMainImage(true);
             img.setProduct(product);
@@ -113,8 +116,6 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
     }
 
 
-
-
     @Override//刪除產品
     public void deleteProduct(Integer productId) {
         productDao.deleteById(productId);
@@ -140,13 +141,7 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
             oldProduct.setPrice(product.getPrice());
             oldProduct.setInventory(product.getInventory());
             oldProduct.setActive(product.getActive());
-            for (MultipartFile imageFile : product.getImageFile()) {
-                if (imageFile != null) {//如果更新的圖片不為空
-                    img.setImage(imageFile.getBytes());
-                    productImgs.add(img);
-                }
-            }
-            oldProduct.setProductImgs(productImgs);
+
 
             if (categoryDao.findCategoryByName(categoryName) != null) {
                 oldProduct.setCategory(categoryDao.findCategoryByName(categoryName));
@@ -155,8 +150,40 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
                 newCategory.setName(categoryName);
                 oldProduct.setCategory(newCategory);
             }
+            if (product.getMainImageFile() != null) {
+                ProductImg oldProductMainImage = productImgDao.findMainImageByProductId(product.getProductId());
+                oldProductMainImage.setImage(product.getMainImageFile().getBytes());
+            }
+            if (product.getImageFile() != null) {
+                deleteOldProductImage(product);
+                List<ProductImg> imageList= setOtherImageList(product.getImageFile());
+                product.setProductImgs(imageList);
+            }
         }
     }
+
+    public void deleteOldProductImage(Product product) {
+        List<Integer> oldImage = productImgDao.findNotMainImageByProductId(product.getProductId());
+        for (Integer imageId : oldImage) {
+            productImgDao.deleteById(imageId);
+        }
+    }
+
+    public List<ProductImg> setOtherImageList(MultipartFile[] files) {
+        List<ProductImg> imageList = new ArrayList<>();
+        ProductImg image = new ProductImg();
+        for (MultipartFile file : files) {
+            try {
+                image.setImage(file.getBytes());
+                imageList.add(image);
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
+        return imageList;
+    }
+
 
     @Transactional
     @Override// 計算瀏覽人次
