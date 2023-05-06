@@ -19,7 +19,9 @@ public class LoginAndOutController {
 	private LoginService lgService;
 	
 	@GetMapping("/login")	//前台登入頁面
-	public String loginPage() {
+	public String loginPage(HttpServletRequest request) {
+		String referer = request.getHeader("Referer");
+		request.setAttribute("referer", referer);	//頁面跳轉前先把當時的URL儲存起來
 		return "front/login/login";
 	}
 	
@@ -27,11 +29,10 @@ public class LoginAndOutController {
 	public String login(@RequestParam("accountNumber") String accountNumber
 						, @RequestParam("password") String password
 						, HttpServletRequest request
-						, RedirectAttributes redirectAttributes) {
+						, RedirectAttributes redirectAttributes
+						, @RequestParam("referer") String referer) {
 		if(lgService.login(accountNumber, password, request)) {
-//			HttpSession session = request.getSession();
-//			request.getHeader("Referer");	//取得目前瀏覽器的URL(以後可能會用到)
-			return "redirect:/";	//回首頁	之後要改成回到上一個瀏覽畫面
+			return "redirect:" + referer;	//回到上一個瀏覽頁面
 		} else {
 			redirectAttributes.addFlashAttribute("loginFailed", true);	//重導前添加登入失敗訊息
 			return "redirect:/login";
@@ -39,10 +40,12 @@ public class LoginAndOutController {
 	}
 	
 	@GetMapping("/logout")
-	public String logout(HttpSession session, RedirectAttributes redirectAttributes) {
+	public String logout(HttpSession session
+						, RedirectAttributes redirectAttributes
+						, HttpServletRequest request) {
 		lgService.logout(session);
 		redirectAttributes.addFlashAttribute("logoutSuccessful", true);	//重導前添加登出成功訊息
-		return "redirect:/";	//回首頁	之後要改成回到上一個瀏覽畫面
+		return "redirect:" + request.getHeader("Referer");	//回到上一個瀏覽頁面
 	}
 
 }

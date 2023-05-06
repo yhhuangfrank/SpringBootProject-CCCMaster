@@ -115,10 +115,9 @@
 							  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 							</div>
 						</c:if>
-					
-					
-					
+						
 						<form action="${contextRoot}/login" method="post" class="form-login">
+							<input name="referer" type="hidden" value="${referer}"/>	<!-- 這個標籤為程式內部傳遞參數用，不顯示在前端畫面上 -->
 							<h3 class="text-center mb-4">歡迎登入山西達人</h3>
 				
 							<div class="form-group">

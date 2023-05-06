@@ -63,7 +63,8 @@
         </nav><!-- .navbar -->
 
       </div>
-      
+
+	  <!-- 以下內容 add By YUYU -->
       <c:if test="${logoutSuccessful}">
 	      <div id="logout-success-msg" class="alert alert-success position-fixed top-50 start-50 translate-middle d-none" role="alert">
 			  您已成功登出！欲使用進階功能請重新登入!
@@ -77,7 +78,6 @@
 			  }, 2000);
 		  </script>
       </c:if>
-      
       
       
     </header>
