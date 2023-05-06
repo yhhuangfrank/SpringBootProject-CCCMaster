@@ -6,7 +6,6 @@ import com.ispan.CCCMaster.model.dto.BidProductQueryParams;
 import com.ispan.CCCMaster.model.dto.BidRecordRequest;
 import com.ispan.CCCMaster.service.BidProductService;
 import com.ispan.CCCMaster.service.DealRecordService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +22,6 @@ public class BidProductApi {
 
     private final DealRecordService dealRecordService;
 
-    @Autowired
     public BidProductApi(BidProductService bidProductService,
                           DealRecordService dealRecordService) {
         this.bidProductService = bidProductService;

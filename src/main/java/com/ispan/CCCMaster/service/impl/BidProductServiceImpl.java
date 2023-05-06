@@ -15,7 +15,6 @@ import com.ispan.CCCMaster.model.dto.BidProductRequest;
 import com.ispan.CCCMaster.model.dto.BidRecordRequest;
 import com.ispan.CCCMaster.service.BidProductService;
 import com.ispan.CCCMaster.util.ImgurUploader;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -49,7 +48,6 @@ public class BidProductServiceImpl implements BidProductService {
     @Value("${default.image}")
     private String DEFAULT_IMAGE;
 
-    @Autowired
     public BidProductServiceImpl(BidProductDao bidProductDao,
                                  CategoryDao categoryDao,
                                  CustomerDao customerDao,
@@ -71,6 +69,7 @@ public class BidProductServiceImpl implements BidProductService {
         bidProduct.setBidPrice(0); // 初始出價為 0
         bidProduct.setCategory(getOrCreateCategory(bidProductRequest.getCategoryName()));
         bidProduct.setDescription(bidProductRequest.getDescription());
+        bidProduct.setCustomer(customerDao.findById(1).get()); // 暫定預設使用者 1 號
 
         // 處理圖片
         String imageLink = DEFAULT_IMAGE; // 預設圖片

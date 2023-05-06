@@ -8,7 +8,6 @@ import com.ispan.CCCMaster.service.BidProductService;
 import com.ispan.CCCMaster.service.CategoryService;
 import com.ispan.CCCMaster.service.DealRecordService;
 import com.ispan.CCCMaster.util.BidProductValidator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,7 +29,6 @@ public class BidProductController {
 
     private final BidProductValidator bidProductValidator;
 
-    @Autowired
     public BidProductController(BidProductService bidProductService,
                                 CategoryService categoryService,
                                 DealRecordService dealRecordService,
