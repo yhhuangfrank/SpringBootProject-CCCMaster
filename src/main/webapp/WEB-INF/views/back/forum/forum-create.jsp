@@ -45,7 +45,7 @@
 <main id="main" class="main">
   <h1>新增討論版</h1>
   <form:form method="post" modelAttribute="forum"
-             action="${contextRoot}/forums/create" enctype="multipart/form-data">
+             action="${contextRoot}/admin/forums/create" enctype="multipart/form-data">
   <div class="row mb-3">
     <label for="inputName" class="col-sm-2 col-form-label">討論版名稱</label>
     <div class="col-sm-10">
