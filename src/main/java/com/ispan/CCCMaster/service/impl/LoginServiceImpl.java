@@ -14,10 +14,12 @@ public class LoginServiceImpl implements LoginService {
 	private CustomerDao ctmDao;
 	
 	@Override
-	public Boolean login(Customer ctm) {
-		Customer foundCustomer = ctmDao.findByEmail(ctm.getEmail());
+	public Boolean login(String accountNumber, String password) {
+		Customer foundCustomer = ctmDao.findByEmail(accountNumber);	//透過輸入的帳號尋找對應的會員
+		//目前只有用 email 登入功能，未來會開發透過手機號碼登入功能
 		String foundPassword = foundCustomer.getPassword();
-		return foundPassword.equals(ctm.getPassword());
+		Boolean success = foundPassword.equals(password);
+		return success;
 	}
 
 }

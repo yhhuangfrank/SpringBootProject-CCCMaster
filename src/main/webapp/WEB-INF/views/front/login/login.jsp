@@ -108,21 +108,21 @@
 			<div class="container">
 				<div class="row justify-content-center">
 					<div class="col-md-4">
-						<form:form modelAttribute="customer" action="${contextRoot}/login" method="post" class="form-login">
+						<form action="${contextRoot}/login" method="post" class="form-login">
 							<h3 class="text-center mb-4">歡迎登入山西達人</h3>
 				
 							<div class="form-group">
-								<label for="username">帳號</label>
-								<form:input required="true" path="email" type="text" class="form-control" id="email" placeholder="輸入帳號"/>
+								<label for="accountNumber">帳號</label>
+								<input required name="accountNumber" type="text" class="form-control" id="accountNumber" placeholder="輸入帳號"/>
 							</div>
 							<div class="form-group">
 								<label for="password">密碼</label>
-								<form:input required="true" path="password" type="password" class="form-control" id="password" placeholder="輸入密碼"/>
+								<input required name="password" type="password" class="form-control" id="password" placeholder="輸入密碼"/>
 							</div>
 							<div class="text-center">
 								<button type="submit" class="btn-primary mt-4">登入</button>
 							</div>
-						</form:form>
+						</form>
 						<div class="text-center mt-4">
 							<a href="#">忘記密碼</a> <span class="mx-2">|</span> <a href="#">註冊帳號</a>
 						</div>
