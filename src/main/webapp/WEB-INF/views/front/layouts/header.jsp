@@ -6,7 +6,7 @@
       <div class="container d-flex justify-content-between align-items-center">
 
         <div class="logo">
-          <h1><a href="index.html">Eterna</a></h1>
+          <h1><a href="${contextRoot}/">Eterna</a></h1>
           <!-- Uncomment below if you prefer to use an image logo -->
           <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
         </div>
@@ -42,8 +42,22 @@
             <li><a href="pricing.html">聯絡客服</a></li>
             <li><a href="blog.html">會員中心</a></li>
             <li><a href="${contextRoot}/front/shoppingcart">購物車</a></li>
-            <li><a href="index.html">註冊</a></li>
-            <li><a href="${contextRoot}/login">登入</a></li>
+           	<c:choose>
+           		<c:when test="${sessionScope.customerId == null}">
+           			<li><a href="index.html">註冊</a></li>
+		            <li><a href="${contextRoot}/login">登入</a></li>
+           		</c:when>
+           		<c:otherwise>
+		            <li class="dropdown">
+		            	<a href="${contextRoot}/customerCenter"><span>${sessionScope.customerName}，您好</span></a>
+		              	<ul>
+			                <li><a href="${contextRoot}/customerCenter">會員中心</a></li>
+			                <li><a href="#">未來功能預留</a></li>
+			                <li><a href="${contextRoot}/logout">登出</a></li>
+		              	</ul>
+		            </li>
+           		</c:otherwise>
+           	</c:choose>
           </ul>
           <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->
