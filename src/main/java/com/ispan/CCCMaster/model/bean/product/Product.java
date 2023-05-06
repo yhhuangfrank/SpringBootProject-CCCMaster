@@ -46,8 +46,20 @@ public class Product {
 
     @Column(name = "number_of_comments")
     private Integer numberOfComments;
+
+    public List<Crawler> getCrawlers() {
+        return crawlers;
+    }
+
+    public void setCrawlers(List<Crawler> crawlers) {
+        this.crawlers = crawlers;
+    }
+
     @Column(name = "active", nullable = false)
     private Boolean active;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true)
+    private List<Crawler> crawlers;
 
     public MultipartFile getMainImageFile() {
         return mainImageFile;
