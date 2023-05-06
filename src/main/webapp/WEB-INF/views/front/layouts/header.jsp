@@ -63,5 +63,22 @@
         </nav><!-- .navbar -->
 
       </div>
+      
+      <c:if test="${logoutSuccessful}">
+	      <div id="logout-success-msg" class="alert alert-success position-fixed top-50 start-50 translate-middle d-none" role="alert">
+			  您已成功登出！欲使用進階功能請重新登入!
+		  </div>
+		  <script>
+			  // 顯示登出成功訊息框
+			  document.querySelector('#logout-success-msg').classList.remove('d-none');
+			  // 設定 2 秒後淡出消失
+			  setTimeout(function() {
+			    document.querySelector('#logout-success-msg').classList.add('fade');
+			  }, 2000);
+		  </script>
+      </c:if>
+      
+      
+      
     </header>
     <!-- End Header -->

@@ -108,12 +108,22 @@
 			<div class="container">
 				<div class="row justify-content-center">
 					<div class="col-md-4">
+					
+						<c:if test="${loginFailed}">
+							<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							  登入失敗！請檢查您的帳號和密碼是否正確。
+							  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							</div>
+						</c:if>
+					
+					
+					
 						<form action="${contextRoot}/login" method="post" class="form-login">
 							<h3 class="text-center mb-4">歡迎登入山西達人</h3>
 				
 							<div class="form-group">
 								<label for="accountNumber">帳號</label>
-								<input required name="accountNumber" type="text" class="form-control" id="accountNumber" placeholder="輸入帳號"/>
+								<input required name="accountNumber" type="text" class="form-control" id="accountNumber" placeholder="輸入email"/>
 							</div>
 							<div class="form-group">
 								<label for="password">密碼</label>
