@@ -108,6 +108,7 @@ public class BidProductServiceImpl implements BidProductService {
         String keyword = queryParams.getKeyword();
         Boolean nonClosed = queryParams.getNonClosed();
         Boolean started = queryParams.getStarted();
+        Boolean dueSoon = queryParams.getDueSoon();
         String orderBy = queryParams.getOrderBy();
         String sort = queryParams.getSort();
         Integer page = queryParams.getPage();
@@ -142,6 +143,12 @@ public class BidProductServiceImpl implements BidProductService {
             // 是否已開始拍賣
             if (started) {
                 Predicate p = criteriaBuilder.isNotNull(root.get("expiredAt"));
+                predicates.add(p);
+            }
+
+            // 是否在一天內截止
+            if (dueSoon) {
+                Predicate p = criteriaBuilder.lessThan(root.get("expiredAt"), new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000));
                 predicates.add(p);
             }
 

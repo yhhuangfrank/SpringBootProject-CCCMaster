@@ -10,6 +10,8 @@ public class BidProductQueryParams {
 
     private Boolean started;
 
+    private Boolean dueSoon;
+
     private String orderBy;
 
     private String sort;
@@ -48,6 +50,14 @@ public class BidProductQueryParams {
 
     public void setStarted(Boolean started) {
         this.started = started;
+    }
+
+    public Boolean getDueSoon() {
+        return dueSoon;
+    }
+
+    public void setDueSoon(Boolean dueSoon) {
+        this.dueSoon = dueSoon;
     }
 
     public String getOrderBy() {

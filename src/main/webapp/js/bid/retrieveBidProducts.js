@@ -9,6 +9,7 @@ const categories = document.querySelectorAll("li.category")
 const checkBox = document.querySelector("#checkBox")
 const nonClosedCheck = document.querySelector("#nonClosedCheck")
 const startedCheck = document.querySelector("#startedCheck")
+const dueSoonCheck = document.querySelector("#dueSoonCheck")
 const BASE_URL = "http://localhost:8080/api/bidProducts"
 const DEFAULT_SHOWING_PAGES = 5
 let currentPage = 1 // 預設在第一頁
@@ -309,6 +310,7 @@ function getCurrentQueryParams() {
     // 是否顯示已截止、未拍賣商品
     param.started = startedCheck.checked
     param.nonClosed = nonClosedCheck.checked
+    param.dueSoon = dueSoonCheck.checked
 
     return param
 }

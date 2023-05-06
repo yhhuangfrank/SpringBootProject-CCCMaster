@@ -35,6 +35,7 @@ public class BidProductApi {
             @RequestParam(required = false) String keyword,
             @RequestParam(required = false, defaultValue = "false") Boolean nonClosed,
             @RequestParam(required = false, defaultValue = "false") Boolean started,
+            @RequestParam(required = false, defaultValue = "false") Boolean dueSoon,
 
             // 排序
             @RequestParam(defaultValue = "createdAt") String orderBy,
@@ -51,6 +52,7 @@ public class BidProductApi {
         queryParams.setKeyword(keyword);
         queryParams.setNonClosed(nonClosed);
         queryParams.setStarted(started);
+        queryParams.setDueSoon(dueSoon);
         queryParams.setOrderBy(orderBy);
         queryParams.setSort(sort);
         queryParams.setPage(page);
