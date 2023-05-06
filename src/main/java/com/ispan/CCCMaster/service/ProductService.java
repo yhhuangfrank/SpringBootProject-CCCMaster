@@ -4,6 +4,7 @@ import com.ispan.CCCMaster.model.bean.product.Product;
 import com.ispan.CCCMaster.model.bean.product.ProductImg;
 import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -33,6 +34,9 @@ public interface ProductService {
 
 
     void productViews(Integer id);
+
+    void updateProductImages(Product product, MultipartFile mainImageFile, MultipartFile[] imageFiles) throws IOException;
+
 
 
     String generateDescription(String productName, String features, String target);
