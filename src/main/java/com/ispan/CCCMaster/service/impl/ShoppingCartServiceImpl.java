@@ -60,7 +60,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		scDao.deleteById(shoppoingCartId);
 	}
 	
-	//修改購物車
+	//修改購物車數量
 	@Override
 	@Transactional
 	public void editBySCId(ShoppingCartBean sc) throws IOException{
@@ -70,12 +70,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 			scb.setQuantity(sc.getQuantity());
 		}
 	}
-
-	@Override
-	public void editAll(List<ShoppingCartBean> sc) throws IOException {
-		scDao.saveAll(sc);
-		
-	}
+	
+	
 
 	@Override
 	public List<ShoppingCartBean> findByCid(Customer c, ShoppingCartBean sc) {

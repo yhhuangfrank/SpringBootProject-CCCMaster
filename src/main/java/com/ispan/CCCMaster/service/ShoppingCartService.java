@@ -18,12 +18,12 @@ public interface ShoppingCartService {
 	//刪除購物車
 	void deleteBySCId(String shoppoingCartId);
 
-	//修改購物車
-	void editAll(List<ShoppingCartBean> sc) throws IOException;
 
 	List<ShoppingCartBean> findByCid(Customer c,ShoppingCartBean sc);
 
+	//修改購物車購買數量
 	void editBySCId(ShoppingCartBean sc) throws IOException;
+	
 	
 	//刪除所有購物車
 //	void deletescByCId(Integer id);

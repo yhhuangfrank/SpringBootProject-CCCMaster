@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ispan.CCCMaster.model.bean.order.OrderBean;
+import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;
 import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
 import com.ispan.CCCMaster.service.ProductService;
 import com.ispan.CCCMaster.service.ShoppingCartService;
@@ -29,8 +34,6 @@ public class ShoppingCartController {
 	@Autowired
 	private ShoppingCartService scService;
 	
-
-
 	//創立購物車，並將畫面重新導向為商品詳細頁面
 	@PostMapping("/shoppingcarts/create")
 	public String createShoppingCart(@ModelAttribute("sc")ShoppingCartBean sc,@RequestParam("productId")Integer productId) {
@@ -58,7 +61,7 @@ public class ShoppingCartController {
 		scService.deleteBySCId(shoppoingCartId);
 		return "redirect:/front/shoppingcart";
 	}
-	//修改購物車
+	//修改購物車購買數量
 	@PutMapping("/front/shoppingcart")
 	public String editBySCId(@ModelAttribute("shoppingcart")ShoppingCartBean shoppingcart) {
 		try {
@@ -68,8 +71,48 @@ public class ShoppingCartController {
 		}
 		return "redirect:/front/shoppingcart";
 	}
+	//購物車資訊
+	@GetMapping("/front/shoppingcart/shoppingcartdetail")
+	public String findSCByCid(Model model) {
+		List<ShoppingCartBean> list = scService.findAll();
+		model.addAttribute("orderBean", new OrderBean());
+		model.addAttribute("orderbeandetail",new OrderDetailBean());
+		model.addAttribute("shoppingc",new ShoppingCartBean());
+		model.addAttribute("shoppingcart",list);
+		return "/front/shoppingcarts/showshoppingcartdetail";
+	}
 	
-
+	
+	@PostMapping("/front/shoppingcart/shoppingcartdetail")
+	public String saveInfoByCookie(@RequestParam("cookiescpayment")String cookiescpaymentvalue,
+								@RequestParam("cookiescshipper")String cookiescshippervalue,
+			HttpServletResponse response) {;
+		Cookie cookiep = new Cookie("pay",cookiescpaymentvalue);
+		cookiep.setPath("/");
+		response.addCookie(cookiep);
+		Cookie cookies = new Cookie("shi",cookiescshippervalue);
+		cookies.setPath("/");
+		response.addCookie(cookies);
+		return "front/orders/checkorder";
+	}
+	
+//	@GetMapping("/getcookie")
+//	public String findCookie(HttpServletRequest request,Model model) {
+//		Cookie[] cookies = request.getCookies();
+//		if(cookies != null) {
+//			for(Cookie cookie:cookies) {
+//				if(cookie.getName().equals("radio")) {
+//					String cookiesvalue = cookie.getValue();
+//					model.addAttribute("radio",cookiesvalue);
+//				}else if(cookie.getName().equals("payment")) {
+//					String cookiepvalue = cookie.getValue();
+//					model.addAttribute("scpayment",cookiepvalue);
+//				}
+//				
+//			}
+//		}
+//		return "front/orders/checkorder";
+//	}
 
 	
 

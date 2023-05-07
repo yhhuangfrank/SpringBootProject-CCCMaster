@@ -60,7 +60,7 @@
 
     </div>
   </section><!-- End Breadcrumbs -->
-   <form:form method="post" modelAttribute="orderBean" action="${contextRoot}/front/orders/create">
+   <form method="post" action="${contextRoot}/front/shoppingcart/shoppingcartdetail">
 	<section id="blog" class="blog">
       <div class="container" data-aos="fade-up">
         <div class="row">
@@ -79,10 +79,12 @@
                 <c:forEach var="sc" items="${shoppingcart}" varStatus="status"> 
                   <tr valign="middle">
                     <th scope="row">
+		                <div style="display: none;">
+		            		<input value="${sc.shoppoingCartId}" type="text"/>
+		         		</div>
                     </th>
                     <td>
-                    	${sc.productBean.productName}
-                    	                  	
+                    	${sc.productBean.productName}                   	                  	
                     </td>
                     <td>
                     	<input value="${sc.quantity}" type="hidden" id="quantity${status.count}">
@@ -99,9 +101,7 @@
                   </tr>
                   	</c:forEach>                  
                 </tbody>
-              </table>
-              	
-	              
+              </table>	              
 	            </div>
             </div>
             <div class="entry entry-single">
@@ -125,13 +125,13 @@
             <div class="entry entry-single">
 				<h5>運送方式</h5>
 					<div class="form-check">
-					 <form:radiobutton class="form-check-input" path="payment" id="gridRadios4" value="超商取貨" required="required"/>
+					 <input type="radio" class="form-check-input" id="gridRadios4" value="超商取貨" required="required" name="cookiescpayment"/>
                       <label class="form-check-label" for="gridRadios1">
                         超商取貨
                       </label>
                     </div>
                     <div class="form-check">
-                      <form:radiobutton class="form-check-input" path="payment" id="gridRadios3" value="宅配到家" />
+                      <input type="radio" class="form-check-input" id="gridRadios3" value="宅配到家" name="cookiescpayment"/>
                       <label class="form-check-label" for="gridRadios2">
                         宅配到家
                       </label>
@@ -140,23 +140,24 @@
             <div class="entry entry-single">
 				<h5>付款方式</h5>
 					<div class="form-check">
-					 <form:radiobutton class="form-check-input" path="shipper" id="gridRadios2" value="貨到付款" required="required"/>
+					 <input type="radio" class="form-check-input" id="gridRadios2" value="貨到付款" required="required" name="cookiescshipper"/>
                       <label class="form-check-label" for="gridRadios3">
                         貨到付款
                       </label>
                     </div>
                     <div class="form-check">
-                     <form:radiobutton class="form-check-input" path="shipper" id="gridRadios1" value="信用卡"/>
+                     <input type="radio" class="form-check-input" id="gridRadios1" value="信用卡" name="cookiescshipper"/>
                       <label class="form-check-label" for="gridRadios4">
                         信用卡
                       </label>
                     </div>
             </div>
-         		<button type="submit" class="btn btn-primary" >資料填寫</button>
+            	<!--   <input type="hidden" id="selectradio" name="selectradio" value="">-->
+         		<button type="submit" class="btn btn-primary" onclick="savecookie()">資料填寫</button>
 
         </div> 
     </section><!-- End Blog Single Section -->
-    </form:form>
+    </form>
 </main><!-- End #main -->
 
 <jsp:include page="../layouts/footer.jsp"/>
@@ -174,7 +175,17 @@
 <!-- Template Main JS File -->
 <script src="${contextRoot}/styles/front/assets/js/main.js"></script>
 <script>
-
+<!-- function savecookie() {
+	let selectradio = "";
+	let radiobutton = document.querySelectorAll("input[type=radio]:checked");
+	for(let i=0 ; i<radiobutton.length;i++){
+		selectradio += radiobutton[i].value + ",";
+	}
+	selectradio  = selectradio.slice(0,-1);
+	document.cookie = "selectradio=" + selectradio + ";path=/";
+	document.getElementById("selectradio").value = selectradio;
+	document.getElementById("myForm").submit();
+}-->
 
   
 </script>

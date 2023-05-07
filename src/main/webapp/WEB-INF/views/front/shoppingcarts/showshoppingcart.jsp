@@ -79,7 +79,7 @@
                   <tr valign="middle" id="row${status.count}" data-id="${sc.shoppoingCartId}">
                     <th scope="row"></th>
                     <td>
-                    	<img src="${contextRoot}/products/showImage/${sc.productBean.productId}" alt="" width="60px" height="60px">
+                    	<img src="${contextRoot}/product/mainImage/${sc.productBean.productId}" alt="" width="60px" height="60px">
                     	${sc.productBean.productName}
                     </td>
 	                    <td>

@@ -40,6 +40,21 @@ public class ShoppingCartBean implements Serializable {
 	@Column(name = "settime", columnDefinition = "datetime", nullable = false)
 	private Date settime;
 	
+	@Column(name="shipper",columnDefinition = "nvarchar(20)")
+	private String scshipper;
+	
+	@Column(name="shipper_address",columnDefinition = "nvarchar(80)")
+	private String scshipperaddress;
+	
+	@Column(name="payment",columnDefinition = "nvarchar(30)")
+	private String scpayment;
+	
+	@Column(name="addressee",columnDefinition = "nvarchar(20)")
+	private String scaddressee;
+	
+	@Column(name="telephone",columnDefinition = "nvarchar(20)")
+	private String sctelephone;
+	
 	//雙向多對一
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="product_id")
@@ -61,14 +76,21 @@ public class ShoppingCartBean implements Serializable {
 		
 	}
 
-	public ShoppingCartBean(String shoppoingCartId, Integer quantity, Date settime, Product productBean,
-			Customer cbShoppingCart,Integer unitprice) {
+	public ShoppingCartBean(String shoppoingCartId, Integer quantity, Integer unitprice, Date settime, String scshipper,
+			String scshipperaddress, String scpayment, String scaddressee, String sctelephone, Product productBean,
+			Customer cbShoppingCart) {
+		super();
 		this.shoppoingCartId = shoppoingCartId;
 		this.quantity = quantity;
+		this.unitprice = unitprice;
 		this.settime = settime;
+		this.scshipper = scshipper;
+		this.scshipperaddress = scshipperaddress;
+		this.scpayment = scpayment;
+		this.scaddressee = scaddressee;
+		this.sctelephone = sctelephone;
 		this.productBean = productBean;
 		this.cbShoppingCart = cbShoppingCart;
-		this.unitprice = unitprice;
 	}
 
 	public String getShoppoingCartId() {
@@ -117,6 +139,46 @@ public class ShoppingCartBean implements Serializable {
 
 	public void setUnitprice(Integer unitprice) {
 		this.unitprice = unitprice;
+	}
+
+	public String getScshipper() {
+		return scshipper;
+	}
+
+	public void setScshipper(String scshipper) {
+		this.scshipper = scshipper;
+	}
+
+	public String getScshipperaddress() {
+		return scshipperaddress;
+	}
+
+	public void setScshipperaddress(String scshipperaddress) {
+		this.scshipperaddress = scshipperaddress;
+	}
+
+	public String getScpayment() {
+		return scpayment;
+	}
+
+	public void setScpayment(String scpayment) {
+		this.scpayment = scpayment;
+	}
+
+	public String getScaddressee() {
+		return scaddressee;
+	}
+
+	public void setScaddressee(String scaddressee) {
+		this.scaddressee = scaddressee;
+	}
+
+	public String getSctelephone() {
+		return sctelephone;
+	}
+
+	public void setSctelephone(String sctelephone) {
+		this.sctelephone = sctelephone;
 	}	
 	
 }
