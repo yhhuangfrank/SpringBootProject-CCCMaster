@@ -1,5 +1,6 @@
 package com.ispan.CCCMaster.model.bean.product;
 
+import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -12,16 +13,16 @@ public class Ratings {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ratings_id")
     private Integer ratingsId;
-    //    @ManyToOne//訂單Bean  訂單單向一對多?
-//    @JoinColumn(name = "order_id")
-//    private Order Order;
-    @ManyToOne(cascade = CascadeType.ALL)//訂單Bean
+
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id")
     private Product product;
 
-    //    @ManyToOne(cascade = CascadeType.ALL)//會員Bean  會員單向一對多?
-//    @JoinColumn(name = "customer_id")
-//    private Customer customer;
+    @OneToOne
+    @JoinColumn(name = "order_details_id")
+    private OrderDetailBean orderDetail;
+
+
     @Column(name = "rating", nullable = false)
     private Integer rating;
     @Column(name = "customer_comment")

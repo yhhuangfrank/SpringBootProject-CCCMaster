@@ -59,6 +59,7 @@ public class Product {
     private Boolean active;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true)
+    @JsonIgnore
     private List<Crawler> crawlers;
 
     public MultipartFile getMainImageFile() {
@@ -71,7 +72,8 @@ public class Product {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,mappedBy = "product")
     @JsonIgnore
-    private List<ProductImg> productImgs = new ArrayList<>();
+    private List<ProductImg> productImgs;
+
 
     @Transient
     private MultipartFile mainImageFile;
