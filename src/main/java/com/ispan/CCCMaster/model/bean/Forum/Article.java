@@ -40,7 +40,8 @@ public class Article {
     @Column(name = "like_count")
     private Integer likeCount;
 
-    public void onCreated() {
+    @PrePersist
+    public void onCreate() {
         if(added == null) {
             added = new Date();
         }
@@ -54,6 +55,26 @@ public class Article {
     private byte[] image;
     @Transient
     private MultipartFile imageFile;
+
+    public Date getAdded() {
+        return added;
+    }
+
+    public void setAdded(Date added) {
+        this.added = added;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public MultipartFile getImageFile() {
+        return imageFile;
+    }
+
+    public void setImageFile(MultipartFile imageFile) {
+        this.imageFile = imageFile;
+    }
 
     public byte[] getImage() {
         return image;

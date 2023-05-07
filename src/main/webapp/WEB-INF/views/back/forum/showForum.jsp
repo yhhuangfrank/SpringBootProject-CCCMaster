@@ -62,7 +62,7 @@
                         <div class="d-flex justify-content-around">
 
                         <img style="width: 300px;" class="img-thumbnail m-3 "
-                             src="${contextRoot}/forums/showAllForum/${forum.forumId}"/>
+                             src="${contextRoot}/admin/forums/showAllForum/${forum.forumId}"/>
 
                             <div class="d-flex align-items-lg-center ">
                             <div>
@@ -74,17 +74,15 @@
                             </div>
                             </div>
 
-
-
                             <div class="d-flex align-items-center">
 
                                 <div style="display:flex">
-                                    <form class="m-3" action="${contextRoot}/forum/editPage">
+                                    <form class="m-3" action="${contextRoot}/admin/forum/editPage">
                                         <input type="hidden" name="id" value="${forum.forumId}" />
                                         <input type="submit" class="btn btn-primary" value="編輯" />
                                     </form>
 
-                                    <form class="m-3" action="${contextRoot}/forums/delete" method="post">
+                                    <form class="m-3" action="${contextRoot}/admin/forums/delete" method="post">
                                         <input type="hidden" name="_method" value="delete" />
                                         <input type="hidden" name="id" value="${forum.forumId}" />
                                         <input type="submit" class="btn btn-danger" value="刪除" />
@@ -94,25 +92,6 @@
                             </div>
                         </div>
                         </div>
-
-
-<%--                        <div class="card-body">--%>
-
-<%--                            <div style="display:flex">--%>
-<%--                                <form action="${contextRoot}/forum/editPage">--%>
-<%--                                    <input type="hidden" name="id" value="${forum.forumId}" />--%>
-<%--                                    <input type="submit" class="btn btn-outline-info btn-sm" value="編輯" />--%>
-<%--                                </form>--%>
-
-<%--                                <form action="${contextRoot}/forums/delete" method="post">--%>
-<%--                                    <input type="hidden" name="_method" value="delete" />--%>
-<%--                                    <input type="hidden" name="id" value="${forum.forumId}" />--%>
-<%--                                    <input type="submit" class="btn btn-outline-danger btn-sm" value="刪除" />--%>
-<%--                                </form>--%>
-<%--                            </div>--%>
-
-<%--                        </div>--%>
-<%--                    </div>--%>
 
                 </jstl:forEach>
 

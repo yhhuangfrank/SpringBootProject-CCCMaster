@@ -53,7 +53,7 @@
                     <div class="card-body">
 
                         <form:form class="form-control" modelAttribute="forum"
-                                   method="put" action="${contextRoot}/forum/edit" enctype="multipart/form-data">
+                                   method="put" action="${contextRoot}/admin/forum/edit" enctype="multipart/form-data">
                             <form:input type="hidden" path="forumId"/>
 
                             <form:input type="text" path="forumName" class="form-control" id="inputName"></form:input>

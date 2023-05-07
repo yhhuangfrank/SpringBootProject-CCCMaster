@@ -127,13 +127,23 @@
                             </a>
                         </li>
                         <li>
-                            <a href="${contextRoot}/forums/createform">
+                            <a href="${contextRoot}/admin/forums/createform">
                                 <i class="bi bi-circle"></i><span>新增討論版</span>
                             </a>
                         </li>
                         <li>
-                            <a href="icons-boxicons.html">
-                                <i class="bi bi-circle"></i><span>Boxicons</span>
+                            <a href="${contextRoot}/admin/articles/showAllArticle">
+                                <i class="bi bi-circle"></i><span>所有文章</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="${contextRoot}/admin/articles/createform">
+                                <i class="bi bi-circle"></i><span>新增文章</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="${contextRoot}/admin/responses">
+                                <i class="bi bi-circle"></i><span>所有回覆</span>
                             </a>
                         </li>
                     </ul>
