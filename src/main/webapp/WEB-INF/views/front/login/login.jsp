@@ -164,11 +164,6 @@
 		src="${contextRoot}/styles/front/assets/vendor/php-email-form/validate.js"></script>
 	<!-- Template Main JS File -->
 	<script src="${contextRoot}/styles/front/assets/js/main.js"></script>
-	<%-- axios 與自訂 JS --%>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.6/axios.min.js"></script>
-	<script src="${contextRoot}/js/bid/dateTimerInDetailPage.js"></script>
-	<script src="${contextRoot}/js/bid/updateBidPrice.js"></script>
 </body>
 
 </html>
