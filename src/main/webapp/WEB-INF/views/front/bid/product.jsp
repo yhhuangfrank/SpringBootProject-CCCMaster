@@ -135,7 +135,13 @@
                                 data-bs-toggle="modal" data-bs-target="#modal-${bidProduct.id}">點我出價
                         </button>
                         <%--          顯示訊息              --%>
-                        <div id="messageArea"></div>
+                        <div id="messageArea">
+                            <c:if test="${dealRecord != null}">
+                                <div class="alert alert-success mt-2 fw-bold" role="alert">
+                                    恭喜使用者: ${dealRecord.customer.name} 得標!
+                                </div>
+                            </c:if>
+                        </div>
                     </div>
                     <div class="portfolio-description">
                         <div class="container text-center">
@@ -189,7 +195,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">返回</button>
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="updateBidPriceBtn"
-                        data-bidproduct_id="${bidProduct.id}" data-currentuser_id="2" style="background-color: #e96b56">送出
+                        data-bidproduct_id="${bidProduct.id}" data-currentuser_id="1" style="background-color: #e96b56">送出
                 </button>
             </div>
         </div>

@@ -1,12 +1,26 @@
 package com.ispan.CCCMaster.service.impl;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ispan.CCCMaster.model.bean.category.Category;
 import com.ispan.CCCMaster.model.bean.product.Product;
 import com.ispan.CCCMaster.model.bean.product.ProductImg;
 import com.ispan.CCCMaster.model.dao.CategoryDao;
 import com.ispan.CCCMaster.model.dao.ProductDao;
 
+import com.ispan.CCCMaster.model.dao.ProductImgDao;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,10 +32,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import javax.persistence.criteria.Predicate;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.io.*;
+
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 @Service
 public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductService {
@@ -29,6 +43,14 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
     private ProductDao productDao;
     @Autowired
     private CategoryDao categoryDao;
+    @Autowired
+    private ProductImgDao productImgDao;
+
+
+    @Value("${chatgptApiKey}")
+    private String apiKey;
+
+    private String API_URL = "https://api.openai.com/v1/chat/completions";
 
 
     @Override//建立產品
@@ -43,13 +65,14 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
             newCategory.setName(categoryName);
             product.setCategory(newCategory);
         }
-        if(product.getMainImageFile()!=null){//主要圖片處理
-            img=new ProductImg();
+        if (product.getMainImageFile() != null) {//主要圖片處理
+            img = new ProductImg();
             img.setImage(product.getMainImageFile().getBytes());
             img.setMainImage(true);
             img.setProduct(product);
             productImgs.add(img);
         }
+
         for (MultipartFile imageFile : product.getImageFile()) {//次要圖片處理
             if (imageFile != null) {
                 img = new ProductImg();
@@ -113,8 +136,6 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
     }
 
 
-
-
     @Override//刪除產品
     public void deleteProduct(Integer productId) {
         productDao.deleteById(productId);
@@ -140,13 +161,7 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
             oldProduct.setPrice(product.getPrice());
             oldProduct.setInventory(product.getInventory());
             oldProduct.setActive(product.getActive());
-            for (MultipartFile imageFile : product.getImageFile()) {
-                if (imageFile != null) {//如果更新的圖片不為空
-                    img.setImage(imageFile.getBytes());
-                    productImgs.add(img);
-                }
-            }
-            oldProduct.setProductImgs(productImgs);
+
 
             if (categoryDao.findCategoryByName(categoryName) != null) {
                 oldProduct.setCategory(categoryDao.findCategoryByName(categoryName));
@@ -155,8 +170,52 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
                 newCategory.setName(categoryName);
                 oldProduct.setCategory(newCategory);
             }
+            updateProductImages(oldProduct, product.getMainImageFile(), product.getImageFile());
+
         }
     }
+
+    @Override
+    @Transactional
+    public void updateProductImages(Product product, MultipartFile mainImageFile, MultipartFile[] imageFiles) throws IOException {
+        if (mainImageFile != null && !mainImageFile.isEmpty()) {
+            ProductImg mainImg = productImgDao.findByProductAndMainImage(product, true);
+            if (mainImg != null) {
+                mainImg.setImage(mainImageFile.getBytes());
+                mainImg.setCreateDate(new Date());
+            } else {
+                ProductImg newMainImg = new ProductImg();
+                newMainImg.setImage(mainImageFile.getBytes());
+                newMainImg.setCreateDate(new Date());
+                newMainImg.setMainImage(true);
+                newMainImg.setProduct(product);
+                productImgDao.save(newMainImg);
+            }
+        }
+
+        if (imageFiles != null && Arrays.stream(imageFiles).anyMatch(file -> !file.isEmpty())) {
+            System.out.println("enter delete image");
+            List<ProductImg> imgs = productImgDao.findByProductAndMainImageFalse(product);
+            for (ProductImg img : imgs) {
+                productImgDao.delete(img);
+            }
+
+            for (MultipartFile file : imageFiles) {
+                if (!file.isEmpty()) {
+                    ProductImg newImg = new ProductImg();
+                    newImg.setImage(file.getBytes());
+                    newImg.setCreateDate(new Date());
+                    newImg.setMainImage(false);
+                    newImg.setProduct(product);
+                    productImgDao.save(newImg);
+                }
+            }
+        }
+    }
+
+
+
+
 
     @Transactional
     @Override// 計算瀏覽人次
@@ -165,5 +224,62 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
         product.setProductViews(product.getProductViews() + 1);
     }
 
+    @Override
+    public String generateDescription(String productName, String features, String target) {
+        String content = "有一個產品名稱叫做"+productName+"，產品特色是"+features+"，主打的客群是"+target+"，幫我產生這個產品的文案";
+        String response = null;
+        try {
+            response = sendGPTRequest(content);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("ChatGPT 產生的文案: " + response);
+        return response;
+    }
+
+
+    private String sendGPTRequest(String content) throws IOException {
+        String model = "gpt-3.5-turbo";
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("model", model);
+        requestBody.put("messages", new JSONArray().put(new JSONObject()
+                .put("role", "user")
+                .put("content", content)));
+        requestBody.put("temperature",0.5);
+        String requestBodyString = requestBody.toString();
+
+        HttpPost request = new HttpPost(API_URL);
+        StringEntity params = new StringEntity(requestBodyString, StandardCharsets.UTF_8);
+        request.addHeader("Authorization", "Bearer " + apiKey);
+        request.addHeader("content-type", "application/json");
+        request.setEntity(params);
+
+        try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
+            HttpResponse response = httpClient.execute(request);
+            String responseBody = EntityUtils.toString(response.getEntity());
+           String responseContent=getContentFromJsonString(responseBody);
+            return responseContent;
+        }
+
+    }
+
+    public static String getContentFromJsonString(String jsonString) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            JsonNode rootNode = objectMapper.readTree(jsonString);
+
+            String content = rootNode
+                    .get("choices")
+                    .get(0)
+                    .get("message")
+                    .get("content")
+                    .asText();
+
+            return content;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 }

@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="jstl" %>
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+        <jstl:set var="contextRoot" value="${pageContext.request.contextPath}" />
             <html lang="en">
 
             <head>
@@ -81,6 +84,24 @@
 
                         background-color: #A9A9A9;
                     }
+                    #butt{
+                    color:black;
+                    }
+                    #butt:hover{
+                    color:White;
+                    }
+                    #tabs{
+width: 100%;
+height: 100%;
+table-layout: fixed;
+}
+                    #ellipsis{
+                    
+white-space: nowrap;
+overflow: hidden; 
+text-overflow: ellipsis;
+}
+                    
                 </style>
             </head>
 
@@ -92,6 +113,19 @@
                 <jsp:include page="${contextRoot}/WEB-INF/views/front/layouts/header.jsp" />
 
 
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <ol>
+              <li><a href="${contextRoot}/">首頁</a></li>
+              <li>聯絡客服</li>
+              <li>常見問題</li>
+            </ol>
+            <h2>常見問題</h2>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
                 <main id="main" class="main">
 
                     <section class="section profile">
@@ -117,8 +151,105 @@
 
                                         <div class="tab-pane fade show active profile-overview" id="profile-overview">
                                             <!-- 分隔 -->
+                                            
+                                            
+                                            <section class="section">
+                                                <div class="row" style="width:100%;">
+                                                    <div class="col-lg-12">
+                                                        <br>
+                                                        <h1 style="text-align:center;margin-right:80px;">答覆中心</h1><br>
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <!-- Table with stripped rows -->
+                                                                <table id="tabs" class="table datatable">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th scope="col">編號</th>
+                                                                            <th scope="col">回報主旨</th>
+                                                                            <th scope="col">回報內容</th>
+                                                                            <th scope="col">回報時間</th>
+                                                                            <th scope="col">回覆</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <c:forEach items="${page.content}" var="ReportForm">
+                                                                            <tr>
+                                                                                <td>${ReportForm.id}</td>
+                                                                                <td>${ReportForm.question}</td>
+                                                                                <td id="ellipsis" title="${ReportForm.narrative}">${ReportForm.narrative}</td>
+                                                                                <td><fmt:formatDate pattern="EEEE yyyy-MM-dd HH:mm:ss" value="${ReportForm.createtime}" /></td>
+                                                                                <td>
+                                                                                    <button 
+                                                                                        type="button"
+                                                                                        class="btn btn-outline-success"
+                                                                                        style="display: inline;"
+                                                                                        id="bntt"
+                                                                                        data-bs-toggle="modal"
+                                                                                        data-bs-target="#modal-${ReportForm.id}">
+                                                                                        查看回覆
+                                                                                    </button>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </c:forEach>
+                                                                    </tbody>
+                                                                </table>
+                                                                <!-- End Table with stripped rows -->
+                                                                <div style="display: flex;justify-content: center;">
+                                                                    <ul class="pagination">
+                                                                        <c:choose>
+                                                                             <c:when test="${page.number != 0 }">
+                                                                            <li class="page-item">
+                                                                              <a class="page-link" href="${contextRoot}/service/from/create?p=${page.number}" aria-label="Previous">
+                                                                                <span aria-hidden="true">&laquo;</span>
+                                                                              </a>
+                                                                            </li>
+                                                                            </c:when>
+                                                                           <c:otherwise>
+                                                                            </c:otherwise>
+                                                                         </c:choose>
+                                                                <jstl:forEach var="pageNumber" begin="1" end="${page.totalPages}">
+                                                                <jstl:choose>
+                                                                <jstl:when test="${page.number != pageNumber-1 }">
+                                                                    <li class="page-item">
+                                                                  <a href="${contextRoot}/service/from/create?p=${pageNumber}" class="page-link" ><span>${pageNumber}</span></a>
+                                                                </li>
+                                                                </jstl:when>
+                                                                <jstl:otherwise>
+                                                                
+                                                                <li class="page-item">
+                                                                    <span class="page-link" style="color: black;">${pageNumber}</span>
+                                                            </li>
+                                                                </jstl:otherwise>
+                                                                </jstl:choose>
+                                                                </jstl:forEach>
+                                                                
+                                                                    <c:choose>
+                                                                       <c:when test="${page.number != page.totalPages -1}">
+                                                                 <li class="page-item">
+                                                                    <a class="page-link" href="${contextRoot}/service/from/create?p=${page.number+2}" aria-label="Next">
+                                                                      <span aria-hidden="true">&raquo;</span>
+                                                                    </a>
+                                                                  </li>
+                                                                        </c:when>
+                                                                           <c:otherwise>
+                                                                            </c:otherwise>
+                                                                         </c:choose>
+                                                                </ul>
+                                                            </div>
+                                                            </div>
+                                                        </div>
 
-                                            <br>
+                                                    </div>
+                                                </div>
+                                            </section>
+                                            
+                                        <!-- 分隔 -->
+
+                                        </div>
+                                        
+                                        <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+                                            <!-- 分隔 -->
+
                                             <br>
                                             <br>
                                             <h1 style="text-align:center;margin-right:80px;">表單回報</h1><br>
@@ -132,14 +263,14 @@
                                                                 class="col-sm-2 col-form-label">訂單ID:</label>
                                                             <div class="col-sm-10">
                                                                 <form:input type="text" path="orderid"
-                                                                    class="form-control" id="inputName"></form:input>
+                                                                    class="form-control" id="inputName" maxlength="10"></form:input>
                                                             </div>
                                                         </div>
                                                         <div class="row mb-3">
                                                             <label for="inputQuestion"
                                                                 class="col-sm-2 col-form-label">問題主旨</label>
                                                             <div class="col-sm-10">
-                                                                <form:select path="narrative" class="form-control"
+                                                                <form:select path="question" class="form-control"
                                                                     id="inputQuestion">
                                                                     <option value="購物問題" selected>購物問題
                                                                     <option value="訂單問題">訂單問題
@@ -154,7 +285,7 @@
                                                         <div class="form-floating mb-3">
                                                             <form:textarea class="form-control"
                                                                 placeholder="Leave a comment here" id="floatingTextarea"
-                                                                style="height: 100px;" path="narrative"></form:textarea>
+                                                                style="height: 100px;" path="narrative" maxlength="200"></form:textarea>
                                                             <label for="floatingTextarea">可輸入200個字</label>
                                                         </div>
                                                         <div class="row mb-3">
@@ -162,7 +293,7 @@
                                                                 class="col-sm-2 col-form-label">聯絡電話:</label>
                                                             <div class="col-sm-10">
                                                                 <form:input type="text" path="phone"
-                                                                    class="form-control" id="inputPhone"></form:input>
+                                                                    class="form-control" id="inputPhone" maxlength="15"></form:input>
                                                             </div>
                                                         </div>
                                                         <div class="row mb-3">
@@ -170,7 +301,7 @@
                                                                 class="col-sm-2 col-form-label">電子信箱:</label>
                                                             <div class="col-sm-10">
                                                                 <form:input type="text" path="email"
-                                                                    class="form-control" id="inputEemail"></form:input>
+                                                                    class="form-control" id="inputEemail" maxlength="20"></form:input>
                                                             </div>
                                                         </div>
                                                         <br>
@@ -183,59 +314,6 @@
                                                     </form:form>
                                                 </div>
                                             </section>
-                                        </div>
-                                        <!-- 分隔 -->
-
-                                        <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-                                            <!-- 分隔 -->
-
-                                            <section class="section">
-                                                <div class="row" style="width:100%;">
-                                                    <div class="col-lg-12">
-                                                        <br>
-                                                        <br>
-                                                        <br>
-                                                        <h1 style="text-align:center;margin-right:80px;">答覆中心</h1><br>
-                                                        <div class="card">
-                                                            <div class="card-body">
-                                                                <!-- Table with stripped rows -->
-                                                                <table class="table datatable">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th scope="col">編號</th>
-                                                                            <th scope="col">主旨</th>
-                                                                            <th scope="col">回報時間</th>
-                                                                            <th scope="col">回覆</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <c:forEach items="${ReportForm2Model}" var="s">
-                                                                            <tr>
-                                                                                <td>${s.id}</td>
-                                                                                <td>${s.question}</td>
-                                                                                <td>${b.createtime}</td>
-                                                                                <td>
-                                                                                    <button
-                                                                                        class="btn btn-outline-danger"
-                                                                                        style="display: inline;background-color: limegreen;"
-                                                                                        data-bs-toggle="modal"
-                                                                                        data-bs-target="#modal-${s.id}">
-                                                                                        查看回覆
-                                                                                    </button>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </c:forEach>
-                                                                    </tbody>
-                                                                </table>
-                                                                <!-- End Table with stripped rows -->
-
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </section>
-
                                             <!-- 分隔 -->
                                         </div>
 

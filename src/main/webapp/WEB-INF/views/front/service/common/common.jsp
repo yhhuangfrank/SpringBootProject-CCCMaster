@@ -55,7 +55,8 @@
           <div class="container">
 
             <ol>
-              <li><a href="index.html">首頁</a></li>
+              <li><a href="${contextRoot}/">首頁</a></li>
+              <li>聯絡客服</li>
               <li>常見問題</li>
             </ol>
             <h2>常見問題</h2>

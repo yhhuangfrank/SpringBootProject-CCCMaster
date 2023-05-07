@@ -50,6 +50,11 @@ public class BidProductValidator implements Validator {
     private boolean isValidEndDate(String dateString) {
         // 處理日期
         Date date;
+
+        if (dateString == null || dateString.length() == 0) {
+            return true; // 截止日期可為空值
+        }
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
         try {
             date = dateFormat.parse(dateString);

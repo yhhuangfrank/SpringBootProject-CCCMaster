@@ -6,7 +6,7 @@
       <div class="container d-flex justify-content-between align-items-center">
 
         <div class="logo">
-          <h1><a href="index.html">Eterna</a></h1>
+          <h1 style="font-family:Cursive;font-size:50px;"><a href="${contextRoot}/">山西達人</a></h1>
           <!-- Uncomment below if you prefer to use an image logo -->
           <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
         </div>
@@ -39,15 +39,51 @@
               </ul>
             </li>
             <li><a href="${contextRoot}/forums/showAllForum">論壇</a></li>
-            <li><a href="pricing.html">聯絡客服</a></li>
+           <li class="dropdown"><a href="#"><span>聯絡客服</span></a>
+              <ul>
+                <li><a href="${contextRoot}/Service/common">常見問題</a></li>
+                <li><a href="${contextRoot}/service/from/create">表單回報問答中心</a></li>
+              </ul>
+            </li>
             <li><a href="blog.html">會員中心</a></li>
             <li><a href="${contextRoot}/front/shoppingcart">購物車</a></li>
-            <li><a href="index.html">註冊</a></li>
-            <li><a href="index.html">登入</a></li>
+           	<c:choose>
+           		<c:when test="${sessionScope.customerId == null}">
+           			<li><a href="index.html">註冊</a></li>
+		            <li><a href="${contextRoot}/login">登入</a></li>
+           		</c:when>
+           		<c:otherwise>
+		            <li class="dropdown">
+		            	<a href="${contextRoot}/customerCenter"><span>${sessionScope.customerName}，您好</span></a>
+		              	<ul>
+			                <li><a href="${contextRoot}/customerCenter">會員中心</a></li>
+			                <li><a href="#">未來功能預留</a></li>
+			                <li><a href="${contextRoot}/logout">登出</a></li>
+		              	</ul>
+		            </li>
+           		</c:otherwise>
+           	</c:choose>
           </ul>
           <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->
 
       </div>
+
+	  <!-- 以下內容 add By YUYU -->
+      <c:if test="${logoutSuccessful}">
+	      <div id="logout-success-msg" class="alert alert-success position-fixed top-50 start-50 translate-middle d-none" role="alert">
+			  您已成功登出！欲使用進階功能請重新登入!
+		  </div>
+		  <script>
+			  // 顯示登出成功訊息框
+			  document.querySelector('#logout-success-msg').classList.remove('d-none');
+			  // 設定 2 秒後淡出消失
+			  setTimeout(function() {
+			    document.querySelector('#logout-success-msg').classList.add('fade');
+			  }, 2000);
+		  </script>
+      </c:if>
+      
+      
     </header>
     <!-- End Header -->

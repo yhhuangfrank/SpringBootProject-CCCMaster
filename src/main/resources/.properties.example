@@ -29,3 +29,6 @@ spring.servlet.multipart.max-request-size=3MB
 
 # default_image_file
 default.image=no-image-icon.png
+
+#chatGPT API key
+chatgptApiKey=123
