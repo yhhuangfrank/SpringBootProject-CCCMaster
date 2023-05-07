@@ -62,12 +62,6 @@ public class Customer {
 			abandonCount = 0;
 		}
 	}
-//	@PrePersist	//建立該筆資料時將棄標次數設為0
-//	public void initialPoint() {
-//		if(abandonCount == null) {
-//			abandonCount = 0;
-//		}
-//	}
 
 	@OneToMany(mappedBy = "customers", cascade = CascadeType.ALL)
 	private Set<CustomerCoupon> customerCoupons = new HashSet<>();
