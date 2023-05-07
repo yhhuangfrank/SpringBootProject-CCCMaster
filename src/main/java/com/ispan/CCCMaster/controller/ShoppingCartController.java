@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ispan.CCCMaster.model.bean.order.OrderBean;
+import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;
 import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
+import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartDetailBean;
 import com.ispan.CCCMaster.service.ProductService;
 import com.ispan.CCCMaster.service.ShoppingCartService;
 
@@ -33,19 +36,21 @@ public class ShoppingCartController {
 
 	//創立購物車，並將畫面重新導向為商品詳細頁面
 	@PostMapping("/shoppingcarts/create")
-	public String createShoppingCart(@ModelAttribute("sc")ShoppingCartBean sc,@RequestParam("productId")Integer productId) {
-		scService.createShoppingCart(sc, productId);
+	public String createShoppingCart(@ModelAttribute("sc")ShoppingCartBean sc,@RequestParam("productId")Integer productId,@RequestParam("customerId")Integer customerId) {
+		scService.createShoppingCart(sc,productId,customerId);
 		return "redirect:/front/product/details/"+productId+"#";
 	}
 	
 	//查詢購物車
-//	@GetMapping("/front/shoppingcart")
-//	public String findShoppingCart(@RequestParam("id") Customers c,Model model) {
-//		List<ShoppingCartBean> list =  scService.findShoppingCartByCid(c);
+//	@GetMapping("/front/shoppingcart/shoppingcartdetail")
+//	public String findShoppingCart(@RequestParam("id") Integer customerId ,Model model) {
+//		List<ShoppingCartBean> list =  scService.findShoppingCartByCid(customerId);
+//		model.addAttribute("orderBean", new OrderBean());
+//		model.addAttribute("orderbeandetail",new OrderDetailBean());
 //		model.addAttribute("sc",list);
 //		return "front/shoppingcart/shoppingcart";
 //	}
-//	//購物車列表
+//	//購物車列表(可更改數量)
 	@GetMapping("/front/shoppingcart")
 	public String finaAll(Model model) {
 		List<ShoppingCartBean> list = scService.findAll();
@@ -67,6 +72,27 @@ public class ShoppingCartController {
 			e.printStackTrace();
 		}
 		return "redirect:/front/shoppingcart";
+	}
+	//購物車列表
+	@GetMapping("/front/shoppingcart/shoppingcartdetail")
+	public String findSCByCid(Model model) {
+		List<ShoppingCartBean> list = scService.findAll();
+		model.addAttribute("orderBean", new OrderBean());
+		model.addAttribute("orderbeandetail",new OrderDetailBean());
+		model.addAttribute("sc",new ShoppingCartBean());
+		model.addAttribute("shoppingcart",list);
+		return "/front/shoppingcarts/showshoppingcartdetail";
+	}
+	
+	//修改購物車詳細資料
+	@PutMapping("/front/shoppingcart/shoppingcartdetail")
+	public String adddetail(@ModelAttribute("sc")ShoppingCartBean shoppingcart) {
+		try {
+			scService.editBySCId(shoppingcart);
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		return "/front/orders/checkorder";
 	}
 	
 

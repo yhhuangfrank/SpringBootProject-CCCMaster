@@ -48,42 +48,34 @@ public class OrderAdminController {
 		return "/back/order/showOrders";
 	}	
 	//單筆訂單
-	@GetMapping("/admin/orders/editorder")
-	public String findOrderById(@RequestParam("id") String orderid,Model model) {
-		OrderBean ob= oService.findOrderByid(orderid);
-		List<OrderDetailBean> odb = oService.findorderdetailbyOId(orderid);
-		model.addAttribute("singleorder",ob);
-		model.addAttribute("orderdetails",odb);
-		return "/back/order/Order-edit";
-	}	
-	//修改訂單
-	@PutMapping("/admin/orders/edit")
-	public String editOrderById(@ModelAttribute("singleorder")OrderBean orderBean) {
-		try {
-			oService.updateById(orderBean);
-		}catch(IOException e) {
-          e.printStackTrace();
-       }
-		return "redirect:/admin/orders";
-	}
-	
-	//購物車列表
-	@GetMapping("/front/shoppingcart/shoppingcartdetail")
-	public String findSCByCid(Model model) {
-		List<ShoppingCartBean> list = scService.findAll();
-		model.addAttribute("orderBean", new OrderBean());
-		model.addAttribute("orderbeandetail",new OrderDetailBean());
-		model.addAttribute("shoppingcart",list);
-		return "/front/shoppingcarts/showshoppingcartdetail";
-	}
-	
-	//新增訂單&同時刪掉購物車&修改存貨
-	@PostMapping("/front/orders/create")
-	public String createorder(@ModelAttribute("orderBean")OrderBean orderBean) throws IOException {
-		oService.createOrder(orderBean);
-//		scService.deleteAll();
-		return "/front/orders/order";
-	}
+//	@GetMapping("/admin/orders/editorder")
+//	public String findOrderById(@RequestParam("id") String orderid,Model model) {
+//		OrderBean ob= oService.findOrderByid(orderid);
+//		List<OrderDetailBean> odb = oService.findorderdetailbyOId(orderid);
+//		model.addAttribute("singleorder",ob);
+//		model.addAttribute("orderdetails",odb);
+//		return "/back/order/Order-edit";
+//	}	
+//	//修改訂單
+//	@PutMapping("/admin/orders/edit")
+//	public String editOrderById(@ModelAttribute("singleorder")OrderBean orderBean) {
+//		try {
+//			oService.updateById(orderBean);
+//		}catch(IOException e) {
+//          e.printStackTrace();
+//       }
+//		return "redirect:/admin/orders";
+//	}
+//	
+//
+//	
+//	//新增訂單&同時刪掉購物車&修改存貨
+//	@PostMapping("/front/orders/create")
+//	public String createorder(@ModelAttribute("orderBean")OrderBean orderBean) throws IOException {
+//		oService.createOrder(orderBean);
+////		scService.deleteAll();
+//		return "/front/orders/order";
+//	}
 	//前台訂單資料
 //	@GetMapping("/front/orders")
 //	public String findfrontorder(@PathVariable("id") String orderid,Model model) {
@@ -94,15 +86,15 @@ public class OrderAdminController {
 //		return "/front/orders/order";
 //	}
 	//更新訂單內容
-	@PutMapping("/admin/orders/add")
-	public String addInfor(@ModelAttribute("order")OrderBean orderBean) {
-		try {
-			oService.updateById(orderBean);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return"/front/orders/checkorder";
-	}
+//	@PutMapping("/admin/orders/add")
+//	public String addInfor(@ModelAttribute("order")OrderBean orderBean) {
+//		try {
+//			oService.updateById(orderBean);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		return"/front/orders/checkorder";
+//	}
 	
 	
 	//前往綠界

@@ -165,7 +165,7 @@
                                     </button>
                                         <%--                                    <input id="quantity" type="number" class="form-control text-center" min="1" value="1" max="${product.inventory}">--%>
                                     <input id="quantity" type="text" class="form-control text-center" value="1"
-                                           data-max="${product.inventory}" name="quantity">
+                                           data-max="${product.inventory}" name="sc.shoppingCartDetailBean.scquantity">
                                     <button id="increment" class="btn btn-outline-secondary" type="button">+
                                     </button>
                                 </div>
