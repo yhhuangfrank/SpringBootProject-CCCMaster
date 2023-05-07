@@ -61,7 +61,10 @@ public class BidProductServiceImpl implements BidProductService {
     }
 
     @Override
-    public void createBidProduct(BidProductRequest bidProductRequest) {
+    public void createBidProduct(Integer customerId, BidProductRequest bidProductRequest) {
+
+        // 查找使用者
+        Customer foundCustomer = customerDao.findById(customerId).orElseThrow(() -> new NotFoundException("查無使用者!"));
 
         BidProduct bidProduct = new BidProduct();
         bidProduct.setName(bidProductRequest.getName());
@@ -69,7 +72,7 @@ public class BidProductServiceImpl implements BidProductService {
         bidProduct.setBidPrice(0); // 初始出價為 0
         bidProduct.setCategory(getOrCreateCategory(bidProductRequest.getCategoryName()));
         bidProduct.setDescription(bidProductRequest.getDescription());
-        bidProduct.setCustomer(customerDao.findById(1).get()); // 暫定預設使用者 1 號
+        bidProduct.setCustomer(foundCustomer);
 
         // 處理圖片
         String imageLink = DEFAULT_IMAGE; // 預設圖片

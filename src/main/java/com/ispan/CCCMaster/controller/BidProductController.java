@@ -8,6 +8,7 @@ import com.ispan.CCCMaster.service.BidProductService;
 import com.ispan.CCCMaster.service.CategoryService;
 import com.ispan.CCCMaster.service.DealRecordService;
 import com.ispan.CCCMaster.util.BidProductValidator;
+import com.ispan.CCCMaster.util.LoginIdProvider;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +16,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -29,14 +31,18 @@ public class BidProductController {
 
     private final BidProductValidator bidProductValidator;
 
+    private final LoginIdProvider loginIdProvider;
+
     public BidProductController(BidProductService bidProductService,
                                 CategoryService categoryService,
                                 DealRecordService dealRecordService,
-                                BidProductValidator bidProductValidator) {
+                                BidProductValidator bidProductValidator,
+                                LoginIdProvider loginIdProvider) {
         this.bidProductService = bidProductService;
         this.categoryService = categoryService;
         this.dealRecordService = dealRecordService;
         this.bidProductValidator = bidProductValidator;
+        this.loginIdProvider = loginIdProvider;
     }
 
     @GetMapping("/bidProducts/create")
@@ -53,6 +59,7 @@ public class BidProductController {
 
     @PostMapping("/bidProducts")
     public String createBidProduct(
+            HttpServletRequest req,
             @RequestBody @Valid @ModelAttribute("bidProductRequest") BidProductRequest bidProductRequest,
             BindingResult bindingResult,
             Model model,
@@ -70,7 +77,11 @@ public class BidProductController {
             return "front/bid/product-create";
         }
 
-        bidProductService.createBidProduct(bidProductRequest);
+        // 新增商品
+        Integer loginCustomerId = loginIdProvider.getLoginCustomerId(req).orElse(null);
+        if (loginCustomerId == null)  return "redirect:/login";
+
+        bidProductService.createBidProduct(loginCustomerId, bidProductRequest);
 
         redirectAttributes.addFlashAttribute("isSuccess", true);
         redirectAttributes.addFlashAttribute("successMsg", "新增成功!");

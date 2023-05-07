@@ -12,6 +12,7 @@
     <meta content="" name="keywords">
 
     <c:set var="contextRoot" value="${pageContext.request.contextPath}"/>
+    <c:set var="currentCustomerId" value="${sessionScope.customerId}"/>
 
     <!-- Favicons -->
     <link href="${contextRoot}/styles/front/assets/img/favicon.png" rel="icon">
@@ -89,10 +90,12 @@
 
                 <div class="col-lg-4">
                     <div class="portfolio-info">
-                        <%--待設定只有登入的賣家能編輯自己的商品判斷--%>
+                        <%-- 只有登入的賣家能編輯自己的商品 --%>
                         <h3>商品詳情
-                            <a href="${contextRoot}/bidProducts/${bidProduct.id}/edit"
-                               class="btn btn-outline-info">修改</a>
+                            <c:if test="${currentCustomerId == bidProduct.customer.customerId}">
+                                <a href="${contextRoot}/bidProducts/${bidProduct.id}/edit"
+                                   class="btn btn-outline-info">修改</a>
+                            </c:if>
                         </h3>
                         <ul>
                             <li>

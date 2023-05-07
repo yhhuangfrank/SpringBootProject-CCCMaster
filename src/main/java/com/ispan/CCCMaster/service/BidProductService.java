@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface BidProductService {
 
-    void createBidProduct(BidProductRequest bidProductRequest);
+    void createBidProduct(Integer customerId, BidProductRequest bidProductRequest);
 
     List<BidProduct> findAllBidProducts();
 
