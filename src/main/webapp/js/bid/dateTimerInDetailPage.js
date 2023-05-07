@@ -12,6 +12,11 @@ function setCountDownTimer() {
     const currentTime = Date.now()
     const offset = Math.floor((expiredTime - currentTime) / 1000) // 以秒為單位
 
+    // 若倒數結束，送出新增成交請求紀錄
+    if (offset === 0) {
+        return createDealRecord()
+    }
+
     if (offset < 0) {
         clearInterval(timer)
         return showBidCloseMessage("已截止")
@@ -43,4 +48,28 @@ function showBidCloseMessage(message) {
     countDownArea.innerHTML = `
         <span>${message}</span>
     `
+}
+
+function showDealMessage(message) {
+    messageArea.innerHTML = `
+        <div class="alert alert-success mt-2 fw-bold" role="alert">
+            ${message}
+        </div>
+    `
+}
+
+async function createDealRecord() {
+    // create deal record by axios
+    const {bidproduct_id} = updateBidPriceBtn.dataset
+
+    try {
+        const response = await axios.post(`${BASE_URL}/${bidproduct_id}/dealRecords`)
+        const {data} = response
+        const message = `恭喜使用者: ${data.customer.name} 得標!`
+        showDealMessage(message)
+        bidPriceInput.setAttribute("disabled", true)
+        bidBtn.classList.add("disabled")
+    } catch (error) {
+        console.log(error)
+    }
 }

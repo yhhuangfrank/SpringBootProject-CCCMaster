@@ -14,4 +14,5 @@ public interface CrawlerDao extends JpaRepository<Crawler, Integer> {
      Date findLatestCrawlerDateByProductId(@Param("id") Integer id);
     @Query("select c.crawlerProductName,c.price,c.crawlerDate from Crawler c Where c.product.productId= :id")
     Page<Crawler> findLatestCrawlerPageByProductId(@Param("id")Integer id, Pageable pageable);
+
 }

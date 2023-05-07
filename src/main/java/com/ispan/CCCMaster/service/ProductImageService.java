@@ -15,4 +15,6 @@ public interface ProductImageService {
     HttpHeaders setImgHttpHeader(byte[] image);
 
     ResponseEntity<byte[]> showImageByImageId(Integer imageId);
+
+
 }

@@ -1,9 +1,11 @@
 package com.ispan.CCCMaster.api;
 
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
+import com.ispan.CCCMaster.model.bean.bid.DealRecord;
 import com.ispan.CCCMaster.model.dto.BidProductQueryParams;
 import com.ispan.CCCMaster.model.dto.BidRecordRequest;
 import com.ispan.CCCMaster.service.BidProductService;
+import com.ispan.CCCMaster.service.DealRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
@@ -19,9 +21,13 @@ public class BidProductApi {
 
     private final BidProductService bidProductService;
 
+    private final DealRecordService dealRecordService;
+
     @Autowired
-    public BidProductApi(BidProductService bidProductService) {
+    public BidProductApi(BidProductService bidProductService,
+                          DealRecordService dealRecordService) {
         this.bidProductService = bidProductService;
+        this.dealRecordService = dealRecordService;
     }
 
     @GetMapping("/bidProducts")
@@ -60,4 +66,10 @@ public class BidProductApi {
                                      @RequestBody @Valid BidRecordRequest bidRecordRequest) {
         return bidProductService.updateBidPrice(id, bidRecordRequest);
     }
+
+    @PostMapping("/bidProducts/{id}/dealRecords")
+    public DealRecord createDealRecord(@PathVariable Integer id) {
+        return dealRecordService.createDealRecord(id);
+    }
+
 }

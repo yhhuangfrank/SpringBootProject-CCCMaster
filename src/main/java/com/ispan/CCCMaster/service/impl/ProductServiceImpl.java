@@ -8,6 +8,8 @@ import com.ispan.CCCMaster.model.bean.product.ProductImg;
 import com.ispan.CCCMaster.model.dao.CategoryDao;
 import com.ispan.CCCMaster.model.dao.ProductDao;
 
+import com.ispan.CCCMaster.model.dao.ProductImgDao;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -41,6 +43,8 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
     private ProductDao productDao;
     @Autowired
     private CategoryDao categoryDao;
+    @Autowired
+    private ProductImgDao productImgDao;
 
 
     @Value("${chatgptApiKey}")
@@ -68,6 +72,7 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
             img.setProduct(product);
             productImgs.add(img);
         }
+
         for (MultipartFile imageFile : product.getImageFile()) {//次要圖片處理
             if (imageFile != null) {
                 img = new ProductImg();
@@ -156,13 +161,7 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
             oldProduct.setPrice(product.getPrice());
             oldProduct.setInventory(product.getInventory());
             oldProduct.setActive(product.getActive());
-            for (MultipartFile imageFile : product.getImageFile()) {
-                if (imageFile != null) {//如果更新的圖片不為空
-                    img.setImage(imageFile.getBytes());
-                    productImgs.add(img);
-                }
-            }
-            oldProduct.setProductImgs(productImgs);
+
 
             if (categoryDao.findCategoryByName(categoryName) != null) {
                 oldProduct.setCategory(categoryDao.findCategoryByName(categoryName));
@@ -171,8 +170,52 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
                 newCategory.setName(categoryName);
                 oldProduct.setCategory(newCategory);
             }
+            updateProductImages(oldProduct, product.getMainImageFile(), product.getImageFile());
+
         }
     }
+
+    @Override
+    @Transactional
+    public void updateProductImages(Product product, MultipartFile mainImageFile, MultipartFile[] imageFiles) throws IOException {
+        if (mainImageFile != null && !mainImageFile.isEmpty()) {
+            ProductImg mainImg = productImgDao.findByProductAndMainImage(product, true);
+            if (mainImg != null) {
+                mainImg.setImage(mainImageFile.getBytes());
+                mainImg.setCreateDate(new Date());
+            } else {
+                ProductImg newMainImg = new ProductImg();
+                newMainImg.setImage(mainImageFile.getBytes());
+                newMainImg.setCreateDate(new Date());
+                newMainImg.setMainImage(true);
+                newMainImg.setProduct(product);
+                productImgDao.save(newMainImg);
+            }
+        }
+
+        if (imageFiles != null && Arrays.stream(imageFiles).anyMatch(file -> !file.isEmpty())) {
+            System.out.println("enter delete image");
+            List<ProductImg> imgs = productImgDao.findByProductAndMainImageFalse(product);
+            for (ProductImg img : imgs) {
+                productImgDao.delete(img);
+            }
+
+            for (MultipartFile file : imageFiles) {
+                if (!file.isEmpty()) {
+                    ProductImg newImg = new ProductImg();
+                    newImg.setImage(file.getBytes());
+                    newImg.setCreateDate(new Date());
+                    newImg.setMainImage(false);
+                    newImg.setProduct(product);
+                    productImgDao.save(newImg);
+                }
+            }
+        }
+    }
+
+
+
+
 
     @Transactional
     @Override// 計算瀏覽人次

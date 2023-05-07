@@ -6,7 +6,9 @@ import com.ispan.CCCMaster.model.bean.service.ReportForm2Model;
 
 
 public interface ServiceFromDao extends JpaRepository<ReportForm2Model, Integer> {
+	
 
+    public ReportForm2Model findFirstByOrderByCreatetimeDesc();
 
 
 }

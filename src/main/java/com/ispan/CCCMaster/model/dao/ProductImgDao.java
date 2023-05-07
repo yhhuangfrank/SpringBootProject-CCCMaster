@@ -1,6 +1,7 @@
 package com.ispan.CCCMaster.model.dao;
 
 import com.ispan.CCCMaster.model.bean.product.ProductImg;
+import com.ispan.CCCMaster.model.bean.product.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,4 +17,9 @@ public interface ProductImgDao extends JpaRepository<ProductImg, Integer> {
 
     @Query("select pi.productImgId from ProductImg pi WHERE pi.product.productId=:productId")
     List<Integer>findProductImgIdList(@Param("productId") Integer productId);
+
+    ProductImg findByProductAndMainImage(Product product, Boolean mainImage);
+
+    List<ProductImg> findByProductAndMainImageFalse(Product product);
+
 }
