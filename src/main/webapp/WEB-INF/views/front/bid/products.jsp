@@ -71,7 +71,7 @@
                                 <option value="createdAt_desc">最新的在前</option>
                                 <option value="basePrice_asc">底價由低到高</option>
                                 <option value="basePrice_desc">底價由高到低</option>
-                                <option value="viewCount_desc">最多人在看</option>
+                                <option value="viewCount_desc">最多點擊</option>
                             </select>
                         </div>
                         <div class="col-md-4 ms-auto" id="checkBox">

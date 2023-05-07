@@ -154,23 +154,25 @@ function renderBidProducts(content) {
                         <div class="card-body">
                             <h5 class="card-title">${b.name}</h5>
                             <div class="card-text">
-                                <div class="mb-2">
-                                    <span class="badge bg-secondary text-white" style="font-size: 1rem">種類</span>
-                                    <strong class="ms-2" style="font-size: 1rem">${b.category.name}</strong>
+                                <div class="row row-cols-lg-2">
+                                    <div class="mb-2">
+                                        <span class="badge bg-secondary text-white" style="font-size: 1rem">種類</span>
+                                        <strong class="ms-2" style="font-size: 1rem">${b.category.name}</strong>
+                                    </div>
+                                    <div class="mb-2">
+                                        <span class="badge bg-secondary text-white" style="font-size: 1rem">底價</span>
+                                        <strong class="ms-2" style="font-size: 1rem">${b.basePrice} 元</strong>
+                                    </div>
+                                    <div class="mb-2">
+                                        <span class="badge bg-secondary text-white" style="font-size: 1rem">目前價格</span>
+                                        <strong class="ms-2" style="font-size: 1rem">${b.bidPrice} 元</strong>
+                                    </div>
+                                    <div class="mb-2">
+                                        <span class="badge bg-secondary text-white" style="font-size: 1rem">熱門點擊</span>
+                                        <strong class="ms-2" style="font-size: 1rem">${b.viewCount} 次</strong>
+                                    </div>
                                 </div>
-                                <div class="mb-2">
-                                    <span class="badge bg-secondary text-white" style="font-size: 1rem">底價</span>
-                                    <strong class="ms-2" style="font-size: 1rem">${b.basePrice} 元</strong>
-                                </div>
-                                <div class="mb-2">
-                                    <span class="badge bg-secondary text-white" style="font-size: 1rem">目前價格</span>
-                                    <strong class="ms-2" style="font-size: 1rem">${b.bidPrice} 元</strong>
-                                </div>
-                                <div class="mb-2">
-                                    <span class="badge bg-secondary text-white" style="font-size: 1rem">觀看人數</span>
-                                    <strong class="ms-2" style="font-size: 1rem">${b.viewCount} 人</strong>
-                                </div>
-                                <div class="countDownArea" style="font-size: 1rem" data-created="${b.createdAt}" data-expired="${b.expiredAt}">
+                                <div class="countDownArea text-center" style="font-size: 1rem; width: 100%;" data-created="${b.createdAt}" data-expired="${b.expiredAt}">
                                     <div class="spinner-border" style="color: #e96b56;" role="status">
                                         <span class="visually-hidden">Loading...</span>
                                     </div>
