@@ -15,7 +15,6 @@ import com.ispan.CCCMaster.model.dto.BidProductRequest;
 import com.ispan.CCCMaster.model.dto.BidRecordRequest;
 import com.ispan.CCCMaster.service.BidProductService;
 import com.ispan.CCCMaster.util.ImgurUploader;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -49,7 +48,6 @@ public class BidProductServiceImpl implements BidProductService {
     @Value("${default.image}")
     private String DEFAULT_IMAGE;
 
-    @Autowired
     public BidProductServiceImpl(BidProductDao bidProductDao,
                                  CategoryDao categoryDao,
                                  CustomerDao customerDao,
@@ -71,6 +69,7 @@ public class BidProductServiceImpl implements BidProductService {
         bidProduct.setBidPrice(0); // 初始出價為 0
         bidProduct.setCategory(getOrCreateCategory(bidProductRequest.getCategoryName()));
         bidProduct.setDescription(bidProductRequest.getDescription());
+        bidProduct.setCustomer(customerDao.findById(1).get()); // 暫定預設使用者 1 號
 
         // 處理圖片
         String imageLink = DEFAULT_IMAGE; // 預設圖片
@@ -109,6 +108,7 @@ public class BidProductServiceImpl implements BidProductService {
         String keyword = queryParams.getKeyword();
         Boolean nonClosed = queryParams.getNonClosed();
         Boolean started = queryParams.getStarted();
+        Boolean dueSoon = queryParams.getDueSoon();
         String orderBy = queryParams.getOrderBy();
         String sort = queryParams.getSort();
         Integer page = queryParams.getPage();
@@ -143,6 +143,12 @@ public class BidProductServiceImpl implements BidProductService {
             // 是否已開始拍賣
             if (started) {
                 Predicate p = criteriaBuilder.isNotNull(root.get("expiredAt"));
+                predicates.add(p);
+            }
+
+            // 是否在一天內截止
+            if (dueSoon) {
+                Predicate p = criteriaBuilder.lessThan(root.get("expiredAt"), new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000));
                 predicates.add(p);
             }
 
@@ -183,6 +189,12 @@ public class BidProductServiceImpl implements BidProductService {
         }
 
         bidProductDao.save(foundBidProduct);
+    }
+
+    @Override
+    @Transactional
+    public void updateBidProduct(BidProduct bidProduct) {
+        bidProductDao.save(bidProduct);
     }
 
     @Override

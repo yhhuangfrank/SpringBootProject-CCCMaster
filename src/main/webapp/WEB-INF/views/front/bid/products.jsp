@@ -66,11 +66,12 @@
                                     style="display: inline; background-color: #e96b56"><i class="bx bx-search-alt"></i>
                             </button>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 align-self-center">
                             <select class="form-select" id="sortingSelect">
-                                <option value="createdAt_desc">最新</option>
+                                <option value="createdAt_desc">最新的在前</option>
                                 <option value="basePrice_asc">底價由低到高</option>
                                 <option value="basePrice_desc">底價由高到低</option>
+                                <option value="viewCount_desc">最多點擊</option>
                             </select>
                         </div>
                         <div class="col-md-4 ms-auto" id="checkBox">
@@ -84,6 +85,12 @@
                                 <input class="form-check-input" type="checkbox" id="startedCheck">
                                 <label class="form-check-label">
                                     不顯示未開始拍賣
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="dueSoonCheck">
+                                <label class="form-check-label">
+                                    即將截止
                                 </label>
                             </div>
                         </div>

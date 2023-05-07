@@ -6,7 +6,6 @@ import com.ispan.CCCMaster.model.dto.BidProductQueryParams;
 import com.ispan.CCCMaster.model.dto.BidRecordRequest;
 import com.ispan.CCCMaster.service.BidProductService;
 import com.ispan.CCCMaster.service.DealRecordService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +22,6 @@ public class BidProductApi {
 
     private final DealRecordService dealRecordService;
 
-    @Autowired
     public BidProductApi(BidProductService bidProductService,
                           DealRecordService dealRecordService) {
         this.bidProductService = bidProductService;
@@ -37,6 +35,7 @@ public class BidProductApi {
             @RequestParam(required = false) String keyword,
             @RequestParam(required = false, defaultValue = "false") Boolean nonClosed,
             @RequestParam(required = false, defaultValue = "false") Boolean started,
+            @RequestParam(required = false, defaultValue = "false") Boolean dueSoon,
 
             // 排序
             @RequestParam(defaultValue = "createdAt") String orderBy,
@@ -53,6 +52,7 @@ public class BidProductApi {
         queryParams.setKeyword(keyword);
         queryParams.setNonClosed(nonClosed);
         queryParams.setStarted(started);
+        queryParams.setDueSoon(dueSoon);
         queryParams.setOrderBy(orderBy);
         queryParams.setSort(sort);
         queryParams.setPage(page);

@@ -19,18 +19,21 @@ import java.util.Map;
 @Component
 public class GenDefaultBidProduct {
 
-    @Autowired
-    private BidProductDao bidProductDao;
+    private final BidProductDao bidProductDao;
 
-    @Autowired
-    private CategoryDao categoryDao;
+    private final CategoryDao categoryDao;
 
-    @Autowired
-    private CustomerDao customerDao;
+    private final CustomerDao customerDao;
 
-    private List<BidProduct> defaultBidProducts = new ArrayList<>();
+    private final List<BidProduct> defaultBidProducts = new ArrayList<>();
 
-    private Map<String, Category> categoryMap = new HashMap<>();
+    private final Map<String, Category> categoryMap = new HashMap<>();
+
+    public GenDefaultBidProduct(BidProductDao bidProductDao, CategoryDao categoryDao, CustomerDao customerDao) {
+        this.bidProductDao = bidProductDao;
+        this.categoryDao = categoryDao;
+        this.customerDao = customerDao;
+    }
 
     @PostConstruct
     public void genDefaultBidProducts() {

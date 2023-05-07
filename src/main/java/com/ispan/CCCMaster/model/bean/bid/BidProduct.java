@@ -43,17 +43,23 @@ public class BidProduct {
     @Temporal(TemporalType.TIMESTAMP) // 指定 DB 中時間精度
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 使用此格式在 Java 中解析日期
     @Column(name = "created_at", columnDefinition = "datetime", nullable = false)
-    Date createdAt;
+    private Date createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "expired_at", columnDefinition = "datetime")
-    Date expiredAt;
+    private Date expiredAt;
+
+    @Column(name = "view_count", columnDefinition = "int default 0", nullable = false)
+    private Integer viewCount;
 
     @PrePersist
     public void onCreate() {
         if (createdAt == null) {
             createdAt = new Date();
+        }
+        if (viewCount == null) {
+            viewCount = 0;
         }
     }
 
@@ -137,6 +143,14 @@ public class BidProduct {
         this.expiredAt = expiredAt;
     }
 
+    public Integer getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(Integer viewCount) {
+        this.viewCount = viewCount;
+    }
+
     @Override
     public String toString() {
         return "BidProduct{" +
@@ -149,6 +163,7 @@ public class BidProduct {
                 ", image='" + image + '\'' +
                 ", createdAt=" + createdAt +
                 ", expiredAt=" + expiredAt +
+                ", viewCount=" + viewCount +
                 '}';
     }
 
