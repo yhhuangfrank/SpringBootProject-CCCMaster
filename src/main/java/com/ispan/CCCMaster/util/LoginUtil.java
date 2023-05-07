@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @Component
-public class LoginIdProvider {
+public class LoginUtil {
 
     public Optional<Integer> getLoginCustomerId(HttpServletRequest req) {
         HttpSession session = req.getSession();

@@ -8,7 +8,7 @@ import com.ispan.CCCMaster.service.BidProductService;
 import com.ispan.CCCMaster.service.CategoryService;
 import com.ispan.CCCMaster.service.DealRecordService;
 import com.ispan.CCCMaster.util.BidProductValidator;
-import com.ispan.CCCMaster.util.LoginIdProvider;
+import com.ispan.CCCMaster.util.LoginUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class BidProductController {
@@ -31,18 +32,18 @@ public class BidProductController {
 
     private final BidProductValidator bidProductValidator;
 
-    private final LoginIdProvider loginIdProvider;
+    private final LoginUtil loginUtil;
 
     public BidProductController(BidProductService bidProductService,
                                 CategoryService categoryService,
                                 DealRecordService dealRecordService,
                                 BidProductValidator bidProductValidator,
-                                LoginIdProvider loginIdProvider) {
+                                LoginUtil loginUtil) {
         this.bidProductService = bidProductService;
         this.categoryService = categoryService;
         this.dealRecordService = dealRecordService;
         this.bidProductValidator = bidProductValidator;
-        this.loginIdProvider = loginIdProvider;
+        this.loginUtil = loginUtil;
     }
 
     @GetMapping("/bidProducts/create")
@@ -78,7 +79,7 @@ public class BidProductController {
         }
 
         // 新增商品
-        Integer loginCustomerId = loginIdProvider.getLoginCustomerId(req).orElse(null);
+        Integer loginCustomerId = loginUtil.getLoginCustomerId(req).orElse(null);
         if (loginCustomerId == null)  return "redirect:/login";
 
         bidProductService.createBidProduct(loginCustomerId, bidProductRequest);
@@ -112,10 +113,21 @@ public class BidProductController {
     }
 
     @GetMapping("/bidProducts/{id}/edit")
-    public String getEditBidProductForm(@PathVariable Integer id, Model model) {
+    public String getEditBidProductForm(HttpServletRequest req,
+                                        @PathVariable Integer id,
+                                        Model model,
+                                        RedirectAttributes redirectAttributes) {
 
-        // 查詢商品
+        Integer loginCustomerId = loginUtil.getLoginCustomerId(req).orElse(null);
+        if (loginCustomerId == null)  return "redirect:/login";
+
+        // 查詢商品，商品擁有者才可編輯
         BidProduct foundBidProduct = bidProductService.findBidProductById(id);
+        if (!Objects.equals(foundBidProduct.getCustomer().getCustomerId(), loginCustomerId)) {
+            redirectAttributes.addFlashAttribute("isWarning", true);
+            redirectAttributes.addFlashAttribute("warningMsg", "不可編輯不是自己的商品！");
+            return "redirect:/bidProducts";
+        }
 
         BidProductRequest bidProductRequest = new BidProductRequest();
         bidProductRequest.setName(foundBidProduct.getName());
