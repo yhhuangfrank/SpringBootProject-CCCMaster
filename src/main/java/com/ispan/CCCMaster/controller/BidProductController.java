@@ -90,8 +90,9 @@ public class BidProductController {
         BidProduct foundBidProduct = bidProductService.findBidProductById(id);
         DealRecord foundDealRecord = dealRecordService.findByBidProduct(foundBidProduct);
 
-        // 觀看次數加一
+        // 查看人數加一
         foundBidProduct.setViewCount(foundBidProduct.getViewCount() + 1);
+        bidProductService.updateBidProduct(foundBidProduct);
 
         model.addAttribute("bidProduct", foundBidProduct);
         model.addAttribute("dealRecord", foundDealRecord);

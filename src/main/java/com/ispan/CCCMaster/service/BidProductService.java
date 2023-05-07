@@ -21,6 +21,8 @@ public interface BidProductService {
 
     void updateBidProduct(Integer id, BidProductRequest bidProductRequest);
 
+    void updateBidProduct(BidProduct bidProduct);
+
     BidProduct updateBidPrice(Integer id, BidRecordRequest bidRecordRequest);
 
     void deleteBidProduct(Integer id);

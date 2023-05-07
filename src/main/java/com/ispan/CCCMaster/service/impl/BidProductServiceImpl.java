@@ -193,6 +193,12 @@ public class BidProductServiceImpl implements BidProductService {
 
     @Override
     @Transactional
+    public void updateBidProduct(BidProduct bidProduct) {
+        bidProductDao.save(bidProduct);
+    }
+
+    @Override
+    @Transactional
     public BidProduct updateBidPrice(Integer id, BidRecordRequest bidRecordRequest) {
 
         Integer bidPrice = bidRecordRequest.getBidPrice();

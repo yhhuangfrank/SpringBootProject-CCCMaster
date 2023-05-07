@@ -166,6 +166,10 @@ function renderBidProducts(content) {
                                     <span class="badge bg-secondary text-white" style="font-size: 1rem">目前價格</span>
                                     <strong class="ms-2" style="font-size: 1rem">${b.bidPrice} 元</strong>
                                 </div>
+                                <div class="mb-2">
+                                    <span class="badge bg-secondary text-white" style="font-size: 1rem">觀看人數</span>
+                                    <strong class="ms-2" style="font-size: 1rem">${b.viewCount} 人</strong>
+                                </div>
                                 <div class="countDownArea" style="font-size: 1rem" data-created="${b.createdAt}" data-expired="${b.expiredAt}">
                                     <div class="spinner-border" style="color: #e96b56;" role="status">
                                         <span class="visually-hidden">Loading...</span>
