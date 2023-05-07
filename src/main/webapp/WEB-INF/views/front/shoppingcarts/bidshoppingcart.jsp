@@ -60,7 +60,7 @@
 
     </div>
   </section><!-- End Breadcrumbs -->
-   <form method="post" action="${contextRoot}/front/shoppingcart/shoppingcartdetail">
+   <form:form method="post" modelAttribute="" action="${contextRoot}">
 	<section id="blog" class="blog">
       <div class="container" data-aos="fade-up">
         <div class="row">
@@ -71,104 +71,59 @@
                     <th scope="col">#</th>
                     <th scope="col">商品名稱</th>
                     <th scope="col">數量</th>
-                    <th scope="col">單價</th>
-                    <th scope="col">小計</th>
+                    <th scope="col">金額</th>
                   </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="sc" items="${shoppingcart}" varStatus="status"> 
                   <tr valign="middle">
                     <th scope="row">
-		                <div style="display: none;">
-		            		<input value="${sc.shoppoingCartId}" type="text"/>
-		         		</div>
                     </th>
-                    <td>
-                    	${sc.productBean.productName}                   	                  	
-                    </td>
-                    <td>
-                    	${sc.quantity} 
-                    </td>
-                    <td>
-                    	${sc.productBean.price}           
-                    </td>
-                    <td>
-                    	${sc.quantity*sc.productBean.price}                   
-                    </td>       
-                  </tr>
-                  	</c:forEach>                  
+                    <td></td>
+                    <td></td>
+                    <td></td>    
+                  </tr>               
                 </tbody>
-              </table>	              
-	            </div>
-            </div>
-            <div class="entry entry-single">
-              <h5>優惠方式</h5>
-              	<div class="form-check">
-              			<input class="form-check-input" type="checkbox">
-              			<label class="form-check-label" for="gridCheck1" for="points">
-              				使用點數              	
-            			</label>
-            			<div class="col col-lg-2">
-            				<input type="text" id="points" class="form-control col-sm-4"></input>
-            			</div>
-            		</div>
-              			<div class="form-check">
-	              			<input class="form-check-input" type="checkbox">
-	              			<label class="form-check-label" for="gridCheck1">
-	              				使用優惠券              	
-	            			</label>
-            			</div>          	
+              </table>              
+	        </div>
+	        <div>
+	        	<div>運費</div>
+	        	<div>總計</div>
+	        </div>
             </div>
             <div class="entry entry-single">
 				<h5>運送方式</h5>
 					<div class="form-check">
-					 <input type="radio" class="form-check-input" id="gridRadios4" value="超商取貨" required="required" name="cookiescpayment"/>
+					 <form:radiobutton class="form-check-input" path="payment" id="gridRadios4" value="超商取貨" required="required"/>
                       <label class="form-check-label" for="gridRadios1">
                         超商取貨
                       </label>
                     </div>
                     <div class="form-check">
-                      <input type="radio" class="form-check-input" id="gridRadios3" value="宅配到家" name="cookiescpayment"/>
+                      <form:radiobutton class="form-check-input" path="payment" id="gridRadios3" value="宅配到家" />
                       <label class="form-check-label" for="gridRadios2">
                         宅配到家
                       </label>
-                      <div id="address" style="display: none;width: 400px">   
-                      	<div style="width: 300px">
-	                  		<label style="text-align:ceneter;float: left;width: 60px">收件人:</label>
-	                  		<form:input path="addressee" type="text" class="form-control"/>
-	                     </div>
-	                     <div style="width: 300px">
-	                  		<label style="text-align: ceneter;float: left;">地&nbsp;&nbsp;&nbsp;址:</label>
-	                  		<form:input path="shipperaddress" type="text" class="form-control"/>
-	                     </div>
-	                     <div style="width: 300px">
-	                  		<label style="text-align: ceneter;float: left;">電&nbsp;&nbsp;&nbsp;話:</label>
-	                  		<form:input path="telephone" type="text" class="form-control"/>
-	                     </div> 	
-                      </div>
                     </div>
             </div>
             <div class="entry entry-single">
 				<h5>付款方式</h5>
 					<div class="form-check">
-					 <input type="radio" class="form-check-input" id="gridRadios2" value="貨到付款" required="required" name="cookiescshipper"/>
+					 <form:radiobutton class="form-check-input" path="shipper" id="gridRadios2" value="貨到付款" required="required"/>
                       <label class="form-check-label" for="gridRadios3">
                         貨到付款
                       </label>
                     </div>
                     <div class="form-check">
-                     <input type="radio" class="form-check-input" id="gridRadios1" value="信用卡" name="cookiescshipper"/>
+                     <form:radiobutton class="form-check-input" path="shipper" id="gridRadios1" value="信用卡"/>
                       <label class="form-check-label" for="gridRadios4">
                         信用卡
                       </label>
                     </div>
             </div>
-            	<!--   <input type="hidden" id="selectradio" name="selectradio" value="">-->
-         		<button type="submit" class="btn btn-primary" onclick="savecookie()">資料填寫</button>
-
+         		<button type="submit" class="btn btn-primary" >確認</button>
         </div> 
     </section><!-- End Blog Single Section -->
-    </form>
+    </form:form>
 </main><!-- End #main -->
 
 <jsp:include page="../layouts/footer.jsp"/>
@@ -186,20 +141,7 @@
 <!-- Template Main JS File -->
 <script src="${contextRoot}/styles/front/assets/js/main.js"></script>
 <script>
-	function showInput(event){
-	  let address = document.getElementById("address");
-	  address.style.display="block"
-	}
-	function hiddenInput(event){
-		let address = document.getElementById("address");
-		address.style.display="none"
-	}
-	function nocash() {
-		document.getElementById("cash").disabled = true;
-	}
-	function okcash() {
-		document.getElementById("cash").disabled = false;
-	}
+
 
   
 </script>

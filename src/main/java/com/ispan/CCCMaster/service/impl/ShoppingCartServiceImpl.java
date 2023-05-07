@@ -85,27 +85,19 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		scDao.deleteById(shoppoingCartId);
 	}
 	
-	//修改購物車
+	//修改購物車數量
 	@Override
 	@Transactional
 	public void editBySCId(ShoppingCartBean sc) throws IOException{
 		Optional<ShoppingCartBean> option = scDao.findById(sc.getShoppoingCartId());
 		if(option.isPresent()) {
 			ShoppingCartBean scb = option.get();
-			scb.setShipper(sc.getShipper());
-			scb.setShipperaddress(sc.getShipperaddress());
 //			scb.setQuantity();
-			scb.setScpayment(sc.getScpayment());
-			scb.setAddressee(sc.getAddressee());
-			scb.setTelephone(sc.getTelephone());
+
 		}
 	}
-
-	@Override
-	public void editAll(List<ShoppingCartBean> sc) throws IOException {
-		scDao.saveAll(sc);
-		
-	}
+	
+	
 
 
 	//刪除購物車

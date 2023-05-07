@@ -38,7 +38,6 @@ public class ShoppingCartBean implements Serializable {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "settime", columnDefinition = "datetime", nullable = false)
 	private Date settime;
-
 	
 	//雙向多對一	
 	@ManyToOne(cascade=CascadeType.PERSIST)
