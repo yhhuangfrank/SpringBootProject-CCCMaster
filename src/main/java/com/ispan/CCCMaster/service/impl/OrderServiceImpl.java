@@ -121,8 +121,8 @@ public class OrderServiceImpl implements OrderService {
 		}
 		//計算訂單總額
 		Integer totalamount = 0;
-		for(ShoppingCartBean sc : scBean) {		
-			totalamount += sc.getQuantity()*sc.getUnitprice();			
+		for(ShoppingCartBean sc : scBean) {
+			totalamount += sc.getQuantity()*sc.getUnitprice();
 		}
 		if(totalamount >1000) {
 			order.setFreight(0);
@@ -131,7 +131,7 @@ public class OrderServiceImpl implements OrderService {
 		}
 		order.setTotalamount(totalamount);
 		order.setSeto(orderdetails);
-		
+
 		oDao.save(order);
 	}
 	//訂單的詳細資料

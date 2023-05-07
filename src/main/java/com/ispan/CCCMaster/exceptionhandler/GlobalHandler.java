@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(GlobalHandler.class);
+
     @ExceptionHandler(Exception.class)
-    public String handleException(Exception exception, Model model) {
-        log.error(exception.getMessage(), exception);
+    public String handleException( Model model) {
+
 
 
         model.addAttribute("isExistError", true);
@@ -26,7 +26,7 @@ public class GlobalHandler {
 
     @ExceptionHandler(RuntimeException.class)
     public String handleRunTimeException(RuntimeException e, Model model) {
-        log.error(e.getMessage(), e);
+
 
         model.addAttribute("isExistError", true);
         if (e.getMessage() != null) {
@@ -40,7 +40,7 @@ public class GlobalHandler {
 
     @ExceptionHandler(NotFoundException.class)
     public String handleNotFoundException(NotFoundException e, Model model) {
-        log.error(e.getMessage(), e);
+
 
         model.addAttribute("isExistError", true);
         model.addAttribute("error", e.getMessage());
@@ -50,7 +50,7 @@ public class GlobalHandler {
 
     @ExceptionHandler(ApiErrorException.class)
     public ResponseEntity<Object> handleApiException(ApiErrorException e) {
-        log.error(e.getMessage(), e);
+
 
         return ResponseEntity.status(e.getStatusCode()).body(e.getMessage());
 
