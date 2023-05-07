@@ -30,8 +30,8 @@ public class LoginServiceImpl implements LoginService {
 			HttpSession session = request.getSession();
 			session.invalidate();
 			session = request.getSession();
-			session.setAttribute("customerId", foundCustomer.getCustomerId());
-			session.setAttribute("customerName", foundCustomer.getName());
+			session.setAttribute("customerId", foundCustomer.getCustomerId());	//把 customerId 存進 session
+			session.setAttribute("customerName", foundCustomer.getName());	//把 customerName 存進 session
 		}
 		return success;
 	}

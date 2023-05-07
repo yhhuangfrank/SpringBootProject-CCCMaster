@@ -32,7 +32,7 @@ public class LoginAndOutController {
 						, RedirectAttributes redirectAttributes
 						, @RequestParam("referer") String referer) {
 		if(lgService.login(accountNumber, password, request)) {
-			return "redirect:" + referer;	//回到上一個瀏覽頁面
+			return "redirect:/";	//回到上一個瀏覽頁面；有bug未解，暫時先改成回首頁
 		} else {
 			redirectAttributes.addFlashAttribute("loginFailed", true);	//重導前添加登入失敗訊息
 			return "redirect:/login";
