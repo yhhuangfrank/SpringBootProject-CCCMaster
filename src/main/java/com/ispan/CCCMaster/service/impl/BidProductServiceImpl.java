@@ -242,6 +242,20 @@ public class BidProductServiceImpl implements BidProductService {
         bidProductDao.delete(foundBidProduct);
     }
 
+    @Override
+    public Boolean checkIsOwner(Integer id, Integer customerId) {
+        BidProduct foundBidProduct = bidProductDao.findById(id).orElse(null);
+        Customer foundCustomer = customerDao.findById(customerId).orElse(null);
+
+        if (foundBidProduct == null) throw new NotFoundException("查無對應商品，參數有誤!");
+
+        if (foundCustomer == null) throw new NotFoundException("查無對應使用者，參數有誤!");
+
+        Integer bidProductOwnerId = foundBidProduct.getCustomer().getCustomerId();
+
+        return Objects.equals(bidProductOwnerId, customerId);
+    }
+
     private Category getOrCreateCategory(String categoryName) {
 
         // 查詢種類，若無則新增種類

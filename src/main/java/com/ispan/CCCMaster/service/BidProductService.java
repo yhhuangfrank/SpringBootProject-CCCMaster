@@ -26,4 +26,6 @@ public interface BidProductService {
     BidProduct updateBidPrice(Integer id, BidRecordRequest bidRecordRequest);
 
     void deleteBidProduct(Integer id);
+
+    Boolean checkIsOwner(Integer id, Integer customerId);
 }

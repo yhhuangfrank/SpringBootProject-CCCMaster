@@ -123,7 +123,7 @@ public class BidProductController {
 
         // 查詢商品，商品擁有者才可編輯
         BidProduct foundBidProduct = bidProductService.findBidProductById(id);
-        if (!checkOwner(loginCustomerId, foundBidProduct)) {
+        if (!bidProductService.checkIsOwner(id, loginCustomerId)) {
             redirectAttributes.addFlashAttribute("isWarning", true);
             redirectAttributes.addFlashAttribute("warningMsg", "不可編輯不是自己的商品！");
             return "redirect:/bidProducts";
@@ -170,8 +170,7 @@ public class BidProductController {
         Integer loginCustomerId = loginUtil.getLoginCustomerId(req).orElse(null);
         if (loginCustomerId == null)  return "redirect:/login";
 
-        BidProduct foundBidProduct = bidProductService.findBidProductById(id);
-        if (!checkOwner(loginCustomerId, foundBidProduct)) {
+        if (!bidProductService.checkIsOwner(id, loginCustomerId)) {
             redirectAttributes.addFlashAttribute("isWarning", true);
             redirectAttributes.addFlashAttribute("warningMsg", "不可編輯不是自己的商品！");
             return "redirect:/bidProducts";
@@ -183,10 +182,5 @@ public class BidProductController {
         redirectAttributes.addFlashAttribute("successMsg", "修改成功!");
 
         return "redirect:/bidProducts/{id}";
-    }
-
-    private Boolean checkOwner(Integer customerId, BidProduct bidProduct) {
-        Integer foundBidProductCustomerId = bidProduct.getCustomer().getCustomerId();
-        return Objects.equals(customerId, foundBidProductCustomerId);
     }
 }

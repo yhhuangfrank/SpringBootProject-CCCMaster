@@ -2,14 +2,17 @@ package com.ispan.CCCMaster.api;
 
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.bid.DealRecord;
+import com.ispan.CCCMaster.model.customexception.ApiErrorException;
 import com.ispan.CCCMaster.model.dto.BidProductQueryParams;
 import com.ispan.CCCMaster.model.dto.BidRecordRequest;
 import com.ispan.CCCMaster.service.BidProductService;
 import com.ispan.CCCMaster.service.DealRecordService;
+import com.ispan.CCCMaster.util.LoginUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 
@@ -22,10 +25,14 @@ public class BidProductApi {
 
     private final DealRecordService dealRecordService;
 
+    private final LoginUtil loginUtil;
+
     public BidProductApi(BidProductService bidProductService,
-                          DealRecordService dealRecordService) {
+                          DealRecordService dealRecordService,
+                         LoginUtil loginUtil) {
         this.bidProductService = bidProductService;
         this.dealRecordService = dealRecordService;
+        this.loginUtil = loginUtil;
     }
 
     @GetMapping("/bidProducts")
@@ -62,8 +69,12 @@ public class BidProductApi {
     }
 
     @PutMapping("/bidProducts/{id}")
-    public BidProduct updateBidPrice(@PathVariable Integer id,
+    public BidProduct updateBidPrice(HttpServletRequest req,
+                                     @PathVariable Integer id,
                                      @RequestBody @Valid BidRecordRequest bidRecordRequest) {
+        Integer loginCustomerId = loginUtil.getLoginCustomerId(req).orElseThrow(() -> new ApiErrorException(401, "請先登入!"));
+        if (bidProductService.checkIsOwner(id, loginCustomerId)) throw new ApiErrorException(400, "不可對自己的商品出價!");
+
         return bidProductService.updateBidPrice(id, bidRecordRequest);
     }
 
