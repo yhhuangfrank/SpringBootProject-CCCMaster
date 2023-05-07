@@ -7,9 +7,15 @@ const basePrice = document.querySelector("#basePrice").textContent
 updateBidPriceBtn.addEventListener("click", async () => {
 
     const bidPriceInputValue = Number(bidPriceInput.value)
+    const {bidproduct_id, currentuser_id, seller_id} = updateBidPriceBtn.dataset
+
     if (!bidPriceInputValue) {
         bidPriceInput.value = ""
         return showMessage("不可輸入非數字!", true)
+    } else if (!currentuser_id) {
+        return showMessage("請先登入!", true)
+    } else if (currentuser_id === seller_id) {
+        return showMessage("不可對自己的商品出價!", true)
     } else if (bidPriceInputValue < Number(basePrice)) {
         return showMessage("不可比底價小!", true)
     } else if (bidPriceInputValue < Number(currentBidPrice.textContent)) {
@@ -17,7 +23,7 @@ updateBidPriceBtn.addEventListener("click", async () => {
     }
 
     bidPriceInput.value = "" // 清空 input
-    const {bidproduct_id, currentuser_id} = updateBidPriceBtn.dataset
+
     const data = {
         bidPrice: bidPriceInputValue,
         customerId: currentuser_id

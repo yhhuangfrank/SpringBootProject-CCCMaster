@@ -9,3 +9,10 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 </c:if>
+
+<c:if test="${isWarning}">
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong style="color: #bb2d3b">&#11198; ${warningMsg}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</c:if>

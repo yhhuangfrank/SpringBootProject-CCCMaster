@@ -12,6 +12,7 @@
     <meta content="" name="keywords">
 
     <c:set var="contextRoot" value="${pageContext.request.contextPath}"/>
+    <c:set var="currentCustomerId" value="${sessionScope.customerId}"/>
 
     <!-- Favicons -->
     <link href="${contextRoot}/styles/front/assets/img/favicon.png" rel="icon">
@@ -89,10 +90,12 @@
 
                 <div class="col-lg-4">
                     <div class="portfolio-info">
-                        <%--待設定只有登入的賣家能編輯自己的商品判斷--%>
+                        <%-- 只有登入的賣家能編輯自己的商品 --%>
                         <h3>商品詳情
-                            <a href="${contextRoot}/bidProducts/${bidProduct.id}/edit"
-                               class="btn btn-outline-info">修改</a>
+                            <c:if test="${currentCustomerId == bidProduct.customer.customerId}">
+                                <a href="${contextRoot}/bidProducts/${bidProduct.id}/edit"
+                                   class="btn btn-outline-info">修改</a>
+                            </c:if>
                         </h3>
                         <ul>
                             <li>
@@ -105,13 +108,15 @@
                             </li>
                             <li>
                                 <strong class="fs-6 badge bg-secondary text-white">起始時間</strong>
-                                <span class="fs-6 ms-2" id="createdAt"><fmt:formatDate value="${bidProduct.createdAt}" pattern="yyyy-MM-dd HH:mm"/></span>
+                                <span class="fs-6 ms-2" id="createdAt"><fmt:formatDate value="${bidProduct.createdAt}"
+                                                                                       pattern="yyyy-MM-dd HH:mm"/></span>
                             </li>
                             <li>
                                 <strong class="fs-6 badge bg-secondary text-white">結束時間</strong>
                                 <c:choose>
                                     <c:when test="${bidProduct.expiredAt != null}">
-                                        <span class="fs-6 ms-2" id="expiredAt"><fmt:formatDate value="${bidProduct.expiredAt}" pattern="yyyy-MM-dd HH:mm"/></span>
+                                        <span class="fs-6 ms-2" id="expiredAt"><fmt:formatDate
+                                                value="${bidProduct.expiredAt}" pattern="yyyy-MM-dd HH:mm"/></span>
                                     </c:when>
                                     <c:otherwise>
                                         <span class="fs-6 ms-2">目前暫無</span>
@@ -148,7 +153,7 @@
                             <c:if test="${bidProduct.expiredAt != null}">
                                 <h2 class="">距離截止還有</h2>
                                 <div id="countDownArea" class="badge bg-dark text-white fs-6">
-                                    <%--顯示倒數計時前先顯示loading--%>
+                                        <%--顯示倒數計時前先顯示loading--%>
                                     <div class="spinner-border text-white" role="status">
                                         <span class="visually-hidden">Loading...</span>
                                     </div>
@@ -195,7 +200,8 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">返回</button>
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="updateBidPriceBtn"
-                        data-bidproduct_id="${bidProduct.id}" data-currentuser_id="1" style="background-color: #e96b56">送出
+                        data-bidproduct_id="${bidProduct.id}" data-currentuser_id="${sessionScope.customerId}"
+                        data-seller_id="${bidProduct.customer.customerId}" style="background-color: #e96b56">送出
                 </button>
             </div>
         </div>

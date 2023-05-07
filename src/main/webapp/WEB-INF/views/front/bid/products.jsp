@@ -59,6 +59,10 @@
 
             <div class="row">
                 <div class="col-6 mx-auto">
+
+                    <%-- message.jsp 顯示訊息 --%>
+                    <jsp:include page="../../message.jsp"/>
+
                     <form class="row g-3">
                         <div class="col-12 input-group">
                             <input type="text" class="form-control" id="searchInput" placeholder="查詢商品">
@@ -108,7 +112,7 @@
                 </div>
             </div>
 
-            <%--顯示訊息--%>
+            <%--若查無資料顯示訊息--%>
             <div id="messageArea"></div>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3" id="bidProductArea">
                 <%--使用 api 替換此區資料--%>
