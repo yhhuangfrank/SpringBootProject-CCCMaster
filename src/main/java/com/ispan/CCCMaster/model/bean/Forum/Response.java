@@ -25,8 +25,15 @@ public class Response {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss EEEE",timezone = "GMT+8")
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
-    @Column(name = "created_at", columnDefinition = "datetime")
-    private Date createdAt;
+    @Column(name = "added", columnDefinition = "datetime")
+    private Date added;
+
+    @PrePersist
+    public void onCreate() {
+        if(added == null) {
+            added = new Date();
+        }
+    }
 
 
 
@@ -59,12 +66,12 @@ public class Response {
         this.responseContent = responseContent;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public Date getAdded() {
+        return added;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+    public void setAdded(Date added) {
+        this.added = added;
     }
 
     public Integer getArticleId() {

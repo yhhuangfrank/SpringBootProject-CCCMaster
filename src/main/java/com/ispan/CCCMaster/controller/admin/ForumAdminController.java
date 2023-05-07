@@ -21,7 +21,7 @@ public class ForumAdminController {
     @Autowired
     private ForumServiceImpl fService;
 
-    @GetMapping("/forums/createform") //新增討論版
+    @GetMapping("/admin/forums/createform") //新增討論版
     public String addForum(Model model, ModelAndView modelAndView) {//新增討論版
         model.addAttribute("forum", new Forum());//新增討論版
 
@@ -31,7 +31,7 @@ public class ForumAdminController {
     }
 
 
-    @PostMapping("/forums/create") //送出新增討論版
+    @PostMapping("/admin/forums/create") //送出新增討論版
     public String createForum(@ModelAttribute("forum") Forum forum, Model model) throws IOException {
             forum.setImage(forum.getImageFile().getBytes());//把圖片轉成byte[]
             fService.creatForum(forum);//把圖片存到資料庫
@@ -39,7 +39,7 @@ public class ForumAdminController {
 
     }
 
-    @GetMapping("/forums/showAllForum") //顯示所有討論版
+    @GetMapping("/admin/forums/showAllForum") //顯示所有討論版
     public String showAllForum(@RequestParam(name = "p", defaultValue = "1") Integer pageNumber, Model model) {
         Page<Forum> page = fService.findByPage(pageNumber);
         model.addAttribute("page", page);
@@ -49,14 +49,14 @@ public class ForumAdminController {
     }
 
 
-    @GetMapping("/forum/editPage") //編輯討論版
+    @GetMapping("/admin/forum/editPage") //編輯討論版
     public String editPage(@RequestParam("id") Integer forumId, Model model) {//編輯討論版
 
         model.addAttribute("forum", fService.findForumById(forumId));//編輯討論版
         return "back/forum/editForum";
     }
 
-    @PutMapping("/forum/edit")
+    @PutMapping("/admin/forum/edit")
     public String putEditedForum(@ModelAttribute("forum") Forum forum) throws IOException {
         forum.setImage(forum.getImageFile().getBytes());
 
@@ -66,7 +66,7 @@ public class ForumAdminController {
 
     }
 
-    @GetMapping(value = "/forums/showAllForum/{forumId}") //顯示討論版圖片
+    @GetMapping(value = "/admin/forums/showAllForum/{forumId}") //顯示討論版圖片
     public ResponseEntity<byte[]> getImage(@PathVariable("forumId") Integer forumId) {
         byte[] image = fService.getForumImageById(forumId);
         HttpHeaders headers = new HttpHeaders();
@@ -76,7 +76,7 @@ public class ForumAdminController {
     }
 
 
-    @DeleteMapping("/forums/delete") //刪除討論版
+    @DeleteMapping("/admin/forums/delete") //刪除討論版
     public String deleteForum(@RequestParam("id") Integer id) {
         fService.deleteForumById(id);
 

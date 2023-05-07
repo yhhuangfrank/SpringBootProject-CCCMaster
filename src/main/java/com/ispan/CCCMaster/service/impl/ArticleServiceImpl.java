@@ -28,9 +28,9 @@ public class ArticleServiceImpl implements ArticleService {
     public Article findArticleById(Integer id) { //get article by id
         Optional<Article> option = articleDao.findById(id);//Optional是一個容器對象，它包含了我們需要的對象，使用isPresent()方法來檢測容器內是否包含了對象
         if(option.isPresent()) {//如果有值
-            return null;
+            return option.get();//返回值
         }
-        return option.get();//如果沒有值
+        throw new RuntimeException("沒有找到文章");//如果沒有值
     }
 
     @Override
@@ -47,15 +47,22 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public void updateById(Article input) { //update article
-        Optional<Article> option = articleDao.findById(input.getForumId());
+        if (input.getTitle() != null && input.getTitle().length()>0 && input.getTitle().contains("習近平")) {
+            throw new IllegalArgumentException("標題不合法");//contains()方法用於檢測字符串中是否包含子字符串或字符序列
+        }
+        Optional<Article> option = articleDao.findById(input.getArticleId());
             if (option.isPresent()) { //如果有找到資料就執行
             Article oldarticle = option.get();
-                oldarticle.setTitle(input.getTitle());
-                oldarticle.setContent(input.getContent());
-//                articleDao.save(oldarticle);//存到資料庫
+                oldarticle.setTitle(input.getTitle());//把新的資料放進去
+                oldarticle.setContent(input.getContent());//把新的資料放進去
+                oldarticle.setImage(input.getImage());//把新的資料放進去
+                articleDao.save(oldarticle);//存到資料庫
             } else {
-                throw new RuntimeException("找不到資料");
+                throw new RuntimeException("找不到資料");//如果沒有找到資料就報錯
+//                throw new IllegalArgumentException("找不到資料");//如果傳輸的參數不合法就報錯
             }
+
+
 
 
         }

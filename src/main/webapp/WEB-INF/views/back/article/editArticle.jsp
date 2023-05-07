@@ -63,15 +63,19 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">新增文章</h5>
+                        <h5 class="card-title">修改文章</h5>
                         <div class="row mb-3">
 
-                            <form:form method="post" modelAttribute="article"
-                                       action="${contextRoot}/admin/articles/create" enctype="multipart/form-data">
+                            <form:form class="form-control" modelAttribute="article"
+                            method="put" action="${contextRoot}/admin/articles/edit" enctype="multipart/form-data">
+                            <form:input type="hidden" path="articleId"/>
+
+
 
                             <div class="col-sm-10 d-flex mb-3">
                                 <label for="inputTitle" class="col-sm-2 col-form-label">文章名稱</label>
                                 <form:input type="text" path="title" class="form-control" id="inputTitle"></form:input>
+
                                 <br>
                                     <%--                <form:textarea cssStyle="width: 610px;height: 300px"  type="text" path="content"  id="content"></form:textarea>--%>
                             </div>
@@ -96,6 +100,8 @@
 
 
                 </div>
+            </div>
+        </div>
 
     </section>
 

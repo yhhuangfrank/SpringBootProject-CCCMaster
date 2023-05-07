@@ -38,7 +38,7 @@
                 <li><a href="${contextRoot}/bidProducts/create">新增商品</a></li>
               </ul>
             </li>
-            <li><a href="team.html">論壇</a></li>
+            <li><a href="${contextRoot}/forums/showAllForum">論壇</a></li>
            <li class="dropdown"><a href="#"><span>聯絡客服</span></a>
               <ul>
                 <li><a href="${contextRoot}/Service/common">常見問題</a></li>
