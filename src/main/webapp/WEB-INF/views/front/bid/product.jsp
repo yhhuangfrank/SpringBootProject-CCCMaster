@@ -176,9 +176,38 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
+        </div>
+
+        <div class="container mt-2">
+            <h3>所有留言 :</h3>
+            <div class="border border-dark border-2 rounded-2">
+                <div id="commentArea">
+                    <div class="mx-2 p-2">
+                        <blockquote class="blockquote">
+                            <h4>小名</h4>
+                            <p>留言內容</p>
+                        </blockquote>
+                        <footer class="blockquote-footer">留言時間</footer>
+                        <hr/>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-lg-6 mx-auto text-center">
+                        <a href="#" class="btn btn-outline-secondary">上一頁</a>
+                        第1頁/10頁
+                        <a href="#" class="btn btn-outline-secondary">下一頁</a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3">
+                <div class="mb-3">
+                    <label for="comment"></label>
+                    <textarea class="form-control" name="comment" id="comment" cols="20" rows="8">想說點什麼... ?</textarea>
+                </div>
+                <button class="btn btn-primary" style="background-color: #e96b56">新增留言</button>
+            </div>
         </div>
     </section><!-- End Portfolio Details Section -->
 
