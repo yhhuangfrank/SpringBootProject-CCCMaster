@@ -207,6 +207,8 @@
                     <textarea class="form-control" name="comment" id="commentTextArea" cols="20"
                               rows="8">想說點什麼... ?</textarea>
                 </div>
+                <%-- 留言提示訊息 --%>
+                <div id="alertMessageForComment"></div>
                 <button class="btn btn-primary" data-bidproduct_id="${bidProduct.id}"
                         data-currentuser_id="${currentCustomerId}" id="createCommentBtn"
                         style="background-color: #e96b56">新增留言
@@ -255,6 +257,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.6/axios.min.js"></script>
 <script src="${contextRoot}/js/bid/dateTimerInDetailPage.js"></script>
 <script src="${contextRoot}/js/bid/updateBidPrice.js"></script>
+<script src="${contextRoot}/js/bid/commentInDetailPage.js"></script>
 </body>
 
 </html>
