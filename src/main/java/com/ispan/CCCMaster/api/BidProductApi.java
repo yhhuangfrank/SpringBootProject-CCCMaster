@@ -1,10 +1,13 @@
 package com.ispan.CCCMaster.api;
 
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
+import com.ispan.CCCMaster.model.bean.bid.BidProductComment;
 import com.ispan.CCCMaster.model.bean.bid.DealRecord;
 import com.ispan.CCCMaster.model.customexception.ApiErrorException;
+import com.ispan.CCCMaster.model.dto.BidProductCommentRequest;
 import com.ispan.CCCMaster.model.dto.BidProductQueryParams;
 import com.ispan.CCCMaster.model.dto.BidRecordRequest;
+import com.ispan.CCCMaster.service.BidProductCommentService;
 import com.ispan.CCCMaster.service.BidProductService;
 import com.ispan.CCCMaster.service.DealRecordService;
 import com.ispan.CCCMaster.util.LoginUtil;
@@ -23,14 +26,18 @@ public class BidProductApi {
 
     private final BidProductService bidProductService;
 
+    private final BidProductCommentService bidProductCommentService;
+
     private final DealRecordService dealRecordService;
 
     private final LoginUtil loginUtil;
 
     public BidProductApi(BidProductService bidProductService,
+                         BidProductCommentService bidProductCommentService,
                           DealRecordService dealRecordService,
                          LoginUtil loginUtil) {
         this.bidProductService = bidProductService;
+        this.bidProductCommentService = bidProductCommentService;
         this.dealRecordService = dealRecordService;
         this.loginUtil = loginUtil;
     }
@@ -83,4 +90,11 @@ public class BidProductApi {
         return dealRecordService.createDealRecord(id);
     }
 
+    @PostMapping("/bidProducts/{id}/comments")
+    public BidProductComment createComment(HttpSession session,
+                                           @PathVariable Integer id,
+                                           @RequestBody @Valid BidProductCommentRequest bidProductCommentRequest) {
+        loginUtil.getLoginCustomerId(session).orElseThrow(() -> new ApiErrorException(401, "請先登入!"));
+        return bidProductCommentService.createComment(id, bidProductCommentRequest);
+    }
 }

@@ -203,10 +203,14 @@
             </div>
             <div class="mt-3">
                 <div class="mb-3">
-                    <label for="comment"></label>
-                    <textarea class="form-control" name="comment" id="comment" cols="20" rows="8">想說點什麼... ?</textarea>
+                    <label for="commentTextArea"></label>
+                    <textarea class="form-control" name="comment" id="commentTextArea" cols="20"
+                              rows="8">想說點什麼... ?</textarea>
                 </div>
-                <button class="btn btn-primary" style="background-color: #e96b56">新增留言</button>
+                <button class="btn btn-primary" data-bidproduct_id="${bidProduct.id}"
+                        data-currentuser_id="${currentCustomerId}" id="createCommentBtn"
+                        style="background-color: #e96b56">新增留言
+                </button>
             </div>
         </div>
     </section><!-- End Portfolio Details Section -->
@@ -229,7 +233,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">返回</button>
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="updateBidPriceBtn"
-                        data-bidproduct_id="${bidProduct.id}" data-currentuser_id="${sessionScope.customerId}"
+                        data-bidproduct_id="${bidProduct.id}" data-currentuser_id="${currentCustomerId}"
                         data-seller_id="${bidProduct.customer.customerId}" style="background-color: #e96b56">送出
                 </button>
             </div>

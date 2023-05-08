@@ -36,6 +36,17 @@ public class BidProductComment {
     @Column(name = "updated_at", columnDefinition = "datetime", nullable = false)
     private Date updatedAt;
 
+    @PrePersist
+    protected void onCreate() {
+        if (createdAt == null) {
+            createdAt = new Date();
+        }
+        if (updatedAt == null) {
+            updatedAt = createdAt;
+        }
+    }
+
+
     public Integer getId() {
         return id;
     }
