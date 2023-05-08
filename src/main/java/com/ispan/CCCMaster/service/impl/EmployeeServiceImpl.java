@@ -18,23 +18,23 @@ import com.ispan.CCCMaster.service.EmployeeService;
 public class EmployeeServiceImpl implements EmployeeService {
 	
 	@Autowired
-	private EmployeeDao epyRepository;
+	private EmployeeDao epyDao;
 	
 	@Override
 	public void createEmployee(Employee epy) {
-		epyRepository.save(epy);
+		epyDao.save(epy);
 	}
 	
 	@Override
 	public Page<Employee> findByPage(Integer pageNumber){
 		Pageable pgb = PageRequest.of(pageNumber-1, 10, Sort.Direction.ASC, "employeeId");
-		Page<Employee> page = epyRepository.findAll(pgb);
+		Page<Employee> page = epyDao.findAll(pgb);
 		return page;
 	}
 	
 	@Override
 	public Employee findById(Integer id) {
-		Optional<Employee> option = epyRepository.findById(id);
+		Optional<Employee> option = epyDao.findById(id);
 		if(option.isEmpty()) {
 			return null;
 		} else {
@@ -45,7 +45,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	@Transactional
 	public void editById(Employee employee) {
-		Optional<Employee> option = epyRepository.findById(employee.getEmployeeId());
+		Optional<Employee> option = epyDao.findById(employee.getEmployeeId());
 		if(option.isPresent()) {
 			Employee old = option.get();
 			old.setEmployeeName(employee.getEmployeeName());
@@ -58,7 +58,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 	@Override
 	public void deleteById(Integer id) {
-		epyRepository.deleteById(id);
+		epyDao.deleteById(id);
 	}
 
 }

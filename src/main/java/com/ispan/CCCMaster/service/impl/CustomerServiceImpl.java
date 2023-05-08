@@ -18,23 +18,23 @@ import com.ispan.CCCMaster.service.CustomerService;
 public class CustomerServiceImpl implements CustomerService {
 	
 	@Autowired
-	private CustomerDao ctmRepository;
+	private CustomerDao ctmDao;
 	
 	@Override
 	public void createCustomer(Customer ctm) {
-		ctmRepository.save(ctm);
+		ctmDao.save(ctm);
 	}
 	
 	@Override
 	public Page<Customer> findByPage(Integer pageNumber){
 		Pageable pgb = PageRequest.of(pageNumber-1, 10, Sort.Direction.ASC, "customerId");
-		Page<Customer> page = ctmRepository.findAll(pgb);
+		Page<Customer> page = ctmDao.findAll(pgb);
 		return page;
 	}
 	
 	@Override
 	public Customer findById(Integer id) {
-		Optional<Customer> option = ctmRepository.findById(id);
+		Optional<Customer> option = ctmDao.findById(id);
 		if(option.isEmpty()) {
 			return null;
 		} else {
@@ -45,7 +45,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	@Transactional
 	public void editById(Customer customer) {
-		Optional<Customer> option = ctmRepository.findById(customer.getCustomerId());
+		Optional<Customer> option = ctmDao.findById(customer.getCustomerId());
 		if(option.isPresent()) {
 			Customer old = option.get();
 			old.setEmail(customer.getEmail());
@@ -59,7 +59,7 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Override
 	public void deleteById(Integer id) {
-		ctmRepository.deleteById(id);
+		ctmDao.deleteById(id);
 	}
 
 }
