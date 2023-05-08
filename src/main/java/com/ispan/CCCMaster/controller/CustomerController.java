@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ispan.CCCMaster.service.LoginService;
+import com.ispan.CCCMaster.service.CustomerService;
 
 @Controller
-public class LoginAndOutController {
+public class CustomerController {
 	
 	@Autowired
-	private LoginService lgService;
+	private CustomerService ctmService;
 	
 	@GetMapping("/login")	//前台登入頁面
 	public String loginPage(HttpServletRequest request) {
@@ -31,7 +31,7 @@ public class LoginAndOutController {
 						, HttpServletRequest request
 						, RedirectAttributes redirectAttributes
 						, @RequestParam("referer") String referer) {
-		if(lgService.login(accountNumber, password, request)) {
+		if(ctmService.login(accountNumber, password, request)) {
 			return "redirect:/";	//回到上一個瀏覽頁面；有bug未解，暫時先改成回首頁
 		} else {
 			redirectAttributes.addFlashAttribute("loginFailed", true);	//重導前添加登入失敗訊息
@@ -43,7 +43,7 @@ public class LoginAndOutController {
 	public String logout(HttpSession session
 						, RedirectAttributes redirectAttributes
 						, HttpServletRequest request) {
-		lgService.logout(session);
+		ctmService.logout(session);
 		redirectAttributes.addFlashAttribute("logoutSuccessful", true);	//重導前添加登出成功訊息
 		return "redirect:" + request.getHeader("Referer");	//回到上一個瀏覽頁面
 	}
