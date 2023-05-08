@@ -184,20 +184,11 @@
             <h3>所有留言 :</h3>
             <div class="border border-dark border-2 rounded-2">
                 <div id="commentArea">
-                    <div class="mx-2 p-2">
-                        <blockquote class="blockquote">
-                            <h4>小名</h4>
-                            <p>留言內容</p>
-                        </blockquote>
-                        <footer class="blockquote-footer">留言時間</footer>
-                        <hr/>
-                    </div>
+                    <%-- api 串接顯示留言 --%>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-lg-6 mx-auto text-center">
-                        <a href="#" class="btn btn-outline-secondary">上一頁</a>
-                        第1頁/10頁
-                        <a href="#" class="btn btn-outline-secondary">下一頁</a>
+                    <div class="col-lg-6 mx-auto text-center" id="comment-pagination">
+                        <%-- api 串接顯示頁數 --%>
                     </div>
                 </div>
             </div>
