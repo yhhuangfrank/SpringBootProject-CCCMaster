@@ -4,6 +4,7 @@ import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.bid.BidProductComment;
 import com.ispan.CCCMaster.model.bean.bid.DealRecord;
 import com.ispan.CCCMaster.model.customexception.ApiErrorException;
+import com.ispan.CCCMaster.model.dto.BidProductCommentQueryParams;
 import com.ispan.CCCMaster.model.dto.BidProductCommentRequest;
 import com.ispan.CCCMaster.model.dto.BidProductQueryParams;
 import com.ispan.CCCMaster.model.dto.BidRecordRequest;
@@ -34,7 +35,7 @@ public class BidProductApi {
 
     public BidProductApi(BidProductService bidProductService,
                          BidProductCommentService bidProductCommentService,
-                          DealRecordService dealRecordService,
+                         DealRecordService dealRecordService,
                          LoginUtil loginUtil) {
         this.bidProductService = bidProductService;
         this.bidProductCommentService = bidProductCommentService;
@@ -85,9 +86,22 @@ public class BidProductApi {
         return bidProductService.updateBidPrice(id, bidRecordRequest);
     }
 
+    // 建立成交紀錄
     @PostMapping("/bidProducts/{id}/dealRecords")
     public DealRecord createDealRecord(@PathVariable Integer id) {
         return dealRecordService.createDealRecord(id);
+    }
+
+    // 留言功能
+    @GetMapping("/bidProducts/{id}/comments")
+    public Page<BidProductComment> getAllComments(@PathVariable Integer id,
+                                                  @RequestParam(defaultValue = "1") @Min(1) Integer page,
+                                                  @RequestParam(defaultValue = "3") @Min(0) Integer limit){
+        BidProductCommentQueryParams params = new BidProductCommentQueryParams();
+        params.setBidProductId(id);
+        params.setPage(page);
+        params.setLimit(limit);
+        return bidProductCommentService.getAllComments(params);
     }
 
     @PostMapping("/bidProducts/{id}/comments")
