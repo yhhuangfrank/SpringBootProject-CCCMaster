@@ -3,11 +3,12 @@ const messageArea = document.querySelector("#messageArea")
 const updateBidPriceBtn = document.querySelector("#updateBidPriceBtn")
 const currentBidPrice = document.querySelector("#currentBidPrice")
 const basePrice = document.querySelector("#basePrice").textContent
+// 統一取得各 id 值
+const {bidproduct_id, currentuser_id, seller_id} = updateBidPriceBtn.dataset
 
 updateBidPriceBtn.addEventListener("click", async () => {
 
     const bidPriceInputValue = Number(bidPriceInput.value)
-    const {bidproduct_id, currentuser_id, seller_id} = updateBidPriceBtn.dataset
 
     if (!bidPriceInputValue) {
         bidPriceInput.value = ""

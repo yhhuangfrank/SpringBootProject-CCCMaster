@@ -139,6 +139,9 @@
                         <button class="btn mt-2 text-white disabled" id="bidBtn" style="background-color: #e96b56"
                                 data-bs-toggle="modal" data-bs-target="#modal-${bidProduct.id}">點我出價
                         </button>
+                        <c:if test="${dealRecord != null}">
+                            <button class="btn btn-success mt-2 text-white">立即結帳</button>
+                        </c:if>
                         <%--          顯示訊息              --%>
                         <div id="messageArea">
                             <c:if test="${dealRecord != null}">
@@ -176,9 +179,35 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
+        </div>
+
+        <div class="container mt-2">
+            <h3>所有留言</h3>
+            <div class="border border-dark border-2 rounded-2">
+                <div id="commentArea">
+                    <%-- api 串接顯示留言 --%>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-lg-6 mx-auto text-center" id="comment-pagination">
+                        <%-- api 串接顯示頁數 --%>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3">
+                <div class="mb-3">
+                    <label for="commentTextArea"></label>
+                    <textarea class="form-control" name="comment" id="commentTextArea" cols="20"
+                              rows="8">想說點什麼... ?</textarea>
+                </div>
+                <%-- 留言提示訊息 --%>
+                <div id="alertMessageForComment"></div>
+                <button class="btn btn-primary" data-bidproduct_id="${bidProduct.id}"
+                        data-currentuser_id="${currentCustomerId}" id="createCommentBtn"
+                        style="background-color: #e96b56">新增留言
+                </button>
+            </div>
         </div>
     </section><!-- End Portfolio Details Section -->
 
@@ -200,7 +229,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">返回</button>
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="updateBidPriceBtn"
-                        data-bidproduct_id="${bidProduct.id}" data-currentuser_id="${sessionScope.customerId}"
+                        data-bidproduct_id="${bidProduct.id}" data-currentuser_id="${currentCustomerId}"
                         data-seller_id="${bidProduct.customer.customerId}" style="background-color: #e96b56">送出
                 </button>
             </div>
@@ -222,6 +251,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.6/axios.min.js"></script>
 <script src="${contextRoot}/js/bid/dateTimerInDetailPage.js"></script>
 <script src="${contextRoot}/js/bid/updateBidPrice.js"></script>
+<script src="${contextRoot}/js/bid/commentInDetailPage.js"></script>
 </body>
 
 </html>
