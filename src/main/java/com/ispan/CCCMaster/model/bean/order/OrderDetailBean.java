@@ -1,5 +1,7 @@
 package com.ispan.CCCMaster.model.bean.order;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ispan.CCCMaster.model.bean.product.Product;
 
 import java.io.Serializable;
@@ -32,6 +34,7 @@ public class OrderDetailBean implements Serializable {
 	//雙向多對一
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="order_id")
+	@JsonIgnoreProperties("seto")//新增by暐翔 為了解決雙向關係的json循環引用問題
 	private OrderBean orderBean;
 	
 	//雙向多對一
@@ -59,6 +62,18 @@ public class OrderDetailBean implements Serializable {
 	}
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public OrderBean getOrderBean() {
+		return orderBean;
 	}
 
 	public Product getpOrderDetail() {

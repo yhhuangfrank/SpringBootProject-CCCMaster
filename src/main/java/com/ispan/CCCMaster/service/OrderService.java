@@ -28,8 +28,13 @@ public interface OrderService {
 	void createOrder(OrderBean order,Integer customerId) throws IOException;
 	
 	//依照訂單找尋各自的訂單詳細資料
+
 //	List<OrderDetailBean> findorderdetailbyOId(String orderid);
-	
+
+    // orderDetailId 找 orderDetail by 暐翔
+    OrderDetailBean findOrderDetailById(Integer id);
+
+
 //	String ecpayCheckout();
 	
 //	String ecpaylog();

@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.ispan.CCCMaster.model.bean.customer.Customer;
@@ -74,10 +75,12 @@ public class OrderBean implements Serializable {
 	//雙向多對一
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="customer_id")
+	@JsonIgnoreProperties("setco")
 	private Customer cbOrder;
 	
 	//對訂單明細:一對多  
 	@OneToMany(mappedBy="orderBean",cascade=CascadeType.ALL)
+	@JsonIgnoreProperties("orderBean")//新增by暐翔 為了解決雙向關係的json循環引用問題
 	Set<OrderDetailBean> seto = new HashSet<>();
 
 	

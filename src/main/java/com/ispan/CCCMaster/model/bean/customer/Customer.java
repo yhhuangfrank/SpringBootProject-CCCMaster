@@ -1,5 +1,13 @@
 package com.ispan.CCCMaster.model.bean.customer;
 
+import java.util.*;
+
+import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.ispan.CCCMaster.model.bean.bid.BidProduct;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ispan.CCCMaster.model.bean.RecipientInfo.RecipientInfoBean;
 import com.ispan.CCCMaster.model.bean.RecipientInfo.StoreRecipientInfoBean;
@@ -154,6 +162,14 @@ public class Customer {
 		this.bidProductList = bidProductList;
 	}
 
+	public Set<OrderBean> getSetco() {
+		return setco;
+	}
+
+	public void setSetco(Set<OrderBean> setco) {
+		this.setco = setco;
+	}
+
 	// private 方法 - 新增 bidProduct
 	private void addBidProduct(BidProduct bidProduct) {
 		if (bidProductList == null) {
@@ -172,6 +188,7 @@ public class Customer {
 	
 	//對訂單:一對多  by瑛仁
 	@OneToMany(mappedBy="cbOrder")
+//	@JsonIgnoreProperties("cbOrder")
 	Set<OrderBean> setco = new LinkedHashSet<>();
 	
 	//對二手商品(買家):一對多  by瑛仁
