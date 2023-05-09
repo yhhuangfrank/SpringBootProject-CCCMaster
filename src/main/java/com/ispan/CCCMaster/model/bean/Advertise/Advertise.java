@@ -1,14 +1,18 @@
 package com.ispan.CCCMaster.model.bean.Advertise;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ispan.CCCMaster.model.bean.product.Product;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "advertise")
-public class Advertise {
+public class Advertise implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,25 +22,42 @@ public class Advertise {
     @Column(name = "click_count")
     private Integer clickCount;
 
+    @Column(name = "title", columnDefinition = "nvarchar(200)", nullable = true)
+    private String title;
+
     @Column(name = "image", columnDefinition = "nvarchar(200)", nullable = true)
     private String image;
 
     @Column(name = "navigate_url", columnDefinition = "nvarchar(200)", nullable = true)
     private String navigateUrl;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss EEEE",timezone = "GMT+8")
+
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
-    @Column(name = "start_time", columnDefinition = "datetime")
+    @Column(name = "start_time", columnDefinition = "datetime", nullable = false)
     private Date startTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss EEEE",timezone = "GMT+8")
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
     @Column(name = "end_time", columnDefinition = "datetime")
     private Date endTime;
 
+    
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "my_advertise_products",joinColumns = @JoinColumn(name="advertise_id"))
+    private List<Product> products;
+
+
     public Advertise() {
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     public Integer getAdvertiseId() {
@@ -83,11 +104,16 @@ public class Advertise {
         return image;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public void setImage(String image) {
         this.image = image;
     }
-
-
-
 
 }

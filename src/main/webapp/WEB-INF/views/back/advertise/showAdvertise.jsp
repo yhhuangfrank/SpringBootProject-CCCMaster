@@ -36,12 +36,12 @@
 
   <main id="main" class="main">
     <div class="pagetitle">
-      <h1>所有文章</h1>
+      <h1>所有廣告</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="${contextRoot}/">首頁</a></li>
-          <li class="breadcrumb-item">論壇管理</li>
-          <li class="breadcrumb-item active">所有文章</li>
+          <li class="breadcrumb-item">廣告管理</li>
+          <li class="breadcrumb-item active">所有廣告</li>
         </ol>
       </nav>
     </div>
@@ -54,10 +54,10 @@
           <table class="table datatable">
             <thead>
             <tr>
-              <th scope="col">文章編號</th>
-              <th scope="col">文章標題</th>
-              <th scope="col">發文時間</th>
-              <th scope="col">文章內容</th>
+              <th scope="col">廣告編號</th>
+              <th scope="col">廣告名稱</th>
+              <th scope="col">廣告上架時間</th>
+              <th scope="col">廣告下架時間</th>
               <th scope="col">操作</th>
             </tr>
             </thead>
