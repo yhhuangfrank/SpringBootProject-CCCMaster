@@ -14,6 +14,8 @@ function setCountDownTimer() {
 
     // 若倒數結束，送出新增成交請求紀錄
     if (offset === 0) {
+        bidPriceInput.setAttribute("disabled", true)
+        bidBtn.classList.add("disabled")
         return createDealRecord()
     }
 
@@ -22,9 +24,11 @@ function setCountDownTimer() {
         return showBidCloseMessage("已截止")
     }
 
-    // 尚未截止才可輸入出價金額
-    bidPriceInput.removeAttribute("disabled")
-    bidBtn.classList.remove("disabled")
+    // 尚未截止才可輸入出價金額，且賣家不可以出價
+    if (currentuser_id !== seller_id) {
+        bidPriceInput.removeAttribute("disabled")
+        bidBtn.classList.remove("disabled")
+    }
 
     // 取得還有多少 天、小時、分鐘、秒
     const seconds = offset % 60      // 秒
@@ -67,8 +71,6 @@ async function createDealRecord() {
         const {data} = response
         const message = `恭喜使用者: ${data.customer.name} 得標!`
         showDealMessage(message)
-        bidPriceInput.setAttribute("disabled", true)
-        bidBtn.classList.add("disabled")
     } catch (error) {
         console.log(error)
     }

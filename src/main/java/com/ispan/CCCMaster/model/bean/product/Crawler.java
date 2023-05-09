@@ -12,7 +12,7 @@ public class Crawler {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "crawler_id")
     private Integer crawlerId;
-    @ManyToOne(cascade = CascadeType.ALL)//產品Bean 產品雙向一對多?
+    @ManyToOne//產品Bean 產品雙向一對多?
     @JoinColumn(name = "product_id")
     private Product product;
 

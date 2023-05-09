@@ -46,8 +46,21 @@ public class Product {
 
     @Column(name = "number_of_comments")
     private Integer numberOfComments;
+
+    public List<Crawler> getCrawlers() {
+        return crawlers;
+    }
+
+    public void setCrawlers(List<Crawler> crawlers) {
+        this.crawlers = crawlers;
+    }
+
     @Column(name = "active", nullable = false)
     private Boolean active;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true)
+    @JsonIgnore
+    private List<Crawler> crawlers;
 
     public MultipartFile getMainImageFile() {
         return mainImageFile;
@@ -59,7 +72,8 @@ public class Product {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,mappedBy = "product")
     @JsonIgnore
-    private List<ProductImg> productImgs = new ArrayList<>();
+    private List<ProductImg> productImgs;
+
 
     @Transient
     private MultipartFile mainImageFile;

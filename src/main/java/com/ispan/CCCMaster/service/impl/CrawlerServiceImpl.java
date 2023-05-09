@@ -135,7 +135,7 @@ public class CrawlerServiceImpl implements CrawlerService {
            Date now = new Date();
            long diffInMillies = Math.abs(now.getTime() - crawlerDate.getTime());
            long diffInHours = TimeUnit.HOURS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-           System.out.println("crawlerDate="+crawlerDate+"   now="+now+"  diffInMillies="+diffInMillies+"  diffInHours="+diffInHours);
+          // System.out.println("crawlerDate="+crawlerDate+"   now="+now+"  diffInMillies="+diffInMillies+"  diffInHours="+diffInHours);
            return diffInHours >= 1;
        }
     }

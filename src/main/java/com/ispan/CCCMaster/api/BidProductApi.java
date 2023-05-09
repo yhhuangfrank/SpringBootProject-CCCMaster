@@ -1,10 +1,14 @@
 package com.ispan.CCCMaster.api;
 
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
+import com.ispan.CCCMaster.model.bean.bid.BidProductComment;
 import com.ispan.CCCMaster.model.bean.bid.DealRecord;
 import com.ispan.CCCMaster.model.customexception.ApiErrorException;
+import com.ispan.CCCMaster.model.dto.BidProductCommentQueryParams;
+import com.ispan.CCCMaster.model.dto.BidProductCommentRequest;
 import com.ispan.CCCMaster.model.dto.BidProductQueryParams;
 import com.ispan.CCCMaster.model.dto.BidRecordRequest;
+import com.ispan.CCCMaster.service.BidProductCommentService;
 import com.ispan.CCCMaster.service.BidProductService;
 import com.ispan.CCCMaster.service.DealRecordService;
 import com.ispan.CCCMaster.util.LoginUtil;
@@ -12,7 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 
@@ -23,14 +27,18 @@ public class BidProductApi {
 
     private final BidProductService bidProductService;
 
+    private final BidProductCommentService bidProductCommentService;
+
     private final DealRecordService dealRecordService;
 
     private final LoginUtil loginUtil;
 
     public BidProductApi(BidProductService bidProductService,
-                          DealRecordService dealRecordService,
+                         BidProductCommentService bidProductCommentService,
+                         DealRecordService dealRecordService,
                          LoginUtil loginUtil) {
         this.bidProductService = bidProductService;
+        this.bidProductCommentService = bidProductCommentService;
         this.dealRecordService = dealRecordService;
         this.loginUtil = loginUtil;
     }
@@ -69,18 +77,38 @@ public class BidProductApi {
     }
 
     @PutMapping("/bidProducts/{id}")
-    public BidProduct updateBidPrice(HttpServletRequest req,
+    public BidProduct updateBidPrice(HttpSession session,
                                      @PathVariable Integer id,
                                      @RequestBody @Valid BidRecordRequest bidRecordRequest) {
-        Integer loginCustomerId = loginUtil.getLoginCustomerId(req).orElseThrow(() -> new ApiErrorException(401, "請先登入!"));
+        Integer loginCustomerId = loginUtil.getLoginCustomerIdOptional(session).orElseThrow(() -> new ApiErrorException(401, "請先登入!"));
         if (bidProductService.checkIsOwner(id, loginCustomerId)) throw new ApiErrorException(400, "不可對自己的商品出價!");
 
         return bidProductService.updateBidPrice(id, bidRecordRequest);
     }
 
+    // 建立成交紀錄
     @PostMapping("/bidProducts/{id}/dealRecords")
     public DealRecord createDealRecord(@PathVariable Integer id) {
         return dealRecordService.createDealRecord(id);
     }
 
+    // 留言功能
+    @GetMapping("/bidProducts/{id}/comments")
+    public Page<BidProductComment> getAllComments(@PathVariable Integer id,
+                                                  @RequestParam(defaultValue = "1") @Min(1) Integer page,
+                                                  @RequestParam(defaultValue = "3") @Min(0) Integer limit){
+        BidProductCommentQueryParams params = new BidProductCommentQueryParams();
+        params.setBidProductId(id);
+        params.setPage(page);
+        params.setLimit(limit);
+        return bidProductCommentService.getAllComments(params);
+    }
+
+    @PostMapping("/bidProducts/{id}/comments")
+    public BidProductComment createComment(HttpSession session,
+                                           @PathVariable Integer id,
+                                           @RequestBody @Valid BidProductCommentRequest bidProductCommentRequest) {
+        loginUtil.getLoginCustomerIdOptional(session).orElseThrow(() -> new ApiErrorException(401, "請先登入!"));
+        return bidProductCommentService.createComment(id, bidProductCommentRequest);
+    }
 }

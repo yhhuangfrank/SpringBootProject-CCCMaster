@@ -1,5 +1,6 @@
 package com.ispan.CCCMaster.controller;
 
+import com.ispan.CCCMaster.annotation.CustomerAuthentication;
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.bid.DealRecord;
 import com.ispan.CCCMaster.model.bean.category.Category;
@@ -16,10 +17,9 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Objects;
 
 @Controller
 public class BidProductController {
@@ -46,6 +46,7 @@ public class BidProductController {
         this.loginUtil = loginUtil;
     }
 
+    @CustomerAuthentication
     @GetMapping("/bidProducts/create")
     public String getCreateBidProductForm(Model model) {
 
@@ -58,9 +59,10 @@ public class BidProductController {
         return "/front/bid/product-create";
     }
 
+    @CustomerAuthentication
     @PostMapping("/bidProducts")
     public String createBidProduct(
-            HttpServletRequest req,
+            HttpSession session,
             @RequestBody @Valid @ModelAttribute("bidProductRequest") BidProductRequest bidProductRequest,
             BindingResult bindingResult,
             Model model,
@@ -79,8 +81,7 @@ public class BidProductController {
         }
 
         // 新增商品
-        Integer loginCustomerId = loginUtil.getLoginCustomerId(req).orElse(null);
-        if (loginCustomerId == null)  return "redirect:/login";
+        Integer loginCustomerId = loginUtil.getLoginCustomerId(session);
 
         bidProductService.createBidProduct(loginCustomerId, bidProductRequest);
 
@@ -112,14 +113,14 @@ public class BidProductController {
         return "/front/bid/product";
     }
 
+    @CustomerAuthentication
     @GetMapping("/bidProducts/{id}/edit")
-    public String getEditBidProductForm(HttpServletRequest req,
+    public String getEditBidProductForm(HttpSession session,
                                         @PathVariable Integer id,
                                         Model model,
                                         RedirectAttributes redirectAttributes) {
 
-        Integer loginCustomerId = loginUtil.getLoginCustomerId(req).orElse(null);
-        if (loginCustomerId == null)  return "redirect:/login";
+        Integer loginCustomerId = loginUtil.getLoginCustomerId(session);
 
         // 查詢商品，商品擁有者才可編輯
         BidProduct foundBidProduct = bidProductService.findBidProductById(id);
@@ -148,8 +149,9 @@ public class BidProductController {
         return "/front/bid/product-edit";
     }
 
+    @CustomerAuthentication
     @PostMapping("/bidProducts/{id}")
-    public String editBidProduct(HttpServletRequest req,
+    public String editBidProduct(HttpSession session,
                                  @PathVariable Integer id,
                                  @RequestBody @Valid @ModelAttribute("bidProductRequest") BidProductRequest bidProductRequest,
                                  BindingResult bindingResult,
@@ -167,8 +169,7 @@ public class BidProductController {
         }
 
         // 更新商品資訊，商品擁有者才可編輯
-        Integer loginCustomerId = loginUtil.getLoginCustomerId(req).orElse(null);
-        if (loginCustomerId == null)  return "redirect:/login";
+        Integer loginCustomerId = loginUtil.getLoginCustomerId(session);
 
         if (!bidProductService.checkIsOwner(id, loginCustomerId)) {
             redirectAttributes.addFlashAttribute("isWarning", true);

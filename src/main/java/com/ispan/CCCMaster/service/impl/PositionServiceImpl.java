@@ -15,27 +15,27 @@ import com.ispan.CCCMaster.service.PositionService;
 public class PositionServiceImpl implements PositionService {
 	
 	@Autowired
-	private PositionDao pstRepository;
+	private PositionDao pstDao;
 	
 	@Override
 	public void createPosition(Position pst) {
-		pstRepository.save(pst);
+		pstDao.save(pst);
 	}
 	
 	@Override
 	public List<Position> findAll(){
-		List<Position> positions = pstRepository.findAll();
+		List<Position> positions = pstDao.findAll();
 		return positions;
 	}
 	
 	@Override
 	public void deleteById(Integer id) {
-		pstRepository.deleteById(id);
+		pstDao.deleteById(id);
 	}
 	
 	@Override
 	public Position findById(Integer id) {
-		Optional<Position> option = pstRepository.findById(id);
+		Optional<Position> option = pstDao.findById(id);
 		if(option.isEmpty()) {
 			return null;
 		} else {
@@ -46,7 +46,7 @@ public class PositionServiceImpl implements PositionService {
 	@Override
 	@Transactional
 	public void editById(Position position) {
-		Optional<Position> option = pstRepository.findById(position.getPositionId());
+		Optional<Position> option = pstDao.findById(position.getPositionId());
 		if(option.isPresent()) {
 			Position old = option.get();
 			old.setPositionName(position.getPositionName());
