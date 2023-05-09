@@ -80,7 +80,7 @@ public class BidProductApi {
     public BidProduct updateBidPrice(HttpSession session,
                                      @PathVariable Integer id,
                                      @RequestBody @Valid BidRecordRequest bidRecordRequest) {
-        Integer loginCustomerId = loginUtil.getLoginCustomerId(session).orElseThrow(() -> new ApiErrorException(401, "請先登入!"));
+        Integer loginCustomerId = loginUtil.getLoginCustomerIdOptional(session).orElseThrow(() -> new ApiErrorException(401, "請先登入!"));
         if (bidProductService.checkIsOwner(id, loginCustomerId)) throw new ApiErrorException(400, "不可對自己的商品出價!");
 
         return bidProductService.updateBidPrice(id, bidRecordRequest);
@@ -108,7 +108,7 @@ public class BidProductApi {
     public BidProductComment createComment(HttpSession session,
                                            @PathVariable Integer id,
                                            @RequestBody @Valid BidProductCommentRequest bidProductCommentRequest) {
-        loginUtil.getLoginCustomerId(session).orElseThrow(() -> new ApiErrorException(401, "請先登入!"));
+        loginUtil.getLoginCustomerIdOptional(session).orElseThrow(() -> new ApiErrorException(401, "請先登入!"));
         return bidProductCommentService.createComment(id, bidProductCommentRequest);
     }
 }

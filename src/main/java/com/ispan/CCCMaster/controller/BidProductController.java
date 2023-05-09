@@ -81,8 +81,7 @@ public class BidProductController {
         }
 
         // 新增商品
-        Integer loginCustomerId = loginUtil.getLoginCustomerId(session).orElse(null);
-        if (loginCustomerId == null)  return "redirect:/login";
+        Integer loginCustomerId = loginUtil.getLoginCustomerId(session);
 
         bidProductService.createBidProduct(loginCustomerId, bidProductRequest);
 
@@ -121,8 +120,7 @@ public class BidProductController {
                                         Model model,
                                         RedirectAttributes redirectAttributes) {
 
-        Integer loginCustomerId = loginUtil.getLoginCustomerId(session).orElse(null);
-        if (loginCustomerId == null)  return "redirect:/login";
+        Integer loginCustomerId = loginUtil.getLoginCustomerId(session);
 
         // 查詢商品，商品擁有者才可編輯
         BidProduct foundBidProduct = bidProductService.findBidProductById(id);
@@ -171,8 +169,7 @@ public class BidProductController {
         }
 
         // 更新商品資訊，商品擁有者才可編輯
-        Integer loginCustomerId = loginUtil.getLoginCustomerId(session).orElse(null);
-        if (loginCustomerId == null)  return "redirect:/login";
+        Integer loginCustomerId = loginUtil.getLoginCustomerId(session);
 
         if (!bidProductService.checkIsOwner(id, loginCustomerId)) {
             redirectAttributes.addFlashAttribute("isWarning", true);
