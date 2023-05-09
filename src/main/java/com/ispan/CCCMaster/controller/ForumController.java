@@ -1,6 +1,5 @@
 package com.ispan.CCCMaster.controller;
 
-import com.ispan.CCCMaster.annotation.CustomerAuthentication;
 import com.ispan.CCCMaster.model.bean.Forum.Forum;
 import com.ispan.CCCMaster.service.impl.ForumServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,6 @@ public class ForumController {
     private ForumServiceImpl fService;
 
 
-    @CustomerAuthentication
     @GetMapping("/forums/showAllForum") //顯示所有討論版
     public String showAllForum(@RequestParam(name = "p", defaultValue = "1") Integer pageNumber, Model model) {
         Page<Forum> page = fService.findByPage(pageNumber);
