@@ -1,5 +1,8 @@
 package com.ispan.CCCMaster.service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.data.domain.Page;
 
 import com.ispan.CCCMaster.model.bean.customer.Customer;
@@ -15,5 +18,9 @@ public interface CustomerService {
 	Customer findById(Integer id);
 
 	void editById(Customer customer);
+
+	Boolean logIn(String accountNumber, String password, HttpServletRequest request);
+
+	void logOut(HttpSession session);
 
 }
