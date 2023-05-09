@@ -139,6 +139,9 @@
                         <button class="btn mt-2 text-white disabled" id="bidBtn" style="background-color: #e96b56"
                                 data-bs-toggle="modal" data-bs-target="#modal-${bidProduct.id}">點我出價
                         </button>
+                        <c:if test="${dealRecord != null}">
+                            <button class="btn btn-success mt-2 text-white">立即結帳</button>
+                        </c:if>
                         <%--          顯示訊息              --%>
                         <div id="messageArea">
                             <c:if test="${dealRecord != null}">
@@ -181,7 +184,7 @@
         </div>
 
         <div class="container mt-2">
-            <h3>所有留言 :</h3>
+            <h3>所有留言</h3>
             <div class="border border-dark border-2 rounded-2">
                 <div id="commentArea">
                     <%-- api 串接顯示留言 --%>

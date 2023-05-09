@@ -29,7 +29,7 @@ public class BidProductComment {
 
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 使回傳 json 時，按照格式顯示日期
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8") // 使回傳 json 時，按照格式顯示日期
     @Column(name = "created_at", columnDefinition = "datetime", nullable = false)
     private Date createdAt;
 

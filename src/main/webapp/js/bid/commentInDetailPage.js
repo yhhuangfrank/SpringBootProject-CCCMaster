@@ -6,16 +6,8 @@ const pagination = document.querySelector("#comment-pagination")
 const {bidproduct_id, currentuser_id} = createCommentBtn.dataset
 
 let currentPage = 1 // 預設第一頁
-window.addEventListener("load", async () => {
-    try {
-        const {data} = await axios.get(`${BASE_URL}/${bidproduct_id}/comments`)
-        const {content} = data
-        renderComment(content)
-        paginator(data)
-    } catch (error) {
-        console.log(error)
-    }
-})
+
+window.addEventListener("load", () => getCommentByPage())
 
 createCommentBtn.addEventListener("click", async () => {
     try {
@@ -33,13 +25,35 @@ createCommentBtn.addEventListener("click", async () => {
         commentTextArea.value = "" // 清空留言區內容
         await axios.post(`${BASE_URL}/${bidproduct_id}/comments`, data)
 
+        return getCommentByPage()
+
     } catch (error) {
         console.log(error)
     }
 })
 
+pagination.addEventListener("click",  (e) => {
+    const {target} = e
+
+    if (target.tagName !== "BUTTON") return
+
+    if (target.classList.contains("prev")) {
+        currentPage -= 1
+    } else if (target.classList.contains("next")) {
+        currentPage += 1
+    }
+
+    return  getCommentByPage()
+})
+
 function renderComment(content) {
-     let html = ``
+    let html = ``
+
+    if (!content.length) {
+        html += `<p class="m-0 text-center">目前暫無留言</p>`
+        return commentArea.innerHTML = html
+    }
+
     content.forEach(item => {
         html += `
             <div class="mx-2 p-2">
@@ -56,22 +70,25 @@ function renderComment(content) {
 }
 
 function paginator(data) {
-    const {totalPages, first, last, number} = data
+    const {totalPages, first, last, number, empty} = data
+
+    if (empty) return
+
     currentPage = number + 1
 
     let html = ``
 
     if (!first) {
         html += `
-            <button class="btn btn-outline-secondary prev">上一頁</button>
+            <button class="btn btn-outline-secondary btn-sm prev">上一頁</button>
         `
     }
 
-    html += `第${currentPage}頁/${totalPages}頁`
+    html += `第${currentPage}頁/共${totalPages}頁`
 
     if (!last) {
         html += `
-            <button class="btn btn-outline-secondary next">下一頁</button>
+            <button class="btn btn-outline-secondary btn-sm next">下一頁</button>
         `
     }
 
@@ -85,4 +102,16 @@ function showAlertMessageForComment(message) {
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         `
+}
+
+async function getCommentByPage() {
+    try {
+        const params = {page: currentPage}
+        const {data} = await axios.get(`${BASE_URL}/${bidproduct_id}/comments`, {params})
+        const {content} = data
+        renderComment(content)
+        paginator(data)
+    } catch (error) {
+        console.log(error)
+    }
 }

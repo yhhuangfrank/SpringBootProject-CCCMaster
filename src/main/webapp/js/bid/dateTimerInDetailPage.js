@@ -14,6 +14,8 @@ function setCountDownTimer() {
 
     // 若倒數結束，送出新增成交請求紀錄
     if (offset === 0) {
+        bidPriceInput.setAttribute("disabled", true)
+        bidBtn.classList.add("disabled")
         return createDealRecord()
     }
 
@@ -67,8 +69,6 @@ async function createDealRecord() {
         const {data} = response
         const message = `恭喜使用者: ${data.customer.name} 得標!`
         showDealMessage(message)
-        bidPriceInput.setAttribute("disabled", true)
-        bidBtn.classList.add("disabled")
     } catch (error) {
         console.log(error)
     }
