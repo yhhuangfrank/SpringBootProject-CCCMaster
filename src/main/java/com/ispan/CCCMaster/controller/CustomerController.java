@@ -34,7 +34,9 @@ public class CustomerController {
 		if(ctmService.logIn(accountNumber, password, request)) {
 			return "redirect:/";	//回到上一個瀏覽頁面；有bug未解，暫時先改成回首頁
 		} else {
-			redirectAttributes.addFlashAttribute("loginFailed", true);	//重導前添加登入失敗訊息
+			//重導前添加登入失敗訊息
+			redirectAttributes.addFlashAttribute("isFailed", true);
+			redirectAttributes.addFlashAttribute("failedMsg", "登入失敗！請檢查您的帳號和密碼是否正確。");
 			return "redirect:/login";
 		}
 	}
