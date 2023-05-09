@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.text.ParseException;
 
 import org.springframework.data.domain.Page;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.ispan.CCCMaster.model.bean.coupon.CouponBean;
 

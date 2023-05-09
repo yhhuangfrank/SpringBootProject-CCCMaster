@@ -1,10 +1,11 @@
 package com.ispan.CCCMaster.util;
 
-import org.springframework.stereotype.Component;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Optional;
+
+import org.springframework.stereotype.Component;
 
 @Component
 public class LoginUtil {

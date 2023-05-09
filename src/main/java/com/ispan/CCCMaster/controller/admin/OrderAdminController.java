@@ -7,22 +7,18 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ispan.CCCMaster.model.bean.order.OrderBean;
 import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;
-import com.ispan.CCCMaster.model.bean.product.Product;
 import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
 import com.ispan.CCCMaster.service.OrderService;
 import com.ispan.CCCMaster.service.ShoppingCartService;

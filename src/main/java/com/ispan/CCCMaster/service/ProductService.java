@@ -1,13 +1,12 @@
 package com.ispan.CCCMaster.service;
 
-import com.ispan.CCCMaster.model.bean.product.Product;
-import com.ispan.CCCMaster.model.bean.product.ProductImg;
+import java.io.IOException;
+
 import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.List;
+import com.ispan.CCCMaster.model.bean.product.Product;
 
 public interface ProductService {
 

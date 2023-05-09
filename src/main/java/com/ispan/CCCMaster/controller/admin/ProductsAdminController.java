@@ -1,17 +1,24 @@
 package com.ispan.CCCMaster.controller.admin;
 
-import com.ispan.CCCMaster.model.bean.category.Category;
-import com.ispan.CCCMaster.model.bean.product.Product;
-import com.ispan.CCCMaster.service.CategoryService;
-import com.ispan.CCCMaster.service.ProductService;
+import java.io.IOException;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.io.IOException;
-import java.util.List;
+import com.ispan.CCCMaster.model.bean.category.Category;
+import com.ispan.CCCMaster.model.bean.product.Product;
+import com.ispan.CCCMaster.service.CategoryService;
+import com.ispan.CCCMaster.service.ProductService;
 
 @Controller
 public class ProductsAdminController {

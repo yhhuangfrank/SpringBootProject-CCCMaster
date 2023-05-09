@@ -1,13 +1,14 @@
 package com.ispan.CCCMaster.util;
 
-import com.ispan.CCCMaster.model.dto.BidProductRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.ispan.CCCMaster.model.dto.BidProductRequest;
 
 @Component
 public class BidProductValidator implements Validator {

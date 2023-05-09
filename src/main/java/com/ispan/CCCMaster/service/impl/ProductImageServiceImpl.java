@@ -1,8 +1,8 @@
 package com.ispan.CCCMaster.service.impl;
 
-import com.ispan.CCCMaster.model.bean.product.ProductImg;
-import com.ispan.CCCMaster.model.dao.ProductImgDao;
-import com.ispan.CCCMaster.service.ProductImageService;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -10,8 +10,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.ispan.CCCMaster.model.bean.product.ProductImg;
+import com.ispan.CCCMaster.model.dao.ProductImgDao;
+import com.ispan.CCCMaster.service.ProductImageService;
 
 
 @Service

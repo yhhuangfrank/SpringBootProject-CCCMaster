@@ -1,14 +1,14 @@
 package com.ispan.CCCMaster.service.impl;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ispan.CCCMaster.model.bean.category.Category;
-import com.ispan.CCCMaster.model.bean.product.Product;
-import com.ispan.CCCMaster.model.bean.product.ProductImg;
-import com.ispan.CCCMaster.model.dao.CategoryDao;
-import com.ispan.CCCMaster.model.dao.ProductDao;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
-import com.ispan.CCCMaster.model.dao.ProductImgDao;
+import javax.persistence.criteria.Predicate;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -18,7 +18,6 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -30,12 +29,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-
-import javax.persistence.criteria.Predicate;
-import java.io.*;
-
-import java.nio.charset.StandardCharsets;
-import java.util.*;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ispan.CCCMaster.model.bean.category.Category;
+import com.ispan.CCCMaster.model.bean.product.Product;
+import com.ispan.CCCMaster.model.bean.product.ProductImg;
+import com.ispan.CCCMaster.model.dao.CategoryDao;
+import com.ispan.CCCMaster.model.dao.ProductDao;
+import com.ispan.CCCMaster.model.dao.ProductImgDao;
 
 @Service
 public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductService {

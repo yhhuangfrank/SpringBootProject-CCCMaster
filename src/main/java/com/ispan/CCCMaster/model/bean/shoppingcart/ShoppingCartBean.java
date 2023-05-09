@@ -16,9 +16,8 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.ispan.CCCMaster.model.bean.product.Product;
-
 import com.ispan.CCCMaster.model.bean.customer.Customer;
+import com.ispan.CCCMaster.model.bean.product.Product;
 
 @Entity
 @Table(name="ShoppingCart")

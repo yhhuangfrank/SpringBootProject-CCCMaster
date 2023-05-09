@@ -1,11 +1,12 @@
 package com.ispan.CCCMaster.service.impl;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.ispan.CCCMaster.model.bean.category.Category;
 import com.ispan.CCCMaster.model.dao.CategoryDao;
 import com.ispan.CCCMaster.service.CategoryService;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {

@@ -1,15 +1,20 @@
 package com.ispan.CCCMaster.model.bean.order;
 
 
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.customer.Customer;
-
-import java.io.Serializable;
-import java.util.Date;
-
-import javax.persistence.*;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="BidOrder")

@@ -1,8 +1,7 @@
 package com.ispan.CCCMaster.service.impl;
 
-import com.ispan.CCCMaster.model.bean.Forum.Article;
-import com.ispan.CCCMaster.model.dao.ArticleDao;
-import com.ispan.CCCMaster.service.ArticleService;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,7 +10,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import com.ispan.CCCMaster.model.bean.Forum.Article;
+import com.ispan.CCCMaster.model.dao.ArticleDao;
+import com.ispan.CCCMaster.service.ArticleService;
 
 @Service//告訴spring這是一個bean
 public class ArticleServiceImpl implements ArticleService {

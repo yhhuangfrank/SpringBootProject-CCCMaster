@@ -1,14 +1,30 @@
 package com.ispan.CCCMaster.model.bean.customer;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
-import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.ispan.CCCMaster.model.bean.RecipientInfo.RecipientInfoBean;
 import com.ispan.CCCMaster.model.bean.RecipientInfo.StoreRecipientInfoBean;
+import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.order.BidOrderBean;
 import com.ispan.CCCMaster.model.bean.order.OrderBean;
 import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;

@@ -1,9 +1,10 @@
 package com.ispan.CCCMaster.controller;
 
-import com.ispan.CCCMaster.service.BidProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.ispan.CCCMaster.service.BidProductService;
 
 @Controller
 public class TestController {

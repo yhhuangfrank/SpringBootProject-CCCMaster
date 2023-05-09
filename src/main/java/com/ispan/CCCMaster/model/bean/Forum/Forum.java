@@ -1,11 +1,23 @@
 package com.ispan.CCCMaster.model.bean.Forum;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.*;
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "forum")

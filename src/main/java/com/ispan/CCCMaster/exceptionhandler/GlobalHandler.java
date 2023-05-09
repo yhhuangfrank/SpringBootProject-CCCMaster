@@ -1,13 +1,14 @@
 package com.ispan.CCCMaster.exceptionhandler;
 
-import com.ispan.CCCMaster.model.customexception.ApiErrorException;
-import com.ispan.CCCMaster.model.customexception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import com.ispan.CCCMaster.model.customexception.ApiErrorException;
+import com.ispan.CCCMaster.model.customexception.NotFoundException;
 
 @ControllerAdvice
 public class GlobalHandler {

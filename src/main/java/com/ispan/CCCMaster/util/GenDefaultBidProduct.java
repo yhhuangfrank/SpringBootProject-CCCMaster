@@ -1,5 +1,14 @@
 package com.ispan.CCCMaster.util;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
+
+import org.springframework.stereotype.Component;
+
 import com.github.javafaker.Faker;
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.category.Category;
@@ -7,14 +16,6 @@ import com.ispan.CCCMaster.model.bean.customer.Customer;
 import com.ispan.CCCMaster.model.dao.BidProductDao;
 import com.ispan.CCCMaster.model.dao.CategoryDao;
 import com.ispan.CCCMaster.model.dao.CustomerDao;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Component
 public class GenDefaultBidProduct {

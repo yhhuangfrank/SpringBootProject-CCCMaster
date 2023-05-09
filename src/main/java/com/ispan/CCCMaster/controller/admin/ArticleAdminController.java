@@ -1,16 +1,21 @@
 package com.ispan.CCCMaster.controller.admin;
 
-import com.ispan.CCCMaster.model.bean.Forum.Article;
-import com.ispan.CCCMaster.service.ArticleService;
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.io.IOException;
+import com.ispan.CCCMaster.model.bean.Forum.Article;
+import com.ispan.CCCMaster.service.ArticleService;
 
 @Controller
 public class ArticleAdminController {

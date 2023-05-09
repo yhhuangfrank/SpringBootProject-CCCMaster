@@ -1,5 +1,14 @@
 package com.ispan.CCCMaster.service.impl;
 
+import java.util.List;
+import java.util.Objects;
+
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.bid.BidRecord;
 import com.ispan.CCCMaster.model.bean.bid.DealRecord;
@@ -8,14 +17,6 @@ import com.ispan.CCCMaster.model.dao.BidProductDao;
 import com.ispan.CCCMaster.model.dao.BidRecordDao;
 import com.ispan.CCCMaster.model.dao.DealRecordDao;
 import com.ispan.CCCMaster.service.DealRecordService;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Objects;
 
 @Service
 public class DealRecordServiceImpl implements DealRecordService {

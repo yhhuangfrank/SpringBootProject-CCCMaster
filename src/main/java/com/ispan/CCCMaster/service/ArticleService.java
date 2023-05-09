@@ -1,10 +1,11 @@
 package com.ispan.CCCMaster.service;
 
-import com.ispan.CCCMaster.model.bean.Forum.Article;
+import java.io.IOException;
+
 import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
+import com.ispan.CCCMaster.model.bean.Forum.Article;
 
 public interface ArticleService {
     void createArticle(Article article);

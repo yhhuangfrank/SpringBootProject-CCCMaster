@@ -1,10 +1,9 @@
 package com.ispan.CCCMaster.service;
 
-import com.ispan.CCCMaster.model.bean.product.ProductImg;
+import java.util.List;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-
-import java.util.List;
 
 public interface ProductImageService {
 

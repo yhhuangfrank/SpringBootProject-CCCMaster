@@ -1,13 +1,12 @@
 package com.ispan.CCCMaster.service.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ispan.CCCMaster.model.bean.product.Crawler;
-import com.ispan.CCCMaster.model.bean.product.Product;
-import com.ispan.CCCMaster.model.dao.CrawlerDao;
-import com.ispan.CCCMaster.service.CrawlerService;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -21,13 +20,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.TimeUnit;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ispan.CCCMaster.model.bean.product.Crawler;
+import com.ispan.CCCMaster.model.bean.product.Product;
+import com.ispan.CCCMaster.model.dao.CrawlerDao;
+import com.ispan.CCCMaster.service.CrawlerService;
 
 @Service
 public class CrawlerServiceImpl implements CrawlerService {

@@ -1,14 +1,11 @@
 package com.ispan.CCCMaster.service.impl;
 
-import java.beans.Expression;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,12 +20,6 @@ import com.ispan.CCCMaster.model.dao.OrderDetailDao;
 import com.ispan.CCCMaster.model.dao.ProductDao;
 import com.ispan.CCCMaster.model.dao.ShoppingCartDao;
 import com.ispan.CCCMaster.service.OrderService;
-
-import ecpay.logistics.integration.AllInOne;
-import ecpay.logistics.integration.domain.CreateCVSObj;
-import ecpay.logistics.integration.domain.ExpressMapObj;
-//import ecpay.payment.integration.AllInOne;
-import ecpay.payment.integration.domain.AioCheckOutALL;
 
 @Service
 public class OrderServiceImpl implements OrderService {

@@ -9,11 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ispan.CCCMaster.model.bean.coupon.CouponBean;
 import com.ispan.CCCMaster.model.bean.customer.Customer;
-import com.ispan.CCCMaster.model.bean.customer.CustomerCoupon;
-import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
 import com.ispan.CCCMaster.model.bean.product.Product;
+import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
 import com.ispan.CCCMaster.model.dao.ProductDao;
 import com.ispan.CCCMaster.model.dao.ShoppingCartDao;
 import com.ispan.CCCMaster.service.ShoppingCartService;

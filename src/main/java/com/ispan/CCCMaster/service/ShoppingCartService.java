@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import com.ispan.CCCMaster.model.bean.customer.Customer;
-
 import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
 
 public interface ShoppingCartService {

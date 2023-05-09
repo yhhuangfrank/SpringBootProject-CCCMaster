@@ -1,13 +1,14 @@
 package com.ispan.CCCMaster.service;
 
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.dto.BidProductQueryParams;
 import com.ispan.CCCMaster.model.dto.BidProductRequest;
 import com.ispan.CCCMaster.model.dto.BidRecordRequest;
-import org.springframework.data.domain.Page;
-
-import java.util.List;
 
 public interface BidProductService {
 

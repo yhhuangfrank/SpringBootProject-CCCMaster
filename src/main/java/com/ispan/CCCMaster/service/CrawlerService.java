@@ -1,7 +1,8 @@
 package com.ispan.CCCMaster.service;
 
-import com.ispan.CCCMaster.model.bean.product.Crawler;
 import org.springframework.data.domain.Page;
+
+import com.ispan.CCCMaster.model.bean.product.Crawler;
 
 public interface CrawlerService {
 

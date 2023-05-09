@@ -1,8 +1,9 @@
 package com.ispan.CCCMaster.model.dao;
 
 
-import com.ispan.CCCMaster.model.bean.Forum.Forum;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.ispan.CCCMaster.model.bean.Forum.Forum;
 
 
 public interface ForumDao extends JpaRepository<Forum,Integer> {

@@ -1,12 +1,13 @@
 package com.ispan.CCCMaster.model.dao;
 
-import com.ispan.CCCMaster.model.bean.product.ProductImg;
-import com.ispan.CCCMaster.model.bean.product.Product;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.List;
+import com.ispan.CCCMaster.model.bean.product.Product;
+import com.ispan.CCCMaster.model.bean.product.ProductImg;
 
 public interface ProductImgDao extends JpaRepository<ProductImg, Integer> {
 //    @Query("SELECT pi FROM ProductImg pi WHERE pi.product.productId = :productId")

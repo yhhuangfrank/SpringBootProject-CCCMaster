@@ -1,8 +1,8 @@
 package com.ispan.CCCMaster.service;
 
-import com.ispan.CCCMaster.model.bean.category.Category;
-
 import java.util.List;
+
+import com.ispan.CCCMaster.model.bean.category.Category;
 
 public interface CategoryService {
 

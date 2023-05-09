@@ -139,12 +139,12 @@ text-overflow: ellipsis;
 
                                         <li class="nav-item">
                                             <button class="nav-link active" data-bs-toggle="tab"
-                                                data-bs-target="#profile-overview" id="item1">表單回報</button>
+                                                data-bs-target="#profile-overview" id="item1">答覆中心</button>
                                         </li>
 
                                         <li class="nav-item">
                                             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit"
-                                                id="item2">答覆中心</button>
+                                                id="item2">表單回報</button>
                                         </li>
                                     </ul>
                                     <div class="tab-content pt-2">
@@ -326,9 +326,11 @@ text-overflow: ellipsis;
                                                                 class="col-sm-2 col-form-label">電子信箱:</label>
                                                             <div class="col-sm-10">
                                                                 <form:input type="text" path="email"
-                                                                    class="form-control" id="inputEemail" maxlength="20"></form:input>
+                                                                    class="form-control" id="inputEemail" maxlength="20" ></form:input>
                                                             </div>
                                                         </div>
+                                                                <form:input type="hidden" path="customerid"
+                                                                    class="form-control" id="inputEemail" maxlength="20" value="${sessionScope.customerId}"></form:input>
                                                         <br>
                                                         <div class="col-sm-10" style="text-align:center;">
                                                             <button type="submit" class="btn btn-primary">送出</button>

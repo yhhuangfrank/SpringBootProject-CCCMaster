@@ -1,7 +1,5 @@
 package com.ispan.CCCMaster.model.bean.order;
 
-import com.ispan.CCCMaster.model.bean.product.Product;
-
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
@@ -13,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.ispan.CCCMaster.model.bean.product.Product;
 
 @Entity
 @Table(name="OrderDetail")

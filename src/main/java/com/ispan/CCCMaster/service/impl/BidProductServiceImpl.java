@@ -1,5 +1,23 @@
 package com.ispan.CCCMaster.service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
+
+import javax.persistence.criteria.Predicate;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.bid.BidRecord;
 import com.ispan.CCCMaster.model.bean.category.Category;
@@ -15,22 +33,6 @@ import com.ispan.CCCMaster.model.dto.BidProductRequest;
 import com.ispan.CCCMaster.model.dto.BidRecordRequest;
 import com.ispan.CCCMaster.service.BidProductService;
 import com.ispan.CCCMaster.util.ImgurUploader;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.criteria.Predicate;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
 
 @Service
 public class BidProductServiceImpl implements BidProductService {
