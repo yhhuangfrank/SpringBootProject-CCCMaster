@@ -60,38 +60,9 @@
 
     </div>
   </section><!-- End Breadcrumbs -->
-	<section id="blog" class="blog">
-      <div class="container" data-aos="fade-up">
-            <div class="card">
-            <div class="entry entry-single">
-
-            <div class="card-body">
-              <h4 class="card-title">取貨人資訊</h4>
-              <!-- Vertical Form -->
-              <form class="row g-3">
-                <div class="col-12">
-                  <label for="inputNanme4" class="form-label">姓名</label>
-                  <input type="text" class="form-control" id="inputNanme4">
-                </div>
-                <div class="col-12">
-                  <label for="inputEmail4" class="form-label">手機號碼</label>
-                  <input type="email" class="form-control" id="inputEmail4">
-                </div>
-                <div class="col-12">
-                  <label for="inputPassword4" class="form-label">寄送地址</label>
-                  <input type="password" class="form-control" id="inputPassword4" path="shipperaddress">
-                </div>
-                
-                <div class="text-center">
-                  <button type="submit" class="btn btn-primary">下一頁</button>
-                </div>
-              </form><!-- Vertical Form -->
-
-          </div>
-		</div>
-        </div>
-      </div>   
-    </section><!-- End Blog Single Section -->
+	<div>
+		<h3>訂單成立</h3>
+	</div>
 
 </main><!-- End #main -->
 

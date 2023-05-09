@@ -70,12 +70,13 @@ public class OrderAdminController {
 //
 //	
 //	//新增訂單&同時刪掉購物車&修改存貨
-//	@PostMapping("/front/orders/create")
-//	public String createorder(@ModelAttribute("orderBean")OrderBean orderBean) throws IOException {
-//		oService.createOrder(orderBean);
-////		scService.deleteAll();
-//		return "/front/orders/order";
-//	}
+	@PostMapping("/front/orders/create")
+	public String createorder(@ModelAttribute("orderBean")OrderBean orderBean,
+			@RequestParam("customerId")Integer customerId) throws IOException {
+		oService.createOrder(orderBean,customerId);
+//		scService.deletescByCId(customerId);
+		return "/front/orders/order";
+	}
 	//前台訂單資料
 //	@GetMapping("/front/orders")
 //	public String findfrontorder(@PathVariable("id") String orderid,Model model) {

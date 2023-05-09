@@ -16,11 +16,10 @@ import com.ispan.CCCMaster.model.bean.customer.Customer;
 import com.ispan.CCCMaster.model.bean.customer.CustomerCoupon;
 import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;
 import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
-import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartDetailBean;
 import com.ispan.CCCMaster.model.bean.product.Product;
+import com.ispan.CCCMaster.model.dao.CustomerDao;
 import com.ispan.CCCMaster.model.dao.ProductDao;
 import com.ispan.CCCMaster.model.dao.ShoppingCartDao;
-import com.ispan.CCCMaster.model.dao.ShoppingCartDetailDao;
 import com.ispan.CCCMaster.service.ShoppingCartService;
 
 @Service
@@ -33,53 +32,34 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	private ProductDao pDao;
 	
 	@Autowired
-	private ShoppingCartDetailDao scdDao;
+	private  CustomerDao cDao;
 	
 	//購物車建立
 	@Override
-	public void createShoppingCart(ShoppingCartBean sc,Integer productId,Integer customerId) {
-		//取ShoppingCartID
-		Date date = new Date();
-		String dateString = String.valueOf(date.getTime());		
-		if(scDao.findByCid(customerId) == null) {
-			sc.setShoppoingCartId(dateString);
-			//取產品ID&加入訂單明細
-			Optional<Product> pOption= pDao.findById(productId);
-			Product p = pOption.get();
-			Set<ShoppingCartDetailBean> scdBean = new HashSet<>();
-			ShoppingCartDetailBean scd = new ShoppingCartDetailBean();
-			Set<ShoppingCartDetailBean> list = sc.getSetscd();
-				scd.setUnitprice(p.getPrice());
-				scd.setProductBean(p);
-				scd.setShoppingCartBean(sc);
-				scdBean.add(scd);
-				sc.setSetscd(scdBean);
+	public void createShoppingCart(ShoppingCartBean sc,Integer customerId,Integer productId) {
+				//shoppingcart的customerid
+				Optional<Customer> cOption = cDao.findById(customerId);
+				Customer c = cOption.get();
+				sc.setCbShoppingCart(c);
+				//shoppingcartid
+				Date date = new Date();
+				String dateString = String.valueOf(date.getTime());
+				sc.setShoppoingCartId(dateString);
+				//shoppingcart的productid&price
+				Optional<Product> pOption= pDao.findById(productId);			
+				Product p = pOption.get();			
+				sc.setUnitprice(p.getPrice());
+				sc.setProductBean(p);
+				sc.setScquantity(sc.getScquantity());
 				scDao.save(sc);
-		}else {
-			sc.setShoppoingCartId(scDao.findByCid(customerId));
-			//取產品ID&只增加訂單明細
-			Optional<Product> pOption= pDao.findById(productId);
-			Product p = pOption.get();
-			ShoppingCartDetailBean scd = new ShoppingCartDetailBean();
-				scd.setUnitprice(p.getPrice());
-				scd.setProductBean(p);
-				scd.setShoppingCartBean(sc);
-				scdDao.save(scd);
-		}					
-	}
+			}
 	//查詢購物車
-//	@Override
-//	public List<ShoppingCartBean> findShoppingCartByCid(Integer customerId) {
-//		List<ShoppingCartBean> list = scDao.findByCid(customerId);
-//		 return list;
-//	}
-
 	@Override
-	public List<ShoppingCartBean> findAll(){
-		return scDao.findAll();
+	public List<ShoppingCartBean> findByCid(Integer customerId) {
+		return scDao.findAllByCid(customerId);
 	}
 	
-	//刪除購物車
+	//刪除單項產品(購物車)
 	@Override
 	public void deleteBySCId(String shoppoingCartId) {
 		scDao.deleteById(shoppoingCartId);
@@ -92,25 +72,16 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		Optional<ShoppingCartBean> option = scDao.findById(sc.getShoppoingCartId());
 		if(option.isPresent()) {
 			ShoppingCartBean scb = option.get();
-//			scb.setQuantity();
-
+			scb.setScquantity(sc.getScquantity());
 		}
 	}
 	
-	
 
-
-	//刪除購物車
+	//依照cid刪除各自的購物車
 	@Override
-	public void deleteAll() {
-		scDao.deleteAll();
+	public void deletescByCId(Integer customerId) {
+		scDao.deleteByCid(customerId);		
 	}
-
-//	//依照cid刪除各自的購物車
-//	@Override
-//	public void deletescByCId(Integer id) {
-//		scDao.deleteByCid(id);		
-//	}
 
 
 

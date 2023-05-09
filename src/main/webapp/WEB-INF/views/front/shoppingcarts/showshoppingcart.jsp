@@ -84,13 +84,13 @@
 	                    <td>
 	                    	<div class="input-group" style="width: 150px;">
 	                    	  <button id="dec${status.count}" class="btn btn-outline-secondary" type="button" onclick="dec(${status.count})" >-</button>             	  
-	                    	    <input id="quantity${status.count}" type="text" value="${sc.quantity}" class="form-control text-center" min="1" data-max="${sc.productBean.inventory}" onchange="check(event)" name="quantity">
+	                    	    <input id="quantity${status.count}" type="text" value="${sc.scquantity}" class="form-control text-center" min="1" data-max="${sc.productBean.inventory}" onchange="check(event)" name="scquantity">
 	                    	  <button id="inc${status.count}" class="btn btn-outline-secondary" type="button" onclick="inc(${status.count})">+</button>
 	                    	</div>                 	
 	                    </td>
                     <td><input id="price${status.count}" type="hidden" value="${sc.productBean.price}">${sc.productBean.price}</td>
                     <td>
-                      <input id="total${status.count}" type="text" value="${sc.quantity*sc.productBean.price}" 
+                      <input id="total${status.count}" type="text" value="${sc.scquantity*sc.productBean.price}" 
                       readonly="readonly" style="outline: none;text-align: right;width: 50px;border: 0px;" class="countstotal">
                     </td>
                     <td>
@@ -107,16 +107,36 @@
             </div>
           </div>
           <div class="col-lg-4">
+          <div class="sidebar">
+              <h5>優惠方式</h5>
+              	<div class="form-check">
+              			<input class="form-check-input" type="checkbox">
+              			<label class="form-check-label" for="gridCheck1" for="points">
+              				使用點數              	
+            			</label>
+            			<div >
+            				<input type="text" id="points" class="form-control col-sm-4"></input>
+            				(現有點)
+            			</div>
+            		</div>
+              			<div class="form-check">
+	              			<input class="form-check-input" type="checkbox">
+	              			<label class="form-check-label" for="gridCheck1">
+	              				使用優惠券              	
+	            			</label>
+            			</div>          	
+            </div>
             <div class="sidebar">
             <div class="row">
-				<div class="col-lg-3">總金額&nbsp;:</div>
-				<div class="col-lg-9" style="text-align: right">
+				<div class="col-lg-4">總金額&nbsp;:</div>
+				<div class="col-lg-8" style="text-align: right">
 					<span id="totalamount"></span>
 				</div>
-					<div class="col-lg-3" style="margin-top: 5px">運&nbsp;&nbsp;&nbsp;&nbsp;費&nbsp;:</div>
-					<div class="col-lg-9" style="text-align: right;margin-top: 5px">
-						<span id="freight"></span>
-					</div>
+				<div class="col-lg-4" style="margin-top: 5px">運&nbsp;&nbsp;&nbsp;&nbsp;費&nbsp;:</div>
+				<div class="col-lg-8" style="text-align: right;margin-top: 5px">
+					<span id="freight"></span>
+				</div>
+				<div class="col-lg-4" style="margin-top: 5px">優惠折抵:</div>
 				<br>
 				<br>
 				<hr>
@@ -125,8 +145,8 @@
 					<span id="finalamount"></span>
 				</div>										
 						<div class="d-grid gap-2 mt-3">
-							<botton style="color: white;">
-		                        <a href="${contextRoot}/front/shoppingcart/shoppingcartdetail">結帳去</a>
+							<botton type="button" class="btn btn-danger">
+		                        <a href="${contextRoot}/front/shoppingcart/shoppingcartdetail" style="color: white;">結帳去</a>
 	                    	</botton>											
 						</div>					
 				</div>
@@ -181,7 +201,7 @@
         url:"http://localhost:8080/front/shoppingcart",
         data:{
           shoppoingCartId:scid,
-          quantity:valueInput.value
+          scquantity:valueInput.value
         }
       })
       document.getElementById('total'+count).value=qua.value*valueInput.value;  //小計
@@ -216,7 +236,7 @@
         url:"http://localhost:8080/front/shoppingcart",
         data:{
           shoppoingCartId:scid,
-          quantity:valueInput.value
+          scquantity:valueInput.value
         }
       })
 	      document.getElementById('total'+count).value=qua.value*valueInput.value;

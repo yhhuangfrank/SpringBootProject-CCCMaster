@@ -165,14 +165,14 @@
                                     </button>
                                         <%--                                    <input id="quantity" type="number" class="form-control text-center" min="1" value="1" max="${product.inventory}">--%>
                                     <input id="quantity" type="text" class="form-control text-center" value="1"
-                                           data-max="${product.inventory}" name="sc.shoppingCartDetailBean.scquantity">
+                                           data-max="${product.inventory}" name="scquantity">
                                     <button id="increment" class="btn btn-outline-secondary" type="button">+
                                     </button>
                                 </div>
                             </li>
                             <li>
                             	<input name="productId" value="${product.productId}" type="hidden">
-                            	<input value="${sessionScope.customerId}" type="hidden" id="session">
+                            	<input value="${sessionScope.customerId}" type="hidden" id="sessionsc" name="customerId">
 	                                <button type="button" onclick="openPopup()" id="shoppingcart" class="btn btn-danger"><i
 	                                        class="bi bi-cart3"></i>&nbsp;加入購物車
 	                                </button>
@@ -185,8 +185,8 @@
                                 	</div>
                             </li>
                         </ul>
+                      </form:form>
                     </div>
-                    </form:form>
                 </div>
                 <div class="portfolio-description">
                     <h2>產品介紹</h2>
@@ -433,9 +433,9 @@
     //-------------------------------加入購物車訊息-----------------------
 
 	let popup = document.getElementById('popup')
-	let session = document.getElementById('session')
+	let sessionsc = document.getElementById('sessionsc')
         function openPopup() {
-            if((session.value)){
+            if((sessionsc.value)){
                 popup.classList.add("open-popup")
             }else{
             	alert("請先登入會員");

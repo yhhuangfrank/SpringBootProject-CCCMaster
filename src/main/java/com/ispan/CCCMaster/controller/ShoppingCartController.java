@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ispan.CCCMaster.model.bean.order.OrderBean;
 import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;
 import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
-import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartDetailBean;
 import com.ispan.CCCMaster.service.ProductService;
 import com.ispan.CCCMaster.service.ShoppingCartService;
 
@@ -40,32 +39,20 @@ public class ShoppingCartController {
 	@PostMapping("/shoppingcarts/create")
 	public String createShoppingCart(@ModelAttribute("sc")ShoppingCartBean sc,
 			@RequestParam("productId")Integer productId,
-			HttpSession session) {
-		Integer customerId=(Integer)(session.getAttribute("customerId"));
-		if(customerId != null) {
-			scService.createShoppingCart(sc,productId,customerId);
+			@RequestParam("customerId")Integer customerId) {
+			scService.createShoppingCart(sc, customerId,productId);		
 			return "redirect:/front/product/details/"+productId+"#";
-		}else {
-			return "front/login/login";
-		}		
-	}
-	
+		}	
+
 	//查詢購物車
-//	@GetMapping("/front/shoppingcart/shoppingcartdetail")
-//	public String findShoppingCart(@RequestParam("id") Integer customerId ,Model model) {
-//		List<ShoppingCartBean> list =  scService.findShoppingCartByCid(customerId);
-//		model.addAttribute("orderBean", new OrderBean());
-//		model.addAttribute("orderbeandetail",new OrderDetailBean());
-//		model.addAttribute("sc",list);
-//		return "front/shoppingcart/shoppingcart";
-//	}
-//	//購物車列表(可更改數量)
 	@GetMapping("/front/shoppingcart")
-	public String finaAll(Model model) {
-		List<ShoppingCartBean> list = scService.findAll();
-		model.addAttribute("shoppingcart",list);
+	public String findShoppingCart(HttpSession session ,Model model) {
+		Integer customerId = (Integer)session.getAttribute("customerId");
+		List<ShoppingCartBean> sc =  scService.findByCid(customerId);
+		model.addAttribute("shoppingcart",sc);
 		return "/front/shoppingcarts/showshoppingcart";
 	}
+
 	//刪除購物車
 	@DeleteMapping("/front/shoppingcart/delete")
 	public String deleteBySCId(@RequestParam("id") String shoppoingCartId) {
@@ -84,46 +71,23 @@ public class ShoppingCartController {
 	}
 	//購物車資訊
 	@GetMapping("/front/shoppingcart/shoppingcartdetail")
-	public String findSCByCid(Model model) {
-		List<ShoppingCartBean> list = scService.findAll();
+	public String findSCByCid(HttpSession session,Model model) {
+		Integer customerId = (Integer)session.getAttribute("customerId");
+		List<ShoppingCartBean> list =  scService.findByCid(customerId);
 		model.addAttribute("orderBean", new OrderBean());
-		model.addAttribute("orderbeandetail",new OrderDetailBean());
 		model.addAttribute("shoppingc",new ShoppingCartBean());
 		model.addAttribute("shoppingcart",list);
 		return "/front/shoppingcarts/showshoppingcartdetail";
 	}
-	
-	
-	@PostMapping("/front/shoppingcart/shoppingcartdetail")
-	public String saveInfoByCookie(@RequestParam("cookiescpayment")String cookiescpaymentvalue,
-								@RequestParam("cookiescshipper")String cookiescshippervalue,
-			HttpServletResponse response) {;
-		Cookie cookiep = new Cookie("pay",cookiescpaymentvalue);
-		cookiep.setPath("/");
-		response.addCookie(cookiep);
-		Cookie cookies = new Cookie("shi",cookiescshippervalue);
-		cookies.setPath("/");
-		response.addCookie(cookies);
+	//訂購詳細資訊
+	@GetMapping("/front/shoppingcart/shoppingcartdetail/check")
+	public String checksc(HttpSession session ,Model model) {
+		Integer customerId = (Integer)session.getAttribute("customerId");
+		List<ShoppingCartBean> sc =  scService.findByCid(customerId);
+		model.addAttribute("shoppingcart",sc);
 		return "front/orders/checkorder";
 	}
 	
-//	@GetMapping("/getcookie")
-//	public String findCookie(HttpServletRequest request,Model model) {
-//		Cookie[] cookies = request.getCookies();
-//		if(cookies != null) {
-//			for(Cookie cookie:cookies) {
-//				if(cookie.getName().equals("radio")) {
-//					String cookiesvalue = cookie.getValue();
-//					model.addAttribute("radio",cookiesvalue);
-//				}else if(cookie.getName().equals("payment")) {
-//					String cookiepvalue = cookie.getValue();
-//					model.addAttribute("scpayment",cookiepvalue);
-//				}
-//				
-//			}
-//		}
-//		return "front/orders/checkorder";
-//	}
 
 	
 

@@ -39,15 +39,22 @@ public class ShoppingCartBean implements Serializable {
 	@Column(name = "settime", columnDefinition = "datetime", nullable = false)
 	private Date settime;
 	
+	@Column(name="quantity")
+	private Integer scquantity;
+	
+	@Column(name="unit_price")
+	private Integer unitprice;
+	
 	//雙向多對一	
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="customer_id")
 	private Customer cbShoppingCart;
 	
-	//雙向一對多
-	@OneToMany(mappedBy="shoppingCartBean",cascade = CascadeType.ALL)
-	Set<ShoppingCartDetailBean> setscd = new HashSet<>();
-	
+	//雙向多對一
+	@ManyToOne(cascade=CascadeType.PERSIST)
+	@JoinColumn(name="product_id")
+	private Product productBean;
+		
 	@PrePersist
 	public void onCreate() {
 		if(settime  == null) {
@@ -55,12 +62,17 @@ public class ShoppingCartBean implements Serializable {
 		}
 	}
 	
-	public ShoppingCartBean(String shoppoingCartId, Date settime, Customer cbShoppingCart) {
+	public ShoppingCartBean(String shoppoingCartId, Date settime, Integer scquantity, Integer unitprice,
+			Customer cbShoppingCart, Product productBean) {
 		super();
 		this.shoppoingCartId = shoppoingCartId;
 		this.settime = settime;
+		this.scquantity = scquantity;
+		this.unitprice = unitprice;
 		this.cbShoppingCart = cbShoppingCart;
+		this.productBean = productBean;
 	}
+
 
 	public ShoppingCartBean() {
 		
@@ -92,12 +104,34 @@ public class ShoppingCartBean implements Serializable {
 		this.cbShoppingCart = cbShoppingCart;
 	}
 
-	public Set<ShoppingCartDetailBean> getSetscd() {
-		return setscd;
+
+	public Integer getScquantity() {
+		return scquantity;
 	}
 
-	public void setSetscd(Set<ShoppingCartDetailBean> setscd) {
-		this.setscd = setscd;
+
+	public void setScquantity(Integer scquantity) {
+		this.scquantity = scquantity;
+	}
+
+
+	public Integer getUnitprice() {
+		return unitprice;
+	}
+
+
+	public void setUnitprice(Integer unitprice) {
+		this.unitprice = unitprice;
+	}
+
+
+	public Product getProductBean() {
+		return productBean;
+	}
+
+
+	public void setProductBean(Product productBean) {
+		this.productBean = productBean;
 	}
 
 

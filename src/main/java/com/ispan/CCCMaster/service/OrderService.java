@@ -25,7 +25,7 @@ public interface OrderService {
 //	void updateById(OrderBean orderBean) throws IOException;
 	
 	//創立訂單
-//	void createOrder(OrderBean order) throws IOException;
+	void createOrder(OrderBean order,Integer customerId) throws IOException;
 	
 	//依照訂單找尋各自的訂單詳細資料
 //	List<OrderDetailBean> findorderdetailbyOId(String orderid);
