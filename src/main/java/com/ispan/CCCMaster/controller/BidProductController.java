@@ -1,5 +1,6 @@
 package com.ispan.CCCMaster.controller;
 
+import com.ispan.CCCMaster.annotation.CustomerAuthentication;
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.bid.DealRecord;
 import com.ispan.CCCMaster.model.bean.category.Category;
@@ -45,6 +46,7 @@ public class BidProductController {
         this.loginUtil = loginUtil;
     }
 
+    @CustomerAuthentication
     @GetMapping("/bidProducts/create")
     public String getCreateBidProductForm(Model model) {
 
@@ -57,6 +59,7 @@ public class BidProductController {
         return "/front/bid/product-create";
     }
 
+    @CustomerAuthentication
     @PostMapping("/bidProducts")
     public String createBidProduct(
             HttpSession session,
@@ -111,6 +114,7 @@ public class BidProductController {
         return "/front/bid/product";
     }
 
+    @CustomerAuthentication
     @GetMapping("/bidProducts/{id}/edit")
     public String getEditBidProductForm(HttpSession session,
                                         @PathVariable Integer id,
@@ -147,6 +151,7 @@ public class BidProductController {
         return "/front/bid/product-edit";
     }
 
+    @CustomerAuthentication
     @PostMapping("/bidProducts/{id}")
     public String editBidProduct(HttpSession session,
                                  @PathVariable Integer id,

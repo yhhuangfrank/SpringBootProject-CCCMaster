@@ -139,7 +139,8 @@
                         <button class="btn mt-2 text-white disabled" id="bidBtn" style="background-color: #e96b56"
                                 data-bs-toggle="modal" data-bs-target="#modal-${bidProduct.id}">點我出價
                         </button>
-                        <c:if test="${dealRecord != null}">
+                        <%--   若有成交紀錄並且是目前登入使用者才可使用立即結帳   --%>
+                        <c:if test="${dealRecord != null && dealRecord.customer.customerId == currentCustomerId}">
                             <button class="btn btn-success mt-2 text-white">立即結帳</button>
                         </c:if>
                         <%--          顯示訊息              --%>
