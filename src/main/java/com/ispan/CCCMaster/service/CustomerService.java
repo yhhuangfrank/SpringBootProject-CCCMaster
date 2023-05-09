@@ -19,8 +19,8 @@ public interface CustomerService {
 
 	void editById(Customer customer);
 
-	Boolean login(String accountNumber, String password, HttpServletRequest request);
+	Boolean logIn(String accountNumber, String password, HttpServletRequest request);
 
-	void logout(HttpSession session);
+	void logOut(HttpSession session);
 
 }

@@ -1,24 +1,29 @@
 package com.ispan.CCCMaster.aop;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
+
+import com.ispan.CCCMaster.model.customexception.UnLoginException;
 
 @Aspect
 @Component
 public class Authentication {
 	
-//	@Before("execution(* com.example.controller.*.*(..)) && @annotation(RequireSession)")
-	@Before("@annotation(com.ispan.CCCMaster.annotation.CustomerAuthentication) && (args(session) || args(session, ..))")
-	public void authenticateCustomer(HttpSession session) {
-//		return "redirect:/login";
-		System.out.println("========================");
-		System.out.println("成功啦!JOJO!");
-		System.out.println("========================");
+	@Autowired
+	private HttpSession session;
+	
+	@Before("@annotation(com.ispan.CCCMaster.annotation.CustomerAuthentication)")	//只要使用 @CustomerAuthentication 註解的 Method 都會受到驗證保護
+	public void authenticateCustomer() {
+		Object customer = session.getAttribute("customerId");
+		
+		if (customer == null) throw new UnLoginException();
+//		System.out.println("====================================");
+//		System.out.println(session.getAttribute("customerId"));
+//		System.out.println("====================================");
 	}
 
 }

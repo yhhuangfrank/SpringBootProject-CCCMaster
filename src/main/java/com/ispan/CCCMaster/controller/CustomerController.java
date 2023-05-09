@@ -26,12 +26,12 @@ public class CustomerController {
 	}
 	
 	@PostMapping("/login")	//打完帳號密碼，送出表單
-	public String login(@RequestParam("accountNumber") String accountNumber
+	public String logIn(@RequestParam("accountNumber") String accountNumber
 						, @RequestParam("password") String password
 						, HttpServletRequest request
 						, RedirectAttributes redirectAttributes
 						, @RequestParam("referer") String referer) {
-		if(ctmService.login(accountNumber, password, request)) {
+		if(ctmService.logIn(accountNumber, password, request)) {
 			return "redirect:/";	//回到上一個瀏覽頁面；有bug未解，暫時先改成回首頁
 		} else {
 			redirectAttributes.addFlashAttribute("loginFailed", true);	//重導前添加登入失敗訊息
@@ -40,10 +40,10 @@ public class CustomerController {
 	}
 	
 	@GetMapping("/logout")
-	public String logout(HttpSession session
+	public String logOut(HttpSession session
 						, RedirectAttributes redirectAttributes
 						, HttpServletRequest request) {
-		ctmService.logout(session);
+		ctmService.logOut(session);
 		redirectAttributes.addFlashAttribute("logoutSuccessful", true);	//重導前添加登出成功訊息
 		return "redirect:" + request.getHeader("Referer");	//回到上一個瀏覽頁面
 	}
