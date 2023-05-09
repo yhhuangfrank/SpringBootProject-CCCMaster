@@ -24,9 +24,11 @@ function setCountDownTimer() {
         return showBidCloseMessage("已截止")
     }
 
-    // 尚未截止才可輸入出價金額
-    bidPriceInput.removeAttribute("disabled")
-    bidBtn.classList.remove("disabled")
+    // 尚未截止才可輸入出價金額，且賣家不可以出價
+    if (currentuser_id !== seller_id) {
+        bidPriceInput.removeAttribute("disabled")
+        bidBtn.classList.remove("disabled")
+    }
 
     // 取得還有多少 天、小時、分鐘、秒
     const seconds = offset % 60      // 秒

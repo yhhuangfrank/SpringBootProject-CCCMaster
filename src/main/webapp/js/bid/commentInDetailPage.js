@@ -3,7 +3,6 @@ const commentTextArea = document.querySelector("#commentTextArea")
 const createCommentBtn = document.querySelector("#createCommentBtn")
 const commentArea = document.querySelector("#commentArea")
 const pagination = document.querySelector("#comment-pagination")
-const {bidproduct_id, currentuser_id} = createCommentBtn.dataset
 
 let currentPage = 1 // 預設第一頁
 
@@ -84,7 +83,7 @@ function paginator(data) {
         `
     }
 
-    html += `第${currentPage}頁/共${totalPages}頁`
+    html += `第 ${currentPage} 頁 / 共 ${totalPages} 頁`
 
     if (!last) {
         html += `
