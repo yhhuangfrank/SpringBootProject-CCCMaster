@@ -60,103 +60,132 @@
 
     </div>
   </section><!-- End Breadcrumbs -->
-   <form:form method="post" modelAttribute="orderBean" action="${contextRoot}/front/orders/create">
 	<section id="blog" class="blog">
       <div class="container" data-aos="fade-up">
         <div class="row">
             <div class="entry entry-single">
-				<table class="table">
+			  <table class="table">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">商品名稱</th>
                     <th scope="col">數量</th>
                     <th scope="col">單價</th>
-                    <th scope="col">小計</th>
                   </tr>
                 </thead>
                 <tbody>
                 <c:forEach var="sc" items="${shoppingcart}" varStatus="status"> 
                   <tr valign="middle">
                     <th scope="row">
+		                <div style="display: none;">
+		            		<input value="${sc.shoppoingCartId}" type="text"/>
+		         		</div>
                     </th>
                     <td>
-                    	${sc.productBean.productName}
-                    	                  	
+                    	${sc.productBean.productName}                   	                  	
                     </td>
                     <td>
-                    	<input value="${sc.quantity}" type="hidden" id="quantity${status.count}">
-                    	${sc.quantity} 
+                    	<input id="quantity${status.count}" type="hidden" value="${sc.scquantity}" >
+                    	${sc.scquantity} 
                     </td>
                     <td>
-                    	<input value="${sc.productBean.price}" type="hidden" id="price${status.count}">
-                    	${sc.productBean.price}           
-                    </td>
-                    <td>
-                    	<input value="${sc.quantity*sc.productBean.price}" type="hidden" id="total${status.count}" class="countstotal"/>
-                    	${sc.quantity*sc.productBean.price}                   
+                    	<input id="price${status.count}" type="hidden" value="${sc.productBean.price}">
+                    	${sc.productBean.price}
+                    	<input id="total${status.count}" type="hidden" value="${sc.scquantity*sc.productBean.price}" class="countstotal">           
                     </td>       
                   </tr>
-                  	</c:forEach>                  
+                  </c:forEach>                  
                 </tbody>
               </table>
-              	
-	              
-	            </div>
+            <div class="row">
+				<div class="col-lg-11" style="text-align: right">總金額&nbsp;:</div>
+				<div class="col-lg-1" style="text-align: right">
+					<span id="totalamount"></span>
+				</div>
+				<div class="col-lg-11" style="text-align: right">運&nbsp;&nbsp;&nbsp;&nbsp;費&nbsp;:</div>
+				<div class="col-lg-1" style="text-align: right;margin-top: 5px">
+					<span id="freight"></span>
+				</div>
+				<div class="col-lg-11" style="text-align: right">優惠折抵:</div>
+				<br>
+				<br>
+				<div class="col-lg-10"></div>
+				<div class="col-lg-2">
+					<hr>
+				</div>
+				<div class="col-lg-11" style="text-align: right">實付總額:</div>
+				<div class="col-lg-1" style="text-align:right">
+					<span id="finalamount" name="cookietotal"></span>
+				</div>														
+				</div>              
+	         </div>
             </div>
-            <div class="entry entry-single">
-              <h5>優惠方式</h5>
-              	<div class="form-check">
-              			<input class="form-check-input" type="checkbox">
-              			<label class="form-check-label" for="gridCheck1" for="points">
-              				使用點數              	
-            			</label>
-            			<div class="col col-lg-2">
-            				<input type="text" id="points" class="form-control col-sm-4"></input>
-            			</div>
-            		</div>
-              			<div class="form-check">
-	              			<input class="form-check-input" type="checkbox">
-	              			<label class="form-check-label" for="gridCheck1">
-	              				使用優惠券              	
-	            			</label>
-            			</div>          	
-            </div>
+            
             <div class="entry entry-single">
 				<h5>運送方式</h5>
 					<div class="form-check">
-					 <form:radiobutton class="form-check-input" path="payment" id="gridRadios4" value="超商取貨" required="required"/>
-                      <label class="form-check-label" for="gridRadios1">
-                        超商取貨
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <form:radiobutton class="form-check-input" path="payment" id="gridRadios3" value="宅配到家" />
-                      <label class="form-check-label" for="gridRadios2">
-                        宅配到家
-                      </label>
-                    </div>
+					 <input type="radio" class="form-check-input" id="stores" value="超商取貨" required="required" onclick="hiddenInput(event),okcash()"/>
+                <label class="form-check-label" for="gridRadios1">
+                  超商取貨
+                </label>
+                <div id="store" style="display: none;width: 400px">
+                  <div style="width: 300px">
+                  <label style="text-align: ceneter;float: left;">地&nbsp;&nbsp;&nbsp;址:</label>
+                  <input type="text" class="form-control" id="cookiesstore"/>
+                  </div>
+                  <div style="width: 300px">
+                  <label style="text-align:ceneter;float: left;width: 60px">收件人:</label>
+                  <input type="text" class="form-control" id="cookiesstoreaddressee"/>
+                  </div>
+                  <div style="width: 300px">
+                  <label style="text-align: ceneter;float: left;">電&nbsp;&nbsp;&nbsp;話:</label>
+                  <input type="text" class="form-control" id="cookiesstoretele"/>
+                  </div>
+                </div>
+              </div>
+              <div class="form-check">
+                <input type="radio" class="form-check-input" id="home" value="宅配到家" onclick="showInput(event),nocash()"/>
+                <label class="form-check-label" for="gridRadios2">
+                  宅配到家
+                </label>
+                <div id="address" style="display: none;width: 400px">   
+                  <div style="width: 300px">
+                  <label style="text-align:ceneter;float: left;width: 60px">收件人:</label>
+                  <input type="text" class="form-control" id="cookiesaddressee"/>
+                  </div>
+                  <div style="width: 300px">
+                  <label style="text-align: ceneter;float: left;">地&nbsp;&nbsp;&nbsp;址:</label>
+                  <input type="text" class="form-control" id="cookiesaddress"/>
+                  </div>
+                  <div style="width: 300px">
+                  <label style="text-align: ceneter;float: left;">電&nbsp;&nbsp;&nbsp;話:</label>
+                  <input type="text" class="form-control" id="cookiestele"/>
+                  </div> 	
+                </div>
+              </div>
             </div>
             <div class="entry entry-single">
 				<h5>付款方式</h5>
 					<div class="form-check">
-					 <form:radiobutton class="form-check-input" path="shipper" id="gridRadios2" value="貨到付款" required="required"/>
-                      <label class="form-check-label" for="gridRadios3">
-                        貨到付款
-                      </label>
-                    </div>
-                    <div class="form-check">
-                     <form:radiobutton class="form-check-input" path="shipper" id="gridRadios1" value="信用卡"/>
-                      <label class="form-check-label" for="gridRadios4">
-                        信用卡
-                      </label>
-                    </div>
+					 <input type="radio" class="form-check-input" id="cash" value="貨到付款" required="required" onclick="nocredit()"/>
+              <label class="form-check-label" for="gridRadios3">
+                貨到付款
+              </label>
             </div>
-         		<button type="submit" class="btn btn-primary" >資料填寫</button>
+            <div class="form-check">
+              <input type="radio" class="form-check-input" id="credit" value="信用卡" onclick="cashno()"/>
+              <label class="form-check-label" for="gridRadios4">
+                信用卡
+              </label>
+            </div>
+            </div>
+            	<a href="javascript:history.back()" class="btn btn-dark">上一頁</a>
+         		<button type="submit" class="btn btn-primary" onclick="savecookie()">
+         			<a href="${contextRoot}/front/shoppingcart/shoppingcartdetail/check" style="color: white;">資料確認</a>
+         		</button>
 
         </div> 
     </section><!-- End Blog Single Section -->
-    </form:form>
 </main><!-- End #main -->
 
 <jsp:include page="../layouts/footer.jsp"/>
@@ -174,8 +203,130 @@
 <!-- Template Main JS File -->
 <script src="${contextRoot}/styles/front/assets/js/main.js"></script>
 <script>
-
-
+// ----------------顯示宅配到家的資訊----------------------------
+	function showInput(event){
+		let address = document.getElementById("address");
+		address.style.display="block"
+		let store = document.getElementById("store");
+		store.style.display="none"
+	    let cookie1 = document.getElementById("cookiesaddressee");
+		let cookie2 = document.getElementById("cookiesaddress");
+		let cookie3 = document.getElementById("cookiestele");
+	    cookie1.required="required";
+	    cookie2.required="required";
+	    cookie3.required="required";
+	}
+// ----------------顯示超商取貨的資訊----------------------------
+	function hiddenInput(event){
+		let address = document.getElementById("address");
+		address.style.display="none"
+		let store = document.getElementById("store");
+		store.style.display="block"
+		let cookie1 = document.getElementById("cookiesaddressee");
+		let cookie2 = document.getElementById("cookiesaddress");
+		let cookie3 = document.getElementById("cookiestele");
+	    cookie1.removeAttribute('required');
+	    cookie2.removeAttribute('required');
+	    cookie3.removeAttribute('required');		
+	}
+//------------點選宅配到家的選項後不可以點選貨到付款的----------------------------
+	function nocash() {
+		let cash = document.getElementById("cash")
+    let stores = document.getElementById('stores')
+		cash.disabled = true;
+		if(cash.checked){
+			cash.checked=false
+		}
+    if(stores.checked){
+      stores.checked=false
+    }
+	}
+	function okcash() {
+		document.getElementById("cash").disabled = false;
+    let home = document.getElementById("home")
+    if(home.checked){
+      home.checked=false;
+    }
+	}
+//--------------------------點選問題處理----------------------------
+  function nocredit(){
+    let credit = document.getElementById('credit')
+    if(credit.checked){
+      credit.checked=false
+    }
+  }
+  function cashno(){
+    let cash = document.getElementById("cash")
+    if(cash.checked){
+      cash.checked=false
+    }
+  }
+  
+//------------計算實付總額並存入cookies中----------------------------
+	let totalamount = 0;
+	let counttotal = document.getElementsByClassName("countstotal");
+	for(let i=0;i<counttotal.length;i++){
+	  totalamount += parseInt(counttotal[i].value,10)
+	}
+	document.getElementById('totalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
+	if(totalamount<1000 && totalamount>0){
+	    document.getElementById('freight').innerHTML = "30";
+	    totalamount = totalamount + 30;
+	    document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
+	    document.cookie = "tol="+totalamount;  
+	}else{
+	    document.getElementById('freight').innerHTML = 0;
+	    document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
+	    document.cookie = "tol="+totalamount;  
+	}
+//------------寄送資料存入cookies中----------------------------
+  function savecookie(){
+    let store = document.getElementById('cookiesstore')
+    let storeaddre = document.getElementById('cookiesstoreaddressee')
+    let storetel = document.getElementById('cookiesstoretele')
+    let sshipper = document.getElementById('stores')
+    let cash = document.getElementById('cash')
+    let homeadd = document.getElementById("cookiesaddress");
+    let homeaddre = document.getElementById("cookiesaddressee");
+		let hometel = document.getElementById("cookiestele");
+    let hshipper = document.getElementById('home');
+    let credit = document.getElementById('credit');
+      let value1='';
+        if(store.value){
+          value1 = store.value
+        }else if(homeadd.value){
+          value1=homeadd.value
+        }
+        document.cookie = "add="+value1;
+      let value2='';
+        if(storeaddre.value){
+          value2 = storeaddre.value
+        }else if(homeaddre.value){
+          value2=homeaddre.value
+        }
+        document.cookie = "addee="+value2;
+      let value3='';
+        if(storetel.value){
+          value3 = storetel.value
+        }else if(hometel.value){
+          value3=hometel.value
+        }
+        document.cookie = "tel="+value3;
+      let value4='';
+        if(sshipper.value){
+          value4 = sshipper.value
+        }else if(hshipper.value){
+          value4=hshipper.value
+        }
+        document.cookie = "shi="+value4;
+      let value5='';
+        if(cash.value){
+          value5 = cash.value
+        }else if(credit.value){
+          value5=credit.value
+        }
+        document.cookie = "pay="+value5;
+  }
   
 </script>
 

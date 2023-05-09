@@ -60,10 +60,70 @@
 
     </div>
   </section><!-- End Breadcrumbs -->
-	<div>
-		<h3>訂單成立</h3>
-	</div>
-
+   <form:form method="post" modelAttribute="" action="${contextRoot}">
+	<section id="blog" class="blog">
+      <div class="container" data-aos="fade-up">
+        <div class="row">
+            <div class="entry entry-single">
+				<table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">商品名稱</th>
+                    <th scope="col">數量</th>
+                    <th scope="col">金額</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr valign="middle">
+                    <th scope="row">
+                    </th>
+                    <td></td>
+                    <td></td>
+                    <td></td>    
+                  </tr>               
+                </tbody>
+              </table>              
+	        </div>
+	        <div>
+	        	<div>運費</div>
+	        	<div>總計</div>
+	        </div>
+            </div>
+            <div class="entry entry-single">
+				<h5>運送方式</h5>
+					<div class="form-check">
+					 <form:radiobutton class="form-check-input" path="payment" id="gridRadios4" value="超商取貨" required="required"/>
+                      <label class="form-check-label" for="gridRadios1">
+                        超商取貨
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <form:radiobutton class="form-check-input" path="payment" id="gridRadios3" value="宅配到家" />
+                      <label class="form-check-label" for="gridRadios2">
+                        宅配到家
+                      </label>
+                    </div>
+            </div>
+            <div class="entry entry-single">
+				<h5>付款方式</h5>
+					<div class="form-check">
+					 <form:radiobutton class="form-check-input" path="shipper" id="gridRadios2" value="貨到付款" required="required"/>
+                      <label class="form-check-label" for="gridRadios3">
+                        貨到付款
+                      </label>
+                    </div>
+                    <div class="form-check">
+                     <form:radiobutton class="form-check-input" path="shipper" id="gridRadios1" value="信用卡"/>
+                      <label class="form-check-label" for="gridRadios4">
+                        信用卡
+                      </label>
+                    </div>
+            </div>
+         		<button type="submit" class="btn btn-primary" >確認</button>
+        </div> 
+    </section><!-- End Blog Single Section -->
+    </form:form>
 </main><!-- End #main -->
 
 <jsp:include page="../layouts/footer.jsp"/>
