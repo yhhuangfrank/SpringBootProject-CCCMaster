@@ -5,11 +5,13 @@ import com.ispan.CCCMaster.model.dto.AdvertiseRequest;
 import com.ispan.CCCMaster.service.AdvertiseService;
 import com.ispan.CCCMaster.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -39,11 +41,19 @@ public class AdvertiseAdminController {
     }
 
     @GetMapping("/admin/advertises/showAllAdvertise")
-    public String findAllAdvertise(Model model) {
-        List<Advertise> advertiseList = advertiseService.findAllAdvertise();
-        model.addAttribute("advertiseList", advertiseList);
-        return "back/advertise/advertise-list";
+    public String showAllAdvertise(@RequestParam(name = "p",defaultValue = "1")Integer pageNumber,Model model) {
+        Page<Advertise> page = advertiseService.findByPage(pageNumber);
+        model.addAttribute("page",page);
+        Advertise latest = advertiseService.getLatestAdvertise();
+        model.addAttribute("latest",latest);
+
+
+        return "back/advertise/showAdvertise";
     }
 
+    public String deleteAdvertiseById(@RequestParam("id") Integer id) {
+        advertiseService.deleteAdvertiseById(id);
+        return "redirect:/admin/advertises/showAllAdvertise";
+    }
 
 }

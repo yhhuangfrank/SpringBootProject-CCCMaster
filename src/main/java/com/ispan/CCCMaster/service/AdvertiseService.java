@@ -3,6 +3,7 @@ package com.ispan.CCCMaster.service;
 import com.ispan.CCCMaster.model.bean.Advertise.Advertise;
 import com.ispan.CCCMaster.model.bean.product.Product;
 import com.ispan.CCCMaster.model.dto.AdvertiseRequest;
+import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
@@ -15,9 +16,12 @@ public interface AdvertiseService {
 
    Advertise findAdvertiseById(Integer id);
 
-   List<Advertise> findAllAdvertise();
+
+   Page<Advertise> findByPage(Integer pageable);
 
    void deleteAdvertiseById(Integer id);
+
+   Advertise getLatestAdvertise();
 
 
 }

@@ -6,6 +6,10 @@ import com.ispan.CCCMaster.model.dao.ProductDao;
 import com.ispan.CCCMaster.model.dto.AdvertiseRequest;
 import com.ispan.CCCMaster.service.AdvertiseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -54,10 +58,12 @@ public class AdvertiseServiceImpl implements AdvertiseService {
         throw new RuntimeException("沒有找到廣告");
     }
 
-    @Override
-    public List<Advertise> findAllAdvertise() {
-        return advertiseDao.findAll();
+    public Page<Advertise> findByPage(Integer pageNumber) {
+        Pageable pgb = PageRequest.of(pageNumber - 1, 3, Sort.Direction.DESC, "startTime");
+        Page<Advertise> page = advertiseDao.findAll(pgb);
+        return page;
     }
+
 
     @Override
     public void deleteAdvertiseById(Integer id) {
@@ -78,5 +84,10 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 
         return date;
 
+    }
+
+    @Override
+    public Advertise getLatestAdvertise() {
+        return advertiseDao.findFirstByOrderByStartTimeDesc();
     }
 }

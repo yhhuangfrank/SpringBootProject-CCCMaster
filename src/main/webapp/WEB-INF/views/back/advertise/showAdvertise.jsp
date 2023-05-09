@@ -55,7 +55,6 @@
             <thead>
             <tr>
               <th scope="col">廣告編號</th>
-              <th scope="col">廣告名稱</th>
               <th scope="col">廣告上架時間</th>
               <th scope="col">廣告下架時間</th>
               <th scope="col">操作</th>
@@ -64,28 +63,28 @@
             <tbody>
             <c:forEach items="${page.content}" var="p">
               <tr>
-                <td>${p.articleId}</td>
-                <td>${p.title}</td>
-                <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss EEEE" value="${p.added}"/></td>
-                <td>${p.content}</td>
+                <td>${p.advertiseId}</td>
 
-                <td>
-                  <div class="d-flex">
-                    <form action="${contextRoot}/admin/articles/editPage">
-                      <input type="hidden" name="id" value="${p.articleId}" />
-                      <button type="submit" class="btn btn-secondary btn-sm">
-                        <i class="bi bi-pencil-square"></i>編輯
-                      </button>
-                    </form>
-                    <form action="${contextRoot}/admin/articles/delete" method="post">
-                      <input type="hidden" name="_method" value="delete" />
-                      <input type="hidden" name="id" value="${p.articleId}" />
-                      <button type="submit" class="btn btn-outline-danger btn-sm ms-2">
-                        <i class="bi bi-exclamation-octagon"></i>刪除
-                      </button>
-                    </form>
-                  </div>
-                </td>
+                <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss EEEE" value="${p.startTime}"/></td>
+                <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss EEEE" value="${p.endTime}"/></td
+
+<%--                <td>--%>
+<%--                  <div class="d-flex">--%>
+<%--                    <form action="${contextRoot}/admin/articles/editPage">--%>
+<%--                      <input type="hidden" name="id" value="${}" />--%>
+<%--                      <button type="submit" class="btn btn-secondary btn-sm">--%>
+<%--                        <i class="bi bi-pencil-square"></i>編輯--%>
+<%--                      </button>--%>
+<%--                    </form>--%>
+<%--                    <form action="${contextRoot}/admin/articles/delete" method="post">--%>
+<%--                      <input type="hidden" name="_method" value="delete" />--%>
+<%--                      <input type="hidden" name="id" value="${}" />--%>
+<%--                      <button type="submit" class="btn btn-outline-danger btn-sm ms-2">--%>
+<%--                        <i class="bi bi-exclamation-octagon"></i>刪除--%>
+<%--                      </button>--%>
+<%--                    </form>--%>
+<%--                  </div>--%>
+<%--                </td>--%>
 
               </tr>
             </c:forEach>
@@ -97,7 +96,7 @@
             <c:forEach var="pageNumber" begin="1" end="${page.totalPages}">
               <c:choose>
                 <c:when test="${page.number != pageNumber-1 }">
-                  <a href="${contextRoot}/admin/articles/showAllArticle?p=${pageNumber}">${pageNumber}</a>
+                  <a href="${contextRoot}/admin/advertises/showAllAdvertise?p=${pageNumber}">${pageNumber}</a>
                 </c:when>
                 <c:otherwise>${pageNumber}</c:otherwise>
               </c:choose>
