@@ -8,11 +8,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ispan.CCCMaster.model.bean.RecipientInfo.RecipientInfoBean;
 import com.ispan.CCCMaster.model.bean.RecipientInfo.StoreRecipientInfoBean;
+import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.order.BidOrderBean;
 import com.ispan.CCCMaster.model.bean.order.OrderBean;
 import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
+import java.util.*;
 
 @Entity
 @Table(name = "Customers")
@@ -47,7 +53,7 @@ public class Customer {
 	private Integer abandonCount;
 
 	// 二手商品關聯 by Frank
-	@Transient
+	@JsonIgnore
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
 	private List<BidProduct> bidProductList;
 

@@ -2,6 +2,8 @@ package com.ispan.CCCMaster.exceptionhandler;
 
 import com.ispan.CCCMaster.model.customexception.ApiErrorException;
 import com.ispan.CCCMaster.model.customexception.NotFoundException;
+import com.ispan.CCCMaster.model.customexception.UnLoginException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -61,6 +63,11 @@ public class GlobalHandler {
     public ResponseEntity<Object> handleConstraintViolationException(BindException e) {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+    
+    @ExceptionHandler(UnLoginException.class)
+    public String handleUnLoginException() {
+    	return "redirect:/login";
     }
 
 }
