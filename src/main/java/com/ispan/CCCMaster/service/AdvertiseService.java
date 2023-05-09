@@ -21,7 +21,10 @@ public interface AdvertiseService {
 
    void deleteAdvertiseById(Integer id);
 
-   Advertise getLatestAdvertise();
+    @Transactional
+    void updateAdvertiseById(Advertise input);
+
+    Advertise getLatestAdvertise();
 
 
 }

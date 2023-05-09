@@ -36,12 +36,12 @@
 
   <main id="main" class="main">
     <div class="pagetitle">
-      <h1>所有廣告</h1>
+      <h1>所有文章</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="${contextRoot}/">首頁</a></li>
-          <li class="breadcrumb-item">廣告管理</li>
-          <li class="breadcrumb-item active">所有廣告</li>
+          <li class="breadcrumb-item">論壇管理</li>
+          <li class="breadcrumb-item active">所有文章</li>
         </ol>
       </nav>
     </div>
@@ -56,7 +56,7 @@
             <tr>
               <th scope="col">廣告編號</th>
               <th scope="col">廣告上架時間</th>
-              <th scope="col">廣告下架時間</th>
+              <th scope="col">廣告上架時間</th>
               <th scope="col">操作</th>
             </tr>
             </thead>
@@ -64,27 +64,26 @@
             <c:forEach items="${page.content}" var="p">
               <tr>
                 <td>${p.advertiseId}</td>
+                <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${p.startTime}"/></td>
+                <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${p.endTime}"/></td>
 
-                <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss EEEE" value="${p.startTime}"/></td>
-                <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss EEEE" value="${p.endTime}"/></td
-
-<%--                <td>--%>
-<%--                  <div class="d-flex">--%>
-<%--                    <form action="${contextRoot}/admin/articles/editPage">--%>
-<%--                      <input type="hidden" name="id" value="${}" />--%>
-<%--                      <button type="submit" class="btn btn-secondary btn-sm">--%>
-<%--                        <i class="bi bi-pencil-square"></i>編輯--%>
-<%--                      </button>--%>
-<%--                    </form>--%>
-<%--                    <form action="${contextRoot}/admin/articles/delete" method="post">--%>
-<%--                      <input type="hidden" name="_method" value="delete" />--%>
-<%--                      <input type="hidden" name="id" value="${}" />--%>
-<%--                      <button type="submit" class="btn btn-outline-danger btn-sm ms-2">--%>
-<%--                        <i class="bi bi-exclamation-octagon"></i>刪除--%>
-<%--                      </button>--%>
-<%--                    </form>--%>
-<%--                  </div>--%>
-<%--                </td>--%>
+                <td>
+                  <div class="d-flex">
+                    <form action="${contextRoot}/admin/advertises/editPage">
+                      <input type="hidden" name="id" value="${p.advertiseId}" />
+                      <button type="submit" class="btn btn-secondary btn-sm">
+                        <i class="bi bi-pencil-square"></i>編輯
+                      </button>
+                    </form>
+                    <form action="${contextRoot}/admin/advertises/delete" method="post">
+                      <input type="hidden" name="_method" value="delete" />
+                      <input type="hidden" name="id" value="${p.advertiseId}" />
+                      <button type="submit" class="btn btn-outline-danger btn-sm ms-2">
+                        <i class="bi bi-exclamation-octagon"></i>刪除
+                      </button>
+                    </form>
+                  </div>
+                </td>
 
               </tr>
             </c:forEach>

@@ -11,11 +11,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -70,6 +70,18 @@ public class AdvertiseServiceImpl implements AdvertiseService {
         advertiseDao.deleteById(id);
     }
 
+    @Override
+    @Transactional
+    public void updateAdvertiseById(Advertise input) {
+        Optional<Advertise> option = advertiseDao.findById(input.getAdvertiseId());
+        if(option.isPresent()) {
+            Advertise oldadvertise = option.get();
+            oldadvertise.setStartTime(input.getStartTime());
+            oldadvertise.setEndTime(input.getEndTime());
+            advertiseDao.save(oldadvertise);
+        }else
+            throw new RuntimeException("沒有找到廣告");
+    }
 
     private Date handleDate(String dateString) {
         Date date;

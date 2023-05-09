@@ -3,17 +3,10 @@ package com.ispan.CCCMaster.controller.admin;
 import com.ispan.CCCMaster.model.bean.Advertise.Advertise;
 import com.ispan.CCCMaster.model.dto.AdvertiseRequest;
 import com.ispan.CCCMaster.service.AdvertiseService;
-import com.ispan.CCCMaster.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class AdvertiseAdminController {
@@ -48,9 +41,24 @@ public class AdvertiseAdminController {
         model.addAttribute("latest",latest);
 
 
-        return "back/advertise/showAdvertise";
+        return "back/advertise/editAdvertise";
+    }
+    @PutMapping("/admin/advertises/editPage")
+    public String updateAdvertiseById(@RequestParam("id") Integer advertiseId, Model model) {
+        Advertise advertiseById = advertiseService.findAdvertiseById(advertiseId);
+
+        model.addAttribute("advertise", advertiseById);
+        return "back/advertise/editAdvertise";
     }
 
+    @PutMapping("/admin/advertises/edit")
+    public String putEditedAdvertise(@ModelAttribute("advertise") Advertise advertise) {
+        advertiseService.updateAdvertiseById(advertise);
+        return "redirect:/admin/advertises/showAllAdvertise";
+    }
+
+
+    @DeleteMapping("/admin/advertises/delete")
     public String deleteAdvertiseById(@RequestParam("id") Integer id) {
         advertiseService.deleteAdvertiseById(id);
         return "redirect:/admin/advertises/showAllAdvertise";
