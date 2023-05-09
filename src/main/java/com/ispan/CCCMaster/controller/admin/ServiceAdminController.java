@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.ispan.CCCMaster.model.bean.service.MessageModel;
+import com.ispan.CCCMaster.model.bean.service.MessageClient;
 import com.ispan.CCCMaster.service.MessageService;
 
 @Controller
@@ -20,21 +20,21 @@ public class ServiceAdminController {
     @GetMapping("/admin/Service/console")
 	public String addMessage(Model model) {
     	
-    	model.addAttribute("messages", new MessageModel());
+    	model.addAttribute("messages", new MessageClient());
     	
-    	MessageModel latest = mService.getLatest();
+    	MessageClient latest = mService.getLatest();
 
     	model.addAttribute("latest", latest);
 		return "back/service/Service-console";
 	}
     
     @PostMapping("/messages/post")
-    public String postMessage(@ModelAttribute("messages") MessageModel msg,Model model) {
+    public String postMessage(@ModelAttribute("messages") MessageClient msg,Model model) {
 		mService.addMessage(msg);
 		
-		model.addAttribute("messages", new MessageModel());
+		model.addAttribute("messages", new MessageClient());
 		
-		MessageModel latest = mService.getLatest();
+		MessageClient latest = mService.getLatest();
 		
 		model.addAttribute("latest", latest);
 		

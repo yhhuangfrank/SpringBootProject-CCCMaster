@@ -194,8 +194,13 @@ text-overflow: ellipsis;
                                                                     </tbody>
                                                                 </table>
                                                                 <!-- End Table with stripped rows -->
+                                                                <!-- 分頁開始 -->
                                                                 <div style="display: flex;justify-content: center;">
                                                                     <ul class="pagination">
+                                                                        <li style="padding-top: 7px;margin-right: 30px;">
+                                                                            共${page.totalPages}頁
+                                                                        </li>
+                                                                        <!-- 分頁上下頁開始 -->
                                                                         <c:choose>
                                                                              <c:when test="${page.number != 0 }">
                                                                             <li class="page-item">
@@ -205,19 +210,20 @@ text-overflow: ellipsis;
                                                                             </li>
                                                                             </c:when>
                                                                            <c:otherwise>
+                                                                            <li class="page-item">
+                                                                              <a class="page-link" href="${contextRoot}/service/from/create?p=${page.number+1}" aria-label="Previous">
+                                                                                <span aria-hidden="true">&laquo;</span>
+                                                                              </a>
                                                                             </c:otherwise>
                                                                          </c:choose>
                                                                 <jstl:forEach var="pageNumber" begin="1" end="${page.totalPages}">
                                                                 <jstl:choose>
                                                                 <jstl:when test="${page.number != pageNumber-1 }">
-                                                                    <li class="page-item">
-                                                                  <a href="${contextRoot}/service/from/create?p=${pageNumber}" class="page-link" ><span>${pageNumber}</span></a>
-                                                                </li>
                                                                 </jstl:when>
                                                                 <jstl:otherwise>
                                                                 
                                                                 <li class="page-item">
-                                                                    <span class="page-link" style="color: black;">${pageNumber}</span>
+                                                                    <span class="page-link" style="color: black;">第${pageNumber}頁</span>
                                                             </li>
                                                                 </jstl:otherwise>
                                                                 </jstl:choose>
@@ -232,9 +238,28 @@ text-overflow: ellipsis;
                                                                   </li>
                                                                         </c:when>
                                                                            <c:otherwise>
+                                                                            <li class="page-item">
+                                                                               <a class="page-link" href="${contextRoot}/service/from/create?p=${page.number+1}" aria-label="Next">
+                                                                                 <span aria-hidden="true">&raquo;</span>
+                                                                               </a>
+                                                                             </li>
                                                                             </c:otherwise>
-                                                                         </c:choose>
+                                                                         </c:choose>   
+                                                                         <!-- 分頁上下頁結束 -->
+                                                                         <!-- 跳頁開始 -->
+                                                                         <li style="margin-left: 7px;padding-top:7px"><span>跳至</span></li>
+                                                                         <li style="margin-left: 7px;">
+                                                                            <select  class="form-control" id="inputQuestion" onchange="javascript:location.href=this.value;">
+                                                                                    <option value="" selected><span>${page.number+1}</span>
+                                                                                    <jstl:forEach var="pageNumber" begin="1" end="${page.totalPages}"><option value="${contextRoot}/service/from/create?p=${pageNumber}" > <span>${pageNumber}</span>
+                                                                                    </jstl:forEach></option>
+                                                                            </select>
+                                                                            <li style="margin-left: 7px;padding-top:7px"><span>頁</span></li>
+                                                                        </li>
+
+                                                                         <!-- 跳頁結束 -->
                                                                 </ul>
+                                                                <!-- 分頁結束 -->
                                                             </div>
                                                             </div>
                                                         </div>

@@ -2,9 +2,9 @@ package com.ispan.CCCMaster.model.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.ispan.CCCMaster.model.bean.service.MessageModel;
+import com.ispan.CCCMaster.model.bean.service.MessageClient;
 
-public interface MessagesDao extends JpaRepository<MessageModel, Integer> {
+public interface MessagesDao extends JpaRepository<MessageClient, Integer> {
 
-     public MessageModel findFirstByOrderByCreatetimeDesc();
+     public MessageClient findFirstByOrderByCreatetimeDesc();
 }

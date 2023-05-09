@@ -17,19 +17,16 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@Table(name = "messages")
-public class MessageModel {
+@Table(name = "messageServer")
+public class MessageServer {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
+	@Column(name = "messageServer_id")
+	private Integer messageServerid;
 	
 	@Column(name = "chatroomid")
 	private Integer chatroomid;
-	
-	@Column(name = "initiator")
-	private Integer initiator;
 	
 	@Column(name = "content", columnDefinition = "nvarchar(200)", nullable = true)
 	private String content;
@@ -48,17 +45,17 @@ public class MessageModel {
 		}
 	}
 
-	public MessageModel() {
+	public MessageServer() {
 	}
 
-	public Integer getId() {
-		return id;
+	public Integer getMessageServerid() {
+		return messageServerid;
 	}
 
-
-	public void setId(Integer id) {
-		this.id = id;
+	public void setMessageServerid(Integer messageServerid) {
+		this.messageServerid = messageServerid;
 	}
+
 
 
 	public Integer getChatroomid() {
@@ -68,16 +65,6 @@ public class MessageModel {
 
 	public void setChatroomid(Integer chatroomid) {
 		this.chatroomid = chatroomid;
-	}
-
-
-	public Integer getInitiator() {
-		return initiator;
-	}
-
-
-	public void setInitiator(Integer initiator) {
-		this.initiator = initiator;
 	}
 
 

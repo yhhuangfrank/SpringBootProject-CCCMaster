@@ -10,7 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ispan.CCCMaster.model.bean.service.MessageModel;
+import com.ispan.CCCMaster.model.bean.service.MessageClient;
 import com.ispan.CCCMaster.model.dao.MessagesDao;
 
 @Service
@@ -19,12 +19,12 @@ public class MessageService {
     @Autowired
 	private MessagesDao msgRepository;
     
-    public void addMessage(MessageModel msg) {
+    public void addMessage(MessageClient msg) {
     	msgRepository.save(msg);
     }
     
-    public MessageModel findMessagesById(Integer id) {
-    	Optional<MessageModel> option = msgRepository.findById(id);
+    public MessageClient findMessagesById(Integer id) {
+    	Optional<MessageClient> option = msgRepository.findById(id);
     	
     	if(option.isEmpty()) {
     		return null;
@@ -38,26 +38,25 @@ public class MessageService {
     	msgRepository.deleteById(id);
     }
     
-    public Page<MessageModel> findByPage(Integer pageNumber){
+    public Page<MessageClient> findByPage(Integer pageNumber){
     	Pageable pgb = PageRequest.of(pageNumber-1, 3, Sort.Direction.DESC,"createtime");
-    	Page<MessageModel> page = msgRepository.findAll(pgb);
+    	Page<MessageClient> page = msgRepository.findAll(pgb);
     	return page;
     }
     
     @Transactional
-    public MessageModel updateById(Integer id, String newMsg,Integer newCid,Integer newItr) {
-    	Optional<MessageModel> option = msgRepository.findById(id);
+    public MessageClient updateById(Integer id, String newMsg,Integer newCid) {
+    	Optional<MessageClient> option = msgRepository.findById(id);
     	
     	if(option.isPresent()) {
-    		MessageModel msg = option.get();
+    		MessageClient msg = option.get();
     		msg.setContent(newMsg);
     		msg.setChatroomid(newCid);
-    		msg.setInitiator(newItr);
     		return msg;
     	}
     	return null;
     }
-    public MessageModel getLatest() {
+    public MessageClient getLatest() {
     	return msgRepository.findFirstByOrderByCreatetimeDesc();
     }
     
