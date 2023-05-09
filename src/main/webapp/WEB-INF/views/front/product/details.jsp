@@ -140,10 +140,10 @@
                 <div class="col-lg-6">
                     <div class="portfolio-details-slider swiper">
                         <div class="swiper-wrapper align-items-center" id="idSwiper-Wrapper">
-<%--                            <div class="swiper-slide">--%>
-<%--                                <img class="productDetailImg"--%>
-<%--                                     src="${contextRoot}/products/showImage/${product.productId}" alt="">--%>
-<%--                            </div>--%>
+                            <%--                            <div class="swiper-slide">--%>
+                            <%--                                <img class="productDetailImg"--%>
+                            <%--                                     src="${contextRoot}/products/showImage/${product.productId}" alt="">--%>
+                            <%--                            </div>--%>
                         </div>
                         <div class="swiper-pagination"></div>
                     </div>
@@ -220,7 +220,7 @@
                 </div>
             </div>
             <!-- 評論區 -->
-            <div class="reviews mt-5">
+            <div id="reviewDiv" class="reviews mt-5">
                 <h3>評論區</h3>
                 <div class="review-item mb-3">
                     <div class="d-flex justify-content-between">
@@ -243,6 +243,15 @@
                     </div>
                     <p>評論內容</p>
                 </div>
+            </div>
+            <div class="d-flex justify-content-between mb-3">
+                <button type="button" class="btn btn-outline-secondary" id="prevCommentPageBtn">
+                    上一頁
+                </button>
+                <p id="commentPageInfo"></p>
+                <button type="button" class="btn btn-outline-secondary" id="nextCommentPageBtn">
+                    下一頁
+                </button>
             </div>
         </div>
 
@@ -269,16 +278,19 @@
 <!-- Template Main JS File -->
 <script src="${contextRoot}/styles/front/assets/js/main.js"></script>
 <script>
-    let page = 1;
-    let totalPages;
-    // -----------爬蟲----------------
+    let crawlerPage = 1;
+    let commentPage = 1;
+    let crawlerTotalPages;
+    let commentTotalPages;
+    // -----------Ajax----------------
     window.addEventListener('load', () => {
         loadProductImage(${product.productId})
         axios.get('/front/product/crawler/${product.productId}')
             .then((response) => {
                 // console.log(response.data);
                 console.log('success');
-                loadCrawlerProduct(page, ${product.productId})
+                loadProductComment(commentPage,${product.productId})
+                loadCrawlerProduct(crawlerPage, ${product.productId})
             })
             .catch((error) => {
                 console.log(error);
@@ -293,28 +305,28 @@
             const response = await axios.get('/front/product/details/crawler', {
                 params: {pageNum, productId}
             });
-            totalPages = response.data.totalPages;
-            document.getElementById('pageInfo').innerText = "第" + page + "頁" + "/共" + response.data.totalPages + "頁";
+            crawlerTotalPages = response.data.totalPages;
+            document.getElementById('pageInfo').innerText = "第" + crawlerPage + "頁" + "/共" + response.data.totalPages + "頁";
             displayCrawlerInfo(response.data.content);
         } catch (error) {
             console.error('Error loading CrawlerProduct:', error);
         }
     }
 
-    //上一頁
+    //爬蟲上一頁
     //-----------------------------
     document.getElementById("prevPageBtn").addEventListener('click', () => {
-        if (page > 1) {
-            page--;
-            loadCrawlerProduct(page, ${product.productId})
+        if (crawlerPage > 1) {
+            crawlerPage--;
+            loadCrawlerProduct(crawlerPage, ${product.productId})
         }
     });
 
-    // 切换到下一页
+    // 爬蟲下一页
     document.getElementById("nextPageBtn").addEventListener('click', () => {
-        if (page < totalPages) {
-            page++;
-            loadCrawlerProduct(page, ${product.productId})
+        if (crawlerPage < crawlerTotalPages) {
+            crawlerPage++;
+            loadCrawlerProduct(crawlerPage, ${product.productId})
         }
     });
 
@@ -444,6 +456,78 @@
     }
 
     //-------------------------------加入購物車訊息-----------------------
+
+    //-----------------------------取得評論--------------------------------
+    async function loadProductComment(pageNum, productId) {
+        try {
+            const response = await axios.get('/front/detail/comment', {
+                params: {pageNum, productId}
+            });
+            console.log(response)
+            commentPage = response.data.totalPages;
+            console.log(response.data.content)
+            displayComment(response.data.content)
+            document.getElementById('commentPageInfo').innerText = "第" + commentPage + "頁" + "/共" + response.data.totalPages + "頁";
+            // displayCrawlerInfo(response.data.content);
+        } catch (error) {
+            console.error('Error loading Comment:', error);
+        }
+    }
+    //------------------------------------------------------------------
+
+    //----------------------------顯示評論-------------------------------
+    function displayComment(content){
+        const reviewDiv=document.getElementById('reviewDiv');
+        reviewDiv.innerHTML="<h3>評論區</h3>";
+
+        content.forEach((comment) => {
+            const reviewItemDiv = document.createElement("div");
+            const flexDiv = document.createElement("div");
+            const strong = document.createElement("strong");
+            const small = document.createElement("small");
+            const p=document.createElement("p");
+
+            const date = new Date(comment.commentDate).toLocaleString('zh-TW', {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric'
+            });
+            reviewItemDiv.className="review-item mb-3";
+            flexDiv.className="d-flex justify-content-between";
+            strong.innerText="評論者名稱:"+comment.orderDetail.orderBean.cbOrder.name;
+            small.innerText="評論日期:"+date;
+            p.innerText=comment.customerComment;
+            flexDiv.append(strong);
+            flexDiv.append(small);
+            reviewItemDiv.append(flexDiv);
+            reviewItemDiv.append(p);
+            reviewDiv.append(reviewItemDiv);
+
+
+
+        });
+    }
+    //----------------------------------------------------------------
+
+    //評論上一頁
+    //-----------------------------
+    document.getElementById("prevCommentPageBtn").addEventListener('click', () => {
+        if (commentPage > 1) {
+            commentPage--;
+            loadProductComment(commentPage, ${product.productId})
+        }
+    });
+
+    // 評論下一页
+    document.getElementById("nextCommentPageBtn").addEventListener('click', () => {
+        if (commentPage < commentTotalPages) {
+            commentPage++;
+            loadProductComment(commentPage, ${product.productId})
+        }
+    });
+
 </script>
 
 

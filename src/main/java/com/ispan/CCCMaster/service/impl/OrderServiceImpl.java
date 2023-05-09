@@ -1,14 +1,11 @@
 package com.ispan.CCCMaster.service.impl;
 
-import java.beans.Expression;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,49 +21,46 @@ import com.ispan.CCCMaster.model.dao.ProductDao;
 import com.ispan.CCCMaster.model.dao.ShoppingCartDao;
 import com.ispan.CCCMaster.service.OrderService;
 
-import ecpay.logistics.integration.AllInOne;
-import ecpay.logistics.integration.domain.CreateCVSObj;
-import ecpay.logistics.integration.domain.ExpressMapObj;
 //import ecpay.payment.integration.AllInOne;
-import ecpay.payment.integration.domain.AioCheckOutALL;
+
 
 @Service
 public class OrderServiceImpl implements OrderService {
-	
+
 	@Autowired
 	OrderDao oDao;
-	
+
 	@Autowired
 	OrderDetailDao odDao;
-	
+
 	@Autowired
 	ShoppingCartDao scDao;
-	
+
 	@Autowired
 	ProductDao pDao;
-	
+
 	//依訂單編號找訂單
 	@Override
 	public OrderBean findOrderByid(String orderid) {
-		Optional<OrderBean> option = oDao.findById(orderid);		
+		Optional<OrderBean> option = oDao.findById(orderid);
 		if(option.isEmpty()) {
 			return null;
 		}
 		return option.get();
 	}
-	
+
 	//找尋所有訂單
 	@Override
 	public List<OrderBean> findOrders() {
 		return oDao.findAll();
 	}
-	
+
 	//訂單詳細資料
 	@Override
 	public List<OrderDetailBean> findOrder(){
 		return odDao.findAll();
 	}
-	
+
 	//更改訂單資料
 	@Override
 	@Transactional
@@ -81,21 +75,22 @@ public class OrderServiceImpl implements OrderService {
 		}
 		List<ShoppingCartBean> scBean = scDao.findAll();
 		for(ShoppingCartBean sc : scBean) {
-		//更新存貨
-		Optional<Product> poption = pDao.findById(sc.getProductBean().getProductId());
-		Optional<ShoppingCartBean> scoption = scDao.findByPid(sc.getProductBean().getProductId());
-		if(option.isPresent()) {
-			if(scoption.isPresent()) {				
-				ShoppingCartBean oldsc = scoption.get();
-				Integer min= oldsc.getQuantity();
-				Product oldp = poption.get();
-				Integer inventory = oldp.getInventory();
-				inventory -= min;
-				oldp.setInventory(inventory);
+			//更新存貨
+			Optional<Product> poption = pDao.findById(sc.getProductBean().getProductId());
+			Optional<ShoppingCartBean> scoption = scDao.findByPid(sc.getProductBean().getProductId());
+			if(option.isPresent()) {
+				if(scoption.isPresent()) {
+					ShoppingCartBean oldsc = scoption.get();
+					Integer min= oldsc.getQuantity();
+					Product oldp = poption.get();
+					Integer inventory = oldp.getInventory();
+					inventory -= min;
+					oldp.setInventory(inventory);
+				}
 			}
-		}			
-	}
+		}
 }
+
 	//建立訂單
 	@Override
 	@Transactional
@@ -134,13 +129,14 @@ public class OrderServiceImpl implements OrderService {
 
 		oDao.save(order);
 	}
+
 	//訂單的詳細資料
 	@Override
 	public List<OrderDetailBean> findorderdetailbyOId(String orderid) {
-		return odDao.findByOid(orderid);	  
+		return odDao.findByOid(orderid);
 	}
 
-	
+
 	//物流
 //	@Override
 //	public String ecpaylog() {
@@ -154,5 +150,15 @@ public class OrderServiceImpl implements OrderService {
 //		String form = all.expressMap(map);
 //		return form;
 //	}
+
+	// orderDetailId 找 orderDetail by 暐翔
+	@Override
+	public OrderDetailBean findOrderDetailById(Integer id){
+		Optional<OrderDetailBean> optional=odDao.findById(id);
+		if(optional.isPresent()){
+			return optional.get();
+		}
+		return null;
+	}
 
 }
