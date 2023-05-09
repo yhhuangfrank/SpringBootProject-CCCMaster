@@ -17,8 +17,8 @@
     <h1 class="mb-5">商品評論</h1>
     <form:form method="post" action="" modelAttribute="comment">
         <div class="mb-3">
-            <label for="product-name" class="form-label">訂單編號</label>
-            <form:input type="text" class="form-control" id="product-name" name="product-name" required value="${comment.orderDetail.id}" path="">
+<%--            <label for="product-name" class="form-label">訂單編號</label>--%>
+<%--            <form:input type="text" class="form-control" id="product-name" name="product-name" required value="${comment.orderDetail.id}" path="">--%>
         </div>
         <div class="mb-3">
             <label for="comment" class="form-label">評論</label>
