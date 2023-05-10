@@ -109,12 +109,8 @@
 				<div class="row justify-content-center">
 					<div class="col-md-4">
 					
-						<c:if test="${loginFailed}">
-							<div class="alert alert-danger alert-dismissible fade show" role="alert">
-							  登入失敗！請檢查您的帳號和密碼是否正確。
-							  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-							</div>
-						</c:if>
+						<%-- 顯示登入失敗訊息 --%>
+						<jsp:include page="../../message.jsp"/>
 						
 						<form action="${contextRoot}/login" method="post" class="form-login">
 							<input name="referer" type="hidden" value="${referer}"/>	<!-- 這個標籤為程式內部傳遞參數用，不顯示在前端畫面上 -->
