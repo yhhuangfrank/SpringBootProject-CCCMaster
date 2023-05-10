@@ -11,6 +11,7 @@ import com.ispan.CCCMaster.model.dto.BidRecordRequest;
 import com.ispan.CCCMaster.service.BidProductCommentService;
 import com.ispan.CCCMaster.service.BidProductService;
 import com.ispan.CCCMaster.service.DealRecordService;
+import com.ispan.CCCMaster.service.EmailService;
 import com.ispan.CCCMaster.util.LoginUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
@@ -31,15 +32,19 @@ public class BidProductApi {
 
     private final DealRecordService dealRecordService;
 
+    private final EmailService emailService;
+
     private final LoginUtil loginUtil;
 
     public BidProductApi(BidProductService bidProductService,
                          BidProductCommentService bidProductCommentService,
                          DealRecordService dealRecordService,
+                         EmailService emailService,
                          LoginUtil loginUtil) {
         this.bidProductService = bidProductService;
         this.bidProductCommentService = bidProductCommentService;
         this.dealRecordService = dealRecordService;
+        this.emailService = emailService;
         this.loginUtil = loginUtil;
     }
 
@@ -81,7 +86,8 @@ public class BidProductApi {
                                      @PathVariable Integer id,
                                      @RequestBody @Valid BidRecordRequest bidRecordRequest) {
         Integer loginCustomerId = loginUtil.getLoginCustomerIdOptional(session).orElseThrow(() -> new ApiErrorException(401, "請先登入!"));
-        if (bidProductService.checkIsOwner(id, loginCustomerId)) throw new ApiErrorException(400, "不可對自己的商品出價!");
+        if (bidProductService.checkIsOwner(id, loginCustomerId))
+            throw new ApiErrorException(400, "不可對自己的商品出價!");
 
         return bidProductService.updateBidPrice(id, bidRecordRequest);
     }
@@ -89,14 +95,25 @@ public class BidProductApi {
     // 建立成交紀錄
     @PostMapping("/bidProducts/{id}/dealRecords")
     public DealRecord createDealRecord(@PathVariable Integer id) {
-        return dealRecordService.createDealRecord(id);
+        DealRecord dealRecord = dealRecordService.createDealRecord(id);
+
+        // send successfully get bidProduct mail
+        String to = dealRecord.getCustomer().getEmail();
+        String subject = "得標通知";
+        String body = "恭喜您" + dealRecord.getCustomer().getName() + "! 您得標了 " + dealRecord.getBidProduct().getName() + " 的商品 \n" +
+                "請盡速完成結帳以利後續作業! \n " +
+                "商品連結: http://localhost:8080/bidProducts/" + dealRecord.getBidProduct().getId() + " \n " +
+                "山西達人";
+        emailService.sendEmail(to, subject, body);
+
+        return dealRecord;
     }
 
     // 留言功能
     @GetMapping("/bidProducts/{id}/comments")
     public Page<BidProductComment> getAllComments(@PathVariable Integer id,
                                                   @RequestParam(defaultValue = "1") @Min(1) Integer page,
-                                                  @RequestParam(defaultValue = "3") @Min(0) Integer limit){
+                                                  @RequestParam(defaultValue = "3") @Min(0) Integer limit) {
         BidProductCommentQueryParams params = new BidProductCommentQueryParams();
         params.setBidProductId(id);
         params.setPage(page);
