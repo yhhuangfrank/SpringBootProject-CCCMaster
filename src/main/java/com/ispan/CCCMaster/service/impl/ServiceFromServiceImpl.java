@@ -37,9 +37,9 @@ public class ServiceFromServiceImpl implements com.ispan.CCCMaster.service.Servi
     	serviceFromDao.deleteById(id);
     }
 
-    public Page<ReportForm2Model> findByPage(Integer pageNumber){
+    public Page<ReportForm2Model> findByPage(Integer pageNumber,Integer customerid){
     	Pageable pgb = PageRequest.of(pageNumber-1, 5, Sort.Direction.DESC,"createtime");
-    	Page<ReportForm2Model> page = serviceFromDao.findAll(pgb);
+    	Page<ReportForm2Model> page = serviceFromDao.findAllByCustomerid(customerid,pgb);
     	return page;
     }
 

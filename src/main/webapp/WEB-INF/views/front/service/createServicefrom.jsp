@@ -204,14 +204,14 @@ text-overflow: ellipsis;
                                                                         <c:choose>
                                                                              <c:when test="${page.number != 0 }">
                                                                             <li class="page-item">
-                                                                              <a class="page-link" href="${contextRoot}/service/from/create?p=${page.number}" aria-label="Previous">
+                                                                              <a class="page-link" href="${contextRoot}/service/from/create/${sessionScope.customerId}?p=${page.number}" aria-label="Previous">
                                                                                 <span aria-hidden="true">&laquo;</span>
                                                                               </a>
                                                                             </li>
                                                                             </c:when>
                                                                            <c:otherwise>
                                                                             <li class="page-item">
-                                                                              <a class="page-link" href="${contextRoot}/service/from/create?p=${page.number+1}" aria-label="Previous">
+                                                                              <a class="page-link" href="${contextRoot}/service/from/create/${sessionScope.customerId}?p=${page.number+1}" aria-label="Previous">
                                                                                 <span aria-hidden="true">&laquo;</span>
                                                                               </a>
                                                                             </c:otherwise>
@@ -232,14 +232,14 @@ text-overflow: ellipsis;
                                                                     <c:choose>
                                                                        <c:when test="${page.number != page.totalPages -1}">
                                                                  <li class="page-item">
-                                                                    <a class="page-link" href="${contextRoot}/service/from/create?p=${page.number+2}" aria-label="Next">
+                                                                    <a class="page-link" href="${contextRoot}/service/from/create/${sessionScope.customerId}?p=${page.number+2}" aria-label="Next">
                                                                       <span aria-hidden="true">&raquo;</span>
                                                                     </a>
                                                                   </li>
                                                                         </c:when>
                                                                            <c:otherwise>
                                                                             <li class="page-item">
-                                                                               <a class="page-link" href="${contextRoot}/service/from/create?p=${page.number+1}" aria-label="Next">
+                                                                               <a class="page-link" href="${contextRoot}/service/from/create/${sessionScope.customerId}?p=${page.number+1}" aria-label="Next">
                                                                                  <span aria-hidden="true">&raquo;</span>
                                                                                </a>
                                                                              </li>
@@ -251,7 +251,7 @@ text-overflow: ellipsis;
                                                                          <li style="margin-left: 7px;">
                                                                             <select  class="form-control" id="inputQuestion" onchange="javascript:location.href=this.value;">
                                                                                     <option value="" selected><span>${page.number+1}</span>
-                                                                                    <jstl:forEach var="pageNumber" begin="1" end="${page.totalPages}"><option value="${contextRoot}/service/from/create?p=${pageNumber}" > <span>${pageNumber}</span>
+                                                                                    <jstl:forEach var="pageNumber" begin="1" end="${page.totalPages}"><option value="${contextRoot}/service/from/create/${sessionScope.customerId}?p=${pageNumber}" > <span>${pageNumber}</span>
                                                                                     </jstl:forEach></option>
                                                                             </select>
                                                                             <li style="margin-left: 7px;padding-top:7px"><span>頁</span></li>
@@ -334,7 +334,7 @@ text-overflow: ellipsis;
                                                         <br>
                                                         <div class="col-sm-10" style="text-align:center;">
                                                             <button type="submit" class="btn btn-primary">送出</button>
-                                                            <a href="${contextRoot}/service/from/create" id="btn"
+                                                            <a href="${contextRoot}/service/from/create/${sessionScope.customerId}" id="btn"
                                                                 Class="btn btn-primary;">取消</a>
                                                         </div>
 

@@ -42,7 +42,14 @@
            <li class="dropdown"><a href="#"><span>聯絡客服</span></a>
               <ul>
                 <li><a href="${contextRoot}/Service/common">常見問題</a></li>
-                <li><a href="${contextRoot}/service/from/create">表單回報問答中心</a></li>
+                <c:choose>
+                 <c:when test="${sessionScope.customerId != null }">
+                <li><a href="${contextRoot}/service/from/create/${sessionScope.customerId}">表單回報問答中心</a></li>
+                </c:when>
+                <c:otherwise>
+                <li><a href="${contextRoot}/login">表單回報問答中心</a></li>
+                </c:otherwise>
+                </c:choose>
               </ul>
             </li>
             <li><a href="blog.html">會員中心</a></li>
