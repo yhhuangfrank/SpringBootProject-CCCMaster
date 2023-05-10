@@ -1,5 +1,6 @@
 package com.ispan.CCCMaster.controller;
 
+import com.ispan.CCCMaster.annotation.CustomerAuthentication;
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.bid.DealRecord;
 import com.ispan.CCCMaster.model.bean.category.Category;
@@ -45,6 +46,7 @@ public class BidProductController {
         this.loginUtil = loginUtil;
     }
 
+    @CustomerAuthentication
     @GetMapping("/bidProducts/create")
     public String getCreateBidProductForm(Model model) {
 
@@ -57,6 +59,7 @@ public class BidProductController {
         return "/front/bid/product-create";
     }
 
+    @CustomerAuthentication
     @PostMapping("/bidProducts")
     public String createBidProduct(
             HttpSession session,
@@ -78,8 +81,7 @@ public class BidProductController {
         }
 
         // 新增商品
-        Integer loginCustomerId = loginUtil.getLoginCustomerId(session).orElse(null);
-        if (loginCustomerId == null)  return "redirect:/login";
+        Integer loginCustomerId = loginUtil.getLoginCustomerId(session);
 
         bidProductService.createBidProduct(loginCustomerId, bidProductRequest);
 
@@ -111,14 +113,14 @@ public class BidProductController {
         return "/front/bid/product";
     }
 
+    @CustomerAuthentication
     @GetMapping("/bidProducts/{id}/edit")
     public String getEditBidProductForm(HttpSession session,
                                         @PathVariable Integer id,
                                         Model model,
                                         RedirectAttributes redirectAttributes) {
 
-        Integer loginCustomerId = loginUtil.getLoginCustomerId(session).orElse(null);
-        if (loginCustomerId == null)  return "redirect:/login";
+        Integer loginCustomerId = loginUtil.getLoginCustomerId(session);
 
         // 查詢商品，商品擁有者才可編輯
         BidProduct foundBidProduct = bidProductService.findBidProductById(id);
@@ -147,6 +149,7 @@ public class BidProductController {
         return "/front/bid/product-edit";
     }
 
+    @CustomerAuthentication
     @PostMapping("/bidProducts/{id}")
     public String editBidProduct(HttpSession session,
                                  @PathVariable Integer id,
@@ -166,8 +169,7 @@ public class BidProductController {
         }
 
         // 更新商品資訊，商品擁有者才可編輯
-        Integer loginCustomerId = loginUtil.getLoginCustomerId(session).orElse(null);
-        if (loginCustomerId == null)  return "redirect:/login";
+        Integer loginCustomerId = loginUtil.getLoginCustomerId(session);
 
         if (!bidProductService.checkIsOwner(id, loginCustomerId)) {
             redirectAttributes.addFlashAttribute("isWarning", true);

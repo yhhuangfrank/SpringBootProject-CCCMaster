@@ -2,9 +2,8 @@ package com.ispan.CCCMaster.model.bean.bid;
 
 import com.ispan.CCCMaster.model.bean.category.Category;
 import com.ispan.CCCMaster.model.bean.customer.Customer;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import com.ispan.CCCMaster.model.bean.order.BidOrderBean;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;

@@ -36,4 +36,10 @@ public interface OrderService {
 	//個人的所有訂單清單
 	List<OrderBean> findOrderByCId(Integer customerId);
 
+
+    // orderDetailId 找 orderDetail by 暐翔
+    OrderDetailBean findOrderDetailById(Integer id);
+
+
+
 }
