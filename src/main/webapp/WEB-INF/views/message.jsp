@@ -29,15 +29,15 @@
 
 <!-- 【綠色】成功訊息框-浮動 -->
 <c:if test="${isSuccess_float}">
-	<div id="logout-success-msg" class="alert alert-success position-fixed top-50 start-50 translate-middle d-none" role="alert">
+	<div id="success-msg-float" class="alert alert-success position-fixed top-50 start-50 translate-middle d-none" role="alert">
  		${successMsg_float}
 	</div>
  	<script>
-		// 顯示登出成功訊息框
-		document.querySelector('#logout-success-msg').classList.remove('d-none');
+		// 顯示成功訊息框-浮動
+		document.querySelector('#success-msg-float').classList.remove('d-none');
 		// 設定 2 秒後淡出消失
 		setTimeout(function() {
-		document.querySelector('#logout-success-msg').classList.add('fade');
+		document.querySelector('#success-msg-float').classList.add('fade');
 		}, 2000);
 	</script>
 </c:if>

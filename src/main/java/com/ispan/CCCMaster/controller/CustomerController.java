@@ -47,8 +47,8 @@ public class CustomerController {
 						, HttpServletRequest request) {
 		ctmService.logOut(session);
 		//重導前添加登出成功訊息
-		redirectAttributes.addFlashAttribute("isSuccess_float", true);
-		redirectAttributes.addFlashAttribute("successMsg_float", "您已成功登出！欲使用更多功能請重新登入!");
+		redirectAttributes.addFlashAttribute("logoutSuccess", true);
+		redirectAttributes.addFlashAttribute("logoutSuccessMsg", "您已成功登出！欲使用更多功能請重新登入!");
 		return "redirect:" + request.getHeader("Referer");	//回到上一個瀏覽頁面
 	}
 

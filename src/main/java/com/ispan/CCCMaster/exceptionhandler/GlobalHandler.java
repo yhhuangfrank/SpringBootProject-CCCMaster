@@ -69,8 +69,8 @@ public class GlobalHandler {
     // 處理必須登入而未登入的例外處理
     @ExceptionHandler(UnLoginException.class)
     public String handleUnLoginException(RedirectAttributes redirectAttributes) {
-    	redirectAttributes.addFlashAttribute("isFailed", true);
-		redirectAttributes.addFlashAttribute("failedMsg", "喔喔!您尚未登入哦!請登入以繼續進行操作");
+    	redirectAttributes.addFlashAttribute("isWarning", true);
+		redirectAttributes.addFlashAttribute("warningMsg", "喔喔!您尚未登入哦!請登入以繼續進行操作");
     	return "redirect:/login";
     }
 
