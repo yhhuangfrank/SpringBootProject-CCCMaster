@@ -21,6 +21,8 @@ public interface AdvertiseService {
 
    Page<Advertise> findByPage(Integer pageNumber);
 
+   Page<Product> addProductToAdvertise(Product product, Integer id, Integer pageNumber);
+
 
     void deleteAdvertiseById(Integer id);
 

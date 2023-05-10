@@ -1,6 +1,7 @@
 package com.ispan.CCCMaster.service.impl;
 
 import com.ispan.CCCMaster.model.bean.Advertise.Advertise;
+import com.ispan.CCCMaster.model.bean.product.Product;
 import com.ispan.CCCMaster.model.dao.AdvertiseDao;
 import com.ispan.CCCMaster.model.dao.ProductDao;
 import com.ispan.CCCMaster.model.dto.AdvertiseRequest;
@@ -65,6 +66,11 @@ public class AdvertiseServiceImpl implements AdvertiseService {
         Pageable pgb = PageRequest.of(pageNumber - 1, 3, Sort.Direction.DESC, "startTime");
         Page<Advertise> page = advertiseDao.findAll(pgb);
         return page;
+    }
+
+    @Override
+    public Page<Product> addProductToAdvertise(Product product, Integer id, Integer pageNumber) {
+        return null;
     }
 
 

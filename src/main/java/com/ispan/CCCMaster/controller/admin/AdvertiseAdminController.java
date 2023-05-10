@@ -3,6 +3,8 @@ package com.ispan.CCCMaster.controller.admin;
 import com.ispan.CCCMaster.model.bean.Advertise.Advertise;
 import com.ispan.CCCMaster.model.dto.AdvertiseRequest;
 import com.ispan.CCCMaster.service.AdvertiseService;
+import com.ispan.CCCMaster.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,15 +12,22 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @Controller
 public class AdvertiseAdminController {
 
 
+
     private final AdvertiseService advertiseService;
 
-    public AdvertiseAdminController(AdvertiseService advertiseService) {
+    private final ProductService productService;
+
+    public AdvertiseAdminController(AdvertiseService advertiseService, ProductService productService) {
+
         this.advertiseService = advertiseService;
+
+        this.productService = productService;
     }
 
 
@@ -58,7 +67,7 @@ public class AdvertiseAdminController {
 //        return "redirect:/admin/advertises/showAllAdvertise";
 //    }
 
-    @GetMapping("/admin/advertises/{id}editPage")
+    @GetMapping("/admin/advertises/editPage/{id}")
     public String updateAdvertise(HttpSession session,
                                   @PathVariable Integer id,
                                   Model model,
@@ -76,14 +85,34 @@ public class AdvertiseAdminController {
 
         model.addAttribute("advertiseRequest",advertiseRequest);
         model.addAttribute("id",id);
-        return "back/advertise/editAdvertise";
+        return "/back/advertise/editAdvertise";
     }
 
+    @PutMapping("/admin/advertises/edit/{id}")
+    public String updateAdvertise(HttpSession session,
+                                  @PathVariable Integer id,
+                                  @Valid @ModelAttribute("advertiseRequest") AdvertiseRequest advertiseRequest,
+                                  Model model,
+                                  RedirectAttributes redirectAttributes) {
+        advertiseService.updateAdvertiseById(id,advertiseRequest);
+        return "redirect:/admin/advertises/showAllAdvertise";
+
+    }
 
     @DeleteMapping("/admin/advertises/delete")
     public String deleteAdvertiseById(@RequestParam("id") Integer id) {
         advertiseService.deleteAdvertiseById(id);
         return "redirect:/admin/advertises/showAllAdvertise";
     }
+
+//    public String addProductToAdvertise(@ModelAttribute("advertise") Advertise advertise,
+//            @RequestParam("advertiseId") Integer advertiseId,
+//            @RequestParam("productId") Integer productId) {
+//            advertiseService.addProductToAdvertise(advertise,advertiseId, productId);
+//
+//        return "redirect:/admin/advertises/showAllAdvertise";
+//    }
+
+
 
 }

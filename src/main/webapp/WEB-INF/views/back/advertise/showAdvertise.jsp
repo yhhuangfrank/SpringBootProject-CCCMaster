@@ -69,8 +69,7 @@
 
                 <td>
                   <div class="d-flex">
-                    <form action="${contextRoot}/admin/advertises/editPage">
-                      <input type="hidden" name="id" value="${p.advertiseId}" />
+                    <form action="${contextRoot}/admin/advertises/editPage/${p.advertiseId}">
                       <button type="submit" class="btn btn-secondary btn-sm">
                         <i class="bi bi-pencil-square"></i>編輯
                       </button>
