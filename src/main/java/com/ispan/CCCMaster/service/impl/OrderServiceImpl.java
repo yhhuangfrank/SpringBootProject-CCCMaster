@@ -2,12 +2,7 @@ package com.ispan.CCCMaster.service.impl;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -155,7 +150,7 @@ public class OrderServiceImpl implements OrderService {
 	//金流
 	@Override
 	public String ecpayCheckout(OrderBean order) {
-		String uuId = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 20);		
+		String uuId = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 20);
 		AllInOne all = new AllInOne("");
 		AioCheckOutALL obj = new AioCheckOutALL();
 		
