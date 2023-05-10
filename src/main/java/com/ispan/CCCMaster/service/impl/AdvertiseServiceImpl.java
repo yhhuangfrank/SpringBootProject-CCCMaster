@@ -36,6 +36,9 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 
     }
 
+
+
+
     @Override
     public void createAdvertise(AdvertiseRequest advertiseRequest, Advertise advertise){
 
@@ -70,18 +73,47 @@ public class AdvertiseServiceImpl implements AdvertiseService {
         advertiseDao.deleteById(id);
     }
 
+
     @Override
     @Transactional
-    public void updateAdvertiseById(Advertise input) {
-        Optional<Advertise> option = advertiseDao.findById(input.getAdvertiseId());
-        if(option.isPresent()) {
-            Advertise oldadvertise = option.get();
-            oldadvertise.setStartTime(input.getStartTime());
-            oldadvertise.setEndTime(input.getEndTime());
-            advertiseDao.save(oldadvertise);
-        }else
-            throw new RuntimeException("沒有找到廣告");
+    public void updateAdvertiseById(Advertise advertise){
+        advertiseDao.save(advertise);
     }
+
+
+    @Override
+    @Transactional
+    public void updateAdvertiseById(Integer id,AdvertiseRequest advertiseRequest){
+        Advertise foundadvertise = advertiseDao.findById(id).orElse(null);
+        if(foundadvertise == null){
+            throw new RuntimeException("沒有找到廣告");
+        }
+        foundadvertise.setStartTime(handleDate(advertiseRequest.getStartDateTime()));
+        foundadvertise.setEndTime(handleDate(advertiseRequest.getEndDateTime()));
+
+        if(!advertiseRequest.getStartDateTime().equals("")) {
+            foundadvertise.setStartTime(handleDate(advertiseRequest.getStartDateTime()));
+        }
+        if(!advertiseRequest.getEndDateTime().equals("")) {
+            foundadvertise.setEndTime(handleDate(advertiseRequest.getEndDateTime()));
+        }
+        advertiseDao.save(foundadvertise);
+    }
+
+//    @Override
+//    @Transactional
+//    public void updateAdvertiseById(Advertise input){
+//        Optional<Advertise> option = advertiseDao.findById(input.getAdvertiseId());
+//
+//        if(option.isPresent()) {
+//            Advertise oldadvertise = option.get();
+//            oldadvertise.setStartTime(input.getStartTime());
+//            oldadvertise.setEndTime(input.getEndTime());
+//            advertiseDao.save(oldadvertise);
+//        }else
+//            throw new RuntimeException("沒有找到廣告");
+//    }
+
 
     private Date handleDate(String dateString) {
         Date date;

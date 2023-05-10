@@ -12,17 +12,26 @@ import java.util.List;
 public interface AdvertiseService {
    void createAdvertise(AdvertiseRequest advertiseRequest);
 
+
+
    void createAdvertise(AdvertiseRequest advertiseRequest, Advertise advertise);
 
    Advertise findAdvertiseById(Integer id);
 
 
-   Page<Advertise> findByPage(Integer pageable);
+   Page<Advertise> findByPage(Integer pageNumber);
 
-   void deleteAdvertiseById(Integer id);
 
-    @Transactional
-    void updateAdvertiseById(Advertise input);
+    void deleteAdvertiseById(Integer id);
+
+    void updateAdvertiseById(Advertise advertise);
+
+    void updateAdvertiseById(Integer id, AdvertiseRequest advertiseRequest);
+
+
+
+
+
 
     Advertise getLatestAdvertise();
 

@@ -64,11 +64,11 @@
                         <h5 class="card-title">更新廣告</h5>
                         <div class="row mb-3">
 
-                            <form:form method="post" modelAttribute="advertise"
-                                       action="${contextRoot}/admin/advertises/editPage" enctype="multipart/form-data">
+                            <form:form method="put" modelAttribute="advertise"
+                                       action="${contextRoot}/admin/advertises/edit" enctype="multipart/form-data">
 
                                 <div class="row mb-3">
-                                    <label for="endDate" class="col-sm-2 col-form-label fw-bold">廣告上架時間</label>
+                                    <label for="startDate" class="col-sm-2 col-form-label fw-bold">廣告上架時間</label>
                                     <div class="col-sm-10">
                                         <form:input path="startTime" id="startDate" type="datetime-local" class="form-control"/>
                                     </div>
