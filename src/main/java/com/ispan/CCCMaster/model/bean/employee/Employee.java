@@ -29,10 +29,10 @@ public class Employee {
 	@Column(name = "employee_name", columnDefinition = "nvarchar(20)")
 	private String employeeName;
 
-	@Column(name = "phone_number", columnDefinition = "varchar(15)")
+	@Column(name = "phone_number", columnDefinition = "varchar(15)", unique = true)
 	private String phoneNumber;
 	
-	@Column(name = "id_number", columnDefinition = "char(10)")
+	@Column(name = "id_number", columnDefinition = "char(10)", unique = true)
 	private String idNumber;
 	
 	@Column(name = "password", columnDefinition = "varchar(20)")

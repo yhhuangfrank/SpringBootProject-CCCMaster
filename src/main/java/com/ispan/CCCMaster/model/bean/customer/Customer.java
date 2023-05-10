@@ -29,7 +29,7 @@ public class Customer {
 	@Column(name = "customer_id")
 	private Integer customerId;
 	
-	@Column(name = "email", columnDefinition = "varchar(50)")
+	@Column(name = "email", columnDefinition = "varchar(50)", unique = true)
 	private String email;
 	
 	@Column(name = "password", columnDefinition = "varchar(20)")
@@ -40,10 +40,10 @@ public class Customer {
 	@Column(name = "start_date", columnDefinition = "datetime")
 	private Date startDate;
 	
-	@Column(name = "name", columnDefinition = "nvarchar(15)")
+	@Column(name = "name", columnDefinition = "nvarchar(15)", unique = true)
 	private String name;
 	
-	@Column(name = "phone_number", columnDefinition = "varchar(15)")
+	@Column(name = "phone_number", columnDefinition = "varchar(15)", unique = true)
 	private String phoneNumber;
 
 	@Column(name = "point")
