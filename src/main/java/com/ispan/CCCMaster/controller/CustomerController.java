@@ -18,7 +18,7 @@ public class CustomerController {
 	@Autowired
 	private CustomerService ctmService;
 	
-	@GetMapping("/login")	//前台登入頁面
+	@GetMapping("/login")	//前台會員登入頁面
 	public String loginPage(HttpServletRequest request) {
 		String referer = request.getHeader("Referer");
 		request.setAttribute("referer", referer);	//頁面跳轉前先把當時的URL儲存起來
@@ -41,7 +41,7 @@ public class CustomerController {
 		}
 	}
 	
-	@GetMapping("/logout")
+	@GetMapping("/logout")	//按下登出按鈕
 	public String logOut(HttpSession session
 						, RedirectAttributes redirectAttributes
 						, HttpServletRequest request) {
@@ -50,6 +50,11 @@ public class CustomerController {
 		redirectAttributes.addFlashAttribute("logoutSuccess", true);
 		redirectAttributes.addFlashAttribute("logoutSuccessMsg", "您已成功登出！欲使用更多功能請重新登入!");
 		return "redirect:" + request.getHeader("Referer");	//回到上一個瀏覽頁面
+	}
+	
+	@GetMapping("/signup")	//前台會員註冊頁面
+	public String signupPage() {
+		return "front/customer/signup";
 	}
 
 }

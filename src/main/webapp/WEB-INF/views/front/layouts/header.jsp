@@ -49,7 +49,7 @@
             <li><input value="${sessionScope.customerId}" type="hidden" id="session" name="customerId"><a href="#" onclick="checklogin()">購物車</a></li>
            	<c:choose>
            		<c:when test="${sessionScope.customerId == null}">
-           			<li><a href="index.html">註冊</a></li>
+           			<li><a href="${contextRoot}/signup">註冊</a></li>
 		            <li><a href="${contextRoot}/login">登入</a></li>
            		</c:when>
            		<c:otherwise>

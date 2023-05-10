@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>會員登入</title>
+<title>會員註冊</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -129,7 +129,7 @@
 							</div>
 						</form>
 						<div class="text-center mt-4">
-							<a href="#">忘記密碼</a> <span class="mx-2">|</span> <a href="${contextRoot}/signup">註冊帳號</a>
+							<a href="#">忘記密碼</a> <span class="mx-2">|</span> <a href="#">註冊帳號</a>
 						</div>
 					</div>
 				</div>
