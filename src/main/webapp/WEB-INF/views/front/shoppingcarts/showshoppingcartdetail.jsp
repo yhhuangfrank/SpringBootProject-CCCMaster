@@ -34,7 +34,11 @@
   <link href="${contextRoot}/styles/front/assets/css/style.css" rel="stylesheet">
 
 <script>
-
+document.cookie = "add=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+document.cookie = "addee=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+document.cookie = "tel=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+document.cookie = "shi=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+document.cookie = "pay=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
 </script>
 
@@ -168,17 +172,17 @@
 				<h5>付款方式</h5>
 					<div class="form-check">
 					 <input type="radio" class="form-check-input" id="cash" value="貨到付款" required="required" onclick="nocredit()"/>
-              <label class="form-check-label" for="gridRadios3">
-                貨到付款
-              </label>
-            </div>
-            <div class="form-check">
-              <input type="radio" class="form-check-input" id="credit" value="信用卡" onclick="cashno()"/>
-              <label class="form-check-label" for="gridRadios4">
-                信用卡
-              </label>
-            </div>
-            </div>
+		              <label class="form-check-label" for="gridRadios3">
+		                貨到付款
+		              </label>
+				    </div>
+		            <div class="form-check">
+		              <input type="radio" class="form-check-input" id="credit" value="信用卡" onclick="cashno()"/>
+		              <label class="form-check-label" for="gridRadios4">
+		                信用卡
+		              </label>
+		            </div>
+            	</div>
             	<a href="javascript:history.back()" class="btn btn-dark">上一頁</a>
          		<button type="submit" class="btn btn-primary" onclick="savecookie()">
          			<a href="${contextRoot}/front/shoppingcart/shoppingcartdetail/check" style="color: white;">資料確認</a>
@@ -231,7 +235,7 @@
 	}
 //------------點選宅配到家的選項後不可以點選貨到付款的----------------------------
 	function nocash() {
-		let cash = document.getElementById("cash")
+	let cash = document.getElementById("cash")
     let stores = document.getElementById('stores')
 		cash.disabled = true;
 		if(cash.checked){
@@ -242,7 +246,7 @@
     }
 	}
 	function okcash() {
-		document.getElementById("cash").disabled = false;
+	document.getElementById("cash").disabled = false;
     let home = document.getElementById("home")
     if(home.checked){
       home.checked=false;
@@ -284,13 +288,11 @@
     let store = document.getElementById('cookiesstore')
     let storeaddre = document.getElementById('cookiesstoreaddressee')
     let storetel = document.getElementById('cookiesstoretele')
-    let sshipper = document.getElementById('stores')
-    let cash = document.getElementById('cash')
+    let sshipper = document.getElementById('stores')  
     let homeadd = document.getElementById("cookiesaddress");
     let homeaddre = document.getElementById("cookiesaddressee");
-		let hometel = document.getElementById("cookiestele");
-    let hshipper = document.getElementById('home');
-    let credit = document.getElementById('credit');
+	  let hometel = document.getElementById("cookiestele");
+    let hshipper = document.getElementById('home');    
       let value1='';
         if(store.value){
           value1 = store.value
@@ -313,19 +315,21 @@
         }
         document.cookie = "tel="+value3;
       let value4='';
-        if(sshipper.value){
+        if(sshipper.checked){
           value4 = sshipper.value
-        }else if(hshipper.value){
+        }else if(hshipper.checked){
           value4=hshipper.value
         }
         document.cookie = "shi="+value4;
+      let cash = document.getElementById('cash')
+      let credit = document.getElementById('credit');
       let value5='';
-        if(cash.value){
-          value5 = cash.value
-        }else if(credit.value){
-          value5=credit.value
+        if(credit.checked){
+           value5=credit.value
+        }else if(cash.checked){
+          value5=cash.value
         }
-        document.cookie = "pay="+value5;
+        document.cookie = "pay="+value5+";path=/";
   }
   
 </script>

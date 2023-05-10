@@ -12,10 +12,10 @@ import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
 
 public interface OrderService {
 
-	//依訂單編號找訂單
+	//依訂單編號找訂單(後台)
 	OrderBean findOrderByid(String orderid);
 
-	//找尋所有訂單
+	//找尋所有訂單(後台)
 	List<OrderBean> findOrders();
 
 	//訂單詳細資料
@@ -28,10 +28,12 @@ public interface OrderService {
 	void createOrder(OrderBean order,Integer customerId) throws IOException;
 	
 	//依照訂單找尋各自的訂單詳細資料
-//	List<OrderDetailBean> findorderdetailbyOId(String orderid);
+	List<OrderDetailBean> findorderdetailbyOId(String orderid);
 	
-//	String ecpayCheckout();
-	
-//	String ecpaylog();
+	//綠界
+	String ecpayCheckout(OrderBean order);
+
+	//個人的所有訂單清單
+	List<OrderBean> findOrderByCId(Integer customerId);
 
 }
