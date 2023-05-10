@@ -21,9 +21,6 @@ public class Authentication {
 		Object customer = session.getAttribute("customerId");
 		
 		if (customer == null) throw new UnLoginException();
-//		System.out.println("====================================");
-//		System.out.println(session.getAttribute("customerId"));
-//		System.out.println("====================================");
 	}
 
 }

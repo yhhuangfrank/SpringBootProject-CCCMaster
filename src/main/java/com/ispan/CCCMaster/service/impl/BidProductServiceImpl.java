@@ -151,7 +151,9 @@ public class BidProductServiceImpl implements BidProductService {
 
             // 是否在一天內截止
             if (dueSoon) {
-                Predicate p = criteriaBuilder.lessThan(root.get("expiredAt"), new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000));
+                Date oneDayAfter = new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000);
+                Date now = new Date();
+                Predicate p = criteriaBuilder.between(root.get("expiredAt"), now, oneDayAfter);
                 predicates.add(p);
             }
 

@@ -87,5 +87,11 @@ public class OrderDetailBean implements Serializable {
 		this.orderBean = orderBean;
 	}
 
+	@Override
+	public String toString() {
+		return "OrderDetailBean [id=" + id + ", unitprice=" + unitprice + ", quantity=" + quantity + ", orderBean="
+				+ orderBean + ", pOrderDetail=" + pOrderDetail + "]";
+	}
 
+	
 }

@@ -32,6 +32,7 @@
 
   <!-- Template Main CSS File -->
   <link href="${contextRoot}/styles/front/assets/css/style.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
 
 <script>
 
@@ -60,8 +61,25 @@
 
     </div>
   </section><!-- End Breadcrumbs -->
-	<div>
-		<h3>訂單成立</h3>
+    <div class="card mx-auto mb-5" style="width: 18rem;" >
+  	<div class="card-body" >
+	    <h3 class="card-title" style="text-align: center;margin-top: 20px">訂單成立</h3>
+	    <p style="text-align: center;margin-top: 50px"><i class="bi bi-check2-circle" style="font-size: 80px;color: green;"></i></p>
+	    <div style="text-align:center;margin-top: 50px;margin-bottom: 15px">
+		    <c:if test="${cookie.pay.value == '信用卡'}">
+				<button type="submit" class="btn btn-primary" ><a href="${contextRoot}/ecpayCheckout">結帳</a></button>
+			</c:if>
+			<c:if test="${cookie.pay.value != '信用卡'}">
+				<form:form method="post" modelAttribute="order" action="${contextRoot}/front/orders/create">
+					<c:forEach var="ord" items="${singleorder}">
+						<input type="hidden" value="${ord.totalamount}">
+						<input type="hidden" value="${ord.payment}">
+					</c:forEach>
+					<button type="button" class="btn btn-primary" >確認</button>
+				</form:form>
+			</c:if>
+		</div>
+	  </div>
 	</div>
 
 </main><!-- End #main -->

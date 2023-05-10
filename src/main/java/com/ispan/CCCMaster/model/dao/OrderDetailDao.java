@@ -16,7 +16,7 @@ import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
 public interface OrderDetailDao extends JpaRepository<OrderDetailBean, Integer>{
 
 	@Query(value="select * from OrderDetail where order_id = :id", nativeQuery = true)
-	public List<OrderDetailBean> findByOid(@Param(value="id") String orderid);
+	public List<OrderDetailBean> findByOid(@Param(value="id")String orderid);
 	
 	
 	
