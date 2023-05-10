@@ -1,6 +1,8 @@
 package com.ispan.CCCMaster.service.impl;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -23,8 +25,8 @@ import com.ispan.CCCMaster.model.dao.ProductDao;
 import com.ispan.CCCMaster.model.dao.ShoppingCartDao;
 import com.ispan.CCCMaster.service.OrderService;
 
-//import ecpay.payment.integration.AllInOne;
-
+import ecpay.payment.integration.AllInOne;
+import ecpay.payment.integration.domain.AioCheckOutALL;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -145,26 +147,51 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	//訂單的詳細資料
+	@Override
+	public List<OrderDetailBean> findorderdetailbyOId(String orderid) {
+		return odDao.findByOid(orderid);	  
+	}
 
-//	@Override
-//	public List<OrderDetailBean> findorderdetailbyOId(String orderid) {
-//		return odDao.findByOid(orderid);	  
-//	}
+	//金流
+	@Override
+	public String ecpayCheckout(OrderBean order) {
+		String uuId = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 20);		
+		AllInOne all = new AllInOne("");
+		AioCheckOutALL obj = new AioCheckOutALL();
+		
+		//特店編號
+		obj.setMerchantID("3002607");
+		//交易編號
+		obj.setMerchantTradeNo(uuId);
+		//交易時間
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		sdf.setLenient(false);
+		Date date = new Date();
+		obj.setMerchantTradeDate(sdf.format(date));
+		//交易金額
+//		String payamounts = String.valueOf(order.getTotalamount()+order.getFreight());
+		obj.setTotalAmount("50");
+		//交易描述
+		obj.setTradeDesc("test Description");
+		//商品名稱
+		obj.setItemName("3C商品");
+		obj.setReturnURL("http://211.23.128.214:5000");
+		//付完後回到首頁
+		obj.setClientBackURL("http://localhost:8080/");
+		obj.setNeedExtraPaidInfo("N");
+		String form = all.aioCheckOut(obj, null);
+		
+		return form;
+	}
 
+	//個人的訂單清單
+	@Override
+	public List<OrderBean> findOrderByCId(Integer customerId) {
+		return oDao.findAllByCid(customerId);
+	}
 
-	//物流
-//	@Override
-//	public String ecpaylog() {
-//		AllInOne all = new AllInOne("");
-//		ExpressMapObj map= new ExpressMapObj();
-//		map.setMerchantID("2000214");
-//		map.setMerchantTradeNo("testCompany0004");
-//		map.setIsCollection("NO");
-//		map.setServerReplyURL("http://211.23.128.214:5000");
-//		map.setLogisticsSubType("UNIMART");
-//		String form = all.expressMap(map);
-//		return form;
-//	}
+	
+
 
 	// orderDetailId 找 orderDetail by 暐翔
 	@Override
