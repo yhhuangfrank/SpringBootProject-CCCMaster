@@ -17,7 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BidProductCommentServiceServiceImpl implements BidProductCommentService {
+public class BidProductCommentServiceImpl implements BidProductCommentService {
 
     private final BidProductCommentDao bidProductCommentDao;
 
@@ -25,9 +25,9 @@ public class BidProductCommentServiceServiceImpl implements BidProductCommentSer
 
     private final CustomerDao customerDao;
 
-    public BidProductCommentServiceServiceImpl(BidProductCommentDao bidProductCommentDao,
-                                               BidProductDao bidProductDao,
-                                               CustomerDao customerDao) {
+    public BidProductCommentServiceImpl(BidProductCommentDao bidProductCommentDao,
+                                        BidProductDao bidProductDao,
+                                        CustomerDao customerDao) {
         this.bidProductCommentDao = bidProductCommentDao;
         this.bidProductDao = bidProductDao;
         this.customerDao = customerDao;
