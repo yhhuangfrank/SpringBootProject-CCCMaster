@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ispan.CCCMaster.model.bean.customer.Customer;
 import com.ispan.CCCMaster.model.dao.CustomerDao;
+import com.ispan.CCCMaster.model.dto.CustomerCheckRequest;
 import com.ispan.CCCMaster.service.CustomerService;
 
 @Service
@@ -88,6 +89,18 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public void logOut(HttpSession session) {
 		session.invalidate();
+	}
+	
+	@Override
+	public Boolean canEmailUse(CustomerCheckRequest ccr) {
+		Customer foundCustomer = ctmDao.findByEmail(ccr.getEmail());
+//		if(foundCustomer == null) {
+//			return true;
+//		} else {
+//			return false;
+//		}
+		
+		return foundCustomer == null ? true : false;
 	}
 
 }

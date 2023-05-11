@@ -119,6 +119,7 @@
 							<div class="form-group mb-2">
 								<label for="email">電子郵件</label>
 								<form:input required="true" path="email" type="email" class="form-control" id="email" placeholder="輸入email"/>
+								<a id="checkEmail" href="#">檢查</a>
 							</div>
 							<div class="form-group mb-2">
 								<label for="name">暱稱</label>
@@ -168,6 +169,8 @@
 		src="${contextRoot}/styles/front/assets/vendor/php-email-form/validate.js"></script>
 	<!-- Template Main JS File -->
 	<script src="${contextRoot}/styles/front/assets/js/main.js"></script>
+	<!-- ajax -->
+	<script src="${contextRoot}/js/customer/checkEmail.js"></script>
 </body>
 
 </html>
