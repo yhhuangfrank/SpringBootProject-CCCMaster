@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html lang="en">
 
 <head>
@@ -91,7 +92,10 @@
 						${order.orderid}
 						</a>
 					</td>
-                    <td>${order.orderdate}</td>
+                    <td>
+                    	<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${order.orderdate}"/>
+                    
+                    </td>
                     <td>${order.ordercondition}</td>
                     <td>${order.paymentcondition}</td>
                     <td>${order.totalamount}</td>

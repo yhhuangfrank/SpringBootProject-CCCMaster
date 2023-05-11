@@ -141,7 +141,10 @@
                         </button>
                         <%--   若有成交紀錄並且是目前登入使用者才可使用立即結帳   --%>
                         <c:if test="${dealRecord != null && dealRecord.customer.customerId == currentCustomerId}">
+                        	<form action="${contextRoot}/front/shoppingcart/bid">
+                        		<input type="hidden" name="productId" value="${bidProduct.id}">
                             <button class="btn btn-success mt-2 text-white">立即結帳</button>
+                            </form>
                         </c:if>
                         <%--          顯示訊息              --%>
                         <div id="messageArea">
