@@ -76,7 +76,12 @@
                       <div class="row mb-3"><!--這個要用下拉式選單來做，【{編號} {職位名}】 -->
                         <label for="positionId" class="col-sm-2 col-form-label">職位</label>
                         <div class="col-sm-10">
-                          <form:input required="true" path="positionId" id="positionId" type="text" class="form-control"/>
+                          <form:select path="positionId" id="positionId">
+                        	<c:forEach var="position" items="${positions}">
+                        	  <option value="${position.positionId}">${position.positionName}	(${position.positionId})</option>
+                        	</c:forEach>
+                          </form:select>
+<%--                           <form:input required="true" path="positionId" id="positionId" type="text" class="form-control"/> --%>
                         </div>
                       </div>
                       <div class="row mb-3">
