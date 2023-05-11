@@ -35,8 +35,11 @@ public class CustomerController {
 						, RedirectAttributes redirectAttributes
 						, @RequestParam("referer") String referer) {
 		if(ctmService.logIn(accountNumber, password, request)) {
-//			return "redirect:/";	//回首頁
-			return "redirect:" + referer;	//回到上一個瀏覽頁面；有小bug，不能打錯帳號密碼否則會出bug
+			if(referer.equals("http://localhost:8080/login")) {				
+				return "redirect:/";	//若有先登入失敗過才成功登入，導回到首頁
+			} else {
+				return "redirect:" + referer;	//第一次就打對帳號密碼成功登入，回到上一個瀏覽頁面
+			}
 		} else {
 			//重導前添加登入失敗訊息
 			redirectAttributes.addFlashAttribute("isFailed", true);

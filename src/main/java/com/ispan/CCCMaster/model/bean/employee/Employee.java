@@ -2,7 +2,6 @@ package com.ispan.CCCMaster.model.bean.employee;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,7 +37,7 @@ public class Employee {
 	@Column(name = "password", columnDefinition = "varchar(20)")
 	private String password;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "position_id")
 	private Position positionId;
 	
