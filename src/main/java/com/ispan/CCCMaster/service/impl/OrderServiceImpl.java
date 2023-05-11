@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,7 +69,6 @@ public class OrderServiceImpl implements OrderService {
 	public List<OrderDetailBean> findOrder(){
 		return odDao.findAll();
 	}
-
 
 	
 	//更改訂單資料
@@ -154,33 +154,35 @@ public class OrderServiceImpl implements OrderService {
 
 	//金流
 	@Override
-	public String ecpayCheckout(OrderBean order) {
-		String uuId = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 20);		
+	public String ecpayCheckout(Integer customerId) {
+//		String uuId = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 20);		
 		AllInOne all = new AllInOne("");
 		AioCheckOutALL obj = new AioCheckOutALL();
-		
 		//特店編號
 		obj.setMerchantID("3002607");
-		//交易編號
-		obj.setMerchantTradeNo(uuId);
 		//交易時間
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		sdf.setLenient(false);
-		Date date = new Date();
-		obj.setMerchantTradeDate(sdf.format(date));
-		//交易金額
-//		String payamounts = String.valueOf(order.getTotalamount()+order.getFreight());
-		obj.setTotalAmount("50");
+		obj.setMerchantTradeDate(sdf.format(new Date()));
+		Optional<OrderBean> option = oDao.findByCidByOrderDateDesc(customerId);
+		if(option.isPresent()) {
+			OrderBean order = option.get();
+			//交易金額
+			String payamounts = String.valueOf(order.getTotalamount()+order.getFreight());
+			obj.setTotalAmount(payamounts);
+			//交易編號
+			obj.setMerchantTradeNo("test"+order.getOrderid());
+		}	
 		//交易描述
 		obj.setTradeDesc("test Description");
 		//商品名稱
 		obj.setItemName("3C商品");
-		obj.setReturnURL("http://211.23.128.214:5000");
+		obj.setReturnURL("http://localhost:8080/returnURL");
 		//付完後回到首頁
-		obj.setClientBackURL("http://localhost:8080/");
+		obj.setOrderResultURL("http://localhost:8080/front/orders/edit");
+//		obj.setClientBackURL("http://localhost:8080/front/orders/edit");
 		obj.setNeedExtraPaidInfo("N");
 		String form = all.aioCheckOut(obj, null);
-		
 		return form;
 	}
 
@@ -189,10 +191,7 @@ public class OrderServiceImpl implements OrderService {
 	public List<OrderBean> findOrderByCId(Integer customerId) {
 		return oDao.findAllByCid(customerId);
 	}
-
 	
-
-
 	// orderDetailId 找 orderDetail by 暐翔
 	@Override
 	public OrderDetailBean findOrderDetailById(Integer id){
@@ -201,6 +200,16 @@ public class OrderServiceImpl implements OrderService {
 			return optional.get();
 		}
 		return null;
+	}
+
+	//個人訂單最新的一筆
+	@Override
+	public OrderBean findLatestByCid(Integer customerId) {
+		Optional<OrderBean> option = oDao.findByCidByOrderDateDesc(customerId);
+		if(option.isEmpty()) {
+			return null;
+		}
+		return option.get();
 	}
 
 }

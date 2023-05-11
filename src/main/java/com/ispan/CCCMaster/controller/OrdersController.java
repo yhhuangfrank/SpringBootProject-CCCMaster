@@ -37,12 +37,7 @@ public class OrdersController {
 	@GetMapping("/front/orders/details/{orderid}")
 	public String findDetailByOId(@PathVariable("orderid") String orderid, Model model) {
 		System.out.println("OK");
-//		OrderBean ob = oService.findOrderByid(orderid);
 		List<OrderDetailBean> odb = oService.findorderdetailbyOId(orderid);
-		for(OrderDetailBean od:odb) {
-			System.out.println(od);
-		}
-//		model.addAttribute("order",ob);
 		model.addAttribute("orderdetails",odb);
 		return "front/orders/orderdetail";
 	}
