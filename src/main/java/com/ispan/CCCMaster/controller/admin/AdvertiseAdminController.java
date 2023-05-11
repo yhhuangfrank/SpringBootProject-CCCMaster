@@ -1,8 +1,10 @@
 package com.ispan.CCCMaster.controller.admin;
 
 import com.ispan.CCCMaster.model.bean.Advertise.Advertise;
+import com.ispan.CCCMaster.model.bean.product.Product;
 import com.ispan.CCCMaster.model.dto.AdvertiseRequest;
 import com.ispan.CCCMaster.service.AdvertiseService;
+import com.ispan.CCCMaster.service.CategoryService;
 import com.ispan.CCCMaster.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -22,6 +25,8 @@ public class AdvertiseAdminController {
     private final AdvertiseService advertiseService;
 
     private final ProductService productService;
+
+
 
     public AdvertiseAdminController(AdvertiseService advertiseService, ProductService productService) {
 
@@ -39,7 +44,8 @@ public class AdvertiseAdminController {
     }
 
     @PostMapping("/admin/advertises/create")
-    public String createAdvertise(@ModelAttribute("advertiseRequest") AdvertiseRequest advertiseRequest, Model model) {
+    public String createAdvertise(@ModelAttribute("advertiseRequest") AdvertiseRequest advertiseRequest,
+                                  Model model){
 
         advertiseService.createAdvertise(advertiseRequest);
         return "redirect:/admin/advertises/showAllAdvertise";
@@ -105,13 +111,37 @@ public class AdvertiseAdminController {
         return "redirect:/admin/advertises/showAllAdvertise";
     }
 
-//    public String addProductToAdvertise(@ModelAttribute("advertise") Advertise advertise,
-//            @RequestParam("advertiseId") Integer advertiseId,
-//            @RequestParam("productId") Integer productId) {
-//            advertiseService.addProductToAdvertise(advertise,advertiseId, productId);
-//
-//        return "redirect:/admin/advertises/showAllAdvertise";
-//    }
+
+    @GetMapping("/admin/advertises/addProductToAdvertise")
+    public String addProductToAdvertise(@RequestParam(name = "p",defaultValue = "1") Integer pageNumber,
+                                        @RequestParam("advertiseId") Integer advertiseId,
+                                        @RequestParam("productId") Integer productId,
+                                        Model model){
+            Page<Product> page = productService.findByPage(pageNumber);
+            Product product = productService.findProductById(productId);
+            Advertise advertise = advertiseService.findAdvertiseById(advertiseId);
+            advertise.getProducts().add(product);
+            advertiseService.updateAdvertiseById(advertise);
+
+            model.addAttribute("page", page);
+        return "redirect:/admin/advertises/showProduct?p="+pageNumber+"&advertiseId="+advertiseId;
+    }
+
+    @GetMapping("/admin/advertises/showProduct")
+    public String addProductToAdvertise(@RequestParam(name = "p",defaultValue = "1") Integer pageNumber,
+                                        @RequestParam("advertiseId") Integer advertiseId,
+                                        Model model){
+
+        Page<Product> page = productService.findByPage(pageNumber);
+        model.addAttribute("advertiseId",advertiseId);
+
+        model.addAttribute("page", page);
+        return "back/advertise/addProductToAdvertise";
+    }
+
+
+
+
 
 
 

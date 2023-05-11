@@ -3,6 +3,7 @@ package com.ispan.CCCMaster.service.impl;
 import com.ispan.CCCMaster.model.bean.Advertise.Advertise;
 import com.ispan.CCCMaster.model.bean.product.Product;
 import com.ispan.CCCMaster.model.dao.AdvertiseDao;
+import com.ispan.CCCMaster.model.dao.CategoryDao;
 import com.ispan.CCCMaster.model.dao.ProductDao;
 import com.ispan.CCCMaster.model.dto.AdvertiseRequest;
 import com.ispan.CCCMaster.service.AdvertiseService;
@@ -17,13 +18,18 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class AdvertiseServiceImpl implements AdvertiseService {
 
     @Autowired
     private AdvertiseDao advertiseDao;
+
+    @Autowired
+    private CategoryDao categoryDao;
 
     @Autowired
     private ProductDao productDao;
@@ -37,12 +43,32 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 
     }
 
+// 原code
+//    @Override
+//    public void createAdvertise(AdvertiseRequest advertiseRequest, Advertise advertise){
+//
+//
+//
+//        if(!advertiseRequest.getStartDateTime().equals("")) {
+//            advertise.setStartTime(handleDate(advertiseRequest.getStartDateTime()));
+//        }
+//        if(!advertiseRequest.getEndDateTime().equals("")) {
+//            advertise.setEndTime(handleDate(advertiseRequest.getEndDateTime()));
+//        }
+//        advertiseDao.save(advertise);
+//    }
 
+    // 原code
 
-
+    //多對多測試
     @Override
-    public void createAdvertise(AdvertiseRequest advertiseRequest, Advertise advertise){
+    public void createAdvertiseTest(AdvertiseRequest advertiseRequest,Integer productId){
 
+        Advertise advertise = new Advertise();
+        Set<Product> productsSet = new HashSet<>();
+        productsSet.add(productDao.findById(productId).orElse(null));
+
+        advertise.setProducts(productsSet);
 
         if(!advertiseRequest.getStartDateTime().equals("")) {
             advertise.setStartTime(handleDate(advertiseRequest.getStartDateTime()));
@@ -52,6 +78,7 @@ public class AdvertiseServiceImpl implements AdvertiseService {
         }
         advertiseDao.save(advertise);
     }
+    //多對多測試
 
     @Override
     public Advertise findAdvertiseById(Integer id) {
@@ -68,10 +95,6 @@ public class AdvertiseServiceImpl implements AdvertiseService {
         return page;
     }
 
-    @Override
-    public Page<Product> addProductToAdvertise(Product product, Integer id, Integer pageNumber) {
-        return null;
-    }
 
 
     @Override
@@ -139,5 +162,31 @@ public class AdvertiseServiceImpl implements AdvertiseService {
     @Override
     public Advertise getLatestAdvertise() {
         return advertiseDao.findFirstByOrderByStartTimeDesc();
+    }
+
+    @Override
+    public Page<Product> addProductToAdvertise(Integer pageNumber) {
+        return null;
+    }
+
+
+    @Override//搜尋產品並分頁 後台
+    public Page<Product> addProductToAdvertise(Advertise advertise, Integer productId, Integer pageNumber) {
+        Pageable pgb = PageRequest.of(pageNumber - 1, 10, Sort.Direction.ASC, "productId");
+        Page<Product> page = productDao.findAll(pgb);
+
+        Set<Product> productsSet = new HashSet<>();
+        productsSet.add(productDao.findById(productId).orElse(null));
+        return page;
+    }
+
+    @Override
+    public void createProductToAdvertise(AdvertiseRequest advertiseRequest, Integer productId) {
+        Advertise advertise = new Advertise();
+        Set<Product> productsSet = new HashSet<>();
+        productsSet.add(productDao.findById(productId).orElse(null));
+
+        advertise.setProducts(productsSet);
+        advertiseDao.save(advertise);
     }
 }

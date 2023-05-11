@@ -1,6 +1,7 @@
 package com.ispan.CCCMaster.model.bean.product;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ispan.CCCMaster.model.bean.Advertise.Advertise;
 import com.ispan.CCCMaster.model.bean.category.Category;
 import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;
 
@@ -224,6 +225,11 @@ public class Product {
     //對產品明細:一對多  by瑛仁
     @OneToMany(mappedBy = "pOrderDetail")
     Set<OrderDetailBean> setpod = new HashSet<>();
+
+    //廣告對商品多對多 by韋勲
+    @ManyToMany(fetch = FetchType.LAZY,mappedBy = "products")
+    private Set<Advertise> advertises = new HashSet<>();
+
 }
 
 

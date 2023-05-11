@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "advertise")
@@ -44,19 +45,20 @@ public class Advertise implements Serializable {
 
     
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "my_advertise_products",joinColumns = @JoinColumn(name="advertise_id"))
-    private List<Product> products;
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "my_advertise_products",joinColumns ={@JoinColumn(name="advertise_id")},
+            inverseJoinColumns = {@JoinColumn(name="product_id")})
+    private Set<Product> products;
 
 
     public Advertise() {
     }
 
-    public List<Product> getProducts() {
+    public Set<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public void setProducts(Set<Product> products) {
         this.products = products;
     }
 

@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
-  <title>廣告管理系統</title>
+  <title>test</title>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -36,12 +36,12 @@
 
   <main id="main" class="main">
     <div class="pagetitle">
-      <h1>廣告管理系統</h1>
+      <h1>商品列表</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="${contextRoot}/">首頁</a></li>
           <li class="breadcrumb-item">廣告管理</li>
-          <li class="breadcrumb-item active">所有廣告</li>
+          <li class="breadcrumb-item active">商品列表</li>
         </ol>
       </nav>
     </div>
@@ -54,40 +54,41 @@
           <table class="table datatable">
             <thead>
             <tr>
-              <th scope="col">廣告編號</th>
-              <th scope="col">廣告上架時間</th>
-              <th scope="col">廣告上架時間</th>
+              <th scope="col">產品名稱</th>
+              <th scope="col">產品類別</th>
+              <th scope="col">產品介紹</th>
+              <th scope="col">圖片</th>
               <th scope="col">操作</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${page.content}" var="p">
+            <c:forEach items="${page.content}" var="product">
               <tr>
-                <td>${p.advertiseId}</td>
-                <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${p.startTime}"/></td>
-                <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${p.endTime}"/></td>
+                <td>${product.productName}</td>
+                <td>${product.category.name}</td>
+                <td>${product.description}</td>
+                <td><img style="width: 50px; "
+                         src="${contextRoot}/product/mainImage/${product.productId}"/></td>
+                <td>
 
                 <td>
                   <div class="d-flex">
-                    <form action="${contextRoot}/admin/advertises/editPage/${p.advertiseId}">
+                    <form action="${contextRoot}/admin/advertises/addProductToAdvertise">
+                      <input type="hidden" name="productId" value="${product.productId}">
+                      <input type="hidden" name="p" value="${page.number+1}">
+                      <input type="hidden" name="advertiseId" value="${advertiseId}">
                       <button type="submit" class="btn btn-secondary btn-sm">
-                        <i class="bi bi-pencil-square"></i>編輯
+                        <i class="bi bi-pencil-square"></i>加入廣告
                       </button>
                     </form>
-                    <form action="${contextRoot}/admin/advertises/delete" method="post">
-                      <input type="hidden" name="_method" value="delete" />
-                      <input type="hidden" name="id" value="${p.advertiseId}" />
-                      <button type="submit" class="btn btn-outline-danger btn-sm ms-2">
-                        <i class="bi bi-exclamation-octagon"></i>刪除
-                      </button>
-                    </form>
-                    <form action="${contextRoot}/admin/advertises/showProduct">
-                      <input type="hidden" name="advertiseId" value="${p.advertiseId}">
-                      <button type="submit" class="btn btn-secondary btn-sm ms-2">
-                        <i class="bi bi-pencil-square"></i>新增廣告
-                      </button>
-                    </form>
-                  </div>
+<%--                    <form action="${contextRoot}/admin/advertises/delete" method="post">--%>
+<%--                      <input type="hidden" name="_method" value="delete" />--%>
+<%--                      <input type="hidden" name="id" value="${p.advertiseId}" />--%>
+<%--                      <button type="submit" class="btn btn-outline-danger btn-sm ms-2">--%>
+<%--                        <i class="bi bi-exclamation-octagon"></i>刪除--%>
+<%--                      </button>--%>
+<%--                    </form>--%>
+<%--                  </div>--%>
                 </td>
 
               </tr>

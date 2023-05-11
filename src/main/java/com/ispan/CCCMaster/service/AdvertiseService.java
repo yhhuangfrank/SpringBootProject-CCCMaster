@@ -12,16 +12,20 @@ import java.util.List;
 public interface AdvertiseService {
    void createAdvertise(AdvertiseRequest advertiseRequest);
 
+   //原code
+//   void createAdvertise(AdvertiseRequest advertiseRequest, Advertise advertise);
+    //原code
 
-
-   void createAdvertise(AdvertiseRequest advertiseRequest, Advertise advertise);
+    //多對多測試
+    void createAdvertiseTest(AdvertiseRequest advertiseRequest, Integer productId);
+    //多對多測試
 
    Advertise findAdvertiseById(Integer id);
 
 
    Page<Advertise> findByPage(Integer pageNumber);
 
-   Page<Product> addProductToAdvertise(Product product, Integer id, Integer pageNumber);
+   Page<Product> addProductToAdvertise(Advertise advertise, Integer productId, Integer pageNumber);
 
 
     void deleteAdvertiseById(Integer id);
@@ -30,12 +34,19 @@ public interface AdvertiseService {
 
     void updateAdvertiseById(Integer id, AdvertiseRequest advertiseRequest);
 
+    void createProductToAdvertise(AdvertiseRequest advertiseRequest, Integer productId);
+
 
 
 
 
 
     Advertise getLatestAdvertise();
+
+    Page<Product> addProductToAdvertise(Integer pageNumber);
+
+
+
 
 
 }
