@@ -5,11 +5,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ispan.CCCMaster.model.bean.customer.Customer;
 import com.ispan.CCCMaster.service.CustomerService;
 
 @Controller
@@ -32,7 +35,8 @@ public class CustomerController {
 						, RedirectAttributes redirectAttributes
 						, @RequestParam("referer") String referer) {
 		if(ctmService.logIn(accountNumber, password, request)) {
-			return "redirect:/";	//回到上一個瀏覽頁面；有bug未解，暫時先改成回首頁
+//			return "redirect:/";	//回首頁
+			return "redirect:" + referer;	//回到上一個瀏覽頁面；有小bug，不能打錯帳號密碼否則會出bug
 		} else {
 			//重導前添加登入失敗訊息
 			redirectAttributes.addFlashAttribute("isFailed", true);
@@ -53,8 +57,15 @@ public class CustomerController {
 	}
 	
 	@GetMapping("/signup")	//前台會員註冊頁面
-	public String signupPage() {
+	public String signupPage(Model model) {
+		model.addAttribute("customer", new Customer());
 		return "front/customer/signup";
+	}
+	
+	@PostMapping("/signup")	//打完註冊資訊，送出表單
+	public String signUp(@ModelAttribute("customer") Customer customer) {
+		ctmService.createCustomer(customer);
+		return "redirect:/";	//先改成到首頁，之後要改成自動登入並到首頁
 	}
 
 }

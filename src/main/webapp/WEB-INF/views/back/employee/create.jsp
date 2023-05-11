@@ -72,9 +72,9 @@
                         </div>
                       </div>
                       <div class="row mb-3">
-                        <label for="phoneNumber" class="col-sm-2 col-form-label">員工電話</label>
+                        <label for="phoneNumber" class="col-sm-2 col-form-label">員工手機號碼</label>
                         <div class="col-sm-10">
-                          <form:input required="true" path="phoneNumber" id="phoneNumber" type="text" class="form-control"/>
+                          <form:input required="true" path="phoneNumber" id="phoneNumber" type="tel" class="form-control" pattern="[0]{1}[9]{1}[0-9]{8}" placeholder="格式:09XXXXXXXX"/>
                         </div>
                       </div>
                       <div class="row mb-3">
