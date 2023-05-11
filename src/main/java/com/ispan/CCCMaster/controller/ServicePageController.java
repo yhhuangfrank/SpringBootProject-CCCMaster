@@ -46,4 +46,10 @@ public class ServicePageController {
     	
 		return "front/service/common/common-Account";
 	}
+
+        @GetMapping("/message/chat")
+        public String home(Model model) {
+            model.addAttribute("message", "Hello, world!");
+            return "front/service/index";
+        }
 }
