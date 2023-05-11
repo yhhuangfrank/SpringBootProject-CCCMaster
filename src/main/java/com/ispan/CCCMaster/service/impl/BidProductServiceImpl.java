@@ -97,11 +97,7 @@ public class BidProductServiceImpl implements BidProductService {
 
     @Override
     public BidProduct findBidProductById(Integer id) {
-        BidProduct foundBidProduct = bidProductDao.findById(id).orElse(null);
-
-        if (foundBidProduct == null) throw new NotFoundException("查無對應商品，參數有誤!");
-
-        return foundBidProduct;
+        return bidProductDao.findById(id).orElseThrow(() -> new NotFoundException("查無對應商品，參數有誤!"));
     }
 
     @Override
@@ -151,7 +147,9 @@ public class BidProductServiceImpl implements BidProductService {
 
             // 是否在一天內截止
             if (dueSoon) {
-                Predicate p = criteriaBuilder.lessThan(root.get("expiredAt"), new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000));
+                Date oneDayAfter = new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000);
+                Date now = new Date();
+                Predicate p = criteriaBuilder.between(root.get("expiredAt"), now, oneDayAfter);
                 predicates.add(p);
             }
 
@@ -172,9 +170,7 @@ public class BidProductServiceImpl implements BidProductService {
     @Transactional
     public void updateBidProduct(Integer id, BidProductRequest bidProductRequest) {
 
-        BidProduct foundBidProduct = bidProductDao.findById(id).orElse(null);
-
-        if (foundBidProduct == null) throw new NotFoundException("查無對應商品，參數有誤!");
+        BidProduct foundBidProduct = bidProductDao.findById(id).orElseThrow(() -> new NotFoundException("查無對應商品，參數有誤!"));
 
         // 設定新值
         foundBidProduct.setName(bidProductRequest.getName());
@@ -207,12 +203,8 @@ public class BidProductServiceImpl implements BidProductService {
         Integer bidPrice = bidRecordRequest.getBidPrice();
         Integer customerId = bidRecordRequest.getCustomerId();
 
-        BidProduct foundBidProduct = bidProductDao.findById(id).orElse(null);
-        Customer foundCustomer = customerDao.findById(customerId).orElse(null);
-
-        if (foundCustomer == null) throw new ApiErrorException(404, "查無對應使用者，參數有誤!");
-
-        if (foundBidProduct == null) throw new ApiErrorException(404, "查無對應商品，參數有誤!");
+        BidProduct foundBidProduct = bidProductDao.findById(id).orElseThrow(() -> new ApiErrorException(404, "查無對應商品，參數有誤!"));
+        Customer foundCustomer = customerDao.findById(customerId).orElseThrow(() -> new ApiErrorException(404, "查無對應使用者，參數有誤!"));
 
         if (bidPrice <= foundBidProduct.getBidPrice()) throw new ApiErrorException(400, "出價不可小於等於目前價格!");
 
@@ -235,21 +227,15 @@ public class BidProductServiceImpl implements BidProductService {
     @Transactional
     public void deleteBidProduct(Integer id) {
 
-        BidProduct foundBidProduct = bidProductDao.findById(id).orElse(null);
-
-        if (foundBidProduct == null) throw new NotFoundException("查無對應商品，參數有誤!");
+        BidProduct foundBidProduct = bidProductDao.findById(id).orElseThrow(() -> new NotFoundException("查無對應商品，參數有誤!"));
 
         bidProductDao.delete(foundBidProduct);
     }
 
     @Override
     public Boolean checkIsOwner(Integer id, Integer customerId) {
-        BidProduct foundBidProduct = bidProductDao.findById(id).orElse(null);
-        Customer foundCustomer = customerDao.findById(customerId).orElse(null);
-
-        if (foundBidProduct == null) throw new NotFoundException("查無對應商品，參數有誤!");
-
-        if (foundCustomer == null) throw new NotFoundException("查無對應使用者，參數有誤!");
+        BidProduct foundBidProduct = bidProductDao.findById(id).orElseThrow(() -> new NotFoundException("查無對應商品，參數有誤!"));
+        customerDao.findById(customerId).orElseThrow(() -> new NotFoundException("查無對應使用者，參數有誤!"));
 
         Integer bidProductOwnerId = foundBidProduct.getCustomer().getCustomerId();
 
