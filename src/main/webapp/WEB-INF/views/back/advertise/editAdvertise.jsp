@@ -6,9 +6,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>test</title>
-    <script src="https://cdn.tiny.cloud/1/eietea4ay3bbc7u6eb00o3821yablr9864z3qbin2vszwiq3/tinymce/6/tinymce.min.js"
-            referrerpolicy="origin"></script>
+
 
 
     <meta charset="utf-8">
@@ -63,26 +61,29 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">新增文章</h5>
+                        <h5 class="card-title">更新廣告</h5>
                         <div class="row mb-3">
 
-                            <form:form method="post" modelAttribute="article"
-                                       action="${contextRoot}/admin/articles/create" enctype="multipart/form-data">
+                            <form:form method="put" modelAttribute="advertiseRequest"
+                                       action="${contextRoot}/admin/advertises/edit/${id}" enctype="multipart/form-data">
 
-                            <div class="col-sm-10 d-flex mb-3">
-                                <label for="inputTitle" class="col-sm-2 col-form-label">文章名稱</label>
-                                <form:input type="text" path="title" class="form-control" id="inputTitle"></form:input>
-<%--                                <form:input type="checkbox" path="productList" class="form-control" id="inputTitle"></form:input>--%>
-                                <br>
-                                    <%--                <form:textarea cssStyle="width: 610px;height: 300px"  type="text" path="content"  id="content"></form:textarea>--%>
-                            </div>
-                                <div class="col-sm-10">
-                                    新增圖片<form:input class="form-control" type="file" id="formFile" path="imageFile"></form:input>
+                                <div class="row mb-3">
+                                    <label for="startDate" class="col-sm-2 col-form-label fw-bold">廣告上架時間</label>
+                                    <div class="col-sm-10">
+                                        <form:input path="startDateTime" id="startDate" type="datetime-local" class="form-control"/>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="endDate" class="col-sm-2 col-form-label fw-bold">廣告下架時間</label>
+                                    <div class="col-sm-10">
+                                        <form:input path="endDateTime" id="endDate" type="datetime-local" class="form-control"/>
+                                    </div>
                                 </div>
 
 
                         </div>
-                        <form:textarea type="text" path="content" id="content"></form:textarea>
+
 
                     </div>
                 </div>
@@ -97,6 +98,9 @@
 
 
                 </div>
+            </div>
+        </div>
+
 
     </section>
 
@@ -116,27 +120,14 @@
 <script src="${contextRoot}/styles/back/assets/vendor/echarts/echarts.min.js"></script>
 <script src="${contextRoot}/styles/back/assets/vendor/quill/quill.min.js"></script>
 <script src="${contextRoot}/styles/back/assets/vendor/simple-datatables/simple-datatables.js"></script>
-<%--<script src="${contextRoot}/styles/back/assets/vendor/tinymce/tinymce.min.js"></script>--%>
+<script src="${contextRoot}/styles/back/assets/vendor/tinymce/tinymce.min.js"></script>
 <script src="${contextRoot}/styles/back/assets/vendor/php-email-form/validate.js"></script>
 
 
 <!-- Template Main JS File -->
 <script src="${contextRoot}/styles/back/assets/js/main.js"></script>
 
-<script>
-    tinymce.init({
-        selector: 'textarea#content',
-        plugins: 'anchor autolink charmap codesample emoticons  link lists  searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode  tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
-        // plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
-        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-        tinycomments_mode: 'embedded',
-        tinycomments_author: 'Author name',
-        mergetags_list: [
-            { value: 'First.Name', title: 'First Name' },
-            { value: 'Email', title: 'Email' },
-        ]
-    });
-</script>
+
 
 </body>
 </html>
