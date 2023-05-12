@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Set;
 
 @Controller
 public class AdvertiseAdminController {
@@ -129,11 +130,18 @@ public class AdvertiseAdminController {
 
     @GetMapping("/admin/advertises/showProduct")
     public String addProductToAdvertise(@RequestParam(name = "p",defaultValue = "1") Integer pageNumber,
-                                        @RequestParam("advertiseId") Integer advertiseId,
+                                        @RequestParam(value = "advertiseId") Integer advertiseId,
                                         Model model){
+        // 找到廣告擁有的商品們
+        Set<Product> productSet = advertiseService.findAdvertiseById(advertiseId).getProducts();
+        model.addAttribute("productSet",productSet);
+
+        // jsp 如果目前 loop 的商品的 id 有在廣告擁有的商品們裡面，就顯示已經加入廣告
 
         Page<Product> page = productService.findByPage(pageNumber);
         model.addAttribute("advertiseId",advertiseId);
+
+
 
         model.addAttribute("page", page);
         return "back/advertise/addProductToAdvertise";

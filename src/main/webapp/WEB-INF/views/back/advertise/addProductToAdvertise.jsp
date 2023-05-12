@@ -1,7 +1,13 @@
+<%@ page import="java.util.Set" %>
+<%@ page import="java.util.HashSet" %>
+<%@ page import="com.ispan.CCCMaster.model.bean.product.Product" %>
+<%@ page import="org.springframework.data.domain.Page" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <html>
 <head>
   <title>test</title>
@@ -67,9 +73,10 @@
                 <td>${product.productName}</td>
                 <td>${product.category.name}</td>
                 <td>${product.description}</td>
-                <td><img style="width: 50px; "
-                         src="${contextRoot}/product/mainImage/${product.productId}"/></td>
                 <td>
+                  <img style="width: 50px; "
+                         src="${contextRoot}/product/mainImage/${product.productId}"/>
+                </td>
 
                 <td>
                   <div class="d-flex">
@@ -77,18 +84,20 @@
                       <input type="hidden" name="productId" value="${product.productId}">
                       <input type="hidden" name="p" value="${page.number+1}">
                       <input type="hidden" name="advertiseId" value="${advertiseId}">
-                      <button type="submit" class="btn btn-secondary btn-sm">
-                        <i class="bi bi-pencil-square"></i>加入廣告
-                      </button>
+                      <c:choose>
+                        <c:when test="${productSet.contains(product)}">
+                            <button type="submit" class="btn btn-secondary btn-sm" disabled>
+                            <i class="bi bi-pencil-square"></i>已加入廣告
+                            </button>
+                        </c:when>
+                        <c:otherwise>
+                          <button type="submit" class="btn btn-secondary btn-sm">
+                            <i class="bi bi-pencil-square"></i>加入廣告
+                          </button>
+                        </c:otherwise>
+                      </c:choose>
                     </form>
-<%--                    <form action="${contextRoot}/admin/advertises/delete" method="post">--%>
-<%--                      <input type="hidden" name="_method" value="delete" />--%>
-<%--                      <input type="hidden" name="id" value="${p.advertiseId}" />--%>
-<%--                      <button type="submit" class="btn btn-outline-danger btn-sm ms-2">--%>
-<%--                        <i class="bi bi-exclamation-octagon"></i>刪除--%>
-<%--                      </button>--%>
-<%--                    </form>--%>
-<%--                  </div>--%>
+                  </div>
                 </td>
 
               </tr>
@@ -96,6 +105,74 @@
             </tbody>
           </table>
           <%-- 顯示所有文章end --%>
+
+<%--            測試disabale partI--%>
+<%--            <%--%>
+<%--//              Set<Product> selectedProductIds = new HashSet<Product>();--%>
+<%--//              if (request.getAttribute("selectedProductIds") != null) {--%>
+<%--//                selectedProductIds = (Set<Product>) request.getAttribute("selectedProductIds");--%>
+<%--//              }--%>
+<%--              System.out.println("selectedProductIds = " + selectedProductIds);--%>
+<%--            %>--%>
+<%--            <table class="table datatable">--%>
+<%--              <thead>--%>
+<%--              <tr>--%>
+<%--                <th scope="col">產品名稱</th>--%>
+<%--                <th scope="col">產品類別</th>--%>
+<%--                <th scope="col">產品介紹</th>--%>
+<%--                <th scope="col">圖片</th>--%>
+<%--                <th scope="col">操作</th>--%>
+<%--              </tr>--%>
+<%--              </thead>--%>
+<%--              <tbody>--%>
+<%--              <c:forEach items="${page.content}" var="product">--%>
+<%--                <tr>--%>
+<%--                  <td>${product.productName}</td>--%>
+<%--                  <td>${product.category.name}</td>--%>
+<%--                  <td>${product.description}</td>--%>
+<%--                  <td><img style="width: 50px; " src="${contextRoot}/product/mainImage/${product.productId}" /></td>--%>
+<%--                  <td>--%>
+<%--                    <div class="d-flex">--%>
+<%--                      <form action="${contextRoot}/admin/advertises/addProductToAdvertise">--%>
+<%--                        <input type="hidden" name="productId" value="${product.productId}">--%>
+<%--                        <input type="hidden" name="p" value="${page.number+1}">--%>
+<%--                        <input type="hidden" name="advertiseId" value="${advertiseId}">--%>
+<%--                        <c:set var="selectedProductIds" value="${product.productId}" />--%>
+<%--                        <c:choose>--%>
+<%--                          <c:when test="${fn:contains(selectedProductIds, product.productId)}">--%>
+
+<%--                            <button type="submit" class="btn btn-secondary btn-sm " disabled>--%>
+<%--                              <i class="bi bi-pencil-square"></i>加入廣告--%>
+<%--                            </button>--%>
+
+<%--                          </c:when>--%>
+<%--                          <c:otherwise>--%>
+<%--                            <button type="submit" class="btn btn-secondary btn-sm" >--%>
+<%--                              <i class="bi bi-pencil-square"></i>加入廣告--%>
+<%--                            </button>--%>
+<%--                          </c:otherwise>--%>
+
+<%--                        </c:choose>--%>
+
+<%--                      </form>--%>
+
+
+<%--                    </div>--%>
+<%--                  </td>--%>
+<%--                </tr>--%>
+<%--              </c:forEach>--%>
+<%--              </tbody>--%>
+<%--            </table>--%>
+
+
+            <%--            測試disabale partI--%>
+
+
+
+
+
+
+
 
             <!-- 以下為分頁按紐 -->
             <c:forEach var="pageNumber" begin="1" end="${page.totalPages}">
