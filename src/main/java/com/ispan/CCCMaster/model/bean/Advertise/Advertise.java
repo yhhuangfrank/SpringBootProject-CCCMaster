@@ -46,7 +46,7 @@ public class Advertise implements Serializable {
     
 
     @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "my_advertise_products",joinColumns ={@JoinColumn(name="advertise_id")},
+    @JoinTable(name = "advertise_products_detail",joinColumns ={@JoinColumn(name="advertise_id")},
             inverseJoinColumns = {@JoinColumn(name="product_id")})
     private Set<Product> products;
 

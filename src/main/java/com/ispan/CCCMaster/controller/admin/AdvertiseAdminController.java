@@ -141,11 +141,14 @@ public class AdvertiseAdminController {
         Page<Product> page = productService.findByPage(pageNumber);
         model.addAttribute("advertiseId",advertiseId);
 
-
-
         model.addAttribute("page", page);
         return "back/advertise/addProductToAdvertise";
     }
+
+    
+
+
+
 
 
 
