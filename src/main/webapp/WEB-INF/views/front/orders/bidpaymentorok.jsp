@@ -67,7 +67,7 @@
 	    <p style="text-align: center;margin-top: 50px"><i class="bi bi-check2-circle" style="font-size: 80px;color: green;"></i></p>
 	    <div style="text-align:center;margin-top: 50px;margin-bottom: 15px">
 		    <c:if test="${cookie.pay.value == '信用卡'}">
-		    	<form method="post" action="${contextRoot}/ecpayCheckout">
+		    	<form method="post" action="${contextRoot}/ecpayCheckoutBid">
 		    		<input type="hidden" name="customerId" value="${sessionScope.customerId}">
 					<button type="submit" class="btn btn-primary" >來去結帳</button>
 				</form>

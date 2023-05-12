@@ -60,7 +60,7 @@ public class BidProductValidator implements Validator {
             date = dateFormat.parse(dateString);
             long now = System.currentTimeMillis();
             long offset = (7 * 24 * 60 * 60 * 1000); // offset 為一周
-            // 判斷是否大於一周以上 且 大於現在
+            // 判斷是否於一周以內 且 大於現在
             return (date.getTime() <= now + offset) && date.getTime() > now;
         } catch (ParseException e) {
             e.printStackTrace();

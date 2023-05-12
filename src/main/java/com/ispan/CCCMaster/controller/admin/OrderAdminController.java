@@ -1,6 +1,7 @@
 package com.ispan.CCCMaster.controller.admin;
 
 import java.io.IOException;
+import java.net.http.HttpRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -10,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRange;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -75,7 +78,33 @@ public class OrderAdminController {
 	public String createorder(@ModelAttribute("orderBean")OrderBean orderBean,
 			@RequestParam("customerId")Integer customerId) throws IOException {
 		oService.createOrder(orderBean,customerId);
+		return "redirect:/front/orders/paymentorok";
+	}
+	
+	@GetMapping("/front/orders/paymentorok")
+	public String findLatestOrderByCid(HttpSession session,Model model) {
+		Integer customerId = (Integer)session.getAttribute("customerId");
+		OrderBean order = oService.findLatestByCid(customerId);
+		model.addAttribute("latestorder",order);
 		return "/front/orders/paymentorok";
+	}
+	//前往綠界付錢
+	@ResponseBody
+	@PostMapping("/ecpayCheckout")
+	public String ecpayCheckout(@RequestParam("customerId")Integer customerId){
+		String aioCheckOutALLForm = oService.ecpayCheckout(customerId);	
+		return aioCheckOutALLForm;
+	}
+	
+	//付完錢，回到頁面時要做的事情
+	@Transactional
+	@PostMapping("/front/orders/edit")
+	public String returnURL(@RequestParam("MerchantTradeNo")String MerchantTradeNo,
+							HttpServletRequest request) {
+			String orderIdStr = MerchantTradeNo.substring(4);
+			OrderBean ob = oService.findOrderByid(orderIdStr);
+			ob.setPaymentcondition("已付款");
+			return "redirect:/front/orders";
 	}
 	//更新訂單內容
 //	@PutMapping("/admin/orders/add")
@@ -88,13 +117,7 @@ public class OrderAdminController {
 //		return"/front/orders/checkorder";
 //	}
 	
-	//前往綠界
-	@ResponseBody
-	@GetMapping("/ecpayCheckout")
-	public String ecpayCheckout(@ModelAttribute("order")OrderBean order){
-		String aioCheckOutALLForm = oService.ecpayCheckout(order);	
-		return aioCheckOutALLForm;
-	}
+	
 	
 	
 	

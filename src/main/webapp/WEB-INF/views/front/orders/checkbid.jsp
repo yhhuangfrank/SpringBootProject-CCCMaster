@@ -62,7 +62,7 @@ font-size: 20px
   </section><!-- End Breadcrumbs -->
    
 <section id="blog" class="blog">
-<form:form method="post" modelAttribute="orderBean" action="${contextRoot}/front/orders/create">
+<form:form method="post" modelAttribute="bidorder" action="${contextRoot}/front/bidorders/create">
     <div class="container" data-aos="fade-up">
       <div class="row">
         <div class="entries">
@@ -114,42 +114,33 @@ font-size: 20px
                    <table class="table">
 	                <thead>
 	                  <tr>
-	                    <th scope="col">#</th>
 	                    <th scope="col">商品名稱</th>
 	                    <th scope="col">數量</th>
-	                    <th scope="col">單價</th>
+	                    <th scope="col">價格</th>
 	                  </tr>
 	                </thead>
 	                <tbody>
-	                <c:forEach var="sc" items="${shoppingcart}" varStatus="status"> 
 	                  <tr valign="middle">
-	                    <th scope="row">
-			                <div style="display: none;">
-			            		<input value="${sc.shoppoingCartId}" type="text"/>
-			         		</div>
-			         		${status.count}
-	                    </th>
 	                    <td>
-	                    	${sc.productBean.productName}                   	                  	
+	                    	<input id="id" value="${realrecords.bidProduct.id}" type="hidden">
+	                    	${realrecords.bidProduct.name}                   	                  	
 	                    </td>
 	                    <td>
-	                    	<input id="quantity${status.count}" type="hidden" value="${sc.scquantity}" >
-	                    	${sc.scquantity} 
+	                    	<input id="quantity" type="hidden" value="1" >
+	                    	1      	
 	                    </td>
 	                    <td>
-	                    	<input id="price${status.count}" type="hidden" value="${sc.productBean.price}">
-	                    	${sc.productBean.price}
-	                    	<input id="total${status.count}" type="hidden" value="${sc.scquantity*sc.productBean.price}" class="countstotal">           
+	                    	<input id="price" type="hidden" value="${realrecords.dealPrice}">
+	                    	${realrecords.dealPrice}
 	                    </td>       
-	                  </tr>
-	                  </c:forEach>                  
+	                  </tr>                
 	                </tbody>
 	              </table>
                  </div>
                </div>
               <div style="text-align: center;">
               	<a href="javascript:history.back()" class="btn btn-dark">上一頁</a>
-              	<input value="${sessionScope.customerId}" type="hidden" id="session" name="customerId">
+              	<input value="${realrecords.bidProduct.id}" type="hidden" id="session" name="productId">
    				<button type="submit" class="btn btn-primary">確認</button>
    		      </div>
           </div>

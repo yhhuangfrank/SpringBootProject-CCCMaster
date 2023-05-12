@@ -63,7 +63,7 @@ function showDealMessage(message) {
 }
 
 async function createDealRecord() {
-    // create deal record by axios
+    // 送出 axios 建立 dealRecord
     const {bidproduct_id} = updateBidPriceBtn.dataset
 
     try {

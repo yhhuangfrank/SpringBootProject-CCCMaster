@@ -31,7 +31,7 @@ public interface OrderService {
 	List<OrderDetailBean> findorderdetailbyOId(String orderid);
 	
 	//綠界
-	String ecpayCheckout(OrderBean order);
+	String ecpayCheckout(Integer customerId);
 
 	//個人的所有訂單清單
 	List<OrderBean> findOrderByCId(Integer customerId);
@@ -40,6 +40,7 @@ public interface OrderService {
     // orderDetailId 找 orderDetail by 暐翔
     OrderDetailBean findOrderDetailById(Integer id);
 
-
+    //個人訂單最新一筆
+    OrderBean findLatestByCid(Integer customerId);
 
 }
