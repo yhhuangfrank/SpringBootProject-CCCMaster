@@ -28,6 +28,7 @@
             <input id="userName" placeholder="search" type="text"/>
             <button onclick="registration()">進入聊天</button>
             <button onclick="fetchAll()">重新整理</button>
+            <button onclick="disconnectFromChat()">離開聊天</button>
         </div>
         <ul class="list" id="usersList">
 
