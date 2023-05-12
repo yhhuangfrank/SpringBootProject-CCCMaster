@@ -3,6 +3,7 @@ package com.ispan.CCCMaster.service.impl;
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.bid.BidRecord;
 import com.ispan.CCCMaster.model.bean.bid.DealRecord;
+import com.ispan.CCCMaster.model.bean.customer.Customer;
 import com.ispan.CCCMaster.model.customexception.ApiErrorException;
 import com.ispan.CCCMaster.model.dao.BidProductDao;
 import com.ispan.CCCMaster.model.dao.BidRecordDao;
@@ -67,4 +68,5 @@ public class DealRecordServiceImpl implements DealRecordService {
     public DealRecord findByBidProduct(BidProduct bidProduct) {
         return dealRecordDao.findByBidProduct(bidProduct);
     }
+
 }

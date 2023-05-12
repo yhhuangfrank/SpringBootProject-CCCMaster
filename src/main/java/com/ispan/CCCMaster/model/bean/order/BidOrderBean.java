@@ -1,6 +1,7 @@
 package com.ispan.CCCMaster.model.bean.order;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.customer.Customer;
 
@@ -29,10 +30,13 @@ public class BidOrderBean implements Serializable {
 	@Column(name = "freight")
 	private Integer freight;
 	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name = "order_date", columnDefinition = "datetime", nullable = false)
-	private String orderdate;
+	private Date orderdate;
 	
-	@Column(name = "arrival_date", columnDefinition = "datetime", nullable = false)
+	@Column(name = "arrival_date", columnDefinition = "datetime")
 	private String arrivaldate;
 	
 	@Column(name = "shipper", columnDefinition = "nvarchar(20)")
@@ -50,6 +54,12 @@ public class BidOrderBean implements Serializable {
 	@Column(name = "payment_condition", columnDefinition = "nvarchar(20)")
 	private String paymentcondition;
 	
+	@Column(name="addressee",columnDefinition = "nvarchar(20)")
+	private String addressee;
+	
+	@Column(name="telephone",columnDefinition = "nvarchar(20)")
+	private String telephone;
+	
 	//買家雙向多對一	
 	@ManyToOne(cascade=CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinColumn(name="buyer_id")
@@ -65,10 +75,10 @@ public class BidOrderBean implements Serializable {
 	@JoinColumn(name="bidproducts_id")
 	private BidProduct bpbidOrder;
 
-	
-	public BidOrderBean(String bidorderid, Integer price, Integer quantity, Integer freight, String orderdate,
+	public BidOrderBean(String bidorderid, Integer price, Integer quantity, Integer freight, Date orderdate,
 			String arrivaldate, String shipper, String shipperaddress, String payment, String ordercondition,
-			String paymentcondition) {
+			String paymentcondition, String addressee, String telephone, Customer cbBuyer, Customer cbSeller,
+			BidProduct bpbidOrder) {
 		super();
 		this.bidorderid = bidorderid;
 		this.price = price;
@@ -81,6 +91,15 @@ public class BidOrderBean implements Serializable {
 		this.payment = payment;
 		this.ordercondition = ordercondition;
 		this.paymentcondition = paymentcondition;
+		this.addressee = addressee;
+		this.telephone = telephone;
+		this.cbBuyer = cbBuyer;
+		this.cbSeller = cbSeller;
+		this.bpbidOrder = bpbidOrder;
+	}
+	
+	public BidOrderBean() {
+		
 	}
 
 	public String getBidorderid() {
@@ -115,11 +134,11 @@ public class BidOrderBean implements Serializable {
 		this.freight = freight;
 	}
 
-	public String getOrderdate() {
+	public Date getOrderdate() {
 		return orderdate;
 	}
 
-	public void setOrderdate(String orderdate) {
+	public void setOrderdate(Date orderdate) {
 		this.orderdate = orderdate;
 	}
 
@@ -169,6 +188,46 @@ public class BidOrderBean implements Serializable {
 
 	public void setPaymentcondition(String paymentcondition) {
 		this.paymentcondition = paymentcondition;
+	}
+
+	public Customer getCbBuyer() {
+		return cbBuyer;
+	}
+
+	public void setCbBuyer(Customer cbBuyer) {
+		this.cbBuyer = cbBuyer;
+	}
+
+	public Customer getCbSeller() {
+		return cbSeller;
+	}
+
+	public void setCbSeller(Customer cbSeller) {
+		this.cbSeller = cbSeller;
+	}
+
+	public BidProduct getBpbidOrder() {
+		return bpbidOrder;
+	}
+
+	public void setBpbidOrder(BidProduct bpbidOrder) {
+		this.bpbidOrder = bpbidOrder;
+	}
+
+	public String getAddressee() {
+		return addressee;
+	}
+
+	public void setAddressee(String addressee) {
+		this.addressee = addressee;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 	
 	

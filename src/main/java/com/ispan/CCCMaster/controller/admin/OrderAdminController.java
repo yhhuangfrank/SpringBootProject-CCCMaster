@@ -96,13 +96,12 @@ public class OrderAdminController {
 		return aioCheckOutALLForm;
 	}
 	
-	
+	//付完錢，回到頁面時要做的事情
 	@Transactional
 	@PostMapping("/front/orders/edit")
 	public String returnURL(@RequestParam("MerchantTradeNo")String MerchantTradeNo,
 							HttpServletRequest request) {
 			String orderIdStr = MerchantTradeNo.substring(4);
-			System.out.println(orderIdStr);
 			OrderBean ob = oService.findOrderByid(orderIdStr);
 			ob.setPaymentcondition("已付款");
 			return "redirect:/front/orders";

@@ -99,7 +99,7 @@ public class OrderServiceImpl implements OrderService {
 		Optional<Customer> cOption = cDao.findById(customerId);
 		Customer c = cOption.get();
 		order.setCbOrder(c);
-		//將購物車明細加入訂單明細內
+		//將購物車加入訂單明細內
 		Set<OrderDetailBean> orderdetails = new HashSet<>();
 		List<ShoppingCartBean> scBean = scDao.findAllByCid(customerId);
 		for(ShoppingCartBean sc : scBean) {
@@ -148,8 +148,7 @@ public class OrderServiceImpl implements OrderService {
 
 	//金流
 	@Override
-	public String ecpayCheckout(Integer customerId) {
-//		String uuId = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 20);		
+	public String ecpayCheckout(Integer customerId) {	
 		AllInOne all = new AllInOne("");
 		AioCheckOutALL obj = new AioCheckOutALL();
 		//特店編號
@@ -174,7 +173,6 @@ public class OrderServiceImpl implements OrderService {
 		obj.setReturnURL("http://localhost:8080/returnURL");
 		//付完後回到首頁
 		obj.setOrderResultURL("http://localhost:8080/front/orders/edit");
-//		obj.setClientBackURL("http://localhost:8080/front/orders/edit");
 		obj.setNeedExtraPaidInfo("N");
 		String form = all.aioCheckOut(obj, null);
 		return form;
