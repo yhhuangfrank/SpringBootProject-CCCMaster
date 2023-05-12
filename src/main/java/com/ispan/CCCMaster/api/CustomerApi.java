@@ -16,10 +16,19 @@ public class CustomerApi {
 	@Autowired
 	private CustomerService ctmService;
 	
-	@PostMapping("/email")
+	@PostMapping("/checkEmail")
 	public Boolean canEmailUse(@RequestBody CustomerCheckRequest ccr) {
-		System.out.println(ccr);
 		return ctmService.canEmailUse(ccr);
+	}
+	
+	@PostMapping("/checkName")
+	public Boolean canNameUse(@RequestBody CustomerCheckRequest ccr) {
+		return ctmService.canNameUse(ccr);
+	}
+
+	@PostMapping("/checkPhoneNumber")
+	public Boolean canPhoneNumberUse(@RequestBody CustomerCheckRequest ccr) {
+		return ctmService.canPhoneNumberUse(ccr);
 	}
 
 }

@@ -102,5 +102,29 @@ public class CustomerServiceImpl implements CustomerService {
 		
 		return foundCustomer == null ? true : false;
 	}
+	
+	@Override
+	public Boolean canNameUse(CustomerCheckRequest ccr) {
+		Customer foundCustomer = ctmDao.findByName(ccr.getName());
+//		if(foundCustomer == null) {
+//			return true;
+//		} else {
+//			return false;
+//		}
+		
+		return foundCustomer == null ? true : false;
+	}
+	
+	@Override
+	public Boolean canPhoneNumberUse(CustomerCheckRequest ccr) {
+		Customer foundCustomer = ctmDao.findByPhoneNumber(ccr.getPhoneNumber());
+//		if(foundCustomer == null) {
+//			return true;
+//		} else {
+//			return false;
+//		}
+		
+		return foundCustomer == null ? true : false;
+	}
 
 }

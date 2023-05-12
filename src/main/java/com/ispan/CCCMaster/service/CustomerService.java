@@ -26,4 +26,8 @@ public interface CustomerService {
 
 	Boolean canEmailUse(CustomerCheckRequest ccr);
 
+	Boolean canNameUse(CustomerCheckRequest ccr);
+
+	Boolean canPhoneNumberUse(CustomerCheckRequest ccr);
+
 }

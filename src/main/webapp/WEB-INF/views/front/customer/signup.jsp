@@ -107,7 +107,7 @@
 		<section id="contact" class="contact">
 			<div class="container">
 				<div class="row justify-content-center">
-					<div class="col-md-4">
+					<div class="col-md-6">
 					
 						<%-- 【暫時用不到】顯示登入失敗訊息 --%>
 						<jsp:include page="../../message.jsp"/>
@@ -118,23 +118,30 @@
 				
 							<div class="form-group mb-2">
 								<label for="email">電子郵件</label>
-								<form:input required="true" path="email" type="email" class="form-control" id="email" placeholder="輸入email"/>
-								<a id="checkEmail" href="#">檢查</a>
+								<form:input required="true" path="email" type="email" class="form-control mb-2" id="emailInput" placeholder="輸入email"/>
+								<span id="emailSpan"></span>
 							</div>
 							<div class="form-group mb-2">
 								<label for="name">暱稱</label>
-								<form:input required="true" path="name" type="text" class="form-control" id="name" placeholder="輸入暱稱"/>
+								<form:input required="true" path="name" type="text" class="form-control mb-2" id="nameInput" placeholder="輸入暱稱"/>
+								<span id="nameSpan"></span>
 							</div>
 							<div class="form-group mb-2">
 								<label for="password">密碼</label>
 								<form:input required="true" path="password" type="password" class="form-control" id="password" placeholder="輸入密碼"/>
 							</div>
+							<div class="form-group mb-2">
+								<label for="passwordAgain">再次輸入密碼</label>
+								<input required type="password" class="form-control mb-2" id="passwordAgain" placeholder="再次輸入密碼"/>
+								<span id="passwordAgainSpan"></span>
+							</div>
 							<div class="form-group">
 								<label for="phoneNumber">手機號碼</label>
-								<form:input required="true" path="phoneNumber" type="tel" class="form-control" id="phoneNumber" pattern="[0]{1}[9]{1}[0-9]{8}" placeholder="格式:09XXXXXXXX"/>
+								<form:input required="true" path="phoneNumber" type="tel" class="form-control mb-2" id="phoneNumberInput" pattern="[0]{1}[9]{1}[0-9]{8}" placeholder="格式:09XXXXXXXX"/>
+								<span id="phoneNumberSpan"></span>
 							</div>
 							<div class="text-center">
-								<button type="submit" class="btn-primary mt-4">立即註冊</button>
+								<button id="submitButton" type="submit" class="btn-primary mt-4">立即註冊</button>
 							</div>
 						</form:form>
 						<div class="text-center mt-4">
@@ -170,6 +177,7 @@
 	<!-- Template Main JS File -->
 	<script src="${contextRoot}/styles/front/assets/js/main.js"></script>
 	<!-- ajax -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.6/axios.min.js"></script>
 	<script src="${contextRoot}/js/customer/checkEmail.js"></script>
 </body>
 
