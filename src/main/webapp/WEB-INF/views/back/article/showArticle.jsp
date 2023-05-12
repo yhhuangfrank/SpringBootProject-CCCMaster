@@ -36,11 +36,11 @@
 
   <main id="main" class="main">
     <div class="pagetitle">
-      <h1>所有文章</h1>
+      <h1>論壇管理</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="${contextRoot}/">首頁</a></li>
-          <li class="breadcrumb-item">論壇管理</li>
+          <li class="breadcrumb-item">文章管理</li>
           <li class="breadcrumb-item active">所有文章</li>
         </ol>
       </nav>

@@ -47,11 +47,14 @@
     <div class="pagetitle">
 
 
+        <h1>論壇管理系統</h1>
+
+
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item">Forms</li>
-                <li class="breadcrumb-item active">Editors</li>
+                <li class="breadcrumb-item"><a href="${contextRoot}/">首頁</a></li>
+                <li class="breadcrumb-item">文章管理</li>
+                <li class="breadcrumb-item active">編輯文章</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
