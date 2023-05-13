@@ -3,6 +3,7 @@ package com.ispan.CCCMaster.exceptionhandler;
 import com.ispan.CCCMaster.model.customexception.ApiErrorException;
 import com.ispan.CCCMaster.model.customexception.NotFoundException;
 import com.ispan.CCCMaster.model.customexception.UnLoginException;
+import com.ispan.CCCMaster.model.customexception.UnpayException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -66,6 +67,12 @@ public class GlobalHandler {
     	redirectAttributes.addFlashAttribute("isWarning", true);
 		redirectAttributes.addFlashAttribute("warningMsg", "喔喔!您尚未登入哦!請登入以繼續進行操作");
     	return "redirect:/login";
+    }
+    
+    //處理逾期付款的例外處理
+    @ExceptionHandler(UnpayException.class)
+    public String handleUnpayException() {
+    	return "redirect:/front/bidorders/unpay";
     }
 
 }

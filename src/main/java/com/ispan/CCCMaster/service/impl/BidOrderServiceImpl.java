@@ -2,10 +2,12 @@ package com.ispan.CCCMaster.service.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.bid.DealRecord;
@@ -35,11 +37,13 @@ public class BidOrderServiceImpl implements BidOrderService{
 	@Autowired
 	BidProductDao bpDao;
 
-	//訂單成立
+	//創立二手商品訂單
 	@Override
-	public void createbidorder(BidOrderBean bidorder,Integer id) {
-		//id
+	public void createBidOrder(BidOrderBean bidorder, Integer id) {
+		Optional<BidProduct> option = bpDao.findById(id);
+		DealRecord record = recordDao.findByBidProduct(option.get());
 		Date date = new Date();
+		//id	
 		bidorder.setBidorderid(String.valueOf(date.getTime()));
 		//運費
 		bidorder.setFreight(30);
@@ -51,19 +55,17 @@ public class BidOrderServiceImpl implements BidOrderService{
 		bidorder.setPaymentcondition("未付款");
 		//數量
 		bidorder.setQuantity(1);
-		//產品id
-		Optional<BidProduct> option = bpDao.findById(id);
+		//產品id		
 		bidorder.setBpbidOrder(option.get());
 		//賣家id
 		bidorder.setCbSeller(option.get().getCustomer());
-		//價格
-		DealRecord record = recordDao.findByBidProduct(option.get());
+		//價格		
 		bidorder.setPrice(record.getDealPrice());
 		//買家id
 		bidorder.setCbBuyer(record.getCustomer());
-		boDao.save(bidorder);		
+		boDao.save(bidorder);
 	}
-
+	
 	//個人訂單最新一筆
 	@Override
 	public BidOrderBean findLatestByCid(Integer customerId) {
@@ -75,7 +77,9 @@ public class BidOrderServiceImpl implements BidOrderService{
 	}
 
 	@Override
-	public String ecpayCheckout(Integer customerId) {
+	@Transactional
+	public String ecpayCheckout(Integer customerId,String bidorderid) {
+		Date payDate = new Date();
 		AllInOne all = new AllInOne("");
 		AioCheckOutALL obj = new AioCheckOutALL();
 		//特店編號
@@ -83,7 +87,7 @@ public class BidOrderServiceImpl implements BidOrderService{
 		//交易時間
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		sdf.setLenient(false);
-		obj.setMerchantTradeDate(sdf.format(new Date()));
+		obj.setMerchantTradeDate(sdf.format(payDate));
 		//交易金額
 		Optional<BidOrderBean>option = boDao.findByCidByOrderDateDesc(customerId);
 		if(option.isPresent()) {
@@ -114,10 +118,14 @@ public class BidOrderServiceImpl implements BidOrderService{
 		}
 		return option.get();
 	}
+
+	@Override
+	public List<BidOrderBean> findByCid(Integer customerId) {		
+		return boDao.findByCid(customerId);
+	}
+
 	
-	//棄標處理
-//	public void notpay() {
-//		
-//	}
+	
+
 
 }
