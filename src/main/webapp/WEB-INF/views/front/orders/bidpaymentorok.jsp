@@ -69,6 +69,7 @@
 		    <c:if test="${cookie.pay.value == '信用卡'}">
 		    	<form method="post" action="${contextRoot}/ecpayCheckoutBid">
 		    		<input type="hidden" name="customerId" value="${sessionScope.customerId}">
+		    		<input type="hidden" name="bidorderid" value="${latestbidorder.bidorderid}">
 					<button type="submit" class="btn btn-primary" >來去結帳</button>
 				</form>
 				
