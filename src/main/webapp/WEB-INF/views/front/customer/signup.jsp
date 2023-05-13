@@ -117,12 +117,12 @@
 							<h3 class="text-center mb-4">填寫註冊資料</h3>
 				
 							<div class="form-group mb-2">
-								<label for="email">電子郵件</label>
+								<label for="emailInput">電子郵件</label>
 								<form:input required="true" path="email" type="email" class="form-control mb-2" id="emailInput" placeholder="輸入email"/>
 								<span id="emailSpan"></span>
 							</div>
 							<div class="form-group mb-2">
-								<label for="name">暱稱</label>
+								<label for="nameInput">暱稱</label>
 								<form:input required="true" path="name" type="text" class="form-control mb-2" id="nameInput" placeholder="輸入暱稱"/>
 								<span id="nameSpan"></span>
 							</div>
@@ -136,7 +136,7 @@
 								<span id="passwordAgainSpan"></span>
 							</div>
 							<div class="form-group">
-								<label for="phoneNumber">手機號碼</label>
+								<label for="phoneNumberInput">手機號碼</label>
 								<form:input required="true" path="phoneNumber" type="tel" class="form-control mb-2" id="phoneNumberInput" pattern="[0]{1}[9]{1}[0-9]{8}" placeholder="格式:09XXXXXXXX"/>
 								<span id="phoneNumberSpan"></span>
 							</div>

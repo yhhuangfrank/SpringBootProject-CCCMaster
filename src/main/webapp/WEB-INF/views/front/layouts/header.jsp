@@ -84,6 +84,20 @@
 		  </script>
 	  </c:if>
 	  
+	  <c:if test="${signupSuccess}">
+	  	<div id="signup-success-msg" class="alert alert-success position-fixed top-50 start-50 translate-middle d-none" role="alert">
+ 	  		${signupSuccessMsg}
+	  	</div>
+	 	  <script>
+		  	// 顯示登出成功訊息框
+		  	document.querySelector('#signup-success-msg').classList.remove('d-none');
+		  	// 設定 2 秒後淡出消失
+		  	setTimeout(function() {
+		  	document.querySelector('#signup-success-msg').classList.add('fade');
+		  	}, 2000);
+		  </script>
+	  </c:if>
+	  
       <!-- 以下內容 add By 麻油 -->
       <script>
       let session = document.getElementById('session')

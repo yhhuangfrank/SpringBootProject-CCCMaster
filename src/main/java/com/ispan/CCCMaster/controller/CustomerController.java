@@ -66,9 +66,15 @@ public class CustomerController {
 	}
 	
 	@PostMapping("/signup")	//打完註冊資訊，送出表單
-	public String signUp(@ModelAttribute("customer") Customer customer) {
+	public String signUp(@ModelAttribute("customer") Customer customer
+						, HttpServletRequest request
+						, RedirectAttributes redirectAttributes) {
 		ctmService.createCustomer(customer);
-		return "redirect:/";	//先改成到首頁，之後要改成自動登入並到首頁
+		ctmService.logIn(customer.getEmail(), customer.getPassword(), request);
+		//重導前添加註冊成功且登入訊息
+		redirectAttributes.addFlashAttribute("signupSuccess", true);
+		redirectAttributes.addFlashAttribute("signupSuccessMsg", "您已成功註冊，並登入成功!");
+		return "redirect:/";	//註冊成功後自動登入並到首頁
 	}
 
 }

@@ -37,18 +37,20 @@ phoneNumberInput.addEventListener("blur", async function(){
 })
 
 passwordAgainInput.addEventListener("blur", function(){
-    if(password.value !== passwordAgainInput.value){
-        passwordAgainSpan.innerHTML = 
-        `<div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong style="color: #bb2d3b">喔喔!兩次密碼不一樣喔!  凸^_^凸</strong>
-        </div>`
-        passwordFlag = true;
-    } else{
-        passwordAgainSpan.innerHTML = 
-        `<div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>兩次密碼一...一樣哦  (●'◡'●)</strong>
-        </div>`
-        passwordFlag = false
+    if(password.value !== ""){
+        if(password.value !== passwordAgainInput.value){
+            passwordAgainSpan.innerHTML = 
+            `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong style="color: #bb2d3b">喔喔!兩次密碼不一樣喔!  凸^_^凸</strong>
+            </div>`
+            passwordFlag = true;
+        } else{
+            passwordAgainSpan.innerHTML = 
+            `<div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>兩次密碼一...一樣哦  (●'◡'●)</strong>
+            </div>`
+            passwordFlag = false
+        }
     }
 })
 
