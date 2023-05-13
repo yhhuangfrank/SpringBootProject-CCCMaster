@@ -19,8 +19,6 @@ public class GlobalHandler {
     @ExceptionHandler(Exception.class)
     public String handleException( Model model) {
 
-
-
         model.addAttribute("isExistError", true);
         model.addAttribute("error", "執行中產生錯誤，請確認後台 !");
 
@@ -29,7 +27,6 @@ public class GlobalHandler {
 
     @ExceptionHandler(RuntimeException.class)
     public String handleRunTimeException(RuntimeException e, Model model) {
-
 
         model.addAttribute("isExistError", true);
         if (e.getMessage() != null) {
@@ -44,7 +41,6 @@ public class GlobalHandler {
     @ExceptionHandler(NotFoundException.class)
     public String handleNotFoundException(NotFoundException e, Model model) {
 
-
         model.addAttribute("isExistError", true);
         model.addAttribute("error", e.getMessage());
 
@@ -54,14 +50,12 @@ public class GlobalHandler {
     @ExceptionHandler(ApiErrorException.class)
     public ResponseEntity<Object> handleApiException(ApiErrorException e) {
 
-
         return ResponseEntity.status(e.getStatusCode()).body(e.getMessage());
-
     }
 
     // 處理違反 validation 的 api 請求
     @ExceptionHandler(BindException.class)
-    public ResponseEntity<Object> handleConstraintViolationException(BindException e) {
+    public ResponseEntity<Object> handleBindException(BindException e) {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }

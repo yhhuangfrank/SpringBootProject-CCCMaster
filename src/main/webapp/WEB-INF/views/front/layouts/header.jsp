@@ -42,11 +42,18 @@
            <li class="dropdown"><a href="#"><span>聯絡客服</span></a>
               <ul>
                 <li><a href="${contextRoot}/Service/common">常見問題</a></li>
-                <li><a href="${contextRoot}/service/from/create/${sessionScope.customerName}">表單回報問答中心</a></li>
+                <c:choose>
+                <c:when test="${sessionScope.customerId != null }">
+                <li><a href="${contextRoot}/service/from/create/${sessionScope.customerId}">表單回報問答中心</a></li>
+              </c:when>
+              <c:otherwise>
+                <li><a href="${contextRoot}/service/from/create/7">表單回報問答中心</a></li>
+              </c:otherwise>
+              </c:choose>
               </ul>
             </li>
             <li><a href="blog.html">會員中心</a></li>
-            <li><input value="${sessionScope.customerId}" type="hidden" id="session" name="customerId"><a href="#" onclick="checklogin()">購物車</a></li>
+            <li><a href="${contextRoot}/front/shoppingcart" >購物車</a></li>
            	<c:choose>
            		<c:when test="${sessionScope.customerId == null}">
            			<li><a href="${contextRoot}/signup">註冊</a></li>
@@ -97,18 +104,6 @@
 		  	}, 2000);
 		  </script>
 	  </c:if>
-	  
-      <!-- 以下內容 add By 麻油 -->
-      <script>
-      let session = document.getElementById('session')
-      function checklogin() {
-		if(session.value){
-			window.location.href="http://localhost:8080/front/shoppingcart";
-		}else{
-			window.location.href = "http://localhost:8080/login";
-		}
-	}
-      </script>
       
     </header>
     <!-- End Header -->

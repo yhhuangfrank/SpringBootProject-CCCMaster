@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Example</title>
+  <title>購物車</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -67,16 +67,15 @@
 	    <p style="text-align: center;margin-top: 50px"><i class="bi bi-check2-circle" style="font-size: 80px;color: green;"></i></p>
 	    <div style="text-align:center;margin-top: 50px;margin-bottom: 15px">
 		    <c:if test="${cookie.pay.value == '信用卡'}">
-				<button type="submit" class="btn btn-primary" ><a href="${contextRoot}/ecpayCheckout">結帳</a></button>
+		    	<form method="post" action="${contextRoot}/ecpayCheckout">
+		    		<input type="hidden" name="customerId" value="${sessionScope.customerId}">
+					<button type="submit" class="btn btn-primary" >來去結帳</button>
+				</form>
+				
 			</c:if>
 			<c:if test="${cookie.pay.value != '信用卡'}">
-				<form:form method="post" modelAttribute="order" action="${contextRoot}/front/orders/create">
-					<c:forEach var="ord" items="${singleorder}">
-						<input type="hidden" value="${ord.totalamount}">
-						<input type="hidden" value="${ord.payment}">
-					</c:forEach>
 					<button type="button" class="btn btn-primary" >確認</button>
-				</form:form>
+				
 			</c:if>
 		</div>
 	  </div>

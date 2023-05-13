@@ -15,7 +15,6 @@ public interface ShoppingCartService {
 	//購物車建立
 	void createShoppingCart(ShoppingCartBean sc,Integer customerId,Integer productId);
 	
-
 	//刪除購物車
 	void deleteBySCId(String shoppoingCartId);
 
@@ -24,7 +23,6 @@ public interface ShoppingCartService {
 
 	//修改購物車購買數量
 	void editBySCId(ShoppingCartBean sc) throws IOException;
-	
 	
 	//刪除所有購物車
 	void deletescByCId(Integer customerId);
