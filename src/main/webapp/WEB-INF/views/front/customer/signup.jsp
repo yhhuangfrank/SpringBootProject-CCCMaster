@@ -131,8 +131,8 @@
 								<form:input required="true" path="password" type="password" class="form-control" id="password" placeholder="輸入密碼"/>
 							</div>
 							<div class="form-group mb-2">
-								<label for="passwordAgain">再次輸入密碼</label>
-								<input required type="password" class="form-control mb-2" id="passwordAgain" placeholder="再次輸入密碼"/>
+								<label for="passwordAgainInput">再次輸入密碼</label>
+								<input required type="password" class="form-control mb-2" id="passwordAgainInput" placeholder="再次輸入密碼"/>
 								<span id="passwordAgainSpan"></span>
 							</div>
 							<div class="form-group">
@@ -178,7 +178,7 @@
 	<script src="${contextRoot}/styles/front/assets/js/main.js"></script>
 	<!-- ajax -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.6/axios.min.js"></script>
-	<script src="${contextRoot}/js/customer/checkEmail.js"></script>
+	<script src="${contextRoot}/js/customer/checkSignup.js"></script>
 </body>
 
 </html>
