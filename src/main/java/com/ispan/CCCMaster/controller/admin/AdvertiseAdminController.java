@@ -16,17 +16,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Set;
 
 @Controller
 public class AdvertiseAdminController {
 
 
-
     private final AdvertiseService advertiseService;
 
     private final ProductService productService;
-
 
 
     public AdvertiseAdminController(AdvertiseService advertiseService, ProductService productService) {
@@ -46,18 +45,19 @@ public class AdvertiseAdminController {
 
     @PostMapping("/admin/advertises/create")
     public String createAdvertise(@ModelAttribute("advertiseRequest") AdvertiseRequest advertiseRequest,
-                                  Model model){
+                                  Model model) {
+
 
         advertiseService.createAdvertise(advertiseRequest);
         return "redirect:/admin/advertises/showAllAdvertise";
     }
 
     @GetMapping("/admin/advertises/showAllAdvertise")
-    public String showAllAdvertise(@RequestParam(name = "p",defaultValue = "1")Integer pageNumber,Model model) {
+    public String showAllAdvertise(@RequestParam(name = "p", defaultValue = "1") Integer pageNumber, Model model) {
         Page<Advertise> page = advertiseService.findByPage(pageNumber);
-        model.addAttribute("page",page);
+        model.addAttribute("page", page);
         Advertise startTime = advertiseService.getLatestAdvertise();
-        model.addAttribute("startTime",startTime);
+        model.addAttribute("startTime", startTime);
         return "back/advertise/showAdvertise";
     }
 //    @GetMapping("/admin/advertises/editPage")
@@ -78,20 +78,20 @@ public class AdvertiseAdminController {
     public String updateAdvertise(HttpSession session,
                                   @PathVariable Integer id,
                                   Model model,
-                                  RedirectAttributes redirectAttributes){
+                                  RedirectAttributes redirectAttributes) {
         Advertise foundadvertise = advertiseService.findAdvertiseById(id);
 
         AdvertiseRequest advertiseRequest = new AdvertiseRequest();
 
-        if(foundadvertise.getStartTime()!=null){
+        if (foundadvertise.getStartTime() != null) {
             advertiseRequest.setStartDateTime(foundadvertise.getStartTime().toString());
         }
-        if(foundadvertise.getEndTime()!=null){
+        if (foundadvertise.getEndTime() != null) {
             advertiseRequest.setEndDateTime(foundadvertise.getEndTime().toString());
         }
 
-        model.addAttribute("advertiseRequest",advertiseRequest);
-        model.addAttribute("id",id);
+        model.addAttribute("advertiseRequest", advertiseRequest);
+        model.addAttribute("id", id);
         return "/back/advertise/editAdvertise";
     }
 
@@ -101,7 +101,7 @@ public class AdvertiseAdminController {
                                   @Valid @ModelAttribute("advertiseRequest") AdvertiseRequest advertiseRequest,
                                   Model model,
                                   RedirectAttributes redirectAttributes) {
-        advertiseService.updateAdvertiseById(id,advertiseRequest);
+        advertiseService.updateAdvertiseById(id, advertiseRequest);
         return "redirect:/admin/advertises/showAllAdvertise";
 
     }
@@ -114,43 +114,45 @@ public class AdvertiseAdminController {
 
 
     @GetMapping("/admin/advertises/addProductToAdvertise")
-    public String addProductToAdvertise(@RequestParam(name = "p",defaultValue = "1") Integer pageNumber,
+    public String addProductToAdvertise(@RequestParam(name = "p", defaultValue = "1") Integer pageNumber,
                                         @RequestParam("advertiseId") Integer advertiseId,
                                         @RequestParam("productId") Integer productId,
-                                        Model model){
-            Page<Product> page = productService.findByPage(pageNumber);
-            Product product = productService.findProductById(productId);
-            Advertise advertise = advertiseService.findAdvertiseById(advertiseId);
-            advertise.getProducts().add(product);
-            advertiseService.updateAdvertiseById(advertise);
+                                        Model model) {
+        Page<Product> page = productService.findByPage(pageNumber);
+        Product product = productService.findProductById(productId);
+        Advertise advertise = advertiseService.findAdvertiseById(advertiseId);
+        advertise.getProducts().add(product);
+        advertiseService.updateAdvertiseById(advertise);
 
-            model.addAttribute("page", page);
-        return "redirect:/admin/advertises/showProduct?p="+pageNumber+"&advertiseId="+advertiseId;
+        model.addAttribute("page", page);
+        return "redirect:/admin/advertises/showProduct?p=" + pageNumber + "&advertiseId=" + advertiseId;
     }
 
     @GetMapping("/admin/advertises/showProduct")
-    public String addProductToAdvertise(@RequestParam(name = "p",defaultValue = "1") Integer pageNumber,
+    public String addProductToAdvertise(@RequestParam(name = "p", defaultValue = "1") Integer pageNumber,
                                         @RequestParam(value = "advertiseId") Integer advertiseId,
-                                        Model model){
+                                        Model model) {
         // 找到廣告擁有的商品們
         Set<Product> productSet = advertiseService.findAdvertiseById(advertiseId).getProducts();
-        model.addAttribute("productSet",productSet);
+        model.addAttribute("productSet", productSet);
 
         // jsp 如果目前 loop 的商品的 id 有在廣告擁有的商品們裡面，就顯示已經加入廣告
 
         Page<Product> page = productService.findByPage(pageNumber);
-        model.addAttribute("advertiseId",advertiseId);
+        model.addAttribute("advertiseId", advertiseId);
 
         model.addAttribute("page", page);
         return "back/advertise/addProductToAdvertise";
     }
 
-
-
-
-
-
-
+    @GetMapping("/admin/advertises/advertiseProductDetail")
+    public String showAdvertiseProductDetail(@RequestParam(value = "advertiseId") Integer advertiseId,Model model) {
+        Advertise advertise = advertiseService.findAdvertiseById(advertiseId);
+        Set<Product> productSet = advertise.getProducts();
+        model.addAttribute("productSet", productSet);
+        model.addAttribute("advertise", advertise);
+        return "back/advertise/advertiseDetail";
+    }
 
 
 
