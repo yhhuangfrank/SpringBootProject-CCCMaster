@@ -2,7 +2,6 @@ package com.ispan.CCCMaster.model.bean.customer;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +24,7 @@ public class CustomerFavorite {
 	@Column(name = "id")
 	private Integer id;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "customer_id")
 	private Customer customers;
 	

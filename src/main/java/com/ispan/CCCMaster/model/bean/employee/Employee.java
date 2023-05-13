@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,16 +34,16 @@ public class Employee {
 	@Column(name = "employee_name", columnDefinition = "nvarchar(20)")
 	private String employeeName;
 
-	@Column(name = "phone_number", columnDefinition = "varchar(15)")
+	@Column(name = "phone_number", columnDefinition = "varchar(15)", unique = true)
 	private String phoneNumber;
 	
-	@Column(name = "id_number", columnDefinition = "char(10)")
+	@Column(name = "id_number", columnDefinition = "char(10)", unique = true)
 	private String idNumber;
 	
 	@Column(name = "password", columnDefinition = "varchar(20)")
 	private String password;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "position_id")
 	private Position positionId;
 	

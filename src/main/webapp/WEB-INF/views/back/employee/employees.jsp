@@ -84,7 +84,7 @@
 										<th scope="col">員工編號</th>
 										<th scope="col">姓名</th>
 										<th scope="col">職位</th>
-										<th scope="col">電話</th>
+										<th scope="col">手機號碼</th>
 										<th scope="col">身分證字號</th>
 										<th scope="col">登入密碼</th>
 										<th scope="col">到職日期</th>

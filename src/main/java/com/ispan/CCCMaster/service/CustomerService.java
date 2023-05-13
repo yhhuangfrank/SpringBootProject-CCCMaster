@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.data.domain.Page;
 
 import com.ispan.CCCMaster.model.bean.customer.Customer;
+import com.ispan.CCCMaster.model.dto.CustomerCheckRequest;
 
 public interface CustomerService {
 
@@ -22,5 +23,11 @@ public interface CustomerService {
 	Boolean logIn(String accountNumber, String password, HttpServletRequest request);
 
 	void logOut(HttpSession session);
+
+	Boolean canEmailUse(CustomerCheckRequest ccr);
+
+	Boolean canNameUse(CustomerCheckRequest ccr);
+
+	Boolean canPhoneNumberUse(CustomerCheckRequest ccr);
 
 }

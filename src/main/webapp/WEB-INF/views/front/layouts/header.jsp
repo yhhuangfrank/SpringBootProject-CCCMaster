@@ -56,7 +56,7 @@
             <li><a href="${contextRoot}/front/shoppingcart" >購物車</a></li>
            	<c:choose>
            		<c:when test="${sessionScope.customerId == null}">
-           			<li><a href="index.html">註冊</a></li>
+           			<li><a href="${contextRoot}/signup">註冊</a></li>
 		            <li><a href="${contextRoot}/login">登入</a></li>
            		</c:when>
            		<c:otherwise>
@@ -90,6 +90,20 @@
 		  	}, 2000);
 		  </script>
 	  </c:if>
-	    
+	  
+	  <c:if test="${signupSuccess}">
+	  	<div id="signup-success-msg" class="alert alert-success position-fixed top-50 start-50 translate-middle d-none" role="alert">
+ 	  		${signupSuccessMsg}
+	  	</div>
+	 	  <script>
+		  	// 顯示登出成功訊息框
+		  	document.querySelector('#signup-success-msg').classList.remove('d-none');
+		  	// 設定 2 秒後淡出消失
+		  	setTimeout(function() {
+		  	document.querySelector('#signup-success-msg').classList.add('fade');
+		  	}, 2000);
+		  </script>
+	  </c:if>
+      
     </header>
     <!-- End Header -->
