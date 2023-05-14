@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>山西達人-訂單查詢</title>
+    <title>訂單查詢</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -59,17 +59,25 @@
     <section id="portfolio" class="portfolio">
         <div class="container">
             <div class="row">
-                <div class="col-6 mx-auto">
+                <div class="col-12 mx-auto">
                     <%-- message.jsp 顯示訊息 --%>
                     <jsp:include page="../../message.jsp"/>
 
-                    <form class="row g-3">
-                        <div class="col-12 input-group">
-                            <input type="text" class="form-control" id="searchInput" placeholder="輸入訂單編號">
-                            <button type="button" class="btn btn-outline-light border-secondary" id="searchBtn"
+                    <form class="row" action="${contextRoot}/front/order/search" method="get">
+                     <div class="col-2">
+                    	<select name="type" class="col-10 form-select" style="height: 35px">
+                    		<option value="orderid">訂單編號</option>
+                    		<option value="time">訂購時間</option>
+                    	</select>
+                    </div>
+                    <div class="col-8">
+                        <div class="col-6 input-group" style="float: right;">
+                            <input type="text" class="form-control" id="searchInput" placeholder="請輸入訂單編號或訂購時間" name="keyword">
+                            <button type="submit" class="btn btn-outline-light border-secondary" id="searchBtn"
                                     style="display: inline; background-color: #e96b56"><i class="bx bx-search-alt"></i>
                             </button>
                         </div>
+                       </div>
                     </form>
                 </div>
               	<table class="table table-striped table-bordered" style="text-align: center;">
@@ -84,25 +92,46 @@
                     <th scope="col">客戶服務</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <c:forEach var="order" items="${orders}">
-                  <tr>
-					<td>
-						<a href="${contextRoot}/front/orders/details/${order.orderid}">
-						${order.orderid}
-						</a>
-					</td>
-                    <td>
-                    	<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${order.orderdate}"/>
-                    
-                    </td>
-                    <td>${order.ordercondition}</td>
-                    <td>${order.paymentcondition}</td>
-                    <td>${order.totalamount}</td>
-                    <td>我要退貨</td>
-                    <td>聯絡客服</td>
-                  </tr>
-                  </c:forEach>
+                <tbody>                                
+                  <c:if test="${not empty results}">
+                  	<c:forEach items="${results}" var="result">
+	                  <tr>
+						<td>
+							<a href="${contextRoot}/front/orders/details/${result.orderid}">
+							${result.orderid}
+							</a>
+						</td>
+	                    <td>
+	                    	<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${result.orderdate}"/>
+	                    
+	                    </td>
+	                    <td>${result.ordercondition}</td>
+	                    <td>${result.paymentcondition}</td>
+	                    <td>${result.totalamount}</td>
+	                    <td>我要退貨</td>
+	                    <td>聯絡客服</td>
+	                  </tr>
+	                  </c:forEach>
+	                 </c:if>
+	                 <c:if test="${empty results}">
+	                 	<c:forEach var="order" items="${orders}">
+	                 	<tr>
+						<td>
+							<a href="${contextRoot}/front/orders/details/${order.orderid}">
+							${order.orderid}
+							</a>
+						</td>
+	                    <td>
+	                    	<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${order.orderdate}"/>	                    
+	                    </td>
+	                    <td>${order.ordercondition}</td>
+	                    <td>${order.paymentcondition}</td>
+	                    <td>${order.totalamount}</td>
+	                    <td>我要退貨</td>
+	                    <td>聯絡客服</td>
+	                  </tr>
+	                  </c:forEach>
+	                 </c:if> 
                 </tbody>
               </table>
             </div>

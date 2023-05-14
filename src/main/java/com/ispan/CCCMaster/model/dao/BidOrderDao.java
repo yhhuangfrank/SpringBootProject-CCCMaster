@@ -16,5 +16,9 @@ public interface BidOrderDao extends JpaRepository<BidOrderBean,String>{
 	
 	@Query(value="select * from BidOrder where buyer_id= :id",nativeQuery = true)
 	public List<BidOrderBean> findByCid(@Param(value="id")Integer customerId);
+	
+	//編號的查詢條件
+	@Query(value="select * from BidOrder where buyer_id= :bid AND bid_order_id LIKE %:oid% order by order_date DESC",nativeQuery = true)
+	public List<BidOrderBean> findByCidByIdContainingByOrderDateDesc(@Param(value="cid")Integer customerId,@Param(value="oid")String bidorderid);
 
 }

@@ -1,10 +1,12 @@
 package com.ispan.CCCMaster.service.impl;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +24,7 @@ import com.ispan.CCCMaster.service.OrderService;
 
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
+import javax.persistence.criteria.Predicate;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -203,5 +206,43 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return option.get();
 	}
+	
+	@Override
+	public List<OrderBean> findByOrderId(Integer customerId,String orderid){
+		return oDao.findByCidByIdContainingByOrderDateDesc(customerId, orderid);
+	}
+	
+	//依時間搜尋
+	@Override
+	public List<OrderBean> findByDate(String date) throws ParseException {
+		Date startDate = getStartDate(date);
+		Date endDate = getEndDate(date);
+		Specification<OrderBean> spec = (root, query, criteriaBuilder) -> {
+			Predicate p1 = criteriaBuilder.greaterThanOrEqualTo(root.get("time"), startDate);
+			Predicate p2 = criteriaBuilder.greaterThanOrEqualTo(root.get("time"), endDate);
+			return criteriaBuilder.or(p1,p2);
+		};
+		return oDao.findAll(spec);
+	}
+	
+	//將搜尋輸入的年(年月)加上0101(01)
+	@Override
+	public Date getStartDate(String yearOrMonth) throws ParseException {
+		String startDateStr = yearOrMonth.length() == 4?yearOrMonth+"0101":yearOrMonth+"01";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date sdate = sdf.parse(startDateStr);
+		return sdate;
+	}
+
+	//將搜尋輸入的年(年月)加上1231(31)
+	@Override
+	public Date getEndDate(String yearOrMonth) throws ParseException {
+		String endDateStr = yearOrMonth.length() == 4?yearOrMonth+"1231":yearOrMonth+"31";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date edate = sdf.parse(endDateStr);
+		return edate;
+	}
+
+	
 
 }
