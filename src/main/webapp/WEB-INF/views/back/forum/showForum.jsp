@@ -127,7 +127,7 @@
                                 </c:when>
                                 <c:otherwise>
                                     <li class="page-item">
-                                        <a class="page-link" href="${contextRoot}/forums/showAllForum?p=${pageNumber}">${pageNumber}</a>
+                                        <a class="page-link" href="${contextRoot}/admin/forums/showAllForum?p=${pageNumber}">${pageNumber}</a>
                                     </li>
                                 </c:otherwise>
                             </c:choose>

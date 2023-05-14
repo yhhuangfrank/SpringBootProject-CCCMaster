@@ -47,7 +47,7 @@ public class ForumServiceImpl implements ForumService {
 
     @Override
     public Page<Forum> findByPage(Integer pageNumber) { //get forum by page
-        Pageable pgb = PageRequest.of(pageNumber - 1, 3, Sort.Direction.DESC, "added");
+        Pageable pgb = PageRequest.of(pageNumber - 1, 7, Sort.Direction.DESC, "added");
         Page<Forum> page = forumRepository.findAll(pgb);
         return page;
     }
