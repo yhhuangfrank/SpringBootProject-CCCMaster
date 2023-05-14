@@ -43,8 +43,16 @@
 <jsp:include page="../layouts/header.jsp"/>
 
 <main id="main" class="main">
-  <h1>新增討論版</h1>
+  <h1>論壇管理</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="${contextRoot}/">首頁</a></li>
+      <li class="breadcrumb-item">討論版管理</li>
+      <li class="breadcrumb-item active">新增討論版</li>
+    </ol>
+  </nav>
   <form:form method="post" modelAttribute="forum"
+
              action="${contextRoot}/admin/forums/create" enctype="multipart/form-data">
   <div class="row mb-3">
     <label for="inputName" class="col-sm-2 col-form-label">討論版名稱</label>

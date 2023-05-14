@@ -9,7 +9,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>論壇</title>
+  <title>廣告</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -49,9 +49,8 @@
 
       <ol>
         <li><a href="${contextRoot}/">首頁</a></li>
-        <li>論壇</li>
+        <li>廣告</li>
       </ol>
-      <h2>論壇</h2>
 
     </div>
   </section><!-- End Breadcrumbs -->
@@ -60,62 +59,34 @@
   <section id="about" class="about">
     <div class="container">
 
-      <jstl:forEach var="forum" items="${page.content}">
-        <div class="card border-2 mb-2 ">
-
-          <div class="d-flex justify-content-around">
-
-            <img style="width: 300px;" class="img-thumbnail mb-1 "
-                 src="${contextRoot}/forums/showAllForum/${forum.forumId}"/>
-
-            <div class="d-flex align-items-lg-center ">
-              <div>
-                <div style=" color:#117e96" class=" "><h4 style="font-weight: bold; font-family: 巴哈正黑體 , 思源黑體 , 微軟正黑體 , 蘋方黑體 , 華康麗黑體 , Helvetica , Arial , sans-serif , serif;">${forum.forumName}</h4>
+        <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <c:forEach items="${productImageIds}" var="productImageIds">
+                <div class="carousel-item active" data-bs-interval="3000">
+                    <img src="${contextRoot}/product/mainImage/${productImageIds}" class="d-block w-100" alt="...">
                 </div>
-                <div style="font-size: small; color:#ADADAD;" class="" >
-                  開版時間:<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss EEEE" value="${forum.added}"/>
-                </div>
-              </div>
+                </c:forEach>
             </div>
-
-
-          </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
 
-      </jstl:forEach>
+
+
 
     </div>
-    <nav aria-label="..." class="d-flex justify-content-center mt-3">
-      <ul class="pagination">
-    <c:forEach var="pageNumber" begin="1" end="${page.totalPages}">
-      <c:choose>
-        <c:when test="${page.number eq pageNumber-1}">
-          <li class="page-item active" aria-current="page">
-            <a class="page-link" href="#">${pageNumber}</a>
-          </li>
-        </c:when>
-        <c:otherwise>
-          <li class="page-item">
-            <a class="page-link" href="${contextRoot}/forums/showAllForum?p=${pageNumber}">${pageNumber}</a>
-          </li>
-        </c:otherwise>
-      </c:choose>
-      <c:if test="${pageNumber eq page.totalPages}">
-
-      </c:if>
-    </c:forEach>
-      </ul>
-    </nav>
-
-
-
     <%--  Pagination   --%>
     <nav aria-label="Page navigation example" class="mt-4">
       <ul class="pagination justify-content-center align-items-center my-0">
       </ul>
     </nav>
   </section><!-- End About Section -->
-
 
 
 

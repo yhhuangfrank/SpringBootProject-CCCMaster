@@ -56,58 +56,36 @@
         <div class="col-lg-10 mx-auto">
           <%-- 顯示訊息 --%>
           <jsp:include page="../../message.jsp"/>
-          <%-- 所有文章 --%>
-          <table class="table datatable">
-            <thead>
-            <tr>
-              <th scope="col">產品名稱</th>
-              <th scope="col">產品類別</th>
-              <th scope="col">產品介紹</th>
-              <th scope="col">圖片</th>
-              <th scope="col">操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${page.content}" var="product">
+
+            廣告上架時間 ${advertise.startTime}
+            <table class="table">
+              <thead>
               <tr>
-                <td>${product.productName}</td>
-                <td>${product.category.name}</td>
-                <td>${product.description}</td>
-                <td>
-                  <img style="width: 50px; "
-                         src="${contextRoot}/product/mainImage/${product.productId}"/>
-                </td>
-
-                <td>
-                  <div class="d-flex">
-                    <form action="${contextRoot}/admin/advertises/addProductToAdvertise">
-                      <input type="hidden" name="productId" value="${product.productId}">
-                      <input type="hidden" name="p" value="${page.number+1}">
-                      <input type="hidden" name="advertiseId" value="${advertiseId}">
-                      <c:choose>
-                        <c:when test="${productSet.contains(product)}">
-                            <button type="submit" class="btn btn-secondary btn-sm" disabled>
-                            <i class="bi bi-pencil-square"></i>已加入廣告
-                            </button>
-                        </c:when>
-                        <c:otherwise>
-                          <button type="submit" class="btn btn-secondary btn-sm">
-                            <i class="bi bi-pencil-square"></i>加入廣告
-                          </button>
-                        </c:otherwise>
-                      </c:choose>
-                    </form>
-                  </div>
-                </td>
-
+                <th scope="col">商品名稱</th>
+                <th scope="col">產品總類</th>
+                <th scope="col">產品介紹</th>
+                <th scope="col">圖片</th>
               </tr>
-            </c:forEach>
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
 
-            <button type="submit" class="btn btn-primary">
-              <a href="${contextRoot}/admin/advertises/advertiseProductDetail?advertiseId=${advertiseId}" style="color: white;">上架廣告</a>
-            </button>
+              <c:forEach  items="${productSet}" var="p">
+
+                  <td>${p.productName}</td>
+                  <td>${p.category.name}</td>
+                  <td>${p.description}</td>
+                  <td>
+
+                    <img style="width: 50px; "
+                         src="${contextRoot}/product/mainImage/${p.productId}"/>
+
+                  </td>
+
+                </tr>
+                </form>
+              </c:forEach>
+              </tbody>
+            </table>
           <%-- 顯示所有文章end --%>
 
 <%--            測試disabale partI--%>
@@ -182,7 +160,7 @@
             <c:forEach var="pageNumber" begin="1" end="${page.totalPages}">
               <c:choose>
                 <c:when test="${page.number != pageNumber-1 }">
-                  <a href="${contextRoot}/admin/advertises/showAllAdvertise?p=${pageNumber}">${pageNumber}</a>
+                  <a href="${contextRoot}/admin/advertises/advertiseProductDetail?p=${pageNumber}">${pageNumber}</a>
                 </c:when>
                 <c:otherwise>${pageNumber}</c:otherwise>
               </c:choose>

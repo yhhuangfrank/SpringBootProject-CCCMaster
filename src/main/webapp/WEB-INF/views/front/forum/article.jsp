@@ -49,9 +49,9 @@
 
       <ol>
         <li><a href="${contextRoot}/">首頁</a></li>
-        <li>論壇</li>
+        <li>文章</li>
       </ol>
-      <h2>論壇</h2>
+
 
     </div>
   </section><!-- End Breadcrumbs -->
@@ -59,30 +59,23 @@
   <!-- ======= About Section ======= -->
   <section id="about" class="about">
     <div class="container">
+      <table class="table table-bordered">
 
-      <jstl:forEach var="forum" items="${page.content}">
-        <div class="card border-2 mb-2 ">
-
-          <div class="d-flex justify-content-around">
-
-            <img style="width: 300px;" class="img-thumbnail mb-1 "
-                 src="${contextRoot}/forums/showAllForum/${forum.forumId}"/>
-
-            <div class="d-flex align-items-lg-center ">
-              <div>
-                <div style=" color:#117e96" class=" "><h4 style="font-weight: bold; font-family: 巴哈正黑體 , 思源黑體 , 微軟正黑體 , 蘋方黑體 , 華康麗黑體 , Helvetica , Arial , sans-serif , serif;">${forum.forumName}</h4>
-                </div>
-                <div style="font-size: small; color:#ADADAD;" class="" >
-                  開版時間:<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss EEEE" value="${forum.added}"/>
-                </div>
-              </div>
-            </div>
+        <tr class="fs-10 align-content-center ">
+          <th  style="background:#e96b56; text-align: center; color:white" scope="col">Photo</th>
+          <th  style="background:#e96b56; text-align: center; color:white" scope="col">Title</th>
+          <th  style="background:#e96b56; text-align: center; color:white" scope="col">Created</th>
+          <th  style="background:#e96b56; text-align: center; color:white" scope="col">Content</th>
+        </tr>
 
 
-          </div>
-        </div>
 
-      </jstl:forEach>
+
+      </table>
+
+
+
+
 
     </div>
     <nav aria-label="..." class="d-flex justify-content-center mt-3">

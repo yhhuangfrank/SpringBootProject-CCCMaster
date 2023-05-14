@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 public interface AdvertiseService {
@@ -46,7 +47,5 @@ public interface AdvertiseService {
     Page<Product> addProductToAdvertise(Integer pageNumber);
 
 
-
-
-
+    List<Advertise> advertiseByTime(Date nowDate);
 }

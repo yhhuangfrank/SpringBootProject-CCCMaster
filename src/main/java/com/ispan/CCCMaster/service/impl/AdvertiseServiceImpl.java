@@ -17,10 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class AdvertiseServiceImpl implements AdvertiseService {
@@ -189,4 +186,15 @@ public class AdvertiseServiceImpl implements AdvertiseService {
         advertise.setProducts(productsSet);
         advertiseDao.save(advertise);
     }
+
+    @Override
+    public List<Advertise> advertiseByTime(Date nowDate) {
+
+        List<Advertise> activeAds = advertiseDao.findActiveAds(nowDate);
+
+
+        return activeAds;
+
+    }
+
 }
