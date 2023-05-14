@@ -65,16 +65,20 @@
                           <form:input required="true" path="employeeName" id="employeeName" type="text" class="form-control"/>
                         </div>
                       </div>
-                      <div class="row mb-3"><!--這個要用下拉式選單來做，【{編號} {職位名}】 -->
-                        <label for="positionId" class="col-sm-2 col-form-label">職位編號</label>
+                      <div class="row mb-3">
+                        <label for="positionId" class="col-sm-2 col-form-label">職位</label>
                         <div class="col-sm-10">
-                          <form:input required="true" path="positionId" id="positionId" type="text" class="form-control"/>
+                          <form:select path="positionId" id="positionId">
+                          	<c:forEach var="position" items="${positions}">
+                          		<option value="${position.positionId}">${position.positionName}	(${position.positionId})</option>
+                          	</c:forEach>
+                          </form:select>
                         </div>
                       </div>
                       <div class="row mb-3">
-                        <label for="phoneNumber" class="col-sm-2 col-form-label">員工電話</label>
+                        <label for="phoneNumber" class="col-sm-2 col-form-label">員工手機號碼</label>
                         <div class="col-sm-10">
-                          <form:input required="true" path="phoneNumber" id="phoneNumber" type="text" class="form-control"/>
+                          <form:input required="true" path="phoneNumber" id="phoneNumber" type="tel" class="form-control" pattern="[0]{1}[9]{1}[0-9]{8}" placeholder="格式:09XXXXXXXX"/>
                         </div>
                       </div>
                       <div class="row mb-3">

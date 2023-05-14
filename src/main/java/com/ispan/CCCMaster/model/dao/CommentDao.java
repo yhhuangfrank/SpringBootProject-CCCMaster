@@ -10,4 +10,10 @@ import org.springframework.data.repository.query.Param;
 public interface CommentDao extends JpaRepository<Comment, Integer> {
     @Query("select c from Comment c where c.orderDetail.pOrderDetail.productId=:productId")
     Page<Comment> findCommentByProductId(@Param("productId") Integer productId, Pageable pgb);
+
+    @Query("select c from Comment c where c.orderDetail.id=:orderDetailId")
+    Comment findByOdId(@Param("orderDetailId")Integer orderDetailId);
+
+
+
 }

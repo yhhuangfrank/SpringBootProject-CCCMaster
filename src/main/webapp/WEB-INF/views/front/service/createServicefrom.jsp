@@ -250,11 +250,11 @@ text-overflow: ellipsis;
                                                                          <li style="margin-left: 7px;padding-top:7px"><span>跳至</span></li>
                                                                          <li style="margin-left: 7px;">
                                                                             <select  class="form-control" id="inputQuestion" onchange="javascript:location.href=this.value;">
-                                                                                    <option value="" selected><span>${page.number+1}</span>
-                                                                                    <jstl:forEach var="pageNumber" begin="1" end="${page.totalPages}"><option value="${contextRoot}/service/from/create/${sessionScope.customerId}?p=${pageNumber}" > <span>${pageNumber}</span>
-                                                                                    </jstl:forEach></option>
+                                                                                    <option value="" selected>${page.number+1}
+                                                                                    <jstl:forEach var="pageNumber" begin="1" end="${page.totalPages}"><option value="${contextRoot}/service/from/create/${sessionScope.customerId}?p=${pageNumber}" >${pageNumber}
+                                                                                    </jstl:forEach>
                                                                             </select>
-                                                                            <li style="margin-left: 7px;padding-top:7px"><span>頁</span></li>
+                                                                            <li style="margin-left: 7px;padding-top:7px"><span>頁</span>
                                                                         </li>
 
                                                                          <!-- 跳頁結束 -->

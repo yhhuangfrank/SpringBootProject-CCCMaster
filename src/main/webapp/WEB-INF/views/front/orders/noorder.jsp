@@ -63,21 +63,15 @@
   </section><!-- End Breadcrumbs -->
     <div class="card mx-auto mb-5" style="width: 18rem;" >
   	<div class="card-body" >
-	    <h3 class="card-title" style="text-align: center;margin-top: 20px">訂單成立</h3>
-	    <p style="text-align: center;margin-top: 50px"><i class="bi bi-check2-circle" style="font-size: 80px;color: green;"></i></p>
+	    <h3 class="card-title" style="text-align: center;margin-top: 20px">訂單不成立</h3>
+	    <p style="text-align: center;margin-top: 50px"><i class="bi bi-check2-circle" style="font-size: 80px;color: red;"></i></p>
 	    <div style="text-align:center;margin-top: 50px;margin-bottom: 15px">
-		    <c:if test="${cookie.pay.value == '信用卡'}">
-		    	<form method="post" action="${contextRoot}/ecpayCheckout">
-		    		<input type="hidden" name="customerId" value="${sessionScope.customerId}">
-					<button type="submit" class="btn btn-primary" >來去結帳</button>
-				</form>
-				
-			</c:if>
-			<c:if test="${cookie.pay.value != '信用卡'}">
-					<button type="button" class="btn btn-primary">
-						<a href="${contextRoot}/front/orders">確認</a>
-					</button>				
-			</c:if>
+		    <p>
+		    	因顧客您未及時下訂單，此筆商品已流標
+		    </p>
+		    <button type="button" class="btn btn-primary">
+		    	<a href="${contextRoot}/bidProducts">確認</a>
+		    </button>
 		</div>
 	  </div>
 	</div>

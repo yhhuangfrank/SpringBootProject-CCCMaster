@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>會員登入</title>
+<title>會員註冊</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -54,7 +54,7 @@
 	
 	
 	<style>
-		.form-login {
+		.form-signup {
 	      background-color: #ffffff;
 	      border-radius: 10px;
 	      padding: 40px;
@@ -95,9 +95,9 @@
 
 				<ol>
 					<li><a href="${contextRoot}/">首頁</a></li>
-					<li>會員登入</li>
+					<li>會員註冊</li>
 				</ol>
-				<h2>登入</h2>
+				<h2>註冊</h2>
 
 			</div>
 		</section>
@@ -107,29 +107,45 @@
 		<section id="contact" class="contact">
 			<div class="container">
 				<div class="row justify-content-center">
-					<div class="col-md-4">
+					<div class="col-md-6">
 					
-						<%-- 顯示登入相關提示訊息 --%>
+						<%-- 【暫時用不到】顯示登入失敗訊息 --%>
 						<jsp:include page="../../message.jsp"/>
 						
-						<form action="${contextRoot}/login" method="post" class="form-login">
-							<input name="referer" type="hidden" value="${referer}"/>	<!-- 這個標籤為程式內部傳遞參數用，不顯示在前端畫面上 -->
-							<h3 class="text-center mb-4">歡迎登入山西達人</h3>
+						<form:form action="${contextRoot}/signup" method="post" modelAttribute="customer" class="form-signup">
+							<h2 style="font-family:Cursive;font-size:50px;" class="text-center mb-4">山西達人</h2>
+							<h3 class="text-center mb-4">填寫註冊資料</h3>
 				
-							<div class="form-group">
-								<label for="accountNumber">帳號</label>
-								<input required name="accountNumber" type="text" class="form-control" id="accountNumber" placeholder="輸入email"/>
+							<div class="form-group mb-2">
+								<label for="emailInput">電子郵件</label>
+								<form:input required="true" path="email" type="email" class="form-control mb-2" id="emailInput" placeholder="輸入email"/>
+								<span id="emailSpan"></span>
+							</div>
+							<div class="form-group mb-2">
+								<label for="nameInput">暱稱</label>
+								<form:input required="true" path="name" type="text" class="form-control mb-2" id="nameInput" placeholder="輸入暱稱"/>
+								<span id="nameSpan"></span>
+							</div>
+							<div class="form-group mb-2">
+								<label for="password">密碼</label>
+								<form:input required="true" path="password" type="password" class="form-control" id="password" placeholder="輸入密碼"/>
+							</div>
+							<div class="form-group mb-2">
+								<label for="passwordAgainInput">再次輸入密碼</label>
+								<input required type="password" class="form-control mb-2" id="passwordAgainInput" placeholder="再次輸入密碼"/>
+								<span id="passwordAgainSpan"></span>
 							</div>
 							<div class="form-group">
-								<label for="password">密碼</label>
-								<input required name="password" type="password" class="form-control" id="password" placeholder="輸入密碼"/>
+								<label for="phoneNumberInput">手機號碼</label>
+								<form:input required="true" path="phoneNumber" type="tel" class="form-control mb-2" id="phoneNumberInput" pattern="[0]{1}[9]{1}[0-9]{8}" placeholder="格式:09XXXXXXXX"/>
+								<span id="phoneNumberSpan"></span>
 							</div>
 							<div class="text-center">
-								<button type="submit" class="btn-primary mt-4">登入</button>
+								<button id="submitButton" type="submit" class="btn-primary mt-4">立即註冊</button>
 							</div>
-						</form>
+						</form:form>
 						<div class="text-center mt-4">
-							<a href="#">忘記密碼</a> <span class="mx-2">|</span> <a href="${contextRoot}/signup">註冊帳號</a>
+							<span class="mx-2">已經有帳號了?</span> <a href="${contextRoot}/login">登入</a>
 						</div>
 					</div>
 				</div>
@@ -160,6 +176,9 @@
 		src="${contextRoot}/styles/front/assets/vendor/php-email-form/validate.js"></script>
 	<!-- Template Main JS File -->
 	<script src="${contextRoot}/styles/front/assets/js/main.js"></script>
+	<!-- ajax -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.6/axios.min.js"></script>
+	<script src="${contextRoot}/js/customer/checkSignup.js"></script>
 </body>
 
 </html>

@@ -2,6 +2,7 @@
 //
 //import com.github.javafaker.Faker;
 //import com.ispan.CCCMaster.model.bean.product.Product;
+//import com.ispan.CCCMaster.model.dao.CategoryDao;
 //import com.ispan.CCCMaster.model.dao.ProductDao;
 //import org.apache.commons.io.IOUtils;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +21,17 @@
 //    @Autowired
 //    private ProductDao productDao;
 //
+//    @Autowired
+//    private CategoryDao categoryDao;
+//
+//
 //    private List<Product> defaultProducts=new ArrayList<>();
 //    @PostConstruct
 //    public void genDefaultProducts(){
 //        long productNum=productDao.count();
 //        if(productNum>0) return;
 //        String [] imgUrl={"https://images.unsplash.com/photo-1598327105666-5b89351aff97?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80","https://images.unsplash.com/photo-1561112078-7d24e04c3407?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1965&q=80"};
-//        String[] defaultProductNames={"ROG Phone 6","Corsair k70 鍵盤"};
+//        String[] defaultProductNames={"ROG Phone 6","Corsair k70 青軸 鍵盤"};
 //        String[] defaultCategoryNames = {"手機", "鍵盤"};
 //        Faker faker = new Faker();
 //        InputStream inputStream = null;
@@ -38,7 +43,7 @@
 //                byte[] img = IOUtils.toByteArray(inputStream);
 //                Product product=new Product();
 //                product.setProductName(defaultProductNames[i]);
-//                product.setImage(img);
+//                //product.setImage(img);
 //                product.setActive(true);
 //                product.setInventory(faker.number().numberBetween(0,20));
 //                product.setPrice(faker.number().numberBetween(0,1000));

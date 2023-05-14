@@ -1,11 +1,25 @@
 package com.ispan.CCCMaster.model.bean.customer;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -14,11 +28,8 @@ import com.ispan.CCCMaster.model.bean.RecipientInfo.StoreRecipientInfoBean;
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.order.BidOrderBean;
 import com.ispan.CCCMaster.model.bean.order.OrderBean;
+import com.ispan.CCCMaster.model.bean.service.ChatroomModel;
 import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.*;
-import java.util.*;
 
 @Entity
 @Table(name = "Customers")
@@ -29,7 +40,7 @@ public class Customer {
 	@Column(name = "customer_id")
 	private Integer customerId;
 	
-	@Column(name = "email", columnDefinition = "varchar(50)")
+	@Column(name = "email", columnDefinition = "varchar(50)", unique = true)
 	private String email;
 	
 	@Column(name = "password", columnDefinition = "varchar(20)")
@@ -40,10 +51,10 @@ public class Customer {
 	@Column(name = "start_date", columnDefinition = "datetime")
 	private Date startDate;
 	
-	@Column(name = "name", columnDefinition = "nvarchar(15)")
+	@Column(name = "name", columnDefinition = "nvarchar(15)", unique = true)
 	private String name;
 	
-	@Column(name = "phone_number", columnDefinition = "varchar(15)")
+	@Column(name = "phone_number", columnDefinition = "varchar(15)", unique = true)
 	private String phoneNumber;
 
 	@Column(name = "point")
@@ -85,6 +96,10 @@ public class Customer {
 	// BY 瑛仁
 	@OneToMany(mappedBy="cbShoppingCart")
 	Set<ShoppingCartBean> set = new HashSet<>();
+	
+	//彥輝
+	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+	private Set<ChatroomModel> chatroom = new HashSet<>();
 	
 	public Customer() {
 	}
