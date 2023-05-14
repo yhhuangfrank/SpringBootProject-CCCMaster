@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.ispan.CCCMaster.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,9 @@ public class OrdersController {
 	
 	@Autowired
 	OrderService oService;
+
+	@Autowired
+	CommentService commentService;
 	
 	//前台個人訂單清單
 	@CustomerAuthentication
@@ -37,7 +41,12 @@ public class OrdersController {
 	@GetMapping("/front/orders/details/{orderid}")
 	public String findDetailByOId(@PathVariable("orderid") String orderid, Model model) {
 		System.out.println("OK");
+		OrderBean ob = oService.findOrderByid(orderid);
 		List<OrderDetailBean> odb = oService.findorderdetailbyOId(orderid);
+		for(OrderDetailBean od:odb) {
+			System.out.println(od);
+		}
+		model.addAttribute("paymentCompleted",commentService.checkPaymentCompleted(orderid));//將付款狀態帶到 orderDetail 新增 by 暐翔
 		model.addAttribute("orderdetails",odb);
 		return "front/orders/orderdetail";
 	}
