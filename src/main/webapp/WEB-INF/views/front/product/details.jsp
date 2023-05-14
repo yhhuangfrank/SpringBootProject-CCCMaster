@@ -200,7 +200,7 @@
             </div>
             <!-- 其他電商平台價格列表 -->
             <div class="other-platform-prices">
-                <h3>其他電商平台價格</h3>
+                <h3>pchome相似產品歷史價格</h3>
 
                 <ul class="list-group" id="crawlerProductsUl">
 

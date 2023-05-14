@@ -43,12 +43,12 @@
 <jsp:include page="../layouts/header.jsp"/>
 
 <main id="main" class="main pagetitle">
-    <h1>論壇列表</h1>
+    <h1>論壇管理</h1>
     <nav>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item">Tables</li>
-            <li class="breadcrumb-item active">論壇</li>
+            <li class="breadcrumb-item"><a href="${contextRoot}/">首頁</a></li>
+            <li class="breadcrumb-item">討論版管理</li>
+            <li class="breadcrumb-item active">討論版列表</li>
         </ol>
     </nav>
     <div class="container">
@@ -127,7 +127,7 @@
                                 </c:when>
                                 <c:otherwise>
                                     <li class="page-item">
-                                        <a class="page-link" href="${contextRoot}/forums/showAllForum?p=${pageNumber}">${pageNumber}</a>
+                                        <a class="page-link" href="${contextRoot}/admin/forums/showAllForum?p=${pageNumber}">${pageNumber}</a>
                                     </li>
                                 </c:otherwise>
                             </c:choose>
