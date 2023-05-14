@@ -17,8 +17,8 @@ public class Article {
     @Column(name = "article_id")
     private Integer articleId;
 
-    @Column(name = "forum_id")
-    private Integer forumId;
+//    @Column(name = "forum_id")
+//    private Integer forumId;
 
 
     @Column(name = "title", columnDefinition = "nvarchar(200)", nullable = true)
@@ -92,13 +92,13 @@ public class Article {
         this.articleId = articleId;
     }
 
-    public Integer getForumId() {
-        return forumId;
-    }
-
-    public void setForumId(Integer forumId) {
-        this.forumId = forumId;
-    }
+//    public Integer getForumId() {
+//        return forumId;
+//    }
+//
+//    public void setForumId(Integer forumId) {
+//        this.forumId = forumId;
+//    }
 
     public String getTitle() {
         return title;

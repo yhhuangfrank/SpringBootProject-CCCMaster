@@ -59,39 +59,32 @@
 
     <!-- ======= About Section ======= -->
     <section id="about" class="about">
-        <div class="container">
-            <table class="table table-bordered" style="text-align: center">
-                <thead>
-                <tr class="fs-10 align-content-center ">
-                    <th style="background:#e96b56; text-align: center; color:white" scope="col">Photo</th>
-                    <th style="background:#e96b56; text-align: center; color:white" scope="col">Title</th>
-                    <th style="background:#e96b56; text-align: center; color:white" scope="col">Created</th>
-                    <th style="background:#e96b56; text-align: center; color:white" scope="col">Content</th>
-                </tr>
-                </thead>
-                <tbody>
-                        <c:forEach items="${page.content}" var="p">
-                <tr>
-                    <td class="align-content-center">
-                        <img style="width: 300px;" class="img-thumbnail mb-1 "
-                             src="${contextRoot}/article/image/${p.articleId}"/>
-                    </td>
-                    <td class="align-content-center">
-                        <a href="${contextRoot}/articleDetail/${p.articleId}"
-                           title="More Details">${p.title}</a>
-                    </td>
-                    <td class="align-content-center"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss EEEE" value="${latest.added}"/></td>
-                    <td style="text-align: left "; class="align-content-center">${p.content}</td>
 
-                </tr>
+        <div class="card">
+            <c:forEach items="${article}" var="a">
+            <div class="card-header">
 
-                        </c:forEach>
+                <a href="${contextRoot}/articleDetail/${a.id}"
+                   title="More Details">${a.title}</a>
+
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Card with header and footer</h5>
+                Ut in ea error laudantium quas omnis officia. Sit sed praesentium voluptas. Corrupti inventore consequatur nisi necessitatibus modi consequuntur soluta id. Enim autem est esse natus assumenda. Non sunt dignissimos officiis expedita. Consequatur sint repellendus voluptas.
+                Quidem sit est nulla ullam. Suscipit debitis ullam iusto dolorem animi dolorem numquam. Enim fuga ipsum dolor nulla quia ut.
+                Rerum dolor voluptatem et deleniti libero totam numquam nobis distinctio. Sit sint aut. Consequatur rerum in.
+            </div>
+            <div class="card-footer">
+                Footer
+            </div>
+            </c:forEach>
+        </div><!-- End Card with header and footer -->
 
 
-            </table>
 
 
-        </div>
+
+
         <nav aria-label="..." class="d-flex justify-content-center mt-3">
             <ul class="pagination">
                 <c:forEach var="pageNumber" begin="1" end="${page.totalPages}">
