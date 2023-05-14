@@ -109,7 +109,7 @@
 				<div class="row justify-content-center">
 					<div class="col-md-4">
 					
-						<%-- 顯示登入失敗訊息 --%>
+						<%-- 顯示登入相關提示訊息 --%>
 						<jsp:include page="../../message.jsp"/>
 						
 						<form action="${contextRoot}/login" method="post" class="form-login">
@@ -129,7 +129,7 @@
 							</div>
 						</form>
 						<div class="text-center mt-4">
-							<a href="#">忘記密碼</a> <span class="mx-2">|</span> <a href="#">註冊帳號</a>
+							<a href="#">忘記密碼</a> <span class="mx-2">|</span> <a href="${contextRoot}/signup">註冊帳號</a>
 						</div>
 					</div>
 				</div>

@@ -20,9 +20,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ispan.CCCMaster.annotation.CustomerAuthentication;
+import com.ispan.CCCMaster.model.bean.bid.BidProduct;
+import com.ispan.CCCMaster.model.bean.bid.DealRecord;
 import com.ispan.CCCMaster.model.bean.order.OrderBean;
 import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;
 import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
+import com.ispan.CCCMaster.service.DealRecordService;
 import com.ispan.CCCMaster.service.ProductService;
 import com.ispan.CCCMaster.service.ShoppingCartService;
 
@@ -35,6 +39,9 @@ public class ShoppingCartController {
 	@Autowired
 	private ShoppingCartService scService;
 	
+	@Autowired
+	private DealRecordService recordService;
+	
 	//創立購物車，並將畫面重新導向為商品詳細頁面
 	@PostMapping("/shoppingcarts/create")
 	public String createShoppingCart(@ModelAttribute("sc")ShoppingCartBean sc,
@@ -45,6 +52,7 @@ public class ShoppingCartController {
 		}	
 
 	//查詢購物車
+	@CustomerAuthentication
 	@GetMapping("/front/shoppingcart")
 	public String findShoppingCart(HttpSession session ,Model model) {
 		Integer customerId = (Integer)session.getAttribute("customerId");
@@ -54,12 +62,14 @@ public class ShoppingCartController {
 	}
 
 	//刪除購物車
+	@CustomerAuthentication
 	@DeleteMapping("/front/shoppingcart/delete")
 	public String deleteBySCId(@RequestParam("id") String shoppoingCartId) {
 		scService.deleteBySCId(shoppoingCartId);
 		return "redirect:/front/shoppingcart";
 	}
 	//修改購物車購買數量
+	@CustomerAuthentication
 	@PutMapping("/front/shoppingcart")
 	public String editBySCId(@ModelAttribute("shoppingcart")ShoppingCartBean shoppingcart) {
 		try {
@@ -70,6 +80,7 @@ public class ShoppingCartController {
 		return "redirect:/front/shoppingcart";
 	}
 	//購物車資訊
+	@CustomerAuthentication
 	@GetMapping("/front/shoppingcart/shoppingcartdetail")
 	public String findSCByCid(HttpSession session,Model model) {
 		Integer customerId = (Integer)session.getAttribute("customerId");
@@ -80,6 +91,7 @@ public class ShoppingCartController {
 		return "/front/shoppingcarts/showshoppingcartdetail";
 	}
 	//訂購詳細資訊
+	@CustomerAuthentication
 	@GetMapping("/front/shoppingcart/shoppingcartdetail/check")
 	public String checksc(HttpSession session ,Model model) {
 		Integer customerId = (Integer)session.getAttribute("customerId");

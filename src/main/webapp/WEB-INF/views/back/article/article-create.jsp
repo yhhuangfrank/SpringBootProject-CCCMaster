@@ -72,6 +72,7 @@
                             <div class="col-sm-10 d-flex mb-3">
                                 <label for="inputTitle" class="col-sm-2 col-form-label">文章名稱</label>
                                 <form:input type="text" path="title" class="form-control" id="inputTitle"></form:input>
+<%--                                <form:input type="checkbox" path="productList" class="form-control" id="inputTitle"></form:input>--%>
                                 <br>
                                     <%--                <form:textarea cssStyle="width: 610px;height: 300px"  type="text" path="content"  id="content"></form:textarea>--%>
                             </div>

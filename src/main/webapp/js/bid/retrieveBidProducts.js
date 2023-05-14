@@ -304,7 +304,7 @@ function getCurrentQueryParams() {
 
     // 關鍵字 (需不包含特定字元如<script>)
     const keyword = searchInput.value
-    if (keyword || !keyword.includes("<script>")) {
+    if (keyword && !keyword.includes("<script>")) {
         param.keyword = keyword
     }
 

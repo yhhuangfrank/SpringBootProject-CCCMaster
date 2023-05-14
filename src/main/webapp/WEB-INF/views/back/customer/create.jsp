@@ -66,7 +66,7 @@
                         </div>
                       </div>
                       <div class="row mb-3">
-                        <label for="name" class="col-sm-2 col-form-label">會員名稱</label>
+                        <label for="name" class="col-sm-2 col-form-label">暱稱</label>
                         <div class="col-sm-10">
                           <form:input required="true" path="name" id="name" type="text" class="form-control"/>
                         </div>
@@ -78,9 +78,9 @@
                         </div>
                       </div>
                       <div class="row mb-3">
-                        <label for="phoneNumber" class="col-sm-2 col-form-label">電話</label>
+                        <label for="phoneNumber" class="col-sm-2 col-form-label">手機號碼</label>
                         <div class="col-sm-10">
-                          <form:input required="true" path="phoneNumber" id="phoneNumber" type="text" class="form-control"/>
+                          <form:input required="true" path="phoneNumber" id="phoneNumber" type="tel" class="form-control" pattern="[0]{1}[9]{1}[0-9]{8}" placeholder="格式:09XXXXXXXX"/>
                         </div>
                       </div>
 

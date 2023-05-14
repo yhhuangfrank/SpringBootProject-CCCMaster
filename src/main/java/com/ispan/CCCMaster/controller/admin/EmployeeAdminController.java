@@ -1,5 +1,7 @@
 package com.ispan.CCCMaster.controller.admin;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -12,13 +14,17 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ispan.CCCMaster.model.bean.employee.Employee;
+import com.ispan.CCCMaster.model.bean.employee.Position;
 import com.ispan.CCCMaster.service.EmployeeService;
+import com.ispan.CCCMaster.service.PositionService;
 
 @Controller
 public class EmployeeAdminController {
 	
 	@Autowired
 	private EmployeeService epyService;
+	@Autowired
+	private PositionService pstService;
 	
 	@GetMapping("/admin/employees")	//員工資料總覽
 	public String showAll(@RequestParam(name="p", defaultValue = "1") Integer pageNumber, Model model) {
@@ -29,7 +35,9 @@ public class EmployeeAdminController {
 	
 	@GetMapping("/admin/employees/create")	//新增員工頁面
 	public String createEmployee(Model model) {
+		List<Position> positions = pstService.findAll();
 		model.addAttribute("employee", new Employee());
+		model.addAttribute("positions", positions);
 		return "back/employee/create";
 	}
 	
@@ -41,6 +49,8 @@ public class EmployeeAdminController {
 	
 	@GetMapping("/admin/employees/edit")	//編輯員工資料頁面
 	public String editEmployee(@RequestParam("id") Integer id, Model model) {
+		List<Position> positions = pstService.findAll();
+		model.addAttribute("positions", positions);
 		model.addAttribute("employee", epyService.findById(id));
 		return "back/employee/edit";
 	}

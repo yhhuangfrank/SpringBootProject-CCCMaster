@@ -83,9 +83,9 @@
 									<tr>
 										<th scope="col">編號</th>
 										<th scope="col">電子郵件</th>
-										<th scope="col">名稱</th>
+										<th scope="col">暱稱</th>
 										<th scope="col">密碼</th>
-										<th scope="col">電話</th>
+										<th scope="col">手機號碼</th>
 										<th scope="col">點數</th>
 										<th scope="col">棄標次數</th>
 										<th scope="col">註冊時間</th>

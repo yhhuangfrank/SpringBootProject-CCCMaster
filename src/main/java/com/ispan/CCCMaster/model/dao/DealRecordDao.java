@@ -14,4 +14,5 @@ public interface DealRecordDao extends JpaRepository<DealRecord, Integer> {
 
     @Query("FROM DealRecord WHERE bidProduct = :bidProduct")
     DealRecord findByBidProduct(@Param("bidProduct") BidProduct bidProduct);
+    
 }

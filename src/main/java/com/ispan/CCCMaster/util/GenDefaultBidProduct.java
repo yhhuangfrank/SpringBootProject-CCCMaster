@@ -59,7 +59,13 @@ public class GenDefaultBidProduct {
         Customer customer1 = new Customer();
         Customer customer2 = new Customer();
         customer1.setName("小明");
+        customer1.setEmail("user1@gmail.com");
+        customer1.setPhoneNumber("0911111111");
+        customer1.setPassword("123");
         customer2.setName("小華");
+        customer2.setEmail("user2@gmail.com");
+        customer2.setPhoneNumber("0922222222");
+        customer2.setPassword("123");
         customerDao.save(customer1);
         customerDao.save(customer2);
 
