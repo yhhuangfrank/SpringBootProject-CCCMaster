@@ -15,7 +15,11 @@ public interface OrderDao extends JpaRepository<OrderBean, String>{
 	
 	@Query(value="select * from Orders where customer_id= :id",nativeQuery = true)
 	public List<OrderBean> findAllByCid(@Param(value="id")Integer customerId);
-	
-	
-	
+
+
+
+
+
+
+
 }
