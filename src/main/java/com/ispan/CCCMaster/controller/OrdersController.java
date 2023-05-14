@@ -1,26 +1,37 @@
 package com.ispan.CCCMaster.controller;
 
+import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ispan.CCCMaster.annotation.CustomerAuthentication;
+import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.order.OrderBean;
 import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;
+import com.ispan.CCCMaster.model.dao.OrderDao;
 import com.ispan.CCCMaster.service.OrderService;
+import javax.persistence.criteria.Predicate;
 
 @Controller
 public class OrdersController {
 	
 	@Autowired
 	OrderService oService;
+	
+	@Autowired
+	OrderDao oDao;
 	
 	//前台個人訂單清單
 	@CustomerAuthentication
@@ -40,5 +51,21 @@ public class OrdersController {
 		List<OrderDetailBean> odb = oService.findorderdetailbyOId(orderid);
 		model.addAttribute("orderdetails",odb);
 		return "front/orders/orderdetail";
+	}
+	
+	//查詢條件
+	@GetMapping("/front/order/search")
+	public String search(@RequestParam(name="type",defaultValue="orderid")String type,
+							@RequestParam(name="keyword",defaultValue="")String keyword,
+							Model model,HttpSession session) throws ParseException {
+		Integer customerId = (Integer)session.getAttribute("customerId");
+		List<OrderBean> result;
+		if("orderid".equals(type)) {
+			result = oService.findByOrderId(customerId, keyword);			
+		}else {
+			result = oService.findByDate(keyword);					
+		}
+		model.addAttribute("results",result);
+		return "/front/orders/orders";
 	}
 }

@@ -1,8 +1,11 @@
 package com.ispan.CCCMaster.service;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ispan.CCCMaster.model.bean.order.OrderBean;
@@ -42,5 +45,18 @@ public interface OrderService {
 
     //個人訂單最新一筆
     OrderBean findLatestByCid(Integer customerId);
+    
+    //依訂單編號做搜尋
+    public List<OrderBean> findByOrderId(Integer customerId,String orderid);
+    
+    //依時間搜尋
+    public List<OrderBean> findByDate(String date)throws ParseException;
+    
+    //將搜尋輸入的年(年月)加上0101(01)
+    public  Date getStartDate(String yearOrMonth)throws ParseException;
+    
+    //將搜尋輸入的年(年月)加上1231(31)
+    public  Date getEndDate(String yearOrMonth)throws ParseException;
+    
 
 }
