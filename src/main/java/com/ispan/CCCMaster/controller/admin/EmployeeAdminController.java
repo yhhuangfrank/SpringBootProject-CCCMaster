@@ -2,6 +2,9 @@ package com.ispan.CCCMaster.controller.admin;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ispan.CCCMaster.model.bean.employee.Employee;
 import com.ispan.CCCMaster.model.bean.employee.Position;
@@ -25,6 +29,41 @@ public class EmployeeAdminController {
 	private EmployeeService epyService;
 	@Autowired
 	private PositionService pstService;
+	
+	@GetMapping("/admin/login")	//後台員工登入頁面
+	public String loginPage() {
+		return "back/employee/login";
+	}
+	
+	@PostMapping("/admin/login")	//打完帳號密碼，送出表單
+	public  String login(@RequestParam("employeeId") Integer employeeId
+						, @RequestParam("password") String password
+						, HttpServletRequest request
+						, RedirectAttributes redirectAttributes) {
+		if(epyService.logIn(employeeId, password, request)) {
+			return "redirect:/admin/customers";	//若成功登入，導到會員資料總覽
+		} else {
+			//重導前添加登入失敗訊息
+			redirectAttributes.addFlashAttribute("isFailed", true);
+			redirectAttributes.addFlashAttribute("failedMsg", "登入失敗！編號跟密碼都記不住，你是嫌薪水太多嗎?");
+			return "redirect:/admin/login";
+		}
+	}
+	
+	@GetMapping("/admin/logout")	//按下登出鈕
+	public String logOut(HttpSession session, RedirectAttributes redirectAttributes) {
+		epyService.logOut(session);
+		redirectAttributes.addFlashAttribute("isWarning", true);
+		redirectAttributes.addFlashAttribute("warningMsg", "快!趁主管不在的時候快閃人!");
+		return "redirect:/admin/login";	//回到登入頁
+	}
+	
+	@GetMapping("/admin/cancelLogin")	//按下不想上班鈕
+	public String cancelLogin(RedirectAttributes redirectAttributes) {
+		redirectAttributes.addFlashAttribute("isFailed", true);
+		redirectAttributes.addFlashAttribute("failedMsg", "抱歉，你不能那麼做 ^_^");
+		return "redirect:/admin/login";	//回到登入頁
+	}
 	
 	@GetMapping("/admin/employees")	//員工資料總覽
 	public String showAll(@RequestParam(name="p", defaultValue = "1") Integer pageNumber, Model model) {

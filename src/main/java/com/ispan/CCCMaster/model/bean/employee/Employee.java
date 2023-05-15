@@ -45,7 +45,7 @@ public class Employee {
 	
 	@ManyToOne
 	@JoinColumn(name = "position_id")
-	private Position positionId;
+	private Position position;
 	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
@@ -106,12 +106,12 @@ public class Employee {
 		this.password = password;
 	}
 
-	public Position getPositionId() {
-		return positionId;
+	public Position getPosition() {
+		return position;
 	}
 
-	public void setPositionId(Position positionId) {
-		this.positionId = positionId;
+	public void setPosition(Position position) {
+		this.position = position;
 	}
 
 	public Date getHireDate() {
