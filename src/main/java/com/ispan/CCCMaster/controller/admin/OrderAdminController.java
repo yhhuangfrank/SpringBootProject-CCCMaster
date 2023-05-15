@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpRange;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,9 +47,9 @@ public class OrderAdminController {
 	
 	//後台訂單列表	
 	@GetMapping("/admin/orders")
-	public String findAllOrder(Model model) {
-		List<OrderBean> list = oService.findOrders();
-		model.addAttribute("allorders",list);
+	public String findAllOrder(@RequestParam(name="p", defaultValue = "1") Integer pageNumber,Model model) {
+		Page<OrderBean> page = oService.findOrdersByPage(pageNumber);
+		model.addAttribute("page",page);
 		return "/back/order/showOrders";
 	}	
 	//後台單筆訂單
@@ -61,18 +62,18 @@ public class OrderAdminController {
 		return "/back/order/Order-edit";
 	}	
 //	//修改訂單
-//	@PutMapping("/admin/orders/edit")
-//	public String editOrderById(@ModelAttribute("singleorder")OrderBean orderBean) {
-//		try {
-//			oService.updateById(orderBean);
-//		}catch(IOException e) {
-//          e.printStackTrace();
-//       }
-//		return "redirect:/admin/orders";
-//	}
-//	
-//
-//	
+	@PutMapping("/admin/orders/edit")
+	public String editOrderById(@ModelAttribute("singleorder")OrderBean orderBean) {
+		try {
+			oService.updateById(orderBean);
+		}catch(IOException e) {
+          e.printStackTrace();
+       }
+		return "redirect:/admin/orders";
+	}
+	
+
+	
 	//新增訂單&同時刪掉購物車&修改存貨
 	@PostMapping("/front/orders/create")
 	public String createorder(@ModelAttribute("orderBean")OrderBean orderBean,

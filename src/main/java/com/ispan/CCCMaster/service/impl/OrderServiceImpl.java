@@ -6,6 +6,10 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,8 +61,10 @@ public class OrderServiceImpl implements OrderService {
 
 	//找尋所有訂單
 	@Override
-	public List<OrderBean> findOrders() {
-		return oDao.findAll();
+	public Page<OrderBean> findOrdersByPage(Integer pageNumber) {
+		Pageable pgb = PageRequest.of(pageNumber-1, 15,Sort.Direction.ASC,"orderid");
+		Page<OrderBean> page = oDao.findAll(pgb);
+		return page;
 	}
 
 	//訂單詳細資料
@@ -69,22 +75,19 @@ public class OrderServiceImpl implements OrderService {
 
 	
 	//更改訂單資料
-//	@Override
-//	@Transactional
-//	public void updateById(OrderBean orderBean) throws IOException{
-//		Optional<OrderBean> option = oDao.findById(orderBean.getOrderid());
-//		if(option.isPresent()) {
-//			OrderBean oldOrder = option.get();
-//			oldOrder.setArrivaldate(orderBean.getArrivaldate());
-//			oldOrder.setShipperaddress(orderBean.getShipperaddress());
-//			oldOrder.setOrdercondition(orderBean.getOrdercondition());
-//			oldOrder.setShipperaddress(orderBean.getShipperaddress());
-//		}
-//		List<ShoppingCartBean> scBean = scDao.findAll();
-//		for(ShoppingCartBean sc : scBean) {
-//		
-//	}
-//}
+	@Override
+	@Transactional
+	public void updateById(OrderBean orderBean) throws IOException{
+		Optional<OrderBean> option = oDao.findById(orderBean.getOrderid());
+		if(option.isPresent()) {
+			OrderBean oldOrder = option.get();
+			oldOrder.setArrivaldate(orderBean.getArrivaldate());
+			oldOrder.setShipperaddress(orderBean.getShipperaddress());
+			oldOrder.setOrdercondition(orderBean.getOrdercondition());
+			oldOrder.setShipperaddress(orderBean.getShipperaddress());
+		}
+	}
+	
 	//建立訂單
 	@Override
 	@Transactional

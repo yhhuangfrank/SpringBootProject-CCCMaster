@@ -19,13 +19,13 @@ public interface OrderService {
 	OrderBean findOrderByid(String orderid);
 
 	//找尋所有訂單(後台)
-	List<OrderBean> findOrders();
+	Page<OrderBean> findOrdersByPage(Integer pageNumber);
 
 	//訂單詳細資料
 	List<OrderDetailBean> findOrder();
 
 	//更改訂單資料
-//	void updateById(OrderBean orderBean) throws IOException;
+	void updateById(OrderBean orderBean) throws IOException;
 	
 	//創立訂單
 	void createOrder(OrderBean order,Integer customerId) throws IOException;
@@ -46,10 +46,10 @@ public interface OrderService {
     //個人訂單最新一筆
     OrderBean findLatestByCid(Integer customerId);
     
-    //依訂單編號做搜尋
+    //依訂單編號做搜尋(前台)
     public List<OrderBean> findByOrderId(Integer customerId,String orderid);
     
-    //依時間搜尋
+    //依時間搜尋(前台)
     public List<OrderBean> findByDate(String date)throws ParseException;
     
     //將搜尋輸入的年(年月)加上0101(01)
