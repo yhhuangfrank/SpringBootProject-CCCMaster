@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ispan.CCCMaster.annotation.CustomerAuthentication;
 import com.ispan.CCCMaster.model.bean.customer.Customer;
 import com.ispan.CCCMaster.service.CustomerService;
 
@@ -75,6 +76,12 @@ public class CustomerController {
 		redirectAttributes.addFlashAttribute("signupSuccess", true);
 		redirectAttributes.addFlashAttribute("signupSuccessMsg", "您已成功註冊，並登入成功!");
 		return "redirect:/";	//註冊成功後自動登入並到首頁
+	}
+	
+	@CustomerAuthentication
+	@GetMapping("/center")	//會員中心
+	public String center() {
+		return "front/customer/center";
 	}
 
 }
