@@ -109,10 +109,10 @@
 				<div class="row justify-content-center">
 					<div class="col-md-6">
 					
-						<%-- 【暫時用不到】顯示登入失敗訊息 --%>
+						<%-- 【暫時用不到】顯示提示訊息 --%>
 						<jsp:include page="../../message.jsp"/>
 						
-						<form:form action="${contextRoot}/admin/customers/edit" method="put" modelAttribute="customer" class="form-signup">
+						<form:form action="${contextRoot}/center/profile" method="put" modelAttribute="customer" class="form-signup">
 							<h2 style="font-family:Cursive;font-size:50px;" class="text-center mb-4">山西達人</h2>
 							<h3 class="text-center mb-4">我的資料</h3>
 				
@@ -177,7 +177,7 @@
 	<!-- Template Main JS File -->
 	<script src="${contextRoot}/styles/front/assets/js/main.js"></script>
 	<!-- ajax -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.6/axios.min.js"></script>
+<!-- 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.6/axios.min.js"></script> -->
 <%-- 	<script src="${contextRoot}/js/customer/checkSignup.js"></script> --%>
 </body>
 

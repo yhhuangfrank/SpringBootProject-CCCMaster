@@ -103,6 +103,9 @@
 			</div>
 		</section>
 		<!-- End Breadcrumbs -->
+		
+		<%-- 顯示提示訊息 --%>
+		<jsp:include page="../../message.jsp"/>
 
 
 		<section id="services" class="services">
@@ -187,8 +190,8 @@
 	<!-- Template Main JS File -->
 	<script src="${contextRoot}/styles/front/assets/js/main.js"></script>
 	<!-- ajax -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.6/axios.min.js"></script>
-	<script src="${contextRoot}/js/customer/checkSignup.js"></script>
+<!-- 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.6/axios.min.js"></script> -->
+<%-- 	<script src="${contextRoot}/js/customer/checkSignup.js"></script> --%>
 </body>
 
 </html>
