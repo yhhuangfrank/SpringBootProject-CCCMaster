@@ -74,7 +74,7 @@
                         </div>
                       </div>
                       <div class="row mb-3">
-                        <label for="name" class="col-sm-2 col-form-label">名稱</label>
+                        <label for="name" class="col-sm-2 col-form-label">暱稱</label>
                         <div class="col-sm-10">
                           <form:input required="true" path="name" id="name" type="text" class="form-control"/>
                         </div>

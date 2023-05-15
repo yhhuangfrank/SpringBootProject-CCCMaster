@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>會員中心</title>
+<title>我的資料</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -79,7 +79,6 @@
 		  background: #e6573f;
 		}
 	</style>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 
 <body>
@@ -98,70 +97,61 @@
 					<li><a href="${contextRoot}/">首頁</a></li>
 					<li>會員中心</li>
 				</ol>
-				<h2>總覽</h2>
+				<h2>我的資料</h2>
 
 			</div>
 		</section>
 		<!-- End Breadcrumbs -->
 
 
-		<section id="services" class="services">
-	      	<div class="container">
-	
-		        <div class="row">
-			        <div class="col-lg-4 col-md-6 align-items-stretch">
-				        <div class="icon-box">
-				        	<div class="icon"><i class="bi bi-person-vcard"></i></div>
-				        	<h4><a href="${contextRoot}/center/profile">我的資料</a></h4>
-				        	<p>在此瀏覽及編輯個人資料</p>
-				        </div>
-			        </div>
-		
-			        <div class="col-lg-4 col-md-6 align-items-stretch mt-4 mt-md-0">
-				        <div class="icon-box">
-				        	<div class="icon"><i class="bi bi-ticket-perforated"></i></div>
-				        	<h4><a href="">我的優惠券</a></h4>
-				        	<p>查看可用的優惠券及優惠券使用紀錄</p>
-				   	    </div>
-			        </div>
-		
-			        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
-				        <div class="icon-box">
-				        	<div class="icon"><i class="bx bx-tachometer"></i></div>
-				        	<h4><a href="">商城購買紀錄</a></h4>
-				        <p>	Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
-				        </div>
-			        </div>
-		
-			        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
-				        <div class="icon-box">
-				        	<div class="icon"><i class="bx bx-world"></i></div>
-					        <h4><a href="">二手賣場得標紀錄</a></h4>
-				        	<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
-				        </div>
-			        </div>
-		
-			        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
-				        <div class="icon-box">
-				        	<div class="icon"><i class="bx bx-slideshow"></i></div>
-				        	<h4><a href="">我的最愛</a></h4>
-				        	<p>Quis consequatur saepe eligendi voluptatem consequatur dolor consequuntur</p>
-				        </div>
-			        </div>
-		
-			        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
-				        <div class="icon-box">
-				        	<div class="icon"><i class="bx bx-arch"></i></div>
-				        	<h4><a href="">瀏覽紀錄</a></h4>
-				        	<p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
-				        </div>
-			        </div>
-		
-		        </div>
-	
-	      	</div>
-    	</section><!-- End Services Section -->
-		
+		<section id="contact" class="contact">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-md-6">
+					
+						<%-- 【暫時用不到】顯示登入失敗訊息 --%>
+						<jsp:include page="../../message.jsp"/>
+						
+						<form:form action="${contextRoot}/admin/customers/edit" method="put" modelAttribute="customer" class="form-signup">
+							<h2 style="font-family:Cursive;font-size:50px;" class="text-center mb-4">山西達人</h2>
+							<h3 class="text-center mb-4">我的資料</h3>
+				
+							<div class="form-group mb-2">
+								<label for="emailInput">電子郵件</label>
+								<form:input required="true" path="email" type="email" class="form-control mb-2" id="emailInput" placeholder="輸入email"/>
+								<span id="emailSpan"></span>
+							</div>
+							<div class="form-group mb-2">
+								<label for="nameInput">暱稱</label>
+								<form:input required="true" path="name" type="text" class="form-control mb-2" id="nameInput" placeholder="輸入暱稱"/>
+								<span id="nameSpan"></span>
+							</div>
+							<div class="form-group mb-2">
+								<label for="password">密碼</label>
+								<form:input required="true" path="password" type="password" class="form-control" id="password" placeholder="輸入密碼"/>
+							</div>
+							<div class="form-group mb-2">
+								<label for="passwordAgainInput">再次輸入密碼</label>
+								<input required type="password" class="form-control mb-2" id="passwordAgainInput" placeholder="再次輸入密碼"/>
+								<span id="passwordAgainSpan"></span>
+							</div>
+							<div class="form-group">
+								<label for="phoneNumberInput">手機號碼</label>
+								<form:input required="true" path="phoneNumber" type="tel" class="form-control mb-2" id="phoneNumberInput" pattern="[0]{1}[9]{1}[0-9]{8}" placeholder="格式:09XXXXXXXX"/>
+								<span id="phoneNumberSpan"></span>
+							</div>
+							<div class="text-center">
+								<button id="submitButton" type="submit" class="btn-primary mt-4">確認變更</button>
+								<button id="cancelButton" type="button" class="btn btn-secondary">
+									<a class="link-light" href="${contextRoot}/center">取消並返回</a>
+								</button>
+							</div>
+						</form:form>
+					</div>
+				</div>
+			</div>
+		</section>
+			
 			
 			
 			
@@ -188,7 +178,7 @@
 	<script src="${contextRoot}/styles/front/assets/js/main.js"></script>
 	<!-- ajax -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.6/axios.min.js"></script>
-	<script src="${contextRoot}/js/customer/checkSignup.js"></script>
+<%-- 	<script src="${contextRoot}/js/customer/checkSignup.js"></script> --%>
 </body>
 
 </html>

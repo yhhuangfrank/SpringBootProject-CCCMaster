@@ -79,9 +79,17 @@ public class CustomerController {
 	}
 	
 	@CustomerAuthentication
-	@GetMapping("/center")	//會員中心
+	@GetMapping("/center")	//會員中心-首頁
 	public String center() {
 		return "front/customer/center";
+	}
+	
+	@CustomerAuthentication
+	@GetMapping("/center/profile")	//會員中心-個人資料頁面
+	public String profilePage(HttpSession session, Model model) {
+		Integer customerId = (Integer)session.getAttribute("customerId");
+		model.addAttribute("customer", ctmService.findById(customerId));
+		return "front/customer/profile";
 	}
 
 }
