@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-  <title>test</title>
+  <title>訂單列表</title>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -45,9 +45,23 @@
       </nav>
   </div>
   <section class="section">
-    <div class="row align-items-top">
-        <div class="col-lg-10 mx-auto">
-              <table class="table datatable">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">總覽</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">未付款</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">處理中</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="refund-tab" data-bs-toggle="tab" data-bs-target="#refund" type="button" role="tab" aria-controls="refund" aria-selected="false">退款中</button>
+                </li>
+              </ul>
+              <div class="tab-content pt-2" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                   <table class="table table-striped">
                 <thead>
                   <tr>
                     <th scope="col">訂單編號</th>
@@ -60,7 +74,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <c:forEach var="order" items="${allorders}">
+                  <c:forEach var="order" items="${page.content}">
                    <tr>
                      <td style="vertical-align:middle">${order.orderid}</td>
                      <td style="vertical-align:middle">${order.cbOrder.name}</td>
@@ -78,9 +92,27 @@
                    </c:forEach>
                  </tbody>
               </table>
-              <!-- End Table with stripped rows -->
-            </div>
-          </div>
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                  Nesciunt totam et. Consequuntur magnam aliquid eos nulla dolor iure eos quia. Accusantium distinctio omnis et atque fugiat. Itaque doloremque aliquid sint quasi quia distinctio similique. Voluptate nihil recusandae mollitia dolores. Ut laboriosam voluptatum dicta.
+                </div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                  Saepe animi et soluta ad odit soluta sunt. Nihil quos omnis animi debitis cumque. Accusantium quibusdam perspiciatis qui qui omnis magnam. Officiis accusamus impedit molestias nostrum veniam. Qui amet ipsum iure. Dignissimos fuga tempore dolor.
+                </div>
+                <div class="tab-pane fade" id="refund" role="tabpanel" aria-labelledby="refund-tab">
+                  Saepe animi et soluta ad odit soluta sunt. Nihil quos omnis animi debitis cumque. Accusantium quibusdam perspiciatis qui qui omnis magnam. Officiis accusamus impedit molestias nostrum veniam. Qui amet ipsum iure. Dignissimos fuga tempore dolor.
+                </div>
+              </div>
+              
+              <c:forEach var="pageNumber" begin="1" end="${page.totalPages}">
+				<c:choose>
+					<c:when test="${page.number != pageNumber-1 }">
+						<a href="${contextRoot}/admin/orders?p=${pageNumber}">${pageNumber}</a>
+					</c:when>
+					<c:otherwise>${pageNumber}</c:otherwise>
+				</c:choose>
+				<c:if test="${pageNumber != page.totalPages }">-</c:if>
+			</c:forEach>
   </section>
   </main>
 

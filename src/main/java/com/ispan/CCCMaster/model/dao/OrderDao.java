@@ -27,5 +27,4 @@ public interface OrderDao extends JpaRepository<OrderBean, String>,JpaSpecificat
 	
 	
 	
-	
 }
