@@ -9,18 +9,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ispan.CCCMaster.annotation.CustomerAuthentication;
 import com.ispan.CCCMaster.model.bean.customer.Customer;
 import com.ispan.CCCMaster.service.CustomerService;
+import com.ispan.CCCMaster.util.LoginUtil;
 
 @Controller
 public class CustomerController {
 	
 	@Autowired
 	private CustomerService ctmService;
+	@Autowired
+	private LoginUtil loginUtil;
 	
 	@GetMapping("/login")	//前台會員登入頁面
 	public String loginPage(HttpServletRequest request) {
@@ -79,9 +83,28 @@ public class CustomerController {
 	}
 	
 	@CustomerAuthentication
-	@GetMapping("/center")	//會員中心
+	@GetMapping("/center")	//會員中心-首頁
 	public String center() {
 		return "front/customer/center";
 	}
+	
+	@CustomerAuthentication
+	@GetMapping("/center/profile")	//會員中心-個人資料頁面
+	public String profilePage(HttpSession session, Model model) {
+		model.addAttribute("customer", loginUtil.getLoginCustomer(session));
+		return "front/customer/profile";
+	}
+	
+	@CustomerAuthentication
+	@PutMapping("/center/profile")	//會員中心-送出變更個人資料表單
+	public String putProfile(@ModelAttribute("customer") Customer customer, HttpSession session, RedirectAttributes redirectAttributes) {
+		customer.setCustomerId(loginUtil.getLoginCustomerId(session));
+		ctmService.editByIdForCustomer(customer);
+		//重導前添加註冊成功且登入訊息
+		redirectAttributes.addFlashAttribute("isSuccess_float", true);
+		redirectAttributes.addFlashAttribute("successMsg_float", "您已成功變更個人資料!");
+		return "redirect:/center";
+	}
+	
 
 }

@@ -185,6 +185,15 @@ public class Customer {
 		this.setco = setco;
 	}
 
+	@Override
+	public String toString() {
+		return "Customer [customerId=" + customerId + ", email=" + email + ", password=" + password + ", startDate="
+				+ startDate + ", name=" + name + ", phoneNumber=" + phoneNumber + ", point=" + point + ", abandonCount="
+				+ abandonCount + ", bidProductList=" + bidProductList + ", customerCoupons=" + customerCoupons
+				+ ", customerFavorites=" + customerFavorites + ", customerBrowsingHistory=" + customerBrowsingHistory
+				+ ", customerNotify=" + customerNotify + "]";
+	}
+
 	// private 方法 - 新增 bidProduct
 	private void addBidProduct(BidProduct bidProduct) {
 		if (bidProductList == null) {
