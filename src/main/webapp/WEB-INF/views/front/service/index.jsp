@@ -22,13 +22,13 @@
     <link href="${contextRoot}/styles/front/assets/vendor/swiper/style.css" rel="stylesheet">
 </head>
 <body>
+
 <div class="container clearfix">
     <div class="people-list" id="people-list">
         <div class="search">
             <input id="userName" placeholder="search" type="text"/>
             <button onclick="registration()">進入聊天</button>
-            <button onclick="fetchAll()">重新整理</button>
-            <button onclick="disconnectFromChat()">離開聊天</button>
+            <button onclick="disconnectFromChat()">離開聊天</button> 
         </div>
         <ul class="list" id="usersList">
 
@@ -70,7 +70,11 @@
 
 </div> <!-- end container -->
 
-<script id="message-template" type="text/x-handlebars-template">
+
+
+<script src="${contextRoot}/styles/front/assets/js/custom.js"></script>
+<script src="${contextRoot}/styles/front/assets/js/chat.js"></script>
+<script>
     <li class="clearfix">
         <div class="message-data align-right">
             <span class="message-data-time">{{time}}, Today</span> &nbsp; &nbsp;
@@ -82,7 +86,7 @@
     </li>
 </script>
 
-<script id="message-response-template" type="text/x-handlebars-template">
+<script >
     <li>
         <div class="message-data">
             <span class="message-data-name"><i class="fa fa-circle online"></i> {{userName}}</span>
@@ -93,8 +97,11 @@
         </div>
     </li>
 </script>
-
-<script src="${contextRoot}/styles/front/assets/js/custom.js"></script>
-<script src="${contextRoot}/styles/front/assets/js/chat.js"></script>
+<script>
+    // 當頁面加載完成後調用 fetchAll() 函數
+    document.addEventListener('DOMContentLoaded', function() {
+        fetchAll();
+    });
+</script>
 </body>
 </html>

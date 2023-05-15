@@ -12,6 +12,17 @@
             <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
             <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
+    <!--    libs for stomp and sockjs-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <!--    end libs for stomp and sockjs-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"
+          type="text/css">
+    <link href="${contextRoot}/styles/front/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="${contextRoot}/styles/front/assets/vendor/swiper/style.css" rel="stylesheet">
 
             <!-- Favicons -->
             <link href="${contextRoot}/styles/back/assets/img/favicon.png" rel="icon">
@@ -275,10 +286,19 @@
                     </div>
                   </div>
                   <div class="felx-container-left-down">
-                    <!-- 工作資料1-3 -->
-                    <p class="job-font">創建服務單:<span>555</span></p>
-                    <p class="job-font">創建工單:<span>555</span></p>
-                    <p class="job-font">接待客戶:<span>555</span></p>
+                  <div class="container clearfix">
+        <div class="search">
+            <input id="userName" placeholder="search" type="text"/>
+            <button onclick="registration()">進入聊天</button>
+            <button onclick="disconnectFromChat()">離開聊天</button> 
+        </div>
+        <ul class="list" id="usersList">
+
+
+        </ul>
+
+
+</div> <!-- end container -->
                   </div>
                 </div>
                 <!-- 並排div center -->
@@ -304,15 +324,25 @@
                       <p class="">通話結束:<span>######</span></p>
                     </div>
                     <br />
-                    <div class="">最新的資料 時間:<span>
-                        <fmt:formatDate pattern="EEEE yyyy-MM-dd HH:mm:ss" value="${latest.createtime}" />
-                      </span></div>
-                    <div class="">
-                      ${latest.content}
 
+        <div class="chat-header clearfix">
+            <img alt="avatar" height="55px"
+                 src="https://secure.gravatar.com/avatar/12122a41f5e1d5f75d7b0aaf67199e7e?s=300&d=mm&r=g"
+                 width="55px"/>
 
-                    </div>
+            <div class="chat-about">
+                <div class="chat-with" id="selectedUserId"></div>
+                <div class="chat-num-messages"></div>
+            </div>
+            <i class="fa fa-star"></i>
+        </div> <!-- end chat-header -->
 
+        <div class="chat-history">
+            <ul>
+
+            </ul>
+
+        </div> <!-- end chat-history -->
 
                   </div>
                   <!-- 工作資料2-3 -->
@@ -321,20 +351,18 @@
                       <p class="job-font">表情/圖片上傳</p>
                     </div>
                     <div class="felx-container-center-down-down">
-                      <form:form class="form-control" modelAttribute="messages" method="post"
-                        action="${contextRoot}/messages/post">
+                    
+    <div class="chat">
+
+            <textarea id="message-to-send" name="message-to-send" placeholder="Type your message" rows="3"></textarea>
+
+            <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
+            <i class="fa fa-file-image-o"></i>
+
+            <button id="sendBtn">Send</button>
 
 
-                        <div class="form-floating mb-3">
-                          <form:textarea class="form-control"
-                              placeholder="Leave a comment here" id="floatingTextarea"
-                              style="height: 100px;" path="content" maxlength="50"></form:textarea>
-                          <label for="floatingTextarea"></label>
-                      </div>
-                        <div class="col-sm-10" style="text-align: right;margin:auto;float:right;">
-                          <button type="submit" class="btn btn-primary" id="btn">送出</button>
-                        </div>
-                      </form:form>
+    </div> <!-- end chat -->
                     </div>
                   </div>
                 </div>
@@ -398,6 +426,40 @@
 
             <!-- Template Main JS File -->
             <script src="${contextRoot}/styles/back/assets/js/main.js"></script>
+            
+            
+            
+<script src="${contextRoot}/styles/front/assets/js/custom.js"></script>
+<script src="${contextRoot}/styles/front/assets/js/chat.js"></script>
+<script id="message-template" type="text/x-handlebars-template">
+    <li class="clearfix">
+        <div class="message-data align-right">
+            <span class="message-data-time">{{time}}, Today</span> &nbsp; &nbsp;
+            <span class="message-data-name">You</span> <i class="fa fa-circle me"></i>
+        </div>
+        <div class="message other-message float-right">
+            {{messageOutput}}
+        </div>
+    </li>
+</script>
+
+<script id="message-response-template" type="text/x-handlebars-template">
+    <li>
+        <div class="message-data">
+            <span class="message-data-name"><i class="fa fa-circle online"></i> {{userName}}</span>
+            <span class="message-data-time">{{time}}, Today</span>
+        </div>
+        <div class="message my-message">
+            {{response}}
+        </div>
+    </li>
+</script>
+<script>
+    // 當頁面加載完成後調用 fetchAll() 函數
+    document.addEventListener('DOMContentLoaded', function() {
+        fetchAll();
+    });
+</script>
           </body>
 
           </html>
