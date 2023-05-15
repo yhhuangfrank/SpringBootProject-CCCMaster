@@ -36,15 +36,17 @@ function render(message, userName) {
     }.bind(this), 1500);
 }
 
-function sendMessage(message, username, toUserName) {
-    sendMsg(username, toUserName, message);
+function sendMessage(message) {
+    let username = $('#userName').val();
+    console.log(username)
+    sendMsg(username, message);
     scrollToBottom();
     if (message.trim() !== '') {
         var template = Handlebars.compile($("#message-template").html());
         var context = {
             messageOutput: message,
             time: getCurrentTime(),
-            toUserName: toUserName
+            toUserName: selectedUser
         };
 
         $chatHistoryList.append(template(context));
@@ -62,10 +64,7 @@ function getCurrentTime() {
 }
 
 function addMessage() {
-    let message = $textarea.val();
-    let username = $('#userName').val();
-    let toUserName = 'all'; // 或者你可以改成顯示一個選單，讓使用者選擇聊天對象
-    sendMessage(message, username, toUserName);
+    sendMessage($textarea.val());
 }
 
 function addMessageEnter(event) {
@@ -76,3 +75,4 @@ function addMessageEnter(event) {
 }
 
 init();
+

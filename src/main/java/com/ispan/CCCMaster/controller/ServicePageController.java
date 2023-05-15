@@ -52,4 +52,11 @@ public class ServicePageController {
             model.addAttribute("message", "Hello, world!");
             return "front/service/index";
         }
+        @GetMapping("/admin/Service/console")
+    	public String addMessage(Model model) {
+        	
+        	
+
+    		return "back/service/Service-console";
+    	}
 }
