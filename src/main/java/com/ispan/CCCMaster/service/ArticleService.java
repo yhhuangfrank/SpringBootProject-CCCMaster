@@ -12,6 +12,10 @@ public interface ArticleService {
 
     Article findArticleById(Integer id);
 
+//    List<Article> findArticleById(Integer id);
+
+
+
 //    List<Article> findArticleById(Integer articleId);
 
     void deleteArticleById(Integer id);

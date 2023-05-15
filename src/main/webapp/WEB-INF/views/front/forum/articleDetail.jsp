@@ -54,30 +54,40 @@
             </ol>
 
 
+
         </div>
     </section><!-- End Breadcrumbs -->
+    <button class="btn btn-primary m-3">
+        <a href="${contextRoot}/front/articles/createform" style="color: white;">新增文章</a>
+    </button>
+
+
 
     <!-- ======= About Section ======= -->
     <section id="about" class="about">
 
-        <div class="card">
-            <c:forEach items="${article}" var="a">
-            <div class="card-header">
 
-                <a href="${contextRoot}/articleDetail/${a.id}"
-                   title="More Details">${a.title}</a>
+
+        <div class="card">
+
+
+            <div class="card-header">
+                <h5 class="card-title">${article.title}</h5>
+
 
             </div>
-            <div class="card-body">
-                <h5 class="card-title">Card with header and footer</h5>
-                Ut in ea error laudantium quas omnis officia. Sit sed praesentium voluptas. Corrupti inventore consequatur nisi necessitatibus modi consequuntur soluta id. Enim autem est esse natus assumenda. Non sunt dignissimos officiis expedita. Consequatur sint repellendus voluptas.
-                Quidem sit est nulla ullam. Suscipit debitis ullam iusto dolorem animi dolorem numquam. Enim fuga ipsum dolor nulla quia ut.
-                Rerum dolor voluptatem et deleniti libero totam numquam nobis distinctio. Sit sint aut. Consequatur rerum in.
+            <div class="card-body ">
+                <img style="width: 300px;margin-right: 15px;;" class="img-thumbnail mb-1 "
+                     src="${contextRoot}/article/image/${article.articleId}"/>
+                ${article.content}
+
+
             </div>
             <div class="card-footer">
-                Footer
+                發文時間:${article.added}
             </div>
-            </c:forEach>
+
+
         </div><!-- End Card with header and footer -->
 
 
@@ -85,28 +95,28 @@
 
 
 
-        <nav aria-label="..." class="d-flex justify-content-center mt-3">
-            <ul class="pagination">
-                <c:forEach var="pageNumber" begin="1" end="${page.totalPages}">
-                    <c:choose>
-                        <c:when test="${page.number eq pageNumber-1}">
-                            <li class="page-item active" aria-current="page">
-                                <a class="page-link" href="#">${pageNumber}</a>
-                            </li>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item">
-                                <a class="page-link"
-                                   href="${contextRoot}/articles?p=${pageNumber}">${pageNumber}</a>
-                            </li>
-                        </c:otherwise>
-                    </c:choose>
-                    <c:if test="${pageNumber eq page.totalPages}">
+<%--        <nav aria-label="..." class="d-flex justify-content-center mt-3">--%>
+<%--            <ul class="pagination">--%>
+<%--                <c:forEach var="pageNumber" begin="1" end="${page.totalPages}">--%>
+<%--                    <c:choose>--%>
+<%--                        <c:when test="${page.number eq pageNumber-1}">--%>
+<%--                            <li class="page-item active" aria-current="page">--%>
+<%--                                <a class="page-link" href="#">${pageNumber}</a>--%>
+<%--                            </li>--%>
+<%--                        </c:when>--%>
+<%--                        <c:otherwise>--%>
+<%--                            <li class="page-item">--%>
+<%--                                <a class="page-link"--%>
+<%--                                   href="${contextRoot}/articles?p=${pageNumber}">${pageNumber}</a>--%>
+<%--                            </li>--%>
+<%--                        </c:otherwise>--%>
+<%--                    </c:choose>--%>
+<%--                    <c:if test="${pageNumber eq page.totalPages}">--%>
 
-                    </c:if>
-                </c:forEach>
-            </ul>
-        </nav>
+<%--                    </c:if>--%>
+<%--                </c:forEach>--%>
+<%--            </ul>--%>
+<%--        </nav>--%>
 
 
         <%--  Pagination   --%>

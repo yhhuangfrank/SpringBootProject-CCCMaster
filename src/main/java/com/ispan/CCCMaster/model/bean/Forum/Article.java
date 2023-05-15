@@ -27,7 +27,7 @@ public class Article {
     @Column(name = "customer_id")
     private Integer customerId;
 
-    @Column(name = "content", columnDefinition = "nvarchar(200)", nullable = true)
+    @Column(name = "content", columnDefinition = "nvarchar(MAX)", nullable = true)
     private String content;
 
 

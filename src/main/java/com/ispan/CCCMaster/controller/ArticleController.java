@@ -11,10 +11,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -42,10 +42,36 @@ public class ArticleController {
         return new ResponseEntity<>(image, headers, HttpStatus.OK);
     }
 
-    @GetMapping("/articleDetail/{id}")//顯示單篇文章
-    public String articleDetails(@PathVariable("id")Integer id, Model model){
-        articleService.findArticleById(id);
-        model.addAttribute("article", articleService.findArticleById(id));
+    @GetMapping("/articleDetail/{articledId}")//顯示單篇文章
+    public String articleDetails(@PathVariable("articledId")Integer articledId, Model model){
+
+
+        articleService.findArticleById(articledId);
+        model.addAttribute("article", articleService.findArticleById(articledId));
+
         return "front/forum/articleDetail";
     }
+    @GetMapping("/front/articles/createform")  //新增文章
+    public String addArticle(Model model, ModelAndView modelAndView) {
+        model.addAttribute("article", new Article());
+        Article latest = articleService.getLatest();
+        model.addAttribute("latest", latest);
+        return "back/article/article-create";
+    }
+
+    @PostMapping("/front/articles/create")//送出新增文章
+    public String createArticle(@ModelAttribute("article") Article article, Model model) throws IOException {
+//        article.getContent();//測試
+//        System.out.println(article.getContent());
+        article.setImage(article.getImageFile().getBytes());
+        articleService.createArticle(article);
+        return "redirect:/admin/articles/showAllArticle";
+    }
+
+
+    @GetMapping("/response/ajax")
+    public String ajaxPage() {
+        return "front/forum/articleDetail";
+    }
+
 }

@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service//告訴spring這是一個bean
@@ -26,6 +27,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Article findArticleById(Integer id) { //get article by id
+
         Optional<Article> option = articleDao.findById(id);//Optional是一個容器對象，它包含了我們需要的對象，使用isPresent()方法來檢測容器內是否包含了對象
         if(option.isPresent()) {//如果有值
             return option.get();//返回值
@@ -82,6 +84,7 @@ public class ArticleServiceImpl implements ArticleService {
 
         return articleDao.findFirstByOrderByAddedDesc();
     }
+
 
 
 
