@@ -79,7 +79,9 @@
 		  background: #e6573f;
 		}
 	</style>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+	
+	<!-- 引用 Bootstrap icon -->
+<!-- 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"> -->
 </head>
 
 <body>

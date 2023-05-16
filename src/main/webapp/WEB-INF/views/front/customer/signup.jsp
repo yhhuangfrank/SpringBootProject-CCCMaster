@@ -109,7 +109,7 @@
 				<div class="row justify-content-center">
 					<div class="col-md-6">
 					
-						<%-- 【暫時用不到】顯示登入失敗訊息 --%>
+						<%-- 【暫時用不到】顯示提示訊息 --%>
 						<jsp:include page="../../message.jsp"/>
 						
 						<form:form action="${contextRoot}/signup" method="post" modelAttribute="customer" class="form-signup">
