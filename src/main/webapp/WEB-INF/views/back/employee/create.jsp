@@ -66,9 +66,9 @@
                         </div>
                       </div>
                       <div class="row mb-3">
-                        <label for="positionId" class="col-sm-2 col-form-label">職位</label>
+                        <label for="position" class="col-sm-2 col-form-label">職位</label>
                         <div class="col-sm-10">
-                          <form:select path="positionId" id="positionId">
+                          <form:select path="position" id="position">
                           	<c:forEach var="position" items="${positions}">
                           		<option value="${position.positionId}">${position.positionName}	(${position.positionId})</option>
                           	</c:forEach>

@@ -1,10 +1,5 @@
 package com.ispan.CCCMaster.exceptionhandler;
 
-import com.ispan.CCCMaster.model.customexception.ApiErrorException;
-import com.ispan.CCCMaster.model.customexception.NotFoundException;
-import com.ispan.CCCMaster.model.customexception.UnLoginException;
-import com.ispan.CCCMaster.model.customexception.UnpayException;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -12,6 +7,12 @@ import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.ispan.CCCMaster.model.customexception.ApiErrorException;
+import com.ispan.CCCMaster.model.customexception.CustomerUnLoginException;
+import com.ispan.CCCMaster.model.customexception.EmployeeUnLoginException;
+import com.ispan.CCCMaster.model.customexception.NotFoundException;
+import com.ispan.CCCMaster.model.customexception.UnpayException;
 
 @ControllerAdvice
 public class GlobalHandler {
@@ -61,12 +62,20 @@ public class GlobalHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
     
-    // 處理必須登入而未登入的例外處理
-    @ExceptionHandler(UnLoginException.class)
-    public String handleUnLoginException(RedirectAttributes redirectAttributes) {
+    // 處理會員必須登入而未登入的例外處理
+    @ExceptionHandler(CustomerUnLoginException.class)
+    public String handleCustomerUnLoginException(RedirectAttributes redirectAttributes) {
     	redirectAttributes.addFlashAttribute("isWarning", true);
 		redirectAttributes.addFlashAttribute("warningMsg", "喔喔!您尚未登入哦!請登入以繼續進行操作");
     	return "redirect:/login";
+    }
+    
+    // 處理員工必須登入而未登入的例外處理
+    @ExceptionHandler(EmployeeUnLoginException.class)
+    public String handleEmployeeUnLoginException(RedirectAttributes redirectAttributes) {
+    	redirectAttributes.addFlashAttribute("isWarning", true);
+    	redirectAttributes.addFlashAttribute("warningMsg", "喔喔!您尚未登入哦!請登入以繼續進行操作");
+    	return "redirect:/admin/login";
     }
     
     //處理逾期付款的例外處理

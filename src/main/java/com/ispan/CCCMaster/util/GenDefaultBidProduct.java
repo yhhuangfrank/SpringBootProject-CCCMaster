@@ -4,9 +4,14 @@ import com.github.javafaker.Faker;
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.category.Category;
 import com.ispan.CCCMaster.model.bean.customer.Customer;
+import com.ispan.CCCMaster.model.bean.employee.Employee;
+import com.ispan.CCCMaster.model.bean.employee.Position;
 import com.ispan.CCCMaster.model.dao.BidProductDao;
 import com.ispan.CCCMaster.model.dao.CategoryDao;
 import com.ispan.CCCMaster.model.dao.CustomerDao;
+import com.ispan.CCCMaster.model.dao.EmployeeDao;
+import com.ispan.CCCMaster.model.dao.PositionDao;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,15 +29,21 @@ public class GenDefaultBidProduct {
     private final CategoryDao categoryDao;
 
     private final CustomerDao customerDao;
+    
+    private final PositionDao positionDao;
+    
+    private final EmployeeDao employeeDao;
 
     private final List<BidProduct> defaultBidProducts = new ArrayList<>();
 
     private final Map<String, Category> categoryMap = new HashMap<>();
 
-    public GenDefaultBidProduct(BidProductDao bidProductDao, CategoryDao categoryDao, CustomerDao customerDao) {
+    public GenDefaultBidProduct(BidProductDao bidProductDao, CategoryDao categoryDao, CustomerDao customerDao, PositionDao positionDao, EmployeeDao employeeDao) {
         this.bidProductDao = bidProductDao;
         this.categoryDao = categoryDao;
         this.customerDao = customerDao;
+        this.positionDao = positionDao;
+        this.employeeDao = employeeDao;
     }
 
     @PostConstruct
@@ -89,6 +100,20 @@ public class GenDefaultBidProduct {
         }
 
         bidProductDao.saveAll(defaultBidProducts);
+        
+        // 設定預設職位資料
+        Position position1 = new Position();
+        position1.setPositionId(9999);
+        position1.setPositionName("Super Manager");
+        // 設定預設員工資料
+        Employee employee1 = new Employee();
+        employee1.setEmployeeName("山西布政司");        
+        employee1.setPosition(position1);
+        employee1.setPhoneNumber("0999999999");
+        employee1.setIdNumber("A123456789");        
+        employee1.setPassword("9999");
+        positionDao.save(position1);
+        employeeDao.save(employee1);
     }
 
     private Category getOrCreateCategory(String categoryName) {
