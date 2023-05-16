@@ -75,11 +75,12 @@
 		</section>
 		<!-- End Breadcrumbs -->
 		
-		<%-- 顯示提示訊息 --%>
-		<jsp:include page="../../message.jsp"/>
 
 		<div class="container mx-auto">
-			<a href="#" class="btn btn-primary" style="background-color: #e96b56">新增商品</a>
+			<%-- 顯示提示訊息 --%>
+			<jsp:include page="../../message.jsp"/>
+
+			<a href="${contextRoot}/bidProducts/create" class="btn btn-primary" style="background-color: #e96b56">新增商品</a>
 			<section class="row mt-3">
 				<div class="col-12">
 					<c:choose>
