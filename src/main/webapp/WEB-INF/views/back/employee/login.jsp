@@ -84,9 +84,7 @@
 		                      <button class="btn btn-primary w-100" type="submit">上班去~</button>
 		                    </div>
 		                    <div class="col-12">
-		                      <button class="btn btn-secondary w-100" type="button">
-		                      	<a style="color: white" href="${contextRoot}/admin/cancelLogin">不要好了，我想請假</a>
-		                      </button>
+		                      	<a style="color: white" href="${contextRoot}/admin/cancelLogin" class="btn btn-secondary w-100">不要好了，我想請假</a>
 		                    </div>
 		                  </form>
 		
@@ -124,6 +122,20 @@
 
         <!-- Template Main JS File -->
         <script src="${contextRoot}/styles/back/assets/js/main.js"></script>
+        
+        <c:if test="${lazy_float}">
+			<div id="failed-msg-float" class="alert alert-danger position-fixed top-50 start-50 translate-middle d-none" role="alert">
+		 		${lazyMsg_float}
+			</div>
+		 	<script>
+				// 顯示成功訊息框-浮動
+				document.querySelector('#failed-msg-float').classList.remove('d-none');
+				// 設定 2 秒後淡出消失
+				setTimeout(function() {
+				document.querySelector('#failed-msg-float').classList.add('fade');
+				}, 2000);
+			</script>
+		</c:if>
       </body>
 
       </html>

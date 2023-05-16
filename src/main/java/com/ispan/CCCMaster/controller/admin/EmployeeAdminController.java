@@ -60,8 +60,8 @@ public class EmployeeAdminController {
 	
 	@GetMapping("/admin/cancelLogin")	//按下不想上班鈕
 	public String cancelLogin(RedirectAttributes redirectAttributes) {
-		redirectAttributes.addFlashAttribute("isFailed", true);
-		redirectAttributes.addFlashAttribute("failedMsg", "抱歉，你不能那麼做 ^_^");
+		redirectAttributes.addFlashAttribute("lazy_float", true);
+		redirectAttributes.addFlashAttribute("lazyMsg_float", "抱歉，你不能那麼做 ^_^");
 		return "redirect:/admin/login";	//回到登入頁
 	}
 	
