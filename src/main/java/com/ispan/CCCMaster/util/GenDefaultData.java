@@ -4,6 +4,8 @@ import com.github.javafaker.Faker;
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.category.Category;
 import com.ispan.CCCMaster.model.bean.customer.Customer;
+import com.ispan.CCCMaster.model.bean.employee.Employee;
+import com.ispan.CCCMaster.model.bean.employee.Position;
 import com.ispan.CCCMaster.model.dao.BidProductDao;
 import com.ispan.CCCMaster.model.dao.CategoryDao;
 import com.ispan.CCCMaster.model.dao.CustomerDao;
@@ -58,19 +60,9 @@ public class GenDefaultData {
         // 設定預設拍賣商品
         createBidProducts();
         
-        // 設定預設職位資料
-//        Position position1 = new Position();
-//        position1.setPositionId(9999);
-//        position1.setPositionName("Super Manager");
-//        // 設定預設員工資料
-//        Employee employee1 = new Employee();
-//        employee1.setEmployeeName("山西布政司");
-//        employee1.setPosition(position1);
-//        employee1.setPhoneNumber("0999999999");
-//        employee1.setIdNumber("A123456789");
-//        employee1.setPassword("9999");
-//        positionDao.save(position1);
-//        employeeDao.save(employee1);
+        // 設定預設職位與員工
+        createPositionsAndEmployees();
+        
     }
 
     // 預設種類
@@ -164,4 +156,27 @@ public class GenDefaultData {
 
         return category;
     }
+    
+    // 預設職位與員工
+    private void createPositionsAndEmployees() {
+    	long num = positionDao.count();
+    	
+    	if(num > 0) return;
+
+    	// 預設職位
+    	Position superManager = new Position();
+    	superManager.setPositionId(9999);
+    	superManager.setPositionName("Super Manager");
+    	positionDao.save(superManager);
+
+    	// 預設員工
+    	Employee employee1 = new Employee();
+    	employee1.setEmployeeName("山西布政司");
+    	employee1.setPosition(superManager);
+    	employee1.setPhoneNumber("0999999999");
+    	employee1.setIdNumber("A123456789");
+    	employee1.setPassword("9999");
+    	employeeDao.save(employee1);
+    }
+    
 }
