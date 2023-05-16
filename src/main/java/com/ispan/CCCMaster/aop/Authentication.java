@@ -25,7 +25,15 @@ public class Authentication {
 	}
 	
 	@Before("@annotation(com.ispan.CCCMaster.annotation.EmployeeAuthentication)")	//只要使用 @EmployeeAuthentication 註解的 Method 都會受到驗證保護
-	public void authenticateEmployee() {
+	public void authenticateEmployeeByAnnotation() {
+		Object employee = session.getAttribute("employeeId");
+		
+		if (employee == null) throw new EmployeeUnLoginException();
+	}
+	
+	//只要在 com.ispan.CCCMaster.controller.admin 套件底下的所有 Method 都會受到驗證保護，其中 com.ispan.CCCMaster.controller.admin.EmployeeAdminController 內的 Method 除外
+	@Before("execution(* com.ispan.CCCMaster.controller.admin.*.*(..)) && !execution(* com.ispan.CCCMaster.controller.admin.EmployeeAdminController.*(..))")
+	public void authenticateEmployeeByExecution() {
 		Object employee = session.getAttribute("employeeId");
 		
 		if (employee == null) throw new EmployeeUnLoginException();

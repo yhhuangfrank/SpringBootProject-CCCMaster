@@ -51,6 +51,7 @@ public class EmployeeAdminController {
 		}
 	}
 	
+	@EmployeeAuthentication
 	@GetMapping("/admin/logout")	//按下登出鈕
 	public String logOut(HttpSession session, RedirectAttributes redirectAttributes) {
 		epyService.logOut(session);
@@ -74,6 +75,7 @@ public class EmployeeAdminController {
 		return "back/employee/employees";
 	}
 	
+	@EmployeeAuthentication
 	@GetMapping("/admin/employees/create")	//新增員工頁面
 	public String createEmployee(Model model) {
 		List<Position> positions = pstService.findAll();
@@ -82,12 +84,14 @@ public class EmployeeAdminController {
 		return "back/employee/create";
 	}
 	
+	@EmployeeAuthentication
 	@PostMapping("/admin/employees/create")	//送出新增員工表單
 	public String postEmployee(@ModelAttribute("employee") Employee employee) {
 		epyService.createEmployee(employee);
 		return "redirect:/admin/employees";	//總覽的GetMapping路徑
 	}
 	
+	@EmployeeAuthentication
 	@GetMapping("/admin/employees/edit")	//編輯員工資料頁面
 	public String editEmployee(@RequestParam("id") Integer id, Model model) {
 		List<Position> positions = pstService.findAll();
@@ -96,12 +100,14 @@ public class EmployeeAdminController {
 		return "back/employee/edit";
 	}
 	
+	@EmployeeAuthentication
 	@PutMapping("/admin/employees/edit")	//送出編輯員工資料表單
 	public String putEmployee(@ModelAttribute("employee") Employee employee) {
 		epyService.editById(employee);
 		return "redirect:/admin/employees";
 	}
 	
+	@EmployeeAuthentication
 	@DeleteMapping("/admin/employees/delete")	//刪除員工按鈕
 	public String deleteEmployee(@RequestParam("id") Integer id) {
 		epyService.deleteById(id);
