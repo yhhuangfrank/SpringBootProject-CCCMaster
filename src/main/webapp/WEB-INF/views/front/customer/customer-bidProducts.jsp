@@ -69,7 +69,7 @@
 					<li><a href="${contextRoot}/">首頁</a></li>
 					<li>會員中心</li>
 				</ol>
-				<h2>我的賣場</h2>
+				<h2>二手賣場-我的賣場</h2>
 
 			</div>
 		</section>
@@ -84,7 +84,7 @@
 			<section class="row mt-3">
 				<div class="col-12">
 					<c:choose>
-						<c:when test="${bidProducts != null}">
+						<c:when test="${bidProducts.size() != 0}">
 							<table class="table table-bordered table-striped align-middle text-center">
 								<thead>
 									<tr>

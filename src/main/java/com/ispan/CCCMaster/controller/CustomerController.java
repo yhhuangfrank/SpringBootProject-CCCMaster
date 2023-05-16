@@ -4,8 +4,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
+import com.ispan.CCCMaster.model.bean.bid.DealRecord;
 import com.ispan.CCCMaster.model.customexception.NotFoundException;
 import com.ispan.CCCMaster.service.BidProductService;
+import com.ispan.CCCMaster.service.DealRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +31,9 @@ public class CustomerController {
 
 	@Autowired
 	private BidProductService bidProductService;
+
+	@Autowired
+	private DealRecordService dealRecordService;
 	
 	@GetMapping("/login")	//前台會員登入頁面
 	public String loginPage(HttpServletRequest request) {
@@ -113,8 +118,19 @@ public class CustomerController {
 	// 會員中心查看個人得標紀錄
 	@CustomerAuthentication
 	@GetMapping("/customers/{id}/dealRecords")
-	public String getCustomerDealRecords(@PathVariable Integer id) {
-		return null;
+	public String getCustomerDealRecords(HttpSession session,
+										 @PathVariable Integer id,
+										 Model model) {
+		Integer loginCustomerId = loginUtil.getLoginCustomerId(session);
+		if (!id.equals(loginCustomerId)) return "redirect:/";
+
+		Customer foundCustomer = ctmService.findById(id);
+		if (foundCustomer == null) throw new NotFoundException("查無使用者，參數有誤!");
+
+		List<DealRecord> dealRecords = dealRecordService.findByCustomer(foundCustomer);
+		model.addAttribute("dealRecords", dealRecords);
+
+		return "front/customer/customer-dealRecords";
 	}
 
 	// 會員中心查看個人賣場

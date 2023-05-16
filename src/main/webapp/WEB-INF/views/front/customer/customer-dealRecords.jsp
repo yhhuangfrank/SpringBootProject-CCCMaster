@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title></title>
+<title>得標紀錄</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -68,7 +68,7 @@
 					<li><a href="${contextRoot}/">首頁</a></li>
 					<li>會員中心</li>
 				</ol>
-				<h2>我的賣場</h2>
+				<h2>二手賣場-得標紀錄</h2>
 
 			</div>
 		</section>
@@ -82,31 +82,35 @@
 			<section class="row mt-3">
 				<div class="col-12">
 					<c:choose>
-						<c:when test="${dealRecords != null}">
+						<c:when test="${dealRecords.size() != 0}">
 							<table class="table table-bordered table-striped align-middle text-center">
 								<thead>
 									<tr>
 									<th>商品圖片</th>
 									<th>商品名稱</th>
 									<th>商品種類</th>
+									<th>商品底價</th>
 									<th>得標價格</th>
 									<th>建立日期</th>
+									<th>是否已付款</th>
+									<th>結帳</th>
 								</tr>
 								</thead>
 								<tbody>
 									<c:forEach items="${dealRecords}" var="d">
+										<c:set var="bidProduct" value="${d.bidProduct}"/>
 										<tr>
 											<td>
-												<a href="${contextRoot}/bidProducts/${b.id}">
+												<a href="${contextRoot}/bidProducts/${bidProduct.id}">
 													<c:choose>
-														<c:when test="${b.image.contains('http')}">
-															<img src="${b.image}"
+														<c:when test="${bidProduct.image.contains('http')}">
+															<img src="${bidProduct.image}"
 																 style="opacity: 0; transition: opacity 0.5s ease-in-out; width: 3rem"
 																 onload="this.style.opacity='1';"
 																 alt="BidProduct-image">
 														</c:when>
 														<c:otherwise>
-															<img src="${contextRoot}/${b.image}"
+															<img src="${contextRoot}/${bidProduct.image}"
 																 style="opacity: 0; transition: opacity 0.5s ease-in-out; width: 3rem"
 																 onload="this.style.opacity='1';"
 																 alt="BidProduct-image">
@@ -114,16 +118,28 @@
 													</c:choose>
 												</a>
 											</td>
-											<td>${b.name}</td>
-											<td>${b.category.name}</td>
-											<td>${b.basePrice}</td>
-											<td>${b.bidPrice}</td>
+											<td>${bidProduct.name}</td>
+											<td>${bidProduct.category.name}</td>
+											<td>${bidProduct.basePrice}</td>
+											<td>${d.dealPrice}</td>
 											<td>
-												<fmt:formatDate value="${b.createdAt}" pattern="yyyy-MM-dd HH:mm:ss"/>
+												<fmt:formatDate value="${d.createdAt}" pattern="yyyy-MM-dd HH:mm:ss"/>
 											</td>
 											<td>
-												<a href="${contextRoot}/bidProducts/${b.id}/edit" class="btn btn-outline-dark"><i class="bi bi-pencil"></i></a>
-												<button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-${b.id}"><i class="bi bi-trash"></i></button>
+												<c:choose>
+													<c:when test="${d.isPaid}">Y</c:when>
+													<c:otherwise>N</c:otherwise>
+												</c:choose>
+											</td>
+											<td>
+												<c:choose>
+													<c:when test="${d.isPaid}">
+														<a href="#" class="btn btn-outline-dark disabled"><i class="bi bi-cash-coin"></i></a>
+													</c:when>
+													<c:otherwise>
+														<a href="#" class="btn btn-outline-success"><i class="bi bi-cash-coin"></i></a>
+													</c:otherwise>
+												</c:choose>
 											</td>
 										</tr>
 									</c:forEach>
