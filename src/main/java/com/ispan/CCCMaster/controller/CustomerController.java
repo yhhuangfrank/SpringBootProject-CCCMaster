@@ -6,11 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ispan.CCCMaster.annotation.CustomerAuthentication;
@@ -105,6 +101,20 @@ public class CustomerController {
 		redirectAttributes.addFlashAttribute("successMsg_float", "您已成功變更個人資料!");
 		return "redirect:/center";
 	}
-	
+
+	// 會員中心查看個人得標紀錄
+	@CustomerAuthentication
+	@GetMapping("/customers/{id}/dealRecords")
+	public String getCustomerDealRecords(@PathVariable Integer id) {
+		return null;
+	}
+
+	// 會員中心查看個人賣場
+	@CustomerAuthentication
+	@GetMapping("/customers/{id}/bidProducts")
+	public String getCustomerBidProducts(@PathVariable Integer id) {
+
+		return null;
+	}
 
 }
