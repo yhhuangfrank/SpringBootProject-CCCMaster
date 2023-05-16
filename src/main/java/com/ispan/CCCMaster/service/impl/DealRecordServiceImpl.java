@@ -69,4 +69,8 @@ public class DealRecordServiceImpl implements DealRecordService {
         return dealRecordDao.findByBidProduct(bidProduct);
     }
 
+    @Override
+    public List<DealRecord> findByCustomer(Customer customer) {
+        return dealRecordDao.findByCustomer(customer);
+    }
 }

@@ -136,11 +136,12 @@
 				        </div>
 			        </div>
 		
-			        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
+			        <div class="col-lg-4 col-md-6 mt-4">
 				        <div class="icon-box">
 				        	<div class="icon"><i class="bx bx-world"></i></div>
-					        <h4><a href="">二手賣場得標紀錄</a></h4>
-				        	<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
+					        <h4><a href="">二手賣場</a></h4>
+							<a href="${contextRoot}/customers/${sessionScope.customerId}/dealRecords" class="btn btn-warning">得標紀錄</a>
+							<a href="${contextRoot}/customers/${sessionScope.customerId}/bidProducts" class="btn btn-warning">我的賣場</a>
 				        </div>
 			        </div>
 		

@@ -3,20 +3,23 @@ package com.ispan.CCCMaster.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.ispan.CCCMaster.model.bean.bid.BidProduct;
+import com.ispan.CCCMaster.model.bean.bid.DealRecord;
+import com.ispan.CCCMaster.model.customexception.NotFoundException;
+import com.ispan.CCCMaster.service.BidProductService;
+import com.ispan.CCCMaster.service.DealRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ispan.CCCMaster.annotation.CustomerAuthentication;
 import com.ispan.CCCMaster.model.bean.customer.Customer;
 import com.ispan.CCCMaster.service.CustomerService;
 import com.ispan.CCCMaster.util.LoginUtil;
+
+import java.util.List;
 
 @Controller
 public class CustomerController {
@@ -25,6 +28,12 @@ public class CustomerController {
 	private CustomerService ctmService;
 	@Autowired
 	private LoginUtil loginUtil;
+
+	@Autowired
+	private BidProductService bidProductService;
+
+	@Autowired
+	private DealRecordService dealRecordService;
 	
 	@GetMapping("/login")	//前台會員登入頁面
 	public String loginPage(HttpServletRequest request) {
@@ -105,6 +114,44 @@ public class CustomerController {
 		redirectAttributes.addFlashAttribute("successMsg_float", "您已成功變更個人資料!");
 		return "redirect:/center";
 	}
-	
+
+	// 會員中心查看個人得標紀錄
+	@CustomerAuthentication
+	@GetMapping("/customers/{id}/dealRecords")
+	public String getCustomerDealRecords(HttpSession session,
+										 @PathVariable Integer id,
+										 Model model) {
+		Integer loginCustomerId = loginUtil.getLoginCustomerId(session);
+		if (!id.equals(loginCustomerId)) return "redirect:/";
+
+		Customer foundCustomer = ctmService.findById(id);
+		if (foundCustomer == null) throw new NotFoundException("查無使用者，參數有誤!");
+
+		List<DealRecord> dealRecords = dealRecordService.findByCustomer(foundCustomer);
+		model.addAttribute("dealRecords", dealRecords);
+
+		return "front/customer/customer-dealRecords";
+	}
+
+	// 會員中心查看個人賣場
+	@CustomerAuthentication
+	@GetMapping("/customers/{id}/bidProducts")
+	public String getCustomerBidProducts(HttpSession session,
+										 @PathVariable Integer id,
+										 Model model) {
+
+		// check if id is current login user's id
+		Integer loginCustomerId = loginUtil.getLoginCustomerId(session);
+		if (!id.equals(loginCustomerId)) return "redirect:/";
+
+		// get all bidProducts by customer
+		Customer foundCustomer = ctmService.findById(id);
+		if (foundCustomer == null) throw new NotFoundException("查無使用者，參數有誤!");
+
+		List<BidProduct> bidProducts = bidProductService.findBidProductsByCustomer(foundCustomer);
+		model.addAttribute("bidProducts", bidProducts);
+
+		return "front/customer/customer-bidProducts";
+	}
 
 }
