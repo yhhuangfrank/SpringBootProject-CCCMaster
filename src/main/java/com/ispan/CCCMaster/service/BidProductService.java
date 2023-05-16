@@ -2,6 +2,7 @@ package com.ispan.CCCMaster.service;
 
 
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
+import com.ispan.CCCMaster.model.bean.customer.Customer;
 import com.ispan.CCCMaster.model.dto.BidProductQueryParams;
 import com.ispan.CCCMaster.model.dto.BidProductRequest;
 import com.ispan.CCCMaster.model.dto.BidRecordRequest;
@@ -18,6 +19,8 @@ public interface BidProductService {
     BidProduct findBidProductById(Integer id);
 
     Page<BidProduct> findBidProducts(BidProductQueryParams bidProductQueryParams);
+
+    List<BidProduct> findBidProductsByCustomer(Customer customer);
 
     void updateBidProduct(Integer id, BidProductRequest bidProductRequest);
 

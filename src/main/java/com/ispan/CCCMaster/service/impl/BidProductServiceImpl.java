@@ -167,6 +167,11 @@ public class BidProductServiceImpl implements BidProductService {
     }
 
     @Override
+    public List<BidProduct> findBidProductsByCustomer(Customer customer) {
+        return bidProductDao.findByCustomer(customer);
+    }
+
+    @Override
     @Transactional
     public void updateBidProduct(Integer id, BidProductRequest bidProductRequest) {
 
