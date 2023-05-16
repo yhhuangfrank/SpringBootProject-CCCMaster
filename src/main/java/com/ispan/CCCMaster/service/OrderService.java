@@ -5,10 +5,14 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ispan.CCCMaster.model.bean.customer.CustomerPoint;
 import com.ispan.CCCMaster.model.bean.order.OrderBean;
 import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;
 import com.ispan.CCCMaster.model.bean.product.Product;
@@ -85,5 +89,7 @@ public interface OrderService {
     //將搜尋輸入的年(年月)加上1231(31)
     public  Date getEndDate(String yearOrMonth)throws ParseException;
     
-
+    //點數給予
+//    public void givePoints(OrderBean order,CustomerPoint point);
+    
 }

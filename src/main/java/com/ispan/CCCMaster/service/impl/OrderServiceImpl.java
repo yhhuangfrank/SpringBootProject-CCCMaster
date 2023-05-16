@@ -15,11 +15,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ispan.CCCMaster.model.bean.customer.Customer;
+import com.ispan.CCCMaster.model.bean.customer.CustomerPoint;
 import com.ispan.CCCMaster.model.bean.order.OrderBean;
 import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;
 import com.ispan.CCCMaster.model.bean.product.Product;
 import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
 import com.ispan.CCCMaster.model.dao.CustomerDao;
+import com.ispan.CCCMaster.model.dao.CustomerPointsDao;
 import com.ispan.CCCMaster.model.dao.OrderDao;
 import com.ispan.CCCMaster.model.dao.OrderDetailDao;
 import com.ispan.CCCMaster.model.dao.ProductDao;
@@ -29,6 +31,9 @@ import com.ispan.CCCMaster.service.OrderService;
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
 import javax.persistence.criteria.Predicate;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -48,6 +53,8 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	CustomerDao cDao;
 	
+	@Autowired
+	CustomerPointsDao pointDao;
 
 	//依訂單編號找訂單
 	@Override
@@ -176,6 +183,7 @@ public class OrderServiceImpl implements OrderService {
 		oDao.save(order);
 		//刪除購物車
 		scDao.deleteByCid(customerId);
+		
 	}
 
 	//訂單的詳細資料
@@ -311,6 +319,31 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	
+
+	//給予點數
+//	@Override
+//	@Transactional
+//	public void givePoints(OrderBean order,CustomerPoint point) {
+//		Optional<CustomerPoint> points = pointDao.findPoints(order.getCbOrder().getCustomerId(), order.getOrderid());
+//		if(points.isEmpty()) {
+//			//給予會員點數
+//			Optional<OrderBean> option = oDao.findById(order.getOrderid());
+//			Integer total= option.get().getTotalamount();
+//			Integer back = total;
+//			Optional<Customer> coption = cDao.findById(order.getCbOrder().getCustomerId());
+//			Integer startpoint = coption.get().getPoint();
+//			Integer givepoint = startpoint+back;
+//			coption.get().setPoint(givepoint);
+//			//新增紀錄
+//			point.setCpoints(order.getCbOrder());
+//			point.setOpoint(order);
+//			point.setPlusorneg(true);
+//			point.setPoints(givepoint);
+//		}else {
+//			
+//		}
+//		
+//	}
 
 	
 

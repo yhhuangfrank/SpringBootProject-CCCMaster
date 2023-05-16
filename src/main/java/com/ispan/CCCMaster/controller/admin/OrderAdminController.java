@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,11 +26,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ispan.CCCMaster.model.bean.customer.Customer;
+import com.ispan.CCCMaster.model.bean.customer.CustomerPoint;
 import com.ispan.CCCMaster.model.bean.order.OrderBean;
 import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;
 import com.ispan.CCCMaster.model.bean.product.Product;
 import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
+import com.ispan.CCCMaster.model.dao.CustomerDao;
+import com.ispan.CCCMaster.model.dao.CustomerPointsDao;
+import com.ispan.CCCMaster.model.dao.OrderDao;
 import com.ispan.CCCMaster.service.OrderService;
 import com.ispan.CCCMaster.service.ShoppingCartService;
 
@@ -45,6 +52,14 @@ public class OrderAdminController {
 	@Autowired
 	private ShoppingCartService scService;
 	
+	@Autowired
+	CustomerPointsDao pointDao;
+	
+	@Autowired
+	OrderDao oDao;
+	
+	@Autowired
+	CustomerDao cDao;
 	
 	//後台訂單列表	
 	@GetMapping("/admin/orders")
@@ -61,6 +76,7 @@ public class OrderAdminController {
 		model.addAttribute("refundpage",refundpage);
 		return "/back/order/showOrders";
 	}
+	
 	//查詢條件
 	@GetMapping("/admin/orders/search")
 	public String search(@RequestParam(name="type",defaultValue="orderid")String type,
@@ -102,6 +118,7 @@ public class OrderAdminController {
 		model.addAttribute("orderdetails",odb);
 		return "/back/order/Order-edit";
 	}	
+	
 	//修改訂單
 	@PutMapping("/admin/orders/edit")
 	public String editOrderById(@ModelAttribute("singleorder")OrderBean orderBean) {
@@ -129,6 +146,7 @@ public class OrderAdminController {
 		model.addAttribute("latestorder",order);
 		return "/front/orders/paymentorok";
 	}
+	
 	//前往綠界付錢
 	@ResponseBody
 	@PostMapping("/ecpayCheckout")
@@ -148,9 +166,34 @@ public class OrderAdminController {
 			return "redirect:/front/orders";
 	}
 	
-	
-	
-	
+	//給予點數
+	@Transactional
+	@PostMapping("/admin/givepoints")
+	public String givepoints(@ModelAttribute("singleorder")OrderBean order,CustomerPoint point
+							, RedirectAttributes redirectAttributes) throws IOException {
+		Optional<CustomerPoint> points = pointDao.findPoints(order.getCbOrder().getCustomerId(), order.getOrderid());
+		if(points.isEmpty()) {
+			//給予會員點數
+			Optional<OrderBean> option = oDao.findById(order.getOrderid());
+			Integer total= option.get().getTotalamount();
+			Integer back = total;
+			Optional<Customer> coption = cDao.findById(order.getCbOrder().getCustomerId());
+			Integer startpoint = coption.get().getPoint();
+			Integer givepoint = startpoint+back;
+			coption.get().setPoint(givepoint);
+			//新增紀錄
+			point.setCpoints(order.getCbOrder());
+			point.setOpoint(order);
+			point.setPlusorneg(true);
+			point.setPoints(givepoint);
+			redirectAttributes.addAttribute("isSuccess",true);
+			redirectAttributes.addAttribute("successMsg","此筆訂單成功給予點數!");
+		}else {
+			redirectAttributes.addAttribute("isFailed",true);
+			redirectAttributes.addAttribute("failedMsg","此筆訂單已給過點數!");
+		}
+			return "redirect:/admin/orders/editorder";
+		}
 	
 	
 }

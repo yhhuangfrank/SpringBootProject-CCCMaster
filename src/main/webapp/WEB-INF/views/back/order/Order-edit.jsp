@@ -28,6 +28,7 @@
 
   <!-- Template Main CSS File -->
   <link href="${contextRoot}/styles/back/assets/css/style.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </head>
 <body>
 
@@ -40,13 +41,13 @@
                 <div class="row mb-3">
                   <label for="inputorderid" class="col-sm-2 col-form-label">訂單編號</label>
                   <div class="col-sm-10 fs-5">
-                    <form:input type="text" path="orderid" class="form-control" value="${singleorder.orderid}"></form:input>
+                    <form:input type="text" path="orderid" class="form-control" value="${singleorder.orderid}" id="oid"></form:input>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="inputcbOrderid" class="col-sm-2 col-form-label">會員編號</label>
                   <div class="col-sm-10 fs-5">
-					<input type="text" class="form-control" value="${singleorder.cbOrder.customerId}" disabled>
+					<input type="text" class="form-control" value="${singleorder.cbOrder.customerId}" disabled id="cid">
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -162,7 +163,10 @@
 								</div>
 								</div>
 							</div>
-						</div>                    	
+						</div>
+					<form action="${contextRoot}/admin/givepoints" method="post" modelAttribute="singleorder">
+						<button onclick="givepoint()" class="btn btn-danger" id="givebutton">點數給予</button>
+					</form>	                   	
                   </div>
                 </div>
 
@@ -186,5 +190,19 @@
 
   <!-- Template Main JS File -->
   <script src="${contextRoot}/styles/back/assets/js/main.js"></script>
+  <script>
+<!--	function givepoint() {
+	let cid = document.getElementById('cid').value;
+	let oid = document.getElementById('oid').value;	
+	$.ajax({
+		type:"Post",
+        url:"http://localhost:8080/admin/givepoints",
+        data:{
+        	cbOrder:cid,
+	       	orderid:oid,
+        }
+	})	
+}-->
+  </script>
 </body>
 </html>

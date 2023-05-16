@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.ispan.CCCMaster.model.bean.customer.Customer;
+import com.ispan.CCCMaster.model.bean.customer.CustomerPoint;
 
 @Entity
 @Table(name="Orders")
@@ -235,6 +237,7 @@ public class OrderBean implements Serializable {
 		this.telephone = telephone;
 	}
 	
-	
+	@OneToOne(mappedBy = "opoint")
+	private CustomerPoint cpoint;
 		
 }
