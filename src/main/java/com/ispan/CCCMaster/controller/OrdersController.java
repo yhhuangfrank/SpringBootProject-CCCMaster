@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import com.ispan.CCCMaster.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,6 +64,7 @@ public class OrdersController {
 	}
 	
 	//查詢條件
+	@CustomerAuthentication
 	@GetMapping("/front/order/search")
 	public String search(@RequestParam(name="type",defaultValue="orderid")String type,
 							@RequestParam(name="keyword",defaultValue="")String keyword,

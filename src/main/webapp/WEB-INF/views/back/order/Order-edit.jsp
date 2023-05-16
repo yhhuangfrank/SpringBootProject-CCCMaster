@@ -46,7 +46,7 @@
                 <div class="row mb-3">
                   <label for="inputcbOrderid" class="col-sm-2 col-form-label">會員編號</label>
                   <div class="col-sm-10 fs-5">
-					<input type="text" class="form-control" value="${singleorder.cbOrder.id}" disabled>
+					<input type="text" class="form-control" value="${singleorder.cbOrder.customerId}" disabled>
                   </div>
                 </div>
                 <div class="row mb-3">
