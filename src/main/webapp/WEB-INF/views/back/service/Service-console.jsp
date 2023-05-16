@@ -74,7 +74,7 @@
 
               .felx-container-left-top {
                 flex-direction: row;
-                border: 1px gainsboro solid;
+                border: 1px gray solid;
                 height: 15%;
                 padding-top: 5px;
                 padding-left: 5px;
@@ -94,7 +94,6 @@
               .felx-container-left-center {
                 flex-direction: row;
                 height: 5%;
-                border: 2px blue solid;
 
               }
 
@@ -102,12 +101,10 @@
                 height: 100%;
                 width: 50%;
                 float: left;
-                border: 2px blue solid;
                 text-align: center;
               }
 
               .felx-container-left-center-right {
-                border: 2px blue solid;
                 height: 100%;
                 width: 50%;
                 float: left;
@@ -116,7 +113,7 @@
 
               .felx-container-left-down {
                 line-height: 50px;
-                border: 2px blue solid;
+                border: 1px gray solid;
                 height: 80%;
                 width: 100%;
                 display: flex;
@@ -137,7 +134,7 @@
 
               .felx-container-center-top-top {
                 padding-top: 5px;
-                border: 2px blue solid;
+                border: 1px gray solid;
                 height: 50%;
                 width: 100%;
                 float: left;
@@ -145,7 +142,7 @@
               }
 
               .felx-container-center-top-down {
-                border: 2px blue solid;
+                border: 1px gray solid;
                 height: 50%;
                 width: 100%;
                 display: flex;
@@ -154,7 +151,7 @@
               }
 
               .felx-container-center-center {
-                border: 2px blue solid;
+                border: 1px gray solid;
                 height: 60%;
                 width: 100%;
                 display: flex;
@@ -179,7 +176,7 @@
 
               .felx-container-center-down-down {
 
-                border: 2px blue solid;
+                border: 1px gray solid;
                 height: 80%;
                 width: 100%;
                 padding:0%;
@@ -193,7 +190,7 @@
 
               .felx-container-right-top {
                 padding-top: 5px;
-                border: 2px blue solid;
+                border: 1px gray solid;
                 height: 5%;
                 width: 100%;
                 display: flex;
@@ -202,14 +199,14 @@
               }
 
               .felx-container-right-center {
-                border: 2px blue solid;
+                border: 1px gray solid;
                 height: 45%;
                 width: 100%;
                 display: flex;
               }
 
               .felx-container-right-down {
-                border: 2px blue solid;
+                border: 1px gray solid;
                 height: 50%;
                 width: 100%;
                 display: flex;
@@ -227,7 +224,7 @@
                 width: 200px;
                 line-height: 50px;
                 padding: 20px;
-                border: 2px green solid;
+                border: 1px green solid;
               }
 
               .form-control {
@@ -257,7 +254,7 @@
             <main id="main" class="main">
               <!-- 操作台title -->
               <div>
-                <h1 class="service-title">客服操作平台</h1>
+                <h1 class="service-title">客服聊天操作平台</h1>
               </div>
               <!-- 橫向並排div -->
               <div class="felx-container">
@@ -266,33 +263,28 @@
                   <!-- 工作資料1-1 -->
                   <div class="felx-container-left-top">
                     <div class="felx-container-left-top-left">
-                      <p class="job-font">接待數量:<span>#</span></p>
-                      <p class="job-font">在線時長:<span>#</span></p>
-                      <p class="job-font">服務時長:<span>#</span></p>
+                    
+<img src="${contextRoot}/styles/front/assets/js/LOGO.jpg" width="270px" height="120px" alt="avatar" />
                     </div>
                     <div class="felx-container-left-top-right">
-                      <p class="job-font">創建服務單:<span>#</span></p>
-                      <p class="job-font">創建工單:<span>#</span></p>
-                      <p class="job-font">接待客戶:<span>#</span></p>
                     </div>
                   </div>
                   <div class="felx-container-left-center">
                     <!-- 工作資料1-2 -->
-                    <div class="felx-container-left-center-left">
-                      <p class="job-font">待接入&nbsp;&nbsp;&nbsp;<span>#</span></p>
+                    <div class="felx-container-left-center-left" style="line-height:5px;">
+            <button class="btn btn-primary" onclick="registration()" style="width:100%;height:100%;">加入連線</button>
                     </div>
                     <div class="felx-container-left-center-right">
-                      <p class="job-font">正在接入&nbsp;&nbsp;&nbsp;<span>#</span></p>
+            <button class="btn btn-danger" onclick="disconnectFromChat()" style="width:100%;height:100%;" >中斷連線</button> 
                     </div>
                   </div>
                   <div class="felx-container-left-down">
-                  <div class="container clearfix">
-        <div class="search">
-            <input id="userName" placeholder="search" type="text"/>
-            <button onclick="registration()">進入聊天</button>
-            <button onclick="disconnectFromChat()">離開聊天</button> 
+                  <div style="width:100%;">
+        <div class="search" style="width:100%;text-align:center;">
+            <input  type="hidden" id="userName" placeholder="search" type="text" value="客服人員" />
         </div>
-        <ul class="list" id="usersList">
+        <br>
+        <ul class="list" id="usersList" style="overflow:auto;height:435px;text-align:center;">
 
 
         </ul>
@@ -306,38 +298,25 @@
                   <!-- 工作資料2-1 -->
                   <div class="felx-container-center-top">
                     <div class="felx-container-center-top-top">
-                      <p class="job-font">溝通服務單:<span>#############</span></p>
+                      <p style="color:blue;font-weight:bold;" >聊天視窗</p>
                     </div>
-                    <div class="felx-container-center-top-down">
-                      <p class="job-font">等待接入用時:<span>#####</span></p>
-                      <p class="job-font">創建對話時間:<span>#####</span></p>
-                      <p class="job-font">溝通用時:<span>#####</span></p>
-                      <p class="job-font">對話次數:<span>#####</span></p>
+                    
+        <div class="chat-header clearfix" style="text-align:center;">
 
-                    </div>
+            <div class="chat-about">
+                <div class="chat-with" id="selectedUserId" style="color:blue;font-weight:bold;"></div>
+                <div class="chat-num-messages"></div>
+            </div>
+        </div> <!-- end chat-header -->
                   </div>
                   <!-- 工作資料2-2 -->
-                  <div class="felx-container-center-center">
-                    <div class="text-center">
-                      <p class="">接入成功:<span>######</span></p>
-                      <p class="">用戶離線:<span>######</span></p>
-                      <p class="">通話結束:<span>######</span></p>
+                  <div id="box"class="felx-container-center-center"style="overflow:auto;height:500px;">
+                    <div class="text-center" >
                     </div>
                     <br />
 
-        <div class="chat-header clearfix">
-            <img alt="avatar" height="55px"
-                 src="https://secure.gravatar.com/avatar/12122a41f5e1d5f75d7b0aaf67199e7e?s=300&d=mm&r=g"
-                 width="55px"/>
 
-            <div class="chat-about">
-                <div class="chat-with" id="selectedUserId"></div>
-                <div class="chat-num-messages"></div>
-            </div>
-            <i class="fa fa-star"></i>
-        </div> <!-- end chat-header -->
-
-        <div class="chat-history">
+        <div class="chat-history" >
             <ul>
 
             </ul>
@@ -348,36 +327,67 @@
                   <!-- 工作資料2-3 -->
                   <div class="felx-container-center-down">
                     <div class="felx-container-center-down-top">
-                      <p class="job-font">表情/圖片上傳</p>
+            <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
+            <i class="fa fa-file-image-o"></i>
                     </div>
                     <div class="felx-container-center-down-down">
                     
     <div class="chat">
 
-            <textarea id="message-to-send" name="message-to-send" placeholder="Type your message" rows="3"></textarea>
-
-            <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
-            <i class="fa fa-file-image-o"></i>
-
-            <button id="sendBtn">Send</button>
-
-
-    </div> <!-- end chat -->
+            <textarea class="form-control" id="message-to-send" name="message-to-send" placeholder="輸入訊息" rows="6" maxlength="200" style="width:765px;"></textarea>
+     </div>
+     
+                    <div style="text-align:right;line-height:270px;">
+                    
+            <button id="sendBtn" class="btn btn-primary" style="right:5px;bottom:5px;
+                border-radius: 10px;
+                cursor: pointer;">送出</button>
+            </div>
                     </div>
                   </div>
                 </div>
                 <div class="felx-container-right">
                   <!-- 工作資料3-1 -->
                   <div class="felx-container-right-top">
-                    <p class="job-font">客戶資料</p>
-                    <p class="job-font">訂單查詢</p>
-                    <p class="job-font">溝通歷史</p>
-                    <p class="job-font">物流查詢</p>
-                    <p class="job-font">溝通節點</p>
+                    <ul class="nav nav-tabs nav-tabs-bordered" id="wrap">
+
+                      <li class="nav-item">
+                          <button class="" data-bs-toggle="tab"
+                              data-bs-target="#profile-overview" id="item1">客戶資料</button>
+                      </li>
+
+                      <li class="nav-item">
+                          <button class="" data-bs-toggle="tab" data-bs-target="#profile-edit"
+                              id="item2">訂單查詢</button>
+                      </li>
+                  </ul>
                   </div>
                   <!-- 工作資料3-2 -->
                   <div class="felx-container-right-center">
-                    <p class="job-font">表格/資料顯示</p>
+                    <div class="tab-content pt-0">
+                      <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                        <form id="customerForm" action="/search" method="get">
+                          <input id="customerId" name="customerId" placeholder="輸入會員ID" type="text" style="width: 400px;height: 40px;">
+                          <button id="searchBtn" class="btn btn-primary" type="submit" style="width: 80px;">查詢</button>
+                        </form>
+                      <table id="customerTable">
+                        <tr>
+                          <th>Customer customerId</th>
+                          <th>Name</th>
+                          <th>Email</th>
+                        </tr>
+                        <tr>
+                          <td>${customer.customerId}</td>
+                          <td>${customer.name}</td>
+                          <td>${customer.email}</td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="tab-pane fade profile-edit pt-1" id="profile-edit" style="margin-top: 0px;padding-top: 0px;left: 0px;">
+                      <input id="" placeholder="輸入會員ID" type="text" style="width: 400px;height: 40px;">
+                      <button class="btn btn-primary" onclick="" style="width: 80px;">查詢</button>
+                    </div>
+                      </div>
                   </div>
                   <!-- 工作資料3-3 -->
                   <div class="felx-container-right-down">
@@ -386,20 +396,6 @@
                 </div>
 
               </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -427,9 +423,8 @@
             <!-- Template Main JS File -->
             <script src="${contextRoot}/styles/back/assets/js/main.js"></script>
             
-            
-            
-<script src="${contextRoot}/styles/front/assets/js/custom.js"></script>
+  
+<script src="${contextRoot}/styles/front/assets/js/socustom.js"></script>
 <script src="${contextRoot}/styles/front/assets/js/chat.js"></script>
 <script id="message-template" type="text/x-handlebars-template">
     <li class="clearfix">
@@ -440,6 +435,7 @@
         <div class="message other-message float-right">
             {{messageOutput}}
         </div>
+
     </li>
 </script>
 
@@ -459,6 +455,55 @@
     document.addEventListener('DOMContentLoaded', function() {
         fetchAll();
     });
+</script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var searchBtn = document.getElementById('searchBtn');
+    searchBtn.addEventListener('click', searchCustomer);
+  });
+
+  function searchCustomer(event) {
+    event.preventDefault();
+
+    var customerId = document.getElementById('customerId').value;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/search?customerId=' + customerId);
+    xhr.onload = function() {
+  if (xhr.status === 200) {
+    var customerData = JSON.parse(xhr.responseText);
+    updateCustomerTable(customerData);
+  }
+};
+    xhr.send();
+  }
+  // 更新客戶資料表格的函數
+function updateCustomerTable(customerData) {
+  var customerTable = document.getElementById('customerTable');
+  var tableBody = customerTable.getElementsByTagName('tbody')[0];
+
+  // 清空表格
+  while (tableBody.firstChild) {
+    tableBody.removeChild(tableBody.firstChild);
+  }
+
+  // 創建新的表格行並填充資料
+  var newRow = document.createElement('tr');
+  var customerIdCell = document.createElement('td');
+  customerIdCell.textContent = customerData.customerId;
+  newRow.appendChild(customerIdCell);
+  var nameCell = document.createElement('td');
+  nameCell.textContent = customerData.name;
+  newRow.appendChild(nameCell);
+  var emailCell = document.createElement('td');
+  emailCell.textContent = customerData.email;
+  newRow.appendChild(emailCell);
+
+  // 將新行添加到表格中
+  tableBody.appendChild(newRow);
+}
 </script>
           </body>
 
