@@ -1,9 +1,8 @@
 package com.ispan.CCCMaster.service;
 
-import java.awt.print.Pageable;
-
 import org.springframework.data.domain.Page;
 
+import com.ispan.CCCMaster.model.bean.customer.Customer;
 import com.ispan.CCCMaster.model.bean.service.ReportForm2Model;
 
 public interface ServiceFromService {
@@ -16,7 +15,8 @@ public interface ServiceFromService {
 	
 	public Page<ReportForm2Model> findByPage(Integer pageNumber,Integer customerid);
 	ReportForm2Model getLatest();
-
+	
+	 public Customer getCustomerById(Integer customerId)  ;
 
 
 	

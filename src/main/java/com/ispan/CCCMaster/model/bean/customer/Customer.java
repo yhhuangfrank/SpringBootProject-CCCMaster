@@ -10,7 +10,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,7 +27,6 @@ import com.ispan.CCCMaster.model.bean.RecipientInfo.StoreRecipientInfoBean;
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.order.BidOrderBean;
 import com.ispan.CCCMaster.model.bean.order.OrderBean;
-import com.ispan.CCCMaster.model.bean.service.ChatroomModel;
 import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
 
 @Entity
@@ -96,10 +94,6 @@ public class Customer {
 	// BY 瑛仁
 	@OneToMany(mappedBy="cbShoppingCart")
 	Set<ShoppingCartBean> set = new HashSet<>();
-	
-	//彥輝
-	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
-	private Set<ChatroomModel> chatroom = new HashSet<>();
 	
 	public Customer() {
 	}
