@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ispan.CCCMaster.annotation.EmployeeAuthentication;
 import com.ispan.CCCMaster.model.bean.employee.Employee;
 import com.ispan.CCCMaster.model.bean.employee.Position;
 import com.ispan.CCCMaster.service.EmployeeService;
@@ -65,6 +66,7 @@ public class EmployeeAdminController {
 		return "redirect:/admin/login";	//回到登入頁
 	}
 	
+	@EmployeeAuthentication
 	@GetMapping("/admin/employees")	//員工資料總覽
 	public String showAll(@RequestParam(name="p", defaultValue = "1") Integer pageNumber, Model model) {
 		Page<Employee> page = epyService.findByPage(pageNumber);

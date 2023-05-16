@@ -7,7 +7,8 @@ import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.ispan.CCCMaster.model.customexception.UnLoginException;
+import com.ispan.CCCMaster.model.customexception.CustomerUnLoginException;
+import com.ispan.CCCMaster.model.customexception.EmployeeUnLoginException;
 
 @Aspect
 @Component
@@ -20,7 +21,14 @@ public class Authentication {
 	public void authenticateCustomer() {
 		Object customer = session.getAttribute("customerId");
 		
-		if (customer == null) throw new UnLoginException();
+		if (customer == null) throw new CustomerUnLoginException();
+	}
+	
+	@Before("@annotation(com.ispan.CCCMaster.annotation.EmployeeAuthentication)")	//只要使用 @EmployeeAuthentication 註解的 Method 都會受到驗證保護
+	public void authenticateEmployee() {
+		Object employee = session.getAttribute("employeeId");
+		
+		if (employee == null) throw new EmployeeUnLoginException();
 	}
 
 }
