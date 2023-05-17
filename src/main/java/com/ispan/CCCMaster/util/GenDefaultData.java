@@ -2,15 +2,12 @@ package com.ispan.CCCMaster.util;
 
 import com.github.javafaker.Faker;
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
+import com.ispan.CCCMaster.model.bean.bid.BidProductComment;
 import com.ispan.CCCMaster.model.bean.category.Category;
 import com.ispan.CCCMaster.model.bean.customer.Customer;
 import com.ispan.CCCMaster.model.bean.employee.Employee;
 import com.ispan.CCCMaster.model.bean.employee.Position;
-import com.ispan.CCCMaster.model.dao.BidProductDao;
-import com.ispan.CCCMaster.model.dao.CategoryDao;
-import com.ispan.CCCMaster.model.dao.CustomerDao;
-import com.ispan.CCCMaster.model.dao.EmployeeDao;
-import com.ispan.CCCMaster.model.dao.PositionDao;
+import com.ispan.CCCMaster.model.dao.*;
 
 import org.springframework.stereotype.Component;
 
@@ -33,9 +30,9 @@ public class GenDefaultData {
     
     private final EmployeeDao employeeDao;
 
-    private final String[] defaultCategoryNames = new String[]{"手機", "滑鼠", "鍵盤", "電腦", "筆記型電腦"};
+    private final BidProductCommentDao bidProductCommentDao;
 
-    private final List<BidProduct> defaultBidProducts = new ArrayList<>();
+    private final String[] defaultCategoryNames = new String[]{"手機", "滑鼠", "鍵盤", "電腦", "筆記型電腦"};
 
     private final Map<String, Category> categoryMap = new HashMap<>();
 
@@ -43,12 +40,14 @@ public class GenDefaultData {
                           CategoryDao categoryDao,
                           CustomerDao customerDao,
                           PositionDao positionDao,
-                          EmployeeDao employeeDao) {
+                          EmployeeDao employeeDao,
+                          BidProductCommentDao bidProductCommentDao) {
         this.bidProductDao = bidProductDao;
         this.categoryDao = categoryDao;
         this.customerDao = customerDao;
         this.positionDao = positionDao;
         this.employeeDao = employeeDao;
+        this.bidProductCommentDao = bidProductCommentDao;
     }
 
     @PostConstruct
@@ -62,6 +61,9 @@ public class GenDefaultData {
         
         // 設定預設職位與員工
         createPositionsAndEmployees();
+
+        // 設定預設拍賣商品評論
+        createBidProductComments();
         
     }
 
@@ -96,7 +98,8 @@ public class GenDefaultData {
         String[] defaultPrefixes = new String[]{"九成新 ", "全新未拆 ", "限量 ", "贈品轉賣 ", "二手 "};
 
         Faker faker = new Faker();
-        int total = defaultImageLinks.length * 10;
+        int NUM_OF_BIDPRODUCT_PER_CATEGORY = 10;
+        int total = defaultImageLinks.length * NUM_OF_BIDPRODUCT_PER_CATEGORY;
 
         // 設定預設 customer
         Customer customer1 = new Customer();
@@ -112,9 +115,12 @@ public class GenDefaultData {
         customerDao.save(customer1);
         customerDao.save(customer2);
 
+        // 建立預設商品
+        List<BidProduct> defaultBidProducts = new ArrayList<>();
+
         for (int i = 0; i < total; i += 1) {
             BidProduct bidProduct = new BidProduct();
-            int index = i / 11; // 使 index 界於 0 - 4
+            int index = i / NUM_OF_BIDPRODUCT_PER_CATEGORY; // 使 index 界於 0 - 4
             int random = (int) Math.floor(Math.random() * defaultPrefixes.length);
             String randomPrefix = defaultPrefixes[random];
             bidProduct.setName(randomPrefix + defaultCategoryNames[index]);
@@ -178,5 +184,32 @@ public class GenDefaultData {
     	employee1.setPassword("9999");
     	employeeDao.save(employee1);
     }
-    
+
+    // 預設拍賣商品評論資料
+    private void createBidProductComments() {
+
+        long num = bidProductCommentDao.count();
+
+        if (num > 0) return;
+
+        List<BidProduct> bidProducts = bidProductDao.findAll();
+        List<Customer> customers = customerDao.findAll();
+
+        // every bidProduct have four comments
+        int NUM_OF_COMMENT_PER_BIDPRODUCT = 4;
+        int total = bidProducts.size() * NUM_OF_COMMENT_PER_BIDPRODUCT;
+        Faker faker = new Faker();
+        List<BidProductComment> defaultBidProductComments = new ArrayList<>();
+
+        for (int i = 0; i < total; i += 1) {
+            BidProductComment bidProductComment = new BidProductComment();
+            bidProductComment.setBidProduct(bidProducts.get(i / NUM_OF_COMMENT_PER_BIDPRODUCT));
+            int random = (int) Math.floor(Math.random() * customers.size());
+            bidProductComment.setCustomer(customers.get(random));
+            bidProductComment.setContent(faker.lorem().sentence());
+            defaultBidProductComments.add(bidProductComment);
+        }
+
+        bidProductCommentDao.saveAll(defaultBidProductComments);
+    }
 }
