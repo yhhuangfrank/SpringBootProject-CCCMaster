@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ispan.CCCMaster.model.bean.customer.Customer;
+import com.ispan.CCCMaster.model.bean.order.OrderBean;
 import com.ispan.CCCMaster.model.bean.service.MessageModel;
 import com.ispan.CCCMaster.model.bean.service.UserStorage;
 import com.ispan.CCCMaster.service.ServiceFromService;
@@ -35,5 +36,11 @@ public class ServiceAdminMessageController {
     public ResponseEntity<Customer> searchCustomer(@RequestParam("customerId") Integer customerId) {
         Customer customer = serviceFromService.getCustomerById(customerId);
         return ResponseEntity.ok(customer);
+    }
+    
+    @GetMapping("/searchOrder")
+    public ResponseEntity<OrderBean> searchOrder(@RequestParam("orderid") String orderid) {
+        OrderBean orderBean = serviceFromService.getOrderById(orderid);
+        return ResponseEntity.ok(orderBean);
     }
 }

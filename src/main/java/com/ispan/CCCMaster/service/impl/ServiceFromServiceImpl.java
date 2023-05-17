@@ -10,8 +10,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.ispan.CCCMaster.model.bean.customer.Customer;
+import com.ispan.CCCMaster.model.bean.order.OrderBean;
 import com.ispan.CCCMaster.model.bean.service.ReportForm2Model;
 import com.ispan.CCCMaster.model.dao.CustomerDao;
+import com.ispan.CCCMaster.model.dao.OrderDao;
 import com.ispan.CCCMaster.model.dao.ServiceFromDao;
 
 @Service
@@ -22,6 +24,9 @@ public class ServiceFromServiceImpl implements com.ispan.CCCMaster.service.Servi
 
     @Autowired
     private CustomerDao customerDao;
+
+    @Autowired
+    private OrderDao orderDao;
 
     public void createform(ReportForm2Model rfm) {
     	serviceFromDao.save(rfm);
@@ -55,6 +60,10 @@ public class ServiceFromServiceImpl implements com.ispan.CCCMaster.service.Servi
 	//查詢客戶資料
     public Customer getCustomerById(Integer customerId) {
         return customerDao.findByCustomerId(customerId);
+    }
+    //查詢訂單資料
+    public OrderBean getOrderById(String orderid) {
+        return orderDao.findByOrderid(orderid);
     }
 
 }

@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.ispan.CCCMaster.model.bean.customer.Customer;
 import com.ispan.CCCMaster.model.bean.order.OrderBean;
 
 
@@ -63,4 +64,6 @@ public interface OrderDao extends JpaRepository<OrderBean, String>,JpaSpecificat
 	@Query(value="select * from Orders where payment_condition = '退款中' AND order_id LIKE %:oid%",nativeQuery = true)
 	public List<OrderBean> findByRefundByIdContaining(@Param(value="oid")String orderid);
 	
+    //彥輝用
+	OrderBean findByOrderid(String orderid);
 }

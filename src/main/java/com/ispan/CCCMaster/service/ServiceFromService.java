@@ -3,6 +3,7 @@ package com.ispan.CCCMaster.service;
 import org.springframework.data.domain.Page;
 
 import com.ispan.CCCMaster.model.bean.customer.Customer;
+import com.ispan.CCCMaster.model.bean.order.OrderBean;
 import com.ispan.CCCMaster.model.bean.service.ReportForm2Model;
 
 public interface ServiceFromService {
@@ -17,7 +18,8 @@ public interface ServiceFromService {
 	ReportForm2Model getLatest();
 	
 	 public Customer getCustomerById(Integer customerId)  ;
-
+	 
+	 public OrderBean getOrderById(String orderid);
 
 	
 }
