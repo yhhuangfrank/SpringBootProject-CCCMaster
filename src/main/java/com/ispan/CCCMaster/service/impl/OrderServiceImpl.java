@@ -321,30 +321,17 @@ public class OrderServiceImpl implements OrderService {
 	
 
 	//給予點數
-//	@Override
-//	@Transactional
-//	public void givePoints(OrderBean order,CustomerPoint point) {
-//		Optional<CustomerPoint> points = pointDao.findPoints(order.getCbOrder().getCustomerId(), order.getOrderid());
-//		if(points.isEmpty()) {
-//			//給予會員點數
-//			Optional<OrderBean> option = oDao.findById(order.getOrderid());
-//			Integer total= option.get().getTotalamount();
-//			Integer back = total;
-//			Optional<Customer> coption = cDao.findById(order.getCbOrder().getCustomerId());
-//			Integer startpoint = coption.get().getPoint();
-//			Integer givepoint = startpoint+back;
-//			coption.get().setPoint(givepoint);
-//			//新增紀錄
-//			point.setCpoints(order.getCbOrder());
-//			point.setOpoint(order);
-//			point.setPlusorneg(true);
-//			point.setPoints(givepoint);
-//		}else {
-//			
-//		}
-//		
-//	}
-
+	@Override
+	public void givePoints(CustomerPoint point,Integer customerId,String orderid) {
+		Optional<Customer> coption = cDao.findById(customerId);
+		point.setCpoints(coption.get());
+		Optional<OrderBean> ooption = oDao.findById(orderid);
+		point.setOpoint(ooption.get());
+		point.setPlusorneg(true);
+		point.setPoints(ooption.get().getTotalamount());
+		pointDao.save(point);
+	}
+		
 	
 
 	

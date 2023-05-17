@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-  <title>test</title>
+  <title>訂單詳細資料</title>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -35,7 +35,7 @@
   <jsp:include page="../layouts/header.jsp"/>
 
   <main id="main" class="main">
-              <h1 class="card-title fs-1">訂單詳細資料</h1>
+       <h1 class="card-title fs-1">訂單詳細資料</h1>
 
               <form:form method="put" modelAttribute="singleorder" action="${contextRoot}/admin/orders/edit">
                 <div class="row mb-3">
@@ -87,9 +87,15 @@
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="inputTime" class="col-sm-2 col-form-label">繳款狀態</label>
+                  <label class="col-sm-2 col-form-label">繳款狀態</label>
                   <div class="col-sm-10 fs-5">
-                    <input type="text" class="form-control" value="${singleorder.paymentcondition}" disabled>
+                  	<form:select class="form-select" path="paymentcondition" aria-label="Default select example" value="${singleorder.paymentcondition}" id="inputpaymentcondition">
+                      <option selected value="${singleorder.paymentcondition}"></option>
+                      <option value="未付款">未付款</option>
+                      <option value="已付款">已付款</option>
+                      <option value="退款中">退款中</option>
+                      <option value="已退款">已退款</option>
+                    </form:select>
                   </div>
                 </div>
 
@@ -120,7 +126,7 @@
 		              </table>
                   </div>
                 </div>
-
+								
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label"></label>
                   <div class="col-sm-10">
@@ -163,14 +169,13 @@
 								</div>
 								</div>
 							</div>
-						</div>
-					<form action="${contextRoot}/admin/givepoints" method="post" modelAttribute="singleorder">
-						<button onclick="givepoint()" class="btn btn-danger" id="givebutton">點數給予</button>
-					</form>	                   	
+						</div>			                   	
                   </div>
                 </div>
-
               </form:form>
+              <div style="margin-left: 180px">
+              	<button onclick="givepoint()" class="btn btn-danger" id="givebutton">點數給予</button>
+              </div>
 
   </main>
 
@@ -191,18 +196,22 @@
   <!-- Template Main JS File -->
   <script src="${contextRoot}/styles/back/assets/js/main.js"></script>
   <script>
-<!--	function givepoint() {
+function givepoint() {
 	let cid = document.getElementById('cid').value;
 	let oid = document.getElementById('oid').value;	
 	$.ajax({
 		type:"Post",
         url:"http://localhost:8080/admin/givepoints",
         data:{
-        	cbOrder:cid,
-	       	orderid:oid,
+        	customerId:cid,
+        	orderid:oid,
+        },
+        success:function(response){
+        	location.href = response;
+        	alert("成功給予!")
         }
-	})	
-}-->
+	})
+}
   </script>
 </body>
 </html>

@@ -169,30 +169,30 @@ public class OrderAdminController {
 	//給予點數
 	@Transactional
 	@PostMapping("/admin/givepoints")
-	public String givepoints(@ModelAttribute("singleorder")OrderBean order,CustomerPoint point
-							, RedirectAttributes redirectAttributes) throws IOException {
-		Optional<CustomerPoint> points = pointDao.findPoints(order.getCbOrder().getCustomerId(), order.getOrderid());
-		if(points.isEmpty()) {
-			//給予會員點數
-			Optional<OrderBean> option = oDao.findById(order.getOrderid());
-			Integer total= option.get().getTotalamount();
-			Integer back = total;
-			Optional<Customer> coption = cDao.findById(order.getCbOrder().getCustomerId());
-			Integer startpoint = coption.get().getPoint();
-			Integer givepoint = startpoint+back;
-			coption.get().setPoint(givepoint);
-			//新增紀錄
-			point.setCpoints(order.getCbOrder());
-			point.setOpoint(order);
-			point.setPlusorneg(true);
-			point.setPoints(givepoint);
-			redirectAttributes.addAttribute("isSuccess",true);
-			redirectAttributes.addAttribute("successMsg","此筆訂單成功給予點數!");
+	public String givepoints(@ModelAttribute("point")CustomerPoint point,
+							@RequestParam("customerId")Integer customerId,
+							@RequestParam("orderid")String orderid,
+							Model model,
+							RedirectAttributes redirectAttributes) throws IOException {
+		Optional<OrderBean> option = oDao.findById(orderid);
+		Optional<Customer> coption = cDao.findById(customerId);
+		Integer total= option.get().getTotalamount();
+		Optional<CustomerPoint> points = pointDao.findPoints(customerId, orderid);
+		if(points.isPresent()) {
+			redirectAttributes.addFlashAttribute("isFailed",true);
+			redirectAttributes.addFlashAttribute("failedMsg","此筆訂單已給過點數!");
 		}else {
-			redirectAttributes.addAttribute("isFailed",true);
-			redirectAttributes.addAttribute("failedMsg","此筆訂單已給過點數!");
+			//新增紀錄
+			oService.givePoints(point, customerId, orderid);	
+			//給予會員點數					
+			Integer startpoint = coption.get().getPoint();
+			Integer givepoint = startpoint+total;
+			coption.get().setPoint(givepoint);
+			redirectAttributes.addFlashAttribute("isSuccess",true);
+			redirectAttributes.addFlashAttribute("successMsg","此筆訂單成功給予點數!");
 		}
-			return "redirect:/admin/orders/editorder";
+		
+			return "redirect:/admin/orders/editorder?id=" + orderid +"#";
 		}
 	
 	

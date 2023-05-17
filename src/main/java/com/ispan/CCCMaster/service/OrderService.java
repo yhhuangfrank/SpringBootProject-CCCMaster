@@ -90,6 +90,6 @@ public interface OrderService {
     public  Date getEndDate(String yearOrMonth)throws ParseException;
     
     //點數給予
-//    public void givePoints(OrderBean order,CustomerPoint point);
+    public void givePoints(CustomerPoint point,Integer customerId,String orderid);
     
 }

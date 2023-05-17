@@ -110,13 +110,14 @@
           <div class="sidebar">
               <h5>優惠方式</h5>
               	<div class="form-check">
-              			<input class="form-check-input" type="checkbox">
+              			<input class="form-check-input" type="checkbox" id="pointcheckbox">
               			<label class="form-check-label" for="gridCheck1" for="points">
               				使用點數              	
             			</label>
             			<div >
             				<input type="text" id="points" class="form-control col-sm-4"></input>
-            				(現有點)
+            				(現有${sessionScope.customerpoint}點)<input value="${sessionScope.customerpoint}" type="hidden" id="cupoint">
+            				<div id="canusepoint"></div>
             			</div>
             		</div>
               			<div class="form-check">
@@ -137,6 +138,9 @@
 					<span id="freight"></span>
 				</div>
 				<div class="col-lg-4" style="margin-top: 5px">優惠折抵:</div>
+        <div class="col-lg-8" style="text-align: right;margin-top: 5px">
+					<span id="discount"></span>
+				</div>
 				<br>
 				<br>
 				<hr>
@@ -172,22 +176,66 @@
 <!-- Template Main JS File -->
 <script src="${contextRoot}/styles/front/assets/js/main.js"></script>
 <script>
-  //原始總金額
-  let totalamount = 0;
+  //總金額
+  var totalamount = 0;
   let counttotal = document.getElementsByClassName("countstotal");
   for(let i=0;i<counttotal.length;i++){
     totalamount += parseInt(counttotal[i].value,10)
   }
   document.getElementById('totalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
+  var originalAmount = totalamount;
+  //運費金額
   if(totalamount<1000 && totalamount>0){
-      document.getElementById('freight').innerHTML = "30";
-      totalamount = totalamount + 30;
-      document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-    }else{
-      document.getElementById('freight').innerHTML = 0;
-      document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
+    document.getElementById('freight').innerHTML = "30";
+    totalamount = totalamount + 30 ;
+    document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
+  }else{
+    document.getElementById('freight').innerHTML = 0;
+    document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
+  }
+  let canusepoint = document.getElementById('canusepoint')  //可使用點數的div
+  let cupoints = document.getElementById('cupoint').value   //會員點數
+  var usepoint = Math.floor(cupoints/300);                  //計算可用的點數
+  canusepoint.innerHTML = "(可用"+usepoint+"點)"
+  let pointcheckbox = document.getElementById('pointcheckbox')
+  let discountLabel = document.getElementById('discount');
+  //更新總金額
+  
+  //可用點數
+  document.getElementById('points').addEventListener('input',function(event){
+    let input = event.target; 
+    let inputpoint = parseInt(input.value, 10);     //輸入的point
+    pointcheckbox.checked=true;
+    
+    //使用點數限制
+    if(isNaN(inputpoint) || inputpoint < 1){
+      inputpoint=0;
+    }
+    if(inputpoint>usepoint){
+      inputpoint=usepoint
+    };
+  input.value=inputpoint
+  document.getElementById('discount').innerHTML = inputpoint
+  pointcheckbox.addEventListener("change",function(){
+      if(pointcheckbox.checked){
+        discountLabel.innerHTML = inputpoint
+        updateFinalAmountUsePoint(inputpoint)
+      }else{
+        document.getElementById('discount').innerHTML =""
+        updateFinalAmountUsePoint(0)
+      }
+    });
+    function updateFinalAmountUsePoint(inputpoint){
+      if(totalamount<1000 && totalamount>0){
+        finaltotal = totalamount-inputpoint+30
+      }else{
+        finaltotal = totalamount-inputpoint
+      }
+      document.getElementById('finalamount').innerHTML = finaltotal.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
     }
     
+  })
+
   //數量-1
   function dec(count){
     let valueInput = document.getElementById('quantity'+count); //數量
@@ -269,6 +317,8 @@
     }
     input.value=values;
   }
+  
+  
   
   
 </script>
