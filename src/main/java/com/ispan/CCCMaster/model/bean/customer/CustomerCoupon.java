@@ -9,11 +9,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.ispan.CCCMaster.model.bean.coupon.CouponBean;
 
 @Entity
 @Table(name = "CustomerCoupons")
@@ -28,13 +31,19 @@ public class CustomerCoupon {
 	@JoinColumn(name = "customer_id")
 	private Customer customers;
 	
-	@Column(name = "coupon_id", columnDefinition = "nchar(36)")
-	private String couponId;
+	@ManyToOne
+	@JoinColumn(name = "convert_id")
+	private CouponBean couponBean;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	@Column(name = "build_time", columnDefinition = "datetime")
 	private Date buildTime;
+	
+	@PrePersist	//建立該筆資料時自動產生當天日期，以及把點數、棄標次數設為0
+	public void onCreate() {
+		if(buildTime == null) buildTime = new Date();
+	}
 	
 	@Column(name = "is_available", columnDefinition = "bit")
 	private Boolean isAvailable;
@@ -53,12 +62,12 @@ public class CustomerCoupon {
 		this.id = id;
 	}
 
-	public String getCouponId() {
-		return couponId;
+	public CouponBean getCouponBean() {
+		return couponBean;
 	}
 
-	public void setCouponId(String couponId) {
-		this.couponId = couponId;
+	public void setCouponBean(CouponBean couponBean) {
+		this.couponBean = couponBean;
 	}
 
 	public Date getBuildTime() {

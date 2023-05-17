@@ -114,7 +114,7 @@
 	      	<div class="container">
 	
 		        <div class="row">
-			        <div class="col-lg-4 col-md-6 align-items-stretch">
+			        <div class="col-lg-4 col-md-6">
 				        <div class="icon-box">
 				        	<div class="icon"><i class="bi bi-person-vcard"></i></div>
 				        	<h4><a href="${contextRoot}/center/profile">我的資料</a></h4>
@@ -122,10 +122,10 @@
 				        </div>
 			        </div>
 		
-			        <div class="col-lg-4 col-md-6 align-items-stretch mt-4 mt-md-0">
+			        <div class="col-lg-4 col-md-6 mt-4 mt-md-0">
 				        <div class="icon-box">
 				        	<div class="icon"><i class="bi bi-ticket-perforated"></i></div>
-				        	<h4><a href="">我的優惠券</a></h4>
+				        	<h4><a href="${contextRoot}/customers/${sessionScope.customerId}/coupons">我的優惠券</a></h4>
 				        	<p>查看可用的優惠券及優惠券使用紀錄</p>
 				   	    </div>
 			        </div>
@@ -140,26 +140,26 @@
 		
 			        <div class="col-lg-4 col-md-6 mt-4">
 				        <div class="icon-box">
-				        	<div class="icon"><i class="bx bx-world"></i></div>
+				        	<div class="icon"><i class="bi bi-2-circle"></i><i class="bi bi-hand-thumbs-up"></i></div>
 					        <h4><a href="">二手賣場</a></h4>
 							<a href="${contextRoot}/customers/${sessionScope.customerId}/dealRecords" class="btn btn-warning">得標紀錄</a>
 							<a href="${contextRoot}/customers/${sessionScope.customerId}/bidProducts" class="btn btn-warning">我的賣場</a>
 				        </div>
 			        </div>
 		
-			        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
+			        <div class="col-lg-4 col-md-6 mt-4">
 				        <div class="icon-box">
-				        	<div class="icon"><i class="bx bx-slideshow"></i></div>
+				        	<div class="icon"><i class="bi bi-heart"></i></div>
 				        	<h4><a href="">我的最愛</a></h4>
-				        	<p>Quis consequatur saepe eligendi voluptatem consequatur dolor consequuntur</p>
+				        	<p> aka 現在還沒有錢帶你回家</p>
 				        </div>
 			        </div>
 		
-			        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
+			        <div class="col-lg-4 col-md-6 mt-4">
 				        <div class="icon-box">
-				        	<div class="icon"><i class="bx bx-arch"></i></div>
+				        	<div class="icon"><i class="bi bi-clock-history"></i></div>
 				        	<h4><a href="">瀏覽紀錄</a></h4>
-				        	<p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
+				        	<p>抱歉了錢錢，但我真的想要那些酷東西 ಥ_ಥ</p>
 				        </div>
 			        </div>
 		

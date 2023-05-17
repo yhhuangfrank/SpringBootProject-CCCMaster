@@ -13,5 +13,6 @@ public interface CouponDao extends JpaRepository<CouponBean, String>{
 	@Query(value="select * , convert(char(16),start_date,120),convert(char(16),end_date,120) from Coupon", nativeQuery = true)
 	public List<CouponBean> findAllCoupons();
 
+	public CouponBean findByConvertid(String convertid);
 
 }

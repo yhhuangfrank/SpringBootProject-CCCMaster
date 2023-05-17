@@ -7,6 +7,7 @@ import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.bid.DealRecord;
 import com.ispan.CCCMaster.model.customexception.NotFoundException;
 import com.ispan.CCCMaster.service.BidProductService;
+import com.ispan.CCCMaster.service.CustomerCouponService;
 import com.ispan.CCCMaster.service.DealRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,8 @@ public class CustomerController {
 	private CustomerService ctmService;
 	@Autowired
 	private LoginUtil loginUtil;
+	@Autowired
+	private CustomerCouponService ccService;
 
 	@Autowired
 	private BidProductService bidProductService;
@@ -155,10 +158,26 @@ public class CustomerController {
 	}
 	
 	@CustomerAuthentication
-	@GetMapping("/customers/{id}/coupons")
+	@GetMapping("/customers/{id}/coupons")	// 會員中心-查看我的優惠券
 	public String getCustomerCoupons(HttpSession session) {
 		
-		return "";
+		return "front/customer/coupons";
+	}
+	
+	@CustomerAuthentication
+	@PostMapping("/customers/{id}/coupons")	// 會員新增優惠券
+	public String postCustomerCoupons(HttpSession session, @RequestParam("convertid") String convertid, RedirectAttributes redirectAttributes) {
+		if(ccService.createCustomerCoupon(session, convertid)) {
+			//重導前添加新增優惠券成功訊息
+			redirectAttributes.addFlashAttribute("isSuccess", true);
+			redirectAttributes.addFlashAttribute("successMsg", "成功新增優惠券!");			
+			return "redirect:/customers/{id}/coupons";
+		} else {			
+			//重導前添加新增優惠券失敗訊息
+			redirectAttributes.addFlashAttribute("isFailed", true);
+			redirectAttributes.addFlashAttribute("failedMsg", "查無此優惠券");			
+			return "redirect:/customers/{id}/coupons";
+		}
 	}
 
 }

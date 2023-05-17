@@ -32,6 +32,21 @@
 
     <!-- Template Main CSS File -->
     <link href="${contextRoot}/styles/front/assets/css/style.css" rel="stylesheet">
+    
+    <style>
+    	button[type=submit] {
+		  background: #e96b56;
+		  border: 0;
+		  border-radius: 50px;
+		  padding: 10px 24px;
+		  color: #fff;
+		  transition: 0.4s;
+		}
+		
+		button[type=submit]:hover {
+		  background: #e6573f;
+		}
+    </style>
 </head>
 
 <body>
@@ -64,21 +79,13 @@
                     <%-- 顯示提示訊息 --%>
                     <jsp:include page="../../message.jsp"/>
 
-                    <form class="row" action="${contextRoot}/front/order/search" method="get">
-                     <div class="col-2">
-                    	<select name="type" class="col-10 form-select" style="height: 35px">
-                    		<option value="orderid">訂單編號</option>
-                    		<option value="time">訂購時間</option>
-                    	</select>
-                    </div>
-                    <div class="col-8">
-                        <div class="col-6 input-group" style="float: right;">
-                            <input type="text" class="form-control" id="searchInput" placeholder="請輸入訂單編號或訂購時間" name="keyword">
-                            <button type="submit" class="btn btn-outline-light border-secondary" id="searchBtn"
-                                    style="display: inline; background-color: #e96b56"><i class="bx bx-search-alt"></i>
-                            </button>
+                    <form class="row" action="${contextRoot}/customers/${sessionScope.customerId}/coupons" method="post">
+                    <div class="col-3">
+                        <div class="col-6 input-group">
+                            <input type="text" class="form-control" id="convertid" placeholder="請輸入優惠券兌換代碼" name="convertid">
+                            <button type="submit" class="btn btn-secondary border-secondary" id="submitBtn"><i class="bi bi-cursor"></i></button>
                         </div>
-                       </div>
+                    </div>
                     </form>
                 </div>
               	<table class="table table-striped table-bordered" style="text-align: center;">
