@@ -1,3 +1,4 @@
+
 // 當頁面加載完成後調用 fetchAll() 函數
 document.addEventListener('DOMContentLoaded', function() {
     fetchAll();
