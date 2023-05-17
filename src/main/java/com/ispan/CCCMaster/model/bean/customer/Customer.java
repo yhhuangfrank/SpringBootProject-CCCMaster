@@ -224,7 +224,7 @@ public class Customer {
 	Set<BidOrderBean> sets = new HashSet<>();
 	
 	//對會員點數:一對多 by瑛仁
-	@OneToMany(mappedBy ="cpoints")
-	Set<CustomerPoint> setpoint = new HashSet<>();
+//	@OneToMany(mappedBy ="cpoints")
+//	Set<CustomerPoint> setpoint = new HashSet<>();
 
 }

@@ -115,8 +115,8 @@
               				使用點數              	
             			</label>
             			<div >
-            				<input type="text" id="points" class="form-control col-sm-4"></input>
-            				(現有${sessionScope.customerpoint}點)<input value="${sessionScope.customerpoint}" type="hidden" id="cupoint">
+            				<input type="number" id="points" class="form-control col-sm-4"></input>
+            				(現有${customer.point}點)<input value="${customer.point}" type="hidden" id="cupoint">
             				<div id="canusepoint"></div>
             			</div>
             		</div>
@@ -138,14 +138,14 @@
 					<span id="freight"></span>
 				</div>
 				<div class="col-lg-4" style="margin-top: 5px">優惠折抵:</div>
-        <div class="col-lg-8" style="text-align: right;margin-top: 5px">
+        			<div class="col-lg-8" style="text-align: right;margin-top: 5px">
 					<span id="discount"></span>
 				</div>
 				<br>
 				<br>
 				<hr>
-				<div class="col-lg-3">總&nbsp;&nbsp;&nbsp;&nbsp;計:</div>
-				<div class="col-lg-9" style="text-align:right">
+				<div class="col-lg-4">實付總額:</div>
+				<div class="col-lg-8" style="text-align:right">
 					<span id="finalamount"></span>
 				</div>										
 						<div class="d-grid gap-2 mt-3">
@@ -183,7 +183,6 @@
     totalamount += parseInt(counttotal[i].value,10)
   }
   document.getElementById('totalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-  var originalAmount = totalamount;
   //運費金額
   if(totalamount<1000 && totalamount>0){
     document.getElementById('freight').innerHTML = "30";
@@ -197,9 +196,9 @@
   let cupoints = document.getElementById('cupoint').value   //會員點數
   var usepoint = Math.floor(cupoints/300);                  //計算可用的點數
   canusepoint.innerHTML = "(可用"+usepoint+"點)"
+  
   let pointcheckbox = document.getElementById('pointcheckbox')
   let discountLabel = document.getElementById('discount');
-  //更新總金額
   
   //可用點數
   document.getElementById('points').addEventListener('input',function(event){
@@ -214,27 +213,31 @@
     if(inputpoint>usepoint){
       inputpoint=usepoint
     };
-  input.value=inputpoint
-  document.getElementById('discount').innerHTML = inputpoint
+    input.value=inputpoint
+    document.getElementById('discount').innerHTML = inputpoint
+    updateFinalAmountUsePoint(inputpoint)
+  })
   pointcheckbox.addEventListener("change",function(){
       if(pointcheckbox.checked){
-        discountLabel.innerHTML = inputpoint
-        updateFinalAmountUsePoint(inputpoint)
+        discountLabel.innerHTML = document.getElementById('points').value;
+        updateFinalAmountUsePoint(document.getElementById('points').value)
+        document.cookie = "point="+document.getElementById('points').value+";path=/";
       }else{
         document.getElementById('discount').innerHTML =""
         updateFinalAmountUsePoint(0)
       }
     });
+  //更新實付總額
     function updateFinalAmountUsePoint(inputpoint){
+      let finaltotal = totalamount;
       if(totalamount<1000 && totalamount>0){
-        finaltotal = totalamount-inputpoint+30
+        finaltotal = totalamount-inputpoint
       }else{
         finaltotal = totalamount-inputpoint
       }
       document.getElementById('finalamount').innerHTML = finaltotal.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
     }
-    
-  })
+
 
   //數量-1
   function dec(count){

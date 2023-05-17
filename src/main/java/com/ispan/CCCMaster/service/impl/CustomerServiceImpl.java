@@ -95,8 +95,6 @@ public class CustomerServiceImpl implements CustomerService {
 			session = request.getSession();
 			session.setAttribute("customerId", foundCustomer.getCustomerId());	//把 customerId 存進 session
 			session.setAttribute("customerName", foundCustomer.getName());	//把 customerName 存進 session
-			//by瑛仁
-			session.setAttribute("customerpoint", foundCustomer.getPoint());
 		}
 		return success;
 	}

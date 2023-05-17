@@ -237,7 +237,7 @@ public class OrderBean implements Serializable {
 		this.telephone = telephone;
 	}
 	
-	@OneToOne(mappedBy = "opoint")
-	private CustomerPoint cpoint;
+//	@OneToOne(mappedBy = "opoint",cascade = CascadeType.ALL)
+//	private CustomerPoint cpoint;
 		
 }

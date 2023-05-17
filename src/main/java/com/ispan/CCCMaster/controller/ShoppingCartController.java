@@ -2,6 +2,7 @@ package com.ispan.CCCMaster.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.Cookie;
@@ -23,9 +24,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ispan.CCCMaster.annotation.CustomerAuthentication;
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.bid.DealRecord;
+import com.ispan.CCCMaster.model.bean.customer.Customer;
 import com.ispan.CCCMaster.model.bean.order.OrderBean;
 import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;
 import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
+import com.ispan.CCCMaster.model.dao.CustomerDao;
+import com.ispan.CCCMaster.service.CustomerService;
 import com.ispan.CCCMaster.service.DealRecordService;
 import com.ispan.CCCMaster.service.ProductService;
 import com.ispan.CCCMaster.service.ShoppingCartService;
@@ -42,6 +46,9 @@ public class ShoppingCartController {
 	@Autowired
 	private DealRecordService recordService;
 	
+	@Autowired
+	private CustomerService cService;
+	
 	//創立購物車，並將畫面重新導向為商品詳細頁面
 	@PostMapping("/shoppingcarts/create")
 	public String createShoppingCart(@ModelAttribute("sc")ShoppingCartBean sc,
@@ -57,7 +64,9 @@ public class ShoppingCartController {
 	public String findShoppingCart(HttpSession session ,Model model) {
 		Integer customerId = (Integer)session.getAttribute("customerId");
 		List<ShoppingCartBean> sc =  scService.findByCid(customerId);
+		Customer customer= cService.findById(customerId);
 		model.addAttribute("shoppingcart",sc);
+		model.addAttribute("customer",customer);
 		return "/front/shoppingcarts/showshoppingcart";
 	}
 

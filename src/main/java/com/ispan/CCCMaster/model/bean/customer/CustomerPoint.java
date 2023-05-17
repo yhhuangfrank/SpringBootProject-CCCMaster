@@ -1,5 +1,7 @@
 package com.ispan.CCCMaster.model.bean.customer;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +17,8 @@ import com.ispan.CCCMaster.model.bean.order.OrderBean;
 
 @Entity
 @Table(name="CustomerPoints")
-public class CustomerPoint {
+public class CustomerPoint implements Serializable{
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,26 +31,24 @@ public class CustomerPoint {
 	@Column(name="plus_or_neg")
 	private Boolean plusorneg;
 	
-	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(name="customer_id")
-	private Customer cpoints;
+	@Column(name="customer_id")
+	private Integer customerId;
 	
-	
-	@OneToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(name="order_id")
-	private OrderBean opoint;
+	@Column(name="order_id")
+	private String orderid;
 
 	public CustomerPoint() {
 		
 	}
-	
-	public CustomerPoint(Integer id, Integer points, Boolean plusorneg, Customer cpoints, OrderBean opoint) {
+
+
+	public CustomerPoint(Integer id, Integer points, Boolean plusorneg, Integer customerId, String orderid) {
 		super();
 		this.id = id;
 		this.points = points;
 		this.plusorneg = plusorneg;
-		this.cpoints = cpoints;
-		this.opoint = opoint;
+		this.customerId = customerId;
+		this.orderid = orderid;
 	}
 
 
@@ -81,24 +82,27 @@ public class CustomerPoint {
 	}
 
 
-	public Customer getCpoints() {
-		return cpoints;
+	public Integer getCustomerId() {
+		return customerId;
 	}
 
 
-	public void setCpoints(Customer cpoints) {
-		this.cpoints = cpoints;
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
 	}
 
 
-	public OrderBean getOpoint() {
-		return opoint;
+	public String getOrderid() {
+		return orderid;
 	}
 
 
-	public void setOpoint(OrderBean opoint) {
-		this.opoint = opoint;
+	public void setOrderid(String orderid) {
+		this.orderid = orderid;
 	}
+
+
+	
 
 	
 }

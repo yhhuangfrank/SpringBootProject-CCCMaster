@@ -129,42 +129,6 @@ public class OrderAdminController {
        }
 		return "redirect:/admin/orders";
 	}
-		
-	//新增訂單&同時刪掉購物車&修改存貨
-	@PostMapping("/front/orders/create")
-	public String createorder(@ModelAttribute("orderBean")OrderBean orderBean,
-			@RequestParam("customerId")Integer customerId) throws IOException {
-		oService.createOrder(orderBean,customerId);
-		return "redirect:/front/orders/paymentorok";
-	}
-	
-	//確認訂購資訊
-	@GetMapping("/front/orders/paymentorok")
-	public String findLatestOrderByCid(HttpSession session,Model model) {
-		Integer customerId = (Integer)session.getAttribute("customerId");
-		OrderBean order = oService.findLatestByCid(customerId);
-		model.addAttribute("latestorder",order);
-		return "/front/orders/paymentorok";
-	}
-	
-	//前往綠界付錢
-	@ResponseBody
-	@PostMapping("/ecpayCheckout")
-	public String ecpayCheckout(@RequestParam("customerId")Integer customerId){
-		String aioCheckOutALLForm = oService.ecpayCheckout(customerId);	
-		return aioCheckOutALLForm;
-	}
-	
-	//付完錢，回到頁面時要做的事情
-	@Transactional
-	@PostMapping("/front/orders/edit")
-	public String returnURL(@RequestParam("MerchantTradeNo")String MerchantTradeNo,
-							HttpServletRequest request) {
-			String orderIdStr = MerchantTradeNo.substring(2);
-			OrderBean ob = oService.findOrderByid(orderIdStr);
-			ob.setPaymentcondition("已付款");
-			return "redirect:/front/orders";
-	}
 	
 	//給予點數
 	@Transactional

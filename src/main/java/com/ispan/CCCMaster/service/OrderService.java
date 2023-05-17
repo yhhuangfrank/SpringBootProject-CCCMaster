@@ -92,4 +92,7 @@ public interface OrderService {
     //點數給予
     public void givePoints(CustomerPoint point,Integer customerId,String orderid);
     
+    //消耗點數
+    public void usePoints(CustomerPoint point,Integer customerId);
+    
 }
