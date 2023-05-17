@@ -188,7 +188,11 @@ public class OrderServiceImpl implements OrderService {
 		customerpoint.setCustomerId(customerId);
 		customerpoint.setOrderid(dateString);
 		customerpoint.setPlusorneg(false);
-		customerpoint.setPoints(order.getPointsdiscount()*300);
+		if(order.getPointsdiscount() == null) {
+			customerpoint.setPoints(0);
+		}else {
+			customerpoint.setPoints(order.getPointsdiscount()*300);
+		}
 		pointDao.save(customerpoint);
 		//更新會員點數
 		Integer neg = order.getPointsdiscount()*300;

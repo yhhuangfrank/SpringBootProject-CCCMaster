@@ -199,7 +199,7 @@
   
   let pointcheckbox = document.getElementById('pointcheckbox')
   let discountLabel = document.getElementById('discount');
-  
+  document.cookie = "point="+0+";path=/";
   //可用點數
   document.getElementById('points').addEventListener('input',function(event){
     let input = event.target; 
@@ -223,8 +223,9 @@
         updateFinalAmountUsePoint(document.getElementById('points').value)
         document.cookie = "point="+document.getElementById('points').value+";path=/";
       }else{
-        document.getElementById('discount').innerHTML =""
+        document.getElementById('discount').innerHTML = "0"
         updateFinalAmountUsePoint(0)
+        document.cookie = "point="+document.getElementById('points').value+";path=/";
       }
     });
   //更新實付總額

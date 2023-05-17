@@ -133,9 +133,10 @@
 			        </div>
 		
 			        <div class="col-lg-4 col-md-6 mt-4 mt-md-0">
+			        	<a href="${contextRoot}/customers/${sessionScope.customerId}/coupons">
 				        <div class="icon-box">
 				        	<div class="icon"><i class="bi bi-ticket-perforated"></i></div>
-				        	<h4><a href="${contextRoot}/customers/${sessionScope.customerId}/coupons">我的優惠券</a></h4>
+				        	<h4>我的優惠券</h4>
 				        	<p>查看可用的優惠券及優惠券使用紀錄</p>
 				   	    </div>
 				   	   </a>
