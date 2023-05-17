@@ -153,5 +153,12 @@ public class CustomerController {
 
 		return "front/customer/customer-bidProducts";
 	}
+	
+	@CustomerAuthentication
+	@GetMapping("/customers/{id}/coupons")
+	public String getCustomerCoupons(HttpSession session) {
+		
+		return "";
+	}
 
 }
