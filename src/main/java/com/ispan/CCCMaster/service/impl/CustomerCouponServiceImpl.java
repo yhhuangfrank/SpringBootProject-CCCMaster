@@ -36,5 +36,10 @@ public class CustomerCouponServiceImpl implements CustomerCouponService {
 		
 		return true;
 	}
+	
+//	@Override
+//	public CustomerCoupon findByCustomerId() {
+//		
+//	}
 
 }

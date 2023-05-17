@@ -157,12 +157,13 @@ public class CustomerController {
 		return "front/customer/customer-bidProducts";
 	}
 	
-	@CustomerAuthentication
-	@GetMapping("/customers/{id}/coupons")	// 會員中心-查看我的優惠券
-	public String getCustomerCoupons(HttpSession session) {
-		
-		return "front/customer/coupons";
-	}
+//	@CustomerAuthentication
+//	@GetMapping("/customers/{id}/coupons")	// 會員中心-查看我的優惠券
+//	public String getCustomerCoupons(HttpSession session, Model model) {
+//		ccService.
+//		model.addAttribute("customerCoupon", model)
+//		return "front/customer/coupons";
+//	}
 	
 	@CustomerAuthentication
 	@PostMapping("/customers/{id}/coupons")	// 會員新增優惠券
