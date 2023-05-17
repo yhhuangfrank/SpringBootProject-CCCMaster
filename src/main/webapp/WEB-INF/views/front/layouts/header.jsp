@@ -32,12 +32,7 @@
             </li>
             <li><a href="about.html">通知</a></li>
             <li><a href="${contextRoot}/front/product">商城</a></li>
-            <li class="dropdown"><a href="#"><span>二手賣場</span></a>
-              <ul>
-                <li><a href="${contextRoot}/bidProducts">所有商品</a></li>
-                <li><a href="${contextRoot}/bidProducts/create">新增商品</a></li>
-              </ul>
-            </li>
+            <li><a href="${contextRoot}/bidProducts"><span>二手賣場</span></a></li>
             <li><a href="${contextRoot}/forums/showAllForum">論壇</a></li>
            <li class="dropdown"><a href="#"><span>聯絡客服</span></a>
               <ul>
@@ -52,7 +47,7 @@
               </c:choose>
               </ul>
             </li>
-            <li><a href="blog.html">會員中心</a></li>
+            <li><a href="${contextRoot}/center">會員中心</a></li>
             <li><a href="${contextRoot}/front/shoppingcart" >購物車</a></li>
            	<c:choose>
            		<c:when test="${sessionScope.customerId == null}">
@@ -61,9 +56,9 @@
            		</c:when>
            		<c:otherwise>
 		            <li class="dropdown">
-		            	<a href="${contextRoot}/customerCenter"><span>${sessionScope.customerName}，您好</span></a>
+		            	<a href="${contextRoot}/center"><span>${sessionScope.customerName}，您好</span></a>
 		              	<ul>
-			                <li><a href="${contextRoot}/customerCenter">會員中心</a></li>
+			                <li><a href="${contextRoot}/center">會員中心</a></li>
 			                <li><a href="#">未來功能預留</a></li>
 			                <li><a href="${contextRoot}/logout">登出</a></li>
 		              	</ul>

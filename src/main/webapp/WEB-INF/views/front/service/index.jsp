@@ -5,7 +5,6 @@
         <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <jstl:set var="contextRoot" value="${pageContext.request.contextPath}" />
             <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>Custom messanger</title>
@@ -18,7 +17,6 @@
     <!--    end libs for stomp and sockjs-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"
           type="text/css">
-    <link href="${contextRoot}/styles/front/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
     <link href="${contextRoot}/styles/front/assets/vendor/swiper/style.css" rel="stylesheet">
 </head>
 <body>
@@ -26,9 +24,8 @@
     <div class="people-list" id="people-list">
         <div class="search">
             <input id="userName" placeholder="search" type="text"/>
-            <button onclick="registration()">進入聊天</button>
-            <button onclick="fetchAll()">重新整理</button>
-            <button onclick="disconnectFromChat()">離開聊天</button>
+            <button onclick="registration()">加入聊天</button>
+            <button onclick="disconnectFromChat()">中斷連線</button>
         </div>
         <ul class="list" id="usersList">
 
@@ -39,7 +36,7 @@
     <div class="chat">
         <div class="chat-header clearfix">
             <img alt="avatar" height="55px"
-                 src="https://secure.gravatar.com/avatar/12122a41f5e1d5f75d7b0aaf67199e7e?s=300&d=mm&r=g"
+                 src="https://rtfm.co.ua/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
                  width="55px"/>
 
             <div class="chat-about">
@@ -96,5 +93,11 @@
 
 <script src="${contextRoot}/styles/front/assets/js/custom.js"></script>
 <script src="${contextRoot}/styles/front/assets/js/chat.js"></script>
+<script>
+    // 當頁面加載完成後調用 fetchAll() 函數
+    document.addEventListener('DOMContentLoaded', function() {
+        fetchAll();
+    });
+</script>
 </body>
 </html>

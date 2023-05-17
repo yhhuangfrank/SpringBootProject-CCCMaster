@@ -19,7 +19,8 @@ public class Product {
     @Column(name = "product_id")
     private Integer productId;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})//產品種類Bean
+    @ManyToOne//產品種類Bean
+    //@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private Category category;
     @Temporal(TemporalType.TIMESTAMP)

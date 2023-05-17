@@ -30,4 +30,6 @@ public interface CustomerService {
 
 	Boolean canPhoneNumberUse(CustomerCheckRequest ccr);
 
+	void editByIdForCustomer(Customer customer);
+
 }

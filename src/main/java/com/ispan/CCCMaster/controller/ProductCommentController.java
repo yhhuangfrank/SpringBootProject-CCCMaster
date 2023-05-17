@@ -14,19 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class ProductCommentController {
-    @Autowired
-    private OrderService orderService;
 
     @Autowired
     private ProductCommentService productCommentService;
-
-    @GetMapping("/front/comment/create/form/{orderDetailId}")
-    public String getCreateCommentForm(@PathVariable("orderDetailId") Integer orderDetailId, Model model) {
-        Comment comment = new Comment();
-        comment.setOrderDetail(orderService.findOrderDetailById(orderDetailId));
-        model.addAttribute("comment", comment);
-        return "/front/comment/commentForm";
-    }
 
     @ResponseBody
     @GetMapping("/front/detail/comment")

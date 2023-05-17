@@ -76,7 +76,7 @@
                             <c:forEach var="product" items="${page.content}">
                                 <tr>
 
-                                    <td>
+                                    <td style="width: 200px;">
                                             ${product.productName}
                                     </td>
                                     <td>
@@ -88,7 +88,7 @@
                                     <td>
                                             ${product.inventory}
                                     </td>
-                                    <td>
+                                    <td style="width: 400px;">
                                             ${product.description}
                                     </td>
 

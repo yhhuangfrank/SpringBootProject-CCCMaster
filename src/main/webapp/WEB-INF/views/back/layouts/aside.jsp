@@ -73,14 +73,6 @@
                                 <i class="bi bi-circle"></i><span>新增產品</span>
                             </a>
                         </li>
-                        <li>
-                            <a href=""><i class="bi bi-circle"></i><span>手動爬蟲測試鈕(停用)</span></a>
-                        </li>
-                        <li>
-                            <a href="tables-data.html">
-                                <i class="bi bi-circle"></i><span>Data Tables</span>
-                            </a>
-                        </li>
                     </ul>
                 </li><!-- End Tables Nav -->
 
@@ -211,7 +203,7 @@
                 <li class="nav-heading">Pages</li>
 
                 <li class="nav-item">
-                    <a class="nav-link " href="users-profile.html">
+                    <a class="nav-link collapsed" href="users-profile.html">
                         <i class="bi bi-person"></i>
                         <span>Profile</span>
                     </a>

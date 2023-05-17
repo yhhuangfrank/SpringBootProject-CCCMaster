@@ -16,5 +16,6 @@ public interface BidOrderDao extends JpaRepository<BidOrderBean,String>{
 	
 	@Query(value="select * from BidOrder where buyer_id= :id",nativeQuery = true)
 	public List<BidOrderBean> findByCid(@Param(value="id")Integer customerId);
+	
 
 }

@@ -1,10 +1,16 @@
 package com.ispan.CCCMaster.service.impl;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +28,7 @@ import com.ispan.CCCMaster.service.OrderService;
 
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
+import javax.persistence.criteria.Predicate;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -54,8 +61,42 @@ public class OrderServiceImpl implements OrderService {
 
 	//找尋所有訂單
 	@Override
-	public List<OrderBean> findOrders() {
-		return oDao.findAll();
+	public Page<OrderBean> findOrdersByPage(Integer pageNumber) {
+		Pageable pgb = PageRequest.of(pageNumber-1, 15,Sort.Direction.DESC,"orderid");
+		Page<OrderBean> page = oDao.findAll(pgb);
+		return page;
+	}
+	
+	//找到所有處理中訂單
+	@Override
+	public Page<OrderBean> findHandingOrder(Integer pageNumber) {
+		Pageable pgb = PageRequest.of(pageNumber-1, 15,Sort.by("order_id").descending());
+		Page<OrderBean> handlingpage = oDao.findByOrderCondition(pgb);
+		return handlingpage;
+	}
+
+	//找到所有未付款訂單
+	@Override
+	public Page<OrderBean> findUnpay(Integer pageNumber) {
+		Pageable pgb = PageRequest.of(pageNumber-1, 15,Sort.by("order_id").descending());
+		Page<OrderBean> unpaypage = oDao.findBPaymentCondition(pgb);
+		return unpaypage;
+	}
+
+	//找到所有已取消訂單
+	@Override
+	public Page<OrderBean> findCancelOrder(Integer pageNumber) {
+		Pageable pgb = PageRequest.of(pageNumber-1, 15,Sort.by("order_id").descending());
+		Page<OrderBean> cancelpage = oDao.findCancelOrder(pgb);
+		return cancelpage;
+	}
+
+	//找到所有退款中訂單
+	@Override
+	public Page<OrderBean> findDefundOrder(Integer pageNumber) {
+		Pageable pgb = PageRequest.of(pageNumber-1, 15,Sort.by("order_id").descending());
+		Page<OrderBean> refundpage = oDao.findRefund(pgb);
+		return refundpage;
 	}
 
 	//訂單詳細資料
@@ -66,22 +107,19 @@ public class OrderServiceImpl implements OrderService {
 
 	
 	//更改訂單資料
-//	@Override
-//	@Transactional
-//	public void updateById(OrderBean orderBean) throws IOException{
-//		Optional<OrderBean> option = oDao.findById(orderBean.getOrderid());
-//		if(option.isPresent()) {
-//			OrderBean oldOrder = option.get();
-//			oldOrder.setArrivaldate(orderBean.getArrivaldate());
-//			oldOrder.setShipperaddress(orderBean.getShipperaddress());
-//			oldOrder.setOrdercondition(orderBean.getOrdercondition());
-//			oldOrder.setShipperaddress(orderBean.getShipperaddress());
-//		}
-//		List<ShoppingCartBean> scBean = scDao.findAll();
-//		for(ShoppingCartBean sc : scBean) {
-//		
-//	}
-//}
+	@Override
+	@Transactional
+	public void updateById(OrderBean orderBean) throws IOException{
+		Optional<OrderBean> option = oDao.findById(orderBean.getOrderid());
+		if(option.isPresent()) {
+			OrderBean oldOrder = option.get();
+			oldOrder.setArrivaldate(orderBean.getArrivaldate());
+			oldOrder.setShipperaddress(orderBean.getShipperaddress());
+			oldOrder.setOrdercondition(orderBean.getOrdercondition());
+			oldOrder.setShipperaddress(orderBean.getShipperaddress());
+		}
+	}
+	
 	//建立訂單
 	@Override
 	@Transactional
@@ -164,7 +202,8 @@ public class OrderServiceImpl implements OrderService {
 			String payamounts = String.valueOf(order.getTotalamount()+order.getFreight());
 			obj.setTotalAmount(payamounts);
 			//交易編號
-			obj.setMerchantTradeNo("test"+order.getOrderid());
+			String testno = UUID.randomUUID().toString().replace("-", "").substring(0,2);
+			obj.setMerchantTradeNo(testno+order.getOrderid());
 		}	
 		//交易描述
 		obj.setTradeDesc("test Description");
@@ -203,5 +242,80 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return option.get();
 	}
+	
+	//個人依照訂單編號做查詢(前台)
+	@Override
+	public List<OrderBean> findByOrderId(Integer customerId,String orderid){
+		return oDao.findByCidByIdContainingByOrderDateDesc(customerId,orderid);
+	}
+	
+	//依照訂單標號做查詢(後台)
+	@Override
+	public List<OrderBean> findByOidAdmin(String orderid) {
+		return oDao.findByIdContaining(orderid);
+	}
+	
+	//處理中編號查詢(後台)
+	@Override
+	public List<OrderBean> findByOidByHandling(String orderid){
+		return oDao.findByOrderConditionByIdContaining(orderid);
+	}
+	
+	//未付款編號查詢(後台)
+	@Override
+	public List<OrderBean> findByOidByUnpay(String orderid) {
+		return oDao.findByPaymentConditionByIdContaining(orderid);
+	}
+
+	//已取消編號查詢(後台)
+	@Override
+	public List<OrderBean> findByOidByCancel(String orderid) {
+		return oDao.findByCancelOrderByIdContaining(orderid);
+	}
+
+	//退款中編號查詢(後台)
+	@Override
+	public List<OrderBean> findByOidByRefund(String orderid) {
+		return oDao.findByRefundByIdContaining(orderid);
+	}
+	
+	//依時間搜尋
+	@Override
+	public List<OrderBean> findByDate(String date) throws ParseException {
+		Date startDate = getStartDate(date);
+		Date endDate = getEndDate(date);
+		Specification<OrderBean> spec = (root, query, criteriaBuilder) -> {
+			Predicate p1 = criteriaBuilder.greaterThanOrEqualTo(root.get("time"), startDate);
+			Predicate p2 = criteriaBuilder.greaterThanOrEqualTo(root.get("time"), endDate);
+			return criteriaBuilder.or(p1,p2);
+		};
+		return oDao.findAll(spec);
+	}
+	
+	//將搜尋輸入的年(年月)加上0101(01)
+	@Override
+	public Date getStartDate(String yearOrMonth) throws ParseException {
+		String startDateStr = yearOrMonth.length() == 4?yearOrMonth+"0101":yearOrMonth+"01";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date sdate = sdf.parse(startDateStr);
+		return sdate;
+	}
+
+	//將搜尋輸入的年(年月)加上1231(31)
+	@Override
+	public Date getEndDate(String yearOrMonth) throws ParseException {
+		String endDateStr = yearOrMonth.length() == 4?yearOrMonth+"1231":yearOrMonth+"31";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date edate = sdf.parse(endDateStr);
+		return edate;
+	}
+
+	
+
+	
+
+	
+
+	
 
 }

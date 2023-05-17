@@ -96,7 +96,7 @@
 										<tr>
 											<th scope="row">${employee.employeeId}</th>
 											<td>${employee.employeeName}</td>
-											<td>${employee.positionId.positionName}</td>
+											<td>${employee.position.positionName}</td>
 											<td>${employee.phoneNumber}</td>
 											<td>${employee.idNumber}</td>
 											<td>${employee.password}</td>
