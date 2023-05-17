@@ -12,6 +12,17 @@
             <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
             <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
+    <!--    libs for stomp and sockjs-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <!--    end libs for stomp and sockjs-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"
+          type="text/css">
+    <link href="${contextRoot}/styles/front/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="${contextRoot}/styles/front/assets/vendor/swiper/style.css" rel="stylesheet">
 
             <!-- Favicons -->
             <link href="${contextRoot}/styles/back/assets/img/favicon.png" rel="icon">
@@ -63,7 +74,7 @@
 
               .felx-container-left-top {
                 flex-direction: row;
-                border: 1px gainsboro solid;
+                border: 1px gray solid;
                 height: 15%;
                 padding-top: 5px;
                 padding-left: 5px;
@@ -83,7 +94,6 @@
               .felx-container-left-center {
                 flex-direction: row;
                 height: 5%;
-                border: 2px blue solid;
 
               }
 
@@ -91,12 +101,10 @@
                 height: 100%;
                 width: 50%;
                 float: left;
-                border: 2px blue solid;
                 text-align: center;
               }
 
               .felx-container-left-center-right {
-                border: 2px blue solid;
                 height: 100%;
                 width: 50%;
                 float: left;
@@ -105,7 +113,7 @@
 
               .felx-container-left-down {
                 line-height: 50px;
-                border: 2px blue solid;
+                border: 1px gray solid;
                 height: 80%;
                 width: 100%;
                 display: flex;
@@ -126,7 +134,7 @@
 
               .felx-container-center-top-top {
                 padding-top: 5px;
-                border: 2px blue solid;
+                border: 1px gray solid;
                 height: 50%;
                 width: 100%;
                 float: left;
@@ -134,7 +142,7 @@
               }
 
               .felx-container-center-top-down {
-                border: 2px blue solid;
+                border: 1px gray solid;
                 height: 50%;
                 width: 100%;
                 display: flex;
@@ -143,7 +151,7 @@
               }
 
               .felx-container-center-center {
-                border: 2px blue solid;
+                border: 1px gray solid;
                 height: 60%;
                 width: 100%;
                 display: flex;
@@ -168,7 +176,7 @@
 
               .felx-container-center-down-down {
 
-                border: 2px blue solid;
+                border: 1px gray solid;
                 height: 80%;
                 width: 100%;
                 padding:0%;
@@ -182,7 +190,7 @@
 
               .felx-container-right-top {
                 padding-top: 5px;
-                border: 2px blue solid;
+                border: 1px gray solid;
                 height: 5%;
                 width: 100%;
                 display: flex;
@@ -191,14 +199,14 @@
               }
 
               .felx-container-right-center {
-                border: 2px blue solid;
+                border: 1px gray solid;
                 height: 45%;
                 width: 100%;
                 display: flex;
               }
 
               .felx-container-right-down {
-                border: 2px blue solid;
+                border: 1px gray solid;
                 height: 50%;
                 width: 100%;
                 display: flex;
@@ -216,7 +224,7 @@
                 width: 200px;
                 line-height: 50px;
                 padding: 20px;
-                border: 2px green solid;
+                border: 1px green solid;
               }
 
               .form-control {
@@ -246,7 +254,7 @@
             <main id="main" class="main">
               <!-- 操作台title -->
               <div>
-                <h1 class="service-title">客服操作平台</h1>
+                <h1 class="service-title">客服聊天操作平台</h1>
               </div>
               <!-- 橫向並排div -->
               <div class="felx-container">
@@ -255,30 +263,34 @@
                   <!-- 工作資料1-1 -->
                   <div class="felx-container-left-top">
                     <div class="felx-container-left-top-left">
-                      <p class="job-font">接待數量:<span>#</span></p>
-                      <p class="job-font">在線時長:<span>#</span></p>
-                      <p class="job-font">服務時長:<span>#</span></p>
+                    
+<img src="${contextRoot}/styles/front/assets/js/LOGO.jpg" width="270px" height="120px" alt="avatar" />
                     </div>
                     <div class="felx-container-left-top-right">
-                      <p class="job-font">創建服務單:<span>#</span></p>
-                      <p class="job-font">創建工單:<span>#</span></p>
-                      <p class="job-font">接待客戶:<span>#</span></p>
                     </div>
                   </div>
                   <div class="felx-container-left-center">
                     <!-- 工作資料1-2 -->
-                    <div class="felx-container-left-center-left">
-                      <p class="job-font">待接入&nbsp;&nbsp;&nbsp;<span>#</span></p>
+                    <div class="felx-container-left-center-left" style="line-height:5px;">
+            <button class="btn btn-primary" onclick="registration()" style="width:100%;height:100%;">加入連線</button>
                     </div>
                     <div class="felx-container-left-center-right">
-                      <p class="job-font">正在接入&nbsp;&nbsp;&nbsp;<span>#</span></p>
+            <button class="btn btn-danger" onclick="disconnectFromChat()" style="width:100%;height:100%;" >中斷連線</button> 
                     </div>
                   </div>
                   <div class="felx-container-left-down">
-                    <!-- 工作資料1-3 -->
-                    <p class="job-font">創建服務單:<span>555</span></p>
-                    <p class="job-font">創建工單:<span>555</span></p>
-                    <p class="job-font">接待客戶:<span>555</span></p>
+                  <div style="width:100%;">
+        <div class="search" style="width:100%;text-align:center;">
+            <input  type="hidden" id="userName" placeholder="search" type="text" value="客服人員" />
+        </div>
+        <br>
+        <ul class="list" id="usersList" style="overflow:auto;height:435px;text-align:center;">
+
+
+        </ul>
+
+
+</div> <!-- end container -->
                   </div>
                 </div>
                 <!-- 並排div center -->
@@ -286,70 +298,114 @@
                   <!-- 工作資料2-1 -->
                   <div class="felx-container-center-top">
                     <div class="felx-container-center-top-top">
-                      <p class="job-font">溝通服務單:<span>#############</span></p>
+                      <p style="color:blue;font-weight:bold;" >聊天視窗</p>
                     </div>
-                    <div class="felx-container-center-top-down">
-                      <p class="job-font">等待接入用時:<span>#####</span></p>
-                      <p class="job-font">創建對話時間:<span>#####</span></p>
-                      <p class="job-font">溝通用時:<span>#####</span></p>
-                      <p class="job-font">對話次數:<span>#####</span></p>
+                    
+        <div class="chat-header clearfix" style="text-align:center;">
 
-                    </div>
+            <div class="chat-about">
+                <div class="chat-with" id="selectedUserId" style="color:blue;font-weight:bold;"></div>
+                <div class="chat-num-messages"></div>
+            </div>
+        </div> <!-- end chat-header -->
                   </div>
                   <!-- 工作資料2-2 -->
-                  <div class="felx-container-center-center">
-                    <div class="text-center">
-                      <p class="">接入成功:<span>######</span></p>
-                      <p class="">用戶離線:<span>######</span></p>
-                      <p class="">通話結束:<span>######</span></p>
+                  <div id="box"class="felx-container-center-center"style="overflow:auto;height:500px;">
+                    <div class="text-center" >
                     </div>
                     <br />
-                    <div class="">最新的資料 時間:<span>
-                        <fmt:formatDate pattern="EEEE yyyy-MM-dd HH:mm:ss" value="${latest.createtime}" />
-                      </span></div>
-                    <div class="">
-                      ${latest.content}
 
 
-                    </div>
+        <div class="chat-history" >
+            <ul>
 
+            </ul>
+
+        </div> <!-- end chat-history -->
 
                   </div>
                   <!-- 工作資料2-3 -->
                   <div class="felx-container-center-down">
                     <div class="felx-container-center-down-top">
-                      <p class="job-font">表情/圖片上傳</p>
+            <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
+            <i class="fa fa-file-image-o"></i>
                     </div>
                     <div class="felx-container-center-down-down">
-                      <form:form class="form-control" modelAttribute="messages" method="post"
-                        action="${contextRoot}/messages/post">
+                    
+    <div class="chat">
 
-
-                        <div class="form-floating mb-3">
-                          <form:textarea class="form-control"
-                              placeholder="Leave a comment here" id="floatingTextarea"
-                              style="height: 100px;" path="content" maxlength="50"></form:textarea>
-                          <label for="floatingTextarea"></label>
-                      </div>
-                        <div class="col-sm-10" style="text-align: right;margin:auto;float:right;">
-                          <button type="submit" class="btn btn-primary" id="btn">送出</button>
-                        </div>
-                      </form:form>
+            <textarea class="form-control" id="message-to-send" name="message-to-send" placeholder="輸入訊息" rows="6" maxlength="200" style="width:765px;"></textarea>
+     </div>
+     
+                    <div style="text-align:right;line-height:270px;">
+                    
+            <button id="sendBtn" class="btn btn-primary" style="right:5px;bottom:5px;
+                border-radius: 10px;
+                cursor: pointer;">送出</button>
+            </div>
                     </div>
                   </div>
                 </div>
                 <div class="felx-container-right">
                   <!-- 工作資料3-1 -->
                   <div class="felx-container-right-top">
-                    <p class="job-font">客戶資料</p>
-                    <p class="job-font">訂單查詢</p>
-                    <p class="job-font">溝通歷史</p>
-                    <p class="job-font">物流查詢</p>
-                    <p class="job-font">溝通節點</p>
+              <ul class="nav nav-tabs nav-tabs-bordered">
+
+                      <li class="nav-item">
+                          <button class="" data-bs-toggle="tab"
+                              data-bs-target="#customer-go" id="item1">客戶資料</button>
+                      </li>
+
+                      <li class="nav-item">
+                          <button class="" data-bs-toggle="tab" 
+                               data-bs-target="#order-go"    id="item2">訂單查詢</button>
+                      </li>
+                  </ul>
                   </div>
                   <!-- 工作資料3-2 -->
                   <div class="felx-container-right-center">
-                    <p class="job-font">表格/資料顯示</p>
+                    <div class="tab-content pt-0">
+                      <div class="tab-pane fade profile-edit pt-3" id="customer-go">
+                        <form id="customerForm" action="/search" method="get">
+                          <input id="customerId" name="customerId" placeholder="輸入會員ID" type="text" style="width: 400px;height: 40px;">
+                          <button id="searchBtn" class="btn btn-primary" type="submit" style="width: 80px;">查詢</button>
+                        </form>
+                      <table id="customerTable">
+                    <thead>
+                    <tr>
+                    <th>顧客ID</th>
+                    <th>姓名</th>
+                    <th>電子郵件</th>
+                    </tr>
+                    </thead>
+                   <tr>
+                   
+                   </tr>
+                      </table>
+                    </div>
+                   <div class="tab-pane fade profile-edit pt-1" id="order-go" style="margin-top: 0px; padding-top: 0px; left: 0px;">
+                  <form id="orderForm" action="/searchOrder" method="get">
+    <input id="orderid" name="orderid" placeholder="輸入訂單ID" type="text" style="width: 400px; height: 40px;">
+    <button id="searchOrderBtn" class="btn btn-primary" type="submit" style="width: 80px;">搜寻</button>
+</form>
+<table id="orderTable">
+    <thead>
+        <tr>
+            <th>訂單編號</th>
+            <th>運費</th>
+            <th>承運人</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td id="orderIdCell"></td>
+            <td id="freightCell"></td>
+            <td id="shipperCell"></td>
+        </tr>
+    </tbody>
+</table>
+                  </div>
+                      </div>
                   </div>
                   <!-- 工作資料3-3 -->
                   <div class="felx-container-right-down">
@@ -358,20 +414,6 @@
                 </div>
 
               </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -398,6 +440,12 @@
 
             <!-- Template Main JS File -->
             <script src="${contextRoot}/styles/back/assets/js/main.js"></script>
+            
+  
+<script src="${contextRoot}/styles/front/assets/js/socustom.js"></script>
+<script src="${contextRoot}/styles/front/assets/js/chat.js"></script>>
+<script src="${contextRoot}/styles/front/assets/js/console.js"></script>
+
           </body>
 
           </html>

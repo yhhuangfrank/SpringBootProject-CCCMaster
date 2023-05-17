@@ -114,7 +114,7 @@
                     </a>
                     <ul id="forum-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <li>
-                            <a href="${contextRoot}/forums/showAllForum">
+                            <a href="${contextRoot}/admin/forums/showAllForum">
                                 <i class="bi bi-circle"></i><span>所有討論版</span>
                             </a>
                         </li>
@@ -160,13 +160,13 @@
                     </a>
                     <ul id="ads-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <li>
-                            <a href="icons-bootstrap.html">
-                                <i class="bi bi-circle"></i><span>Bootstrap Icons</span>
+                            <a href="${contextRoot}/admin/advertises/showAllAdvertise">
+                                <i class="bi bi-wechat"></i><span>所有廣告</span>
                             </a>
                         </li>
                         <li>
-                            <a href="icons-remix.html">
-                                <i class="bi bi-circle"></i><span>Remix Icons</span>
+                            <a href="${contextRoot}/admin/advertises/createform">
+                                <i class="bi bi-circle"></i><span>新增廣告</span>
                             </a>
                         </li>
                         <li>
@@ -203,7 +203,7 @@
                 <li class="nav-heading">Pages</li>
 
                 <li class="nav-item">
-                    <a class="nav-link " href="users-profile.html">
+                    <a class="nav-link collapsed" href="users-profile.html">
                         <i class="bi bi-person"></i>
                         <span>Profile</span>
                     </a>

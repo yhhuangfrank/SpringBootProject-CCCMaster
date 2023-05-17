@@ -61,11 +61,11 @@
     <div class="container">
 
       <jstl:forEach var="forum" items="${page.content}">
-        <div class="card border-2 m-auto">
+        <div class="card border-2 mb-2 ">
 
           <div class="d-flex justify-content-around">
 
-            <img style="width: 300px;" class="img-thumbnail m-3 "
+            <img style="width: 300px;" class="img-thumbnail mb-1 "
                  src="${contextRoot}/forums/showAllForum/${forum.forumId}"/>
 
             <div class="d-flex align-items-lg-center ">
@@ -85,12 +85,37 @@
       </jstl:forEach>
 
     </div>
+    <nav aria-label="..." class="d-flex justify-content-center mt-3">
+      <ul class="pagination">
+    <c:forEach var="pageNumber" begin="1" end="${page.totalPages}">
+      <c:choose>
+        <c:when test="${page.number eq pageNumber-1}">
+          <li class="page-item active" aria-current="page">
+            <a class="page-link" href="#">${pageNumber}</a>
+          </li>
+        </c:when>
+        <c:otherwise>
+          <li class="page-item">
+            <a class="page-link" href="${contextRoot}/forums/showAllForum?p=${pageNumber}">${pageNumber}</a>
+          </li>
+        </c:otherwise>
+      </c:choose>
+      <c:if test="${pageNumber eq page.totalPages}">
+
+      </c:if>
+    </c:forEach>
+      </ul>
+    </nav>
+
+
+
     <%--  Pagination   --%>
     <nav aria-label="Page navigation example" class="mt-4">
       <ul class="pagination justify-content-center align-items-center my-0">
       </ul>
     </nav>
   </section><!-- End About Section -->
+
 
 
 

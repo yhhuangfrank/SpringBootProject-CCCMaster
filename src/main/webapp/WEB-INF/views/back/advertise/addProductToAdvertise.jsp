@@ -104,6 +104,10 @@
             </c:forEach>
             </tbody>
           </table>
+
+            <button type="submit" class="btn btn-primary">
+              <a href="${contextRoot}/admin/advertises/advertiseProductDetail?advertiseId=${advertiseId}" style="color: white;">上架廣告</a>
+            </button>
           <%-- 顯示所有文章end --%>
 
 <%--            測試disabale partI--%>

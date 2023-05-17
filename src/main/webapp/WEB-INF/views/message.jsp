@@ -41,3 +41,18 @@
 		}, 2000);
 	</script>
 </c:if>
+
+<!-- 【紅色】失敗訊息框-浮動 -->
+<c:if test="${isFailed_float}">
+	<div id="failed-msg-float" class="alert alert-danger position-fixed top-50 start-50 translate-middle d-none" role="alert">
+ 		${failedMsg_float}
+	</div>
+ 	<script>
+		// 顯示成功訊息框-浮動
+		document.querySelector('#failed-msg-float').classList.remove('d-none');
+		// 設定 2 秒後淡出消失
+		setTimeout(function() {
+		document.querySelector('#failed-msg-float').classList.add('fade');
+		}, 2000);
+	</script>
+</c:if>

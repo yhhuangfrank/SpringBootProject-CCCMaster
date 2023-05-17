@@ -1,15 +1,21 @@
 package com.ispan.CCCMaster.model.bean.Forum;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ispan.CCCMaster.model.bean.product.Product;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "forum")
-public class Forum {
+public class Forum implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "forum_id")
@@ -31,6 +37,11 @@ public class Forum {
 
     @Transient
     private MultipartFile imageFile;
+
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "article_id", referencedColumnName = "forum_id")
+    private Set<Article> articles = new LinkedHashSet<>();
 
     public byte[] getImage() {
         return image;

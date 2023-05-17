@@ -44,8 +44,15 @@
 <jsp:include page="../layouts/header.jsp"/>
 
 <main id="main" class="main">
-    <h1>修改討論版</h1>
     <div class="container">
+        <h1>論壇管理</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="${contextRoot}/">首頁</a></li>
+                <li class="breadcrumb-item">討論版管理</li>
+                <li class="breadcrumb-item active">編輯討論版</li>
+            </ol>
+        </nav>
         <div class="row justify-content-center">
             <div class="col-8">
                 <div class="card">
