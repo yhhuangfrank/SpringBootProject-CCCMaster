@@ -1,6 +1,7 @@
 package com.ispan.CCCMaster.model.bean.Forum;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ispan.CCCMaster.model.bean.customer.Customer;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -15,9 +16,30 @@ public class Response {
     @Column(name = "response_id")
     private Integer responseId;
 
+    public Article getArticle() {
+        return article;
+    }
 
-    @Column(name = "customer_id")
-    private Integer customerId;
+    public void setArticle(Article article) {
+        this.article = article;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "article_id")
+    private Article article;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "fk_Response_customer"))
+    private Customer customer;
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
 
     @Column(name = "response_content", columnDefinition = "nvarchar(200)", nullable = true)
     private String responseContent;
@@ -36,9 +58,6 @@ public class Response {
     }
 
 
-
-    @Column(name = "article_id")
-    private Integer articleId;
     public Response() {
     }
 
@@ -50,13 +69,7 @@ public class Response {
         this.responseId = responseId;
     }
 
-    public Integer getCustomerId() {
-        return customerId;
-    }
 
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
-    }
 
     public String getResponseContent() {
         return responseContent;
@@ -74,11 +87,5 @@ public class Response {
         this.added = added;
     }
 
-    public Integer getArticleId() {
-        return articleId;
-    }
 
-    public void setArticleId(Integer articleId) {
-        this.articleId = articleId;
-    }
 }

@@ -39,8 +39,8 @@ public class Forum implements Serializable {
     private MultipartFile imageFile;
 
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "article_id", referencedColumnName = "forum_id")
+    @OneToMany(cascade = CascadeType.PERSIST,orphanRemoval = true)
+    @JoinColumn(name = "fk_forum_id", referencedColumnName = "forum_id")
     private Set<Article> articles = new LinkedHashSet<>();
 
     public byte[] getImage() {
@@ -92,5 +92,13 @@ public class Forum implements Serializable {
 
     public void setAdded(Date added) {
         this.added = added;
+    }
+
+    public Set<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(Set<Article> articles) {
+        this.articles = articles;
     }
 }

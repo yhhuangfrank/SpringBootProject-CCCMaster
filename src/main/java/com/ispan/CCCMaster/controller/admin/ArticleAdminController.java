@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 public class ArticleAdminController {
@@ -47,6 +48,7 @@ public class ArticleAdminController {
     @GetMapping("/admin/articles/editPage") //編輯文章
     public String editPage(@RequestParam("id") Integer articleId, Model model) {
         Article articleById = articleService.findArticleById(articleId);
+//          List<Article> articleById = articleService.findArticleById(articleId);
 
         model.addAttribute("article", articleById);
         return "back/article/editArticle";

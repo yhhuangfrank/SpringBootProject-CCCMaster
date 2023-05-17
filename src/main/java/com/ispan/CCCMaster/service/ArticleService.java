@@ -5,11 +5,18 @@ import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface ArticleService {
     void createArticle(Article article);
 
     Article findArticleById(Integer id);
+
+//    List<Article> findArticleById(Integer id);
+
+
+
+//    List<Article> findArticleById(Integer articleId);
 
     void deleteArticleById(Integer id);
 
