@@ -1,4 +1,4 @@
-package com.ispan.CCCMaster.controller.admin;
+package com.ispan.CCCMaster.controller;
 
 import java.util.Set;
 
