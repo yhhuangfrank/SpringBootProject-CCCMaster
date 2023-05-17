@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+	<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html lang="en">
@@ -91,55 +91,23 @@
               	<table class="table table-striped table-bordered" style="text-align: center;">
                 <thead>
                   <tr>
-                    <th scope="col">訂單編號</th>
-                    <th scope="col">購買時間</th>
-                    <th scope="col">訂單狀態</th>
-                    <th scope="col">付款狀態</th>
-                    <th scope="col">總價</th>
-                    <th scope="col">退貨</th>
-                    <th scope="col">客戶服務</th>
+                    <th scope="col">優惠券</th>
+                    <th scope="col">折抵金額</th>
+                    <th scope="col">說明</th>
+                    <th scope="col">領取時間</th>
+                    <th scope="col">到期日</th>
                   </tr>
                 </thead>
                 <tbody>                                
-                  <c:if test="${not empty results}">
-                  	<c:forEach items="${results}" var="result">
+                  	<c:forEach items="${customerCoupons}" var="customerCoupon">
 	                  <tr>
-						<td>
-							<a href="${contextRoot}/front/orders/details/${result.orderid}">
-							${result.orderid}
-							</a>
-						</td>
-	                    <td>
-	                    	<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${result.orderdate}"/>
-	                    
-	                    </td>
-	                    <td>${result.ordercondition}</td>
-	                    <td>${result.paymentcondition}</td>
-	                    <td>${result.totalamount}</td>
-	                    <td>我要退貨</td>
-	                    <td>聯絡客服</td>
+						<td>${customerCoupon.couponBean.couponname}</td>
+	                    <td>${customerCoupon.couponBean.couponamount}</td>
+	                    <td>${customerCoupon.couponBean.instructions}</td>
+	                    <td>${customerCoupon.buildTime}</td>
+	                    <td>${customerCoupon.couponBean.enddate}</td>
 	                  </tr>
 	                  </c:forEach>
-	                 </c:if>
-	                 <c:if test="${empty results}">
-	                 	<c:forEach var="order" items="${orders}">
-	                 	<tr>
-						<td>
-							<a href="${contextRoot}/front/orders/details/${order.orderid}">
-							${order.orderid}
-							</a>
-						</td>
-	                    <td>
-	                    	<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${order.orderdate}"/>	                    
-	                    </td>
-	                    <td>${order.ordercondition}</td>
-	                    <td>${order.paymentcondition}</td>
-	                    <td>${order.totalamount}</td>
-	                    <td>我要退貨</td>
-	                    <td>聯絡客服</td>
-	                  </tr>
-	                  </c:forEach>
-	                 </c:if> 
                 </tbody>
               </table>
             </div>

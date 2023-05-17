@@ -1,5 +1,7 @@
 package com.ispan.CCCMaster.service.impl;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +39,10 @@ public class CustomerCouponServiceImpl implements CustomerCouponService {
 		return true;
 	}
 	
-//	@Override
-//	public CustomerCoupon findByCustomerId() {
-//		
-//	}
+	@Override
+	public List<CustomerCoupon> findByCustomer(Customer customer) {
+		List<CustomerCoupon> customerCoupons = ccDao.findByCustomers(customer);
+		return customerCoupons;
+	}
 
 }

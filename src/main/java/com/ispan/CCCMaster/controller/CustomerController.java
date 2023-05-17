@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ispan.CCCMaster.annotation.CustomerAuthentication;
 import com.ispan.CCCMaster.model.bean.customer.Customer;
+import com.ispan.CCCMaster.model.bean.customer.CustomerCoupon;
 import com.ispan.CCCMaster.service.CustomerService;
 import com.ispan.CCCMaster.util.LoginUtil;
 
@@ -157,13 +158,13 @@ public class CustomerController {
 		return "front/customer/customer-bidProducts";
 	}
 	
-//	@CustomerAuthentication
-//	@GetMapping("/customers/{id}/coupons")	// 會員中心-查看我的優惠券
-//	public String getCustomerCoupons(HttpSession session, Model model) {
-//		ccService.
-//		model.addAttribute("customerCoupon", model)
-//		return "front/customer/coupons";
-//	}
+	@CustomerAuthentication
+	@GetMapping("/customers/{id}/coupons")	// 會員中心-查看我的優惠券
+	public String getCustomerCoupons(HttpSession session, Model model) {
+		List<CustomerCoupon> customerCoupons = ccService.findByCustomer(loginUtil.getLoginCustomer(session));
+		model.addAttribute("customerCoupons", customerCoupons);
+		return "front/customer/coupons";
+	}
 	
 	@CustomerAuthentication
 	@PostMapping("/customers/{id}/coupons")	// 會員新增優惠券
