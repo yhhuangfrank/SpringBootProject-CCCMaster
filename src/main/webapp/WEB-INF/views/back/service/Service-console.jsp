@@ -200,7 +200,7 @@
 
               .felx-container-right-center {
                 border: 1px gray solid;
-                height: 45%;
+                height: 95%;
                 width: 100%;
                 display: flex;
               }
@@ -244,6 +244,24 @@
               #btn:hover {
                 background-color: teal;
               }
+              .bordered-table {
+              border-collapse: collapse;
+               }
+
+              .bordered-table th,
+              .bordered-table td {
+               border: 1px solid black;
+               padding: 8px;
+               }
+               .bordered-table th:nth-child(1),
+               .bordered-table td:nth-child(1),
+               .bordered-table th:nth-child(3),
+               .bordered-table td:nth-child(3) {
+                background-color: lightgray;
+               }
+               th,td{
+               text-align:center;
+               }
             </style>
           </head>
 
@@ -281,7 +299,7 @@
                   <div class="felx-container-left-down">
                   <div style="width:100%;">
         <div class="search" style="width:100%;text-align:center;">
-            <input  type="hidden" id="userName" placeholder="search" type="text" value="客服人員" />
+            <input  type="" id="userName" placeholder="search" type="text" value="" />
         </div>
         <br>
         <ul class="list" id="usersList" style="overflow:auto;height:435px;text-align:center;">
@@ -366,51 +384,97 @@
                   <div class="felx-container-right-center">
                     <div class="tab-content pt-0">
                       <div class="tab-pane fade profile-edit pt-3" id="customer-go">
-                        <form id="customerForm" action="/search" method="get">
-                          <input id="customerId" name="customerId" placeholder="輸入會員ID" type="text" style="width: 400px;height: 40px;">
-                          <button id="searchBtn" class="btn btn-primary" type="submit" style="width: 80px;">查詢</button>
-                        </form>
-                      <table id="customerTable">
-                    <thead>
-                    <tr>
-                    <th>顧客ID</th>
-                    <th>姓名</th>
-                    <th>電子郵件</th>
-                    </tr>
-                    </thead>
-                   <tr>
-                   
-                   </tr>
-                      </table>
-                    </div>
-                   <div class="tab-pane fade profile-edit pt-1" id="order-go" style="margin-top: 0px; padding-top: 0px; left: 0px;">
-                  <form id="orderForm" action="/searchOrder" method="get">
-    <input id="orderid" name="orderid" placeholder="輸入訂單ID" type="text" style="width: 400px; height: 40px;">
-    <button id="searchOrderBtn" class="btn btn-primary" type="submit" style="width: 80px;">搜寻</button>
+<form id="customerForm" action="/search" method="get">
+    <input id="customerId" name="customerId" placeholder="輸入會員ID" type="text" style="width: 400px;height: 40px;">
+    <button id="searchBtn" class="btn btn-primary" type="submit" style="width: 80px;">查詢</button>
 </form>
-<table id="orderTable">
+
+<table id="customerTable" class="bordered-table">
     <thead>
         <tr>
-            <th>訂單編號</th>
-            <th>運費</th>
-            <th>承運人</th>
+            <th style="width: 90px;">顧客編號</th>
+            <th id="row1col2" style="width: 120px;"></th>
+            <th style="width: 100px;">名稱</th>
+            <th id="row1col4" style="width: 195px;"></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="customerTableBody">
         <tr>
-            <td id="orderIdCell"></td>
-            <td id="freightCell"></td>
-            <td id="shipperCell"></td>
+            <td>連絡電話</td>
+            <td id="row2col2"></td>
+            <td>電子郵件</td>
+            <td id="row2col4"></td>
         </tr>
+<tr>
+    <td>點數</td>
+    <td id="row3col2"></td>
+    <td>棄標次數</td>
+    <td id="row3col4"></td>
+</tr>
+<tr>
+            <td>會員註冊日期</td>
+    <td id="row4col2" colspan="3"></td>
+</tr>
     </tbody>
 </table>
+                    </div>
+                   <div class="tab-pane fade profile-edit pt-1" id="order-go" style="margin-top: 0px; padding-top: 0px; left: 0px;">
+                 <form id="orderForm" action="/searchOrder" method="get">
+        <input id="orderid" name="orderid" placeholder="輸入訂單ID" type="text" style="width: 400px; height: 40px;">
+        <button id="searchOrderBtn" class="btn btn-primary" type="submit" style="width: 80px;">查詢</button>
+    </form>
+
+    <table id="orderTable" class="bordered-table">
+        <thead>
+            <tr>
+                <th style="width: 90px;">訂單編號</th>
+                <th id="trow1col2" style="width: 120px;"></th>
+                <th style="width: 100px;">顧客編號</th>
+                <th id="trow1col4" style="width: 195px;"></th>
+            </tr>
+        </thead>
+        <tbody id="orderTableBody">
+        <tr>
+            <td>訂購人</td>
+            <td id="trow2col2"></td>
+            <td>訂單金額</td>
+            <td id="trow2col4"></td>
+        </tr>
+<tr>
+    <td>付款方式</td>
+    <td id="trow3col2"></td>
+    <td>付款狀態</td>
+    <td id="trow3col4"></td>
+</tr>
+<tr>
+     <td>配送方式</td>
+    <td id="trow4col2" ></td>
+     <td>貨運公司</td>
+    <td id="trow4col4" ></td>
+</tr>
+<tr>
+     <td>連絡電話</td>
+    <td id="trow5col2" colspan="3" ></td>
+</tr>
+<tr>
+     <td>寄送地址</td>
+    <td id="trow6col2" colspan="3" ></td>
+</tr>
+<tr>
+     <td>訂單成立日期</td>
+    <td id="trow7col2" colspan="3" ></td>
+</tr>
+<tr>
+     <td>寄達日期</td>
+    <td id="trow8col2" colspan="3" ></td>
+</tr>
+        </tbody>
+    </table>
                   </div>
                       </div>
                   </div>
                   <!-- 工作資料3-3 -->
-                  <div class="felx-container-right-down">
-                    <p class="job-font">常用語/知識庫/快捷用語</p>
-                  </div>
+                  
                 </div>
 
               </div>

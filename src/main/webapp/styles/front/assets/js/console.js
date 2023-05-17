@@ -24,75 +24,108 @@ function searchCustomer(event) {
     xhr.send();
 }
 
-// 更新客戶資料表格的函數
 function updateCustomerTable(customerData) {
-    var customerTable = document.getElementById('customerTable');
-    var tableBody = customerTable.getElementsByTagName('tbody')[0];
-
-    // 清空表格
-    while (tableBody.firstChild) {
-        tableBody.removeChild(tableBody.firstChild);
-    }
-
-    // 創建新的表格行並填充資料
-    var newRow = document.createElement('tr');
-    var customerIdCell = document.createElement('td');
+    var customerIdCell = document.getElementById('row1col2');
     customerIdCell.textContent = customerData.customerId;
-    newRow.appendChild(customerIdCell);
-    var nameCell = document.createElement('td');
+    
+    var nameCell = document.getElementById('row1col4');
     nameCell.textContent = customerData.name;
-    newRow.appendChild(nameCell);
-    var emailCell = document.createElement('td');
+
+    var phoneNumberCell = document.getElementById('row2col2'); 
+    phoneNumberCell.textContent = customerData.phoneNumber; 
+    
+    var emailCell = document.getElementById('row2col4');
     emailCell.textContent = customerData.email;
-    newRow.appendChild(emailCell);
 
-    // 將新行添加到表格中
-    tableBody.appendChild(newRow);
+    var pointCell = document.getElementById('row3col2'); 
+    pointCell.textContent = customerData.point; 
+    
+    var abandonCountCell = document.getElementById('row3col4');
+    abandonCountCell.textContent = customerData.abandonCount;
+    
+     var startDate = customerData.startDate;
+
+var formattedDate = new Date(startDate).toLocaleString('zh-CN', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+}) + "時 註冊";
+
+var startDateCountCell = document.getElementById('row4col2' );
+startDateCountCell.textContent = formattedDate;
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    var searchOrderBtn = document.getElementById('searchOrderBtn');
-    searchOrderBtn.addEventListener('click', searchOrder);
-});
 
-function searchOrder(event) {
-    event.preventDefault();
+  document.addEventListener('DOMContentLoaded', function() {
+            var searchOrderBtn = document.getElementById('searchOrderBtn');
+            searchOrderBtn.addEventListener('click', searchOrder);
+        });
 
-    var orderid = document.getElementById('orderid').value;
+        function searchOrder(event) {
+            event.preventDefault();
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/searchOrder?orderid=' + orderid);
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            var orderData = JSON.parse(xhr.responseText);
-            updateOrderTable(orderData);
+            var orderid = document.getElementById('orderid').value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/searchOrder?orderid=' + orderid);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var orderData = JSON.parse(xhr.responseText);
+                    updateOrderTable(orderData);
+                }
+            };
+            xhr.send();
         }
-    };
-    xhr.send();
-}
 
-// 更新订单表格的函数
-function updateOrderTable(orderData) {
-    var orderTable = document.getElementById('orderTable');
-    var tableBody = orderTable.getElementsByTagName('tbody')[0];
+        function updateOrderTable(orderData) {
+            var orderidCell = document.getElementById('trow1col2');
+            orderidCell.textContent = orderData.orderid;
 
-    // 清空表格
-    while (tableBody.firstChild) {
-        tableBody.removeChild(tableBody.firstChild);
-    }
+            var cbOrderCell = document.getElementById('trow1col4');
+            cbOrderCell.textContent = orderData.cbOrder.customerId;
 
-    // 创建新的表格行并填充数据
-    var newRow = document.createElement('tr');
-    var orderIdCell = document.createElement('td');
-    orderIdCell.textContent = orderData.orderid;
-    newRow.appendChild(orderIdCell);
-    var freightCell = document.createElement('td');
-    freightCell.textContent = orderData.freight;
-    newRow.appendChild(freightCell);
-    var shipperCell = document.createElement('td');
-    shipperCell.textContent = orderData.shipper;
-    newRow.appendChild(shipperCell);
+            var addresseeCell = document.getElementById('trow2col2');
+            addresseeCell.textContent = orderData.addressee;
 
-    // 将新行添加到表格中
-    tableBody.appendChild(newRow);
-}
+            var totalamountCell = document.getElementById('trow2col4');
+            totalamountCell.textContent = orderData.totalamount;
+
+            var paymentCell = document.getElementById('trow3col2');
+            paymentCell.textContent = orderData.payment;
+
+            var paymentconditionCell = document.getElementById('trow3col4');
+            paymentconditionCell.textContent = orderData.paymentcondition;
+            
+            var shipperCell = document.getElementById('trow4col2');
+            shipperCell.textContent = orderData.shipper;
+
+            var freightCell = document.getElementById('trow4col4');
+            freightCell.textContent = orderData.freight;
+            
+            var telephoneCell = document.getElementById('trow5col2');
+            telephoneCell.textContent = orderData.telephone;
+            
+            var shipperaddressCell = document.getElementById('trow6col2');
+            shipperaddressCell.textContent = orderData.shipperaddress;
+            
+            
+            var orderDate = orderData.orderdate;
+            
+            var formattedDate = new Date(orderDate).toLocaleString('zh-CN', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+               }) + "時 訂購";
+            
+            var orderdateCell = document.getElementById('trow7col2');
+            orderdateCell.textContent = formattedDate;
+            
+            var arrivaldateCell = document.getElementById('trow8col2');
+            arrivaldateCell.textContent = orderData.arrivaldate;
+        }
