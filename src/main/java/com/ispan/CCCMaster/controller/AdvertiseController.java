@@ -27,7 +27,7 @@ public class AdvertiseController {
         this.productService = productService;
     }
 
-    @GetMapping("/front/frontExample")
+    @GetMapping("/")
     public String advertiseByTime(Model model) {
 
 
@@ -35,7 +35,7 @@ public class AdvertiseController {
 
 
         model.addAttribute("productImageIds", productImageIds);
-        return "front/advertise/advertise";
+        return "front/frontExample";
     }
 
     @ResponseBody

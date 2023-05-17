@@ -12,10 +12,10 @@ public class TestController {
     private BidProductService bidProductService;
 
     // 前台
-    @GetMapping("/")
-    public String home() {
-        return "front/frontExample";
-    }
+//    @GetMapping("/")
+//    public String home() {
+//        return "front/frontExample";
+//    }
 
     // 後台
     @GetMapping("/admin")

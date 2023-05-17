@@ -2,7 +2,9 @@ package com.ispan.CCCMaster.controller;
 
 
 import com.ispan.CCCMaster.model.bean.Forum.Article;
+import com.ispan.CCCMaster.model.bean.Forum.Response;
 import com.ispan.CCCMaster.service.ArticleService;
+import com.ispan.CCCMaster.service.ResponseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
@@ -21,6 +23,9 @@ import java.util.List;
 public class ArticleController {
     @Autowired
     private ArticleService articleService;
+
+    @Autowired
+    private ResponseService responseService;
 
     @GetMapping("/articles")//顯示所有文章
     public String FrontArticleList(@RequestParam(name = "p", defaultValue = "1") Integer pageNumber, Model module){
@@ -56,7 +61,7 @@ public class ArticleController {
         model.addAttribute("article", new Article());
         Article latest = articleService.getLatest();
         model.addAttribute("latest", latest);
-        return "back/article/article-create";
+        return "front/forum/articleCreate";
     }
 
     @PostMapping("/front/articles/create")//送出新增文章
@@ -65,13 +70,26 @@ public class ArticleController {
 //        System.out.println(article.getContent());
         article.setImage(article.getImageFile().getBytes());
         articleService.createArticle(article);
-        return "redirect:/admin/articles/showAllArticle";
+        return "redirect:/articles";
+    }
+
+    @GetMapping("/front/articles/editPage") //編輯文章
+    public String editPage(@RequestParam("id") Integer articleId, Model model) {
+        Article articleById = articleService.findArticleById(articleId);
+//          List<Article> articleById = articleService.findArticleById(articleId);
+
+        model.addAttribute("article", articleById);
+        return "front/forum/articleEdit";
+    }
+
+    @PutMapping("/front/articles/edit") //送出編輯文章
+    public String putEditedArticle(@ModelAttribute("article") Article article) throws IOException {
+        article.setImage(article.getImageFile().getBytes());
+        articleService.updateById(article);
+        return "redirect:/articles";
     }
 
 
-    @GetMapping("/response/ajax")
-    public String ajaxPage() {
-        return "front/forum/articleDetail";
-    }
+
 
 }

@@ -77,7 +77,7 @@
                              src="${contextRoot}/article/image/${p.articleId}"/>
                     </td>
                     <td class="align-content-center">
-                        <a href="${contextRoot}/articleDetail/${p.articleId}"
+                        <a id="articleBtn" href="${contextRoot}/articleDetail/${p.articleId}"
                            title="More Details">${p.title}</a>
                     </td>
                     <td class="align-content-center"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss EEEE" value="${latest.added}"/></td>
