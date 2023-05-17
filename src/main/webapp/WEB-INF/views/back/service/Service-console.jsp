@@ -349,44 +349,62 @@
                 <div class="felx-container-right">
                   <!-- 工作資料3-1 -->
                   <div class="felx-container-right-top">
-                    <ul class="nav nav-tabs nav-tabs-bordered" id="wrap">
+              <ul class="nav nav-tabs nav-tabs-bordered">
 
                       <li class="nav-item">
                           <button class="" data-bs-toggle="tab"
-                              data-bs-target="#profile-overview" id="item1">客戶資料</button>
+                              data-bs-target="#customer-go" id="item1">客戶資料</button>
                       </li>
 
                       <li class="nav-item">
-                          <button class="" data-bs-toggle="tab" data-bs-target="#profile-edit"
-                              id="item2">訂單查詢</button>
+                          <button class="" data-bs-toggle="tab" 
+                               data-bs-target="#order-go"    id="item2">訂單查詢</button>
                       </li>
                   </ul>
                   </div>
                   <!-- 工作資料3-2 -->
                   <div class="felx-container-right-center">
                     <div class="tab-content pt-0">
-                      <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                      <div class="tab-pane fade profile-edit pt-3" id="customer-go">
                         <form id="customerForm" action="/search" method="get">
                           <input id="customerId" name="customerId" placeholder="輸入會員ID" type="text" style="width: 400px;height: 40px;">
                           <button id="searchBtn" class="btn btn-primary" type="submit" style="width: 80px;">查詢</button>
                         </form>
                       <table id="customerTable">
-                        <tr>
-                          <th>Customer customerId</th>
-                          <th>Name</th>
-                          <th>Email</th>
-                        </tr>
-                        <tr>
-                          <td>${customer.customerId}</td>
-                          <td>${customer.name}</td>
-                          <td>${customer.email}</td>
-                        </tr>
+                    <thead>
+                    <tr>
+                    <th>顧客ID</th>
+                    <th>姓名</th>
+                    <th>電子郵件</th>
+                    </tr>
+                    </thead>
+                   <tr>
+                   
+                   </tr>
                       </table>
                     </div>
-                    <div class="tab-pane fade profile-edit pt-1" id="profile-edit" style="margin-top: 0px;padding-top: 0px;left: 0px;">
-                      <input id="" placeholder="輸入會員ID" type="text" style="width: 400px;height: 40px;">
-                      <button class="btn btn-primary" onclick="" style="width: 80px;">查詢</button>
-                    </div>
+                   <div class="tab-pane fade profile-edit pt-1" id="order-go" style="margin-top: 0px; padding-top: 0px; left: 0px;">
+                  <form id="orderForm" action="/searchOrder" method="get">
+    <input id="orderid" name="orderid" placeholder="輸入訂單ID" type="text" style="width: 400px; height: 40px;">
+    <button id="searchOrderBtn" class="btn btn-primary" type="submit" style="width: 80px;">搜寻</button>
+</form>
+<table id="orderTable">
+    <thead>
+        <tr>
+            <th>訂單編號</th>
+            <th>運費</th>
+            <th>承運人</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td id="orderIdCell"></td>
+            <td id="freightCell"></td>
+            <td id="shipperCell"></td>
+        </tr>
+    </tbody>
+</table>
+                  </div>
                       </div>
                   </div>
                   <!-- 工作資料3-3 -->
@@ -425,86 +443,9 @@
             
   
 <script src="${contextRoot}/styles/front/assets/js/socustom.js"></script>
-<script src="${contextRoot}/styles/front/assets/js/chat.js"></script>
-<script id="message-template" type="text/x-handlebars-template">
-    <li class="clearfix">
-        <div class="message-data align-right">
-            <span class="message-data-time">{{time}}, Today</span> &nbsp; &nbsp;
-            <span class="message-data-name">You</span> <i class="fa fa-circle me"></i>
-        </div>
-        <div class="message other-message float-right">
-            {{messageOutput}}
-        </div>
+<script src="${contextRoot}/styles/front/assets/js/chat.js"></script>>
+<script src="${contextRoot}/styles/front/assets/js/console.js"></script>
 
-    </li>
-</script>
-
-<script id="message-response-template" type="text/x-handlebars-template">
-    <li>
-        <div class="message-data">
-            <span class="message-data-name"><i class="fa fa-circle online"></i> {{userName}}</span>
-            <span class="message-data-time">{{time}}, Today</span>
-        </div>
-        <div class="message my-message">
-            {{response}}
-        </div>
-    </li>
-</script>
-<script>
-    // 當頁面加載完成後調用 fetchAll() 函數
-    document.addEventListener('DOMContentLoaded', function() {
-        fetchAll();
-    });
-</script>
-
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var searchBtn = document.getElementById('searchBtn');
-    searchBtn.addEventListener('click', searchCustomer);
-  });
-
-  function searchCustomer(event) {
-    event.preventDefault();
-
-    var customerId = document.getElementById('customerId').value;
-
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/search?customerId=' + customerId);
-    xhr.onload = function() {
-  if (xhr.status === 200) {
-    var customerData = JSON.parse(xhr.responseText);
-    updateCustomerTable(customerData);
-  }
-};
-    xhr.send();
-  }
-  // 更新客戶資料表格的函數
-function updateCustomerTable(customerData) {
-  var customerTable = document.getElementById('customerTable');
-  var tableBody = customerTable.getElementsByTagName('tbody')[0];
-
-  // 清空表格
-  while (tableBody.firstChild) {
-    tableBody.removeChild(tableBody.firstChild);
-  }
-
-  // 創建新的表格行並填充資料
-  var newRow = document.createElement('tr');
-  var customerIdCell = document.createElement('td');
-  customerIdCell.textContent = customerData.customerId;
-  newRow.appendChild(customerIdCell);
-  var nameCell = document.createElement('td');
-  nameCell.textContent = customerData.name;
-  newRow.appendChild(nameCell);
-  var emailCell = document.createElement('td');
-  emailCell.textContent = customerData.email;
-  newRow.appendChild(emailCell);
-
-  // 將新行添加到表格中
-  tableBody.appendChild(newRow);
-}
-</script>
           </body>
 
           </html>

@@ -16,6 +16,7 @@ public interface CustomerDao extends JpaRepository<Customer, Integer> {
 	@Query("FROM Customer as c WHERE c.phoneNumber = :phoneNumber")
 	public Customer findByPhoneNumber(@Param("phoneNumber") String phoneNumber);
 	
+	//彥輝用
 	Customer findByCustomerId(Integer customerId);
 
 }
