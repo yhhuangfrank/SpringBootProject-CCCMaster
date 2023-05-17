@@ -75,7 +75,7 @@
 			</c:if>
 			<c:if test="${cookie.pay.value != '信用卡'}">
 					<button type="button" class="btn btn-primary">
-						<a href="${contextRoot}/front/orders">確認</a>
+						<a href="${contextRoot}/front/orders" style="color: white;">確認</a>
 					</button>				
 			</c:if>
 		</div>

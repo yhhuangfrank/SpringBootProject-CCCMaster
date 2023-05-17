@@ -63,6 +63,10 @@ public interface OrderDao extends JpaRepository<OrderBean, String>,JpaSpecificat
 	//退款中-編號查詢
 	@Query(value="select * from Orders where payment_condition = '退款中' AND order_id LIKE %:oid%",nativeQuery = true)
 	public List<OrderBean> findByRefundByIdContaining(@Param(value="oid")String orderid);
+
+	//個人訂單已完成
+//	@Query(value="select * from Orders where order_condition = '已完成' AND order_id=:id AND customer_id= :cid",nativeQuery = true)
+//	public Optional<OrderBean> findFinishOrder(@Param(value="id")String orderid,@Param(value="cid")Integer customerId);
 	
     //彥輝用
 	OrderBean findByOrderid(String orderid);

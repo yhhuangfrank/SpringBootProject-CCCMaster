@@ -78,6 +78,15 @@
 		button[type=submit]:hover {
 		  background: #e6573f;
 		}
+		
+		.services .icon-box:hover {
+		  background: #e96b56;
+		  border-color: #e96b56;
+		  color: #fff;
+		}
+		.services .icon-box{
+		  color: #545454;
+		}
 	</style>
 	
 	<!-- 引用 Bootstrap icon -->
@@ -117,9 +126,10 @@
 			        <div class="col-lg-4 col-md-6">
 				        <div class="icon-box">
 				        	<div class="icon"><i class="bi bi-person-vcard"></i></div>
-				        	<h4><a href="${contextRoot}/center/profile">我的資料</a></h4>
+				        	<h4>我的資料</h4>
 				        	<p>在此瀏覽及編輯個人資料</p>
 				        </div>
+				       </a>
 			        </div>
 		
 			        <div class="col-lg-4 col-md-6 mt-4 mt-md-0">
@@ -128,14 +138,17 @@
 				        	<h4><a href="${contextRoot}/customers/${sessionScope.customerId}/coupons">我的優惠券</a></h4>
 				        	<p>查看可用的優惠券及優惠券使用紀錄</p>
 				   	    </div>
+				   	   </a>
 			        </div>
-		
-			        <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
-				        <div class="icon-box">
-				        	<div class="icon"><i class="bx bx-tachometer"></i></div>
-				        	<h4><a href="">商城購買紀錄</a></h4>
-				        <p>	Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
+			        		
+			        <div class="col-lg-4 col-md-6  align-items-stretch mt-4 mt-lg-0">
+			          <a href="${contextRoot}/front/orders" class="icons">
+				        <div class="icon-box">				        	
+				        	<div class="icon"><i class="bi bi-file-text"></i></div>
+				        	<h4>商城訂單查詢</h4>
+				       	 	<p>查看所有商城的訂單</p>				       	 	
 				        </div>
+				      </a>
 			        </div>
 		
 			        <div class="col-lg-4 col-md-6 mt-4">
@@ -153,6 +166,7 @@
 				        	<h4><a href="">我的最愛</a></h4>
 				        	<p> aka 現在還沒有錢帶你回家</p>
 				        </div>
+				       </a>
 			        </div>
 		
 			        <div class="col-lg-4 col-md-6 mt-4">
@@ -161,6 +175,7 @@
 				        	<h4><a href="">瀏覽紀錄</a></h4>
 				        	<p>抱歉了錢錢，但我真的想要那些酷東西 ಥ_ಥ</p>
 				        </div>
+				       </a>
 			        </div>
 		
 		        </div>

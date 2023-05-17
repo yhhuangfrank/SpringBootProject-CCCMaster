@@ -216,5 +216,9 @@ public class Customer {
 	//對二手商品(賣家):一對多  by瑛仁
 	@OneToMany(mappedBy="cbSeller")
 	Set<BidOrderBean> sets = new HashSet<>();
+	
+	//對會員點數:一對多 by瑛仁
+//	@OneToMany(mappedBy ="cpoints")
+//	Set<CustomerPoint> setpoint = new HashSet<>();
 
 }

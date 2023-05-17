@@ -25,8 +25,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ispan.CCCMaster.annotation.CustomerAuthentication;
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
+import com.ispan.CCCMaster.model.bean.customer.CustomerPoint;
 import com.ispan.CCCMaster.model.bean.order.OrderBean;
 import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;
+import com.ispan.CCCMaster.model.dao.CustomerPointsDao;
 import com.ispan.CCCMaster.model.dao.OrderDao;
 import com.ispan.CCCMaster.service.OrderService;
 import javax.persistence.criteria.Predicate;
@@ -42,6 +44,9 @@ public class OrdersController {
 	
 	@Autowired
 	OrderDao oDao;
+	
+	@Autowired
+	CustomerPointsDao pointDao;
 	
 	//前台個人訂單清單
 	@CustomerAuthentication
@@ -101,6 +106,7 @@ public class OrdersController {
 		model.addAttribute("latestorder",order);
 		return "/front/orders/paymentorok";
 	}
+	
 	//前往綠界付錢
 	@ResponseBody
 	@PostMapping("/ecpayCheckout")
