@@ -6,19 +6,34 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "article")
-public class Article {
+public class Article implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "article_id")
     private Integer articleId;
 
-    @Column(name = "forum_id")
-    private Integer forumId;
+    public Set<Response> getResponses() {
+        return responses;
+    }
+
+    public void setResponses(Set<Response> responses) {
+        this.responses = responses;
+    }
+
+    //    @Column(name = "forum_id")
+//    private Integer forumId;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private Set<Response> responses = new HashSet<>();
+
 
 
     @Column(name = "title", columnDefinition = "nvarchar(200)", nullable = true)
@@ -27,7 +42,7 @@ public class Article {
     @Column(name = "customer_id")
     private Integer customerId;
 
-    @Column(name = "content", columnDefinition = "nvarchar(200)", nullable = true)
+    @Column(name = "content", columnDefinition = "nvarchar(MAX)", nullable = true)
     private String content;
 
 
@@ -92,13 +107,13 @@ public class Article {
         this.articleId = articleId;
     }
 
-    public Integer getForumId() {
-        return forumId;
-    }
-
-    public void setForumId(Integer forumId) {
-        this.forumId = forumId;
-    }
+//    public Integer getForumId() {
+//        return forumId;
+//    }
+//
+//    public void setForumId(Integer forumId) {
+//        this.forumId = forumId;
+//    }
 
     public String getTitle() {
         return title;

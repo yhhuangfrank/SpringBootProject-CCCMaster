@@ -94,6 +94,13 @@ public class CouponBean implements Serializable {
 	public void setInstructions(String instructions) {
 		this.instructions = instructions;
 	}
+
+	@Override
+	public String toString() {
+		return "CouponBean [couponid=" + couponid + ", couponname=" + couponname + ", convertid=" + convertid
+				+ ", startdate=" + startdate + ", enddate=" + enddate + ", couponamount=" + couponamount
+				+ ", instructions=" + instructions + "]";
+	}
 	
 	
 }

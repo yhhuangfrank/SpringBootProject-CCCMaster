@@ -142,9 +142,7 @@
 							</div>
 							<div class="text-center">
 								<button id="submitButton" type="submit" class="btn-primary mt-4">確認變更</button>
-								<button id="cancelButton" type="button" class="btn btn-secondary">
-									<a class="link-light" href="${contextRoot}/center">取消並返回</a>
-								</button>
+								<a class="btn btn-secondary" href="${contextRoot}/center">取消並返回</a>
 							</div>
 						</form:form>
 					</div>

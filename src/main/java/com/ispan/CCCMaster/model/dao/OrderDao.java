@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.ispan.CCCMaster.model.bean.customer.Customer;
 import com.ispan.CCCMaster.model.bean.order.OrderBean;
 
 
@@ -67,4 +68,6 @@ public interface OrderDao extends JpaRepository<OrderBean, String>,JpaSpecificat
 //	@Query(value="select * from Orders where order_condition = '已完成' AND order_id=:id AND customer_id= :cid",nativeQuery = true)
 //	public Optional<OrderBean> findFinishOrder(@Param(value="id")String orderid,@Param(value="cid")Integer customerId);
 	
+    //彥輝用
+	OrderBean findByOrderid(String orderid);
 }

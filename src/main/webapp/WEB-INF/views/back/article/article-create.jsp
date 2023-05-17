@@ -7,7 +7,9 @@
 <html lang="en">
 <head>
     <title>test</title>
-    <script src="https://cdn.tiny.cloud/1/eietea4ay3bbc7u6eb00o3821yablr9864z3qbin2vszwiq3/tinymce/6/tinymce.min.js"
+<%--    <script src="https://cdn.tiny.cloud/1/eietea4ay3bbc7u6eb00o3821yablr9864z3qbin2vszwiq3/tinymce/6/tinymce.min.js"--%>
+<%--            referrerpolicy="origin"></script>--%>
+    <script src="https://cdn.tiny.cloud/1/rhx9ul0mmewwi6kmsk26ne06bj1vj10ceyrs1tviq0jqepq3/tinymce/6/tinymce.min.js"
             referrerpolicy="origin"></script>
 
 
@@ -97,6 +99,8 @@
                         </form:form>
 
                     </div>
+                </div>
+            </div>
 
 
                 </div>

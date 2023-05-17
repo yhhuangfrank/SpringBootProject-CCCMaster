@@ -32,12 +32,7 @@
             </li>
             <li><a href="about.html">通知</a></li>
             <li><a href="${contextRoot}/front/product">商城</a></li>
-            <li class="dropdown"><a href="#"><span>二手賣場</span></a>
-              <ul>
-                <li><a href="${contextRoot}/bidProducts">所有商品</a></li>
-                <li><a href="${contextRoot}/bidProducts/create">新增商品</a></li>
-              </ul>
-            </li>
+            <li><a href="${contextRoot}/bidProducts"><span>二手賣場</span></a></li>
             <li><a href="${contextRoot}/forums/showAllForum">論壇</a></li>
            <li class="dropdown"><a href="#"><span>聯絡客服</span></a>
               <ul>
@@ -105,5 +100,7 @@
 		  </script>
 	  </c:if>
       
+      <!-- 引用 Bootstrap icon -->
+	  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     </header>
     <!-- End Header -->

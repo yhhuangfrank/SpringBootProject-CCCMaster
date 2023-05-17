@@ -87,8 +87,9 @@ public class BidProductController {
 
         redirectAttributes.addFlashAttribute("isSuccess", true);
         redirectAttributes.addFlashAttribute("successMsg", "新增成功!");
+        redirectAttributes.addAttribute("customerId", loginCustomerId);
 
-        return "redirect:/bidProducts";
+        return "redirect:/customers/{customerId}/bidProducts";
     }
 
     @GetMapping("/bidProducts")
@@ -181,7 +182,25 @@ public class BidProductController {
 
         redirectAttributes.addFlashAttribute("isSuccess", true);
         redirectAttributes.addFlashAttribute("successMsg", "修改成功!");
+        redirectAttributes.addAttribute("customerId", loginCustomerId);
 
-        return "redirect:/bidProducts/{id}";
+        return "redirect:/customers/{customerId}/bidProducts";
+    }
+
+    @CustomerAuthentication
+    @DeleteMapping("bidProducts/{id}")
+    public String deleteBidProduct(HttpSession session,
+                                   @PathVariable Integer id,
+                                   RedirectAttributes redirectAttributes) {
+
+        bidProductService.deleteBidProduct(id);
+
+        Integer loginCustomerId = loginUtil.getLoginCustomerId(session);
+
+        redirectAttributes.addFlashAttribute("isSuccess", true);
+        redirectAttributes.addFlashAttribute("successMsg", "刪除成功!");
+        redirectAttributes.addAttribute("customerId", loginCustomerId);
+
+        return "redirect:/customers/{customerId}/bidProducts";
     }
 }

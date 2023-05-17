@@ -73,15 +73,19 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
             productImgs.add(img);
         }
 
-        for (MultipartFile imageFile : product.getImageFile()) {//次要圖片處理
-            if (imageFile != null) {
-                img = new ProductImg();
-                img.setImage(imageFile.getBytes());
-                img.setProduct(product);
-                img.setMainImage(false);
-                productImgs.add(img);
+        if(Arrays.stream(product.getImageFile()).anyMatch(file -> !file.isEmpty())){
+            for (MultipartFile imageFile : product.getImageFile()) {//次要圖片處理
+                if (imageFile != null) {
+                    System.out.println("imageFile!=null");
+                    img = new ProductImg();
+                    img.setImage(imageFile.getBytes());
+                    img.setProduct(product);
+                    img.setMainImage(false);
+                    productImgs.add(img);
+                }
             }
         }
+
         product.setProductImgs(productImgs);
         productDao.save(product);
     }
@@ -130,7 +134,7 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
 
 
         // 建立 Pageable 物件帶入傳遞參數
-        Pageable pgb = PageRequest.of(pageNumber - 1, 9, direction, orderBy);
+        Pageable pgb = PageRequest.of(pageNumber - 1, 3, direction, orderBy);
 
         return productDao.findAll(spec, pgb);
     }
@@ -161,6 +165,7 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
             oldProduct.setPrice(product.getPrice());
             oldProduct.setInventory(product.getInventory());
             oldProduct.setActive(product.getActive());
+            oldProduct.setDescription(product.getDescription());
 
 
             if (categoryDao.findCategoryByName(categoryName) != null) {
@@ -171,7 +176,6 @@ public class ProductServiceImpl implements com.ispan.CCCMaster.service.ProductSe
                 oldProduct.setCategory(newCategory);
             }
             updateProductImages(oldProduct, product.getMainImageFile(), product.getImageFile());
-
         }
     }
 

@@ -10,7 +10,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>test</title>
+    <title>產品列表</title>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -76,7 +76,7 @@
                             <c:forEach var="product" items="${page.content}">
                                 <tr>
 
-                                    <td>
+                                    <td style="width: 200px;">
                                             ${product.productName}
                                     </td>
                                     <td>
@@ -88,7 +88,7 @@
                                     <td>
                                             ${product.inventory}
                                     </td>
-                                    <td>
+                                    <td style="width: 400px;">
                                             ${product.description}
                                     </td>
 

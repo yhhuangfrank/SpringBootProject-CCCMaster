@@ -34,10 +34,15 @@ function registration() {
         connectToChat(userName);
     }).fail(function (error) {
         if (error.status === 400) {
-            alert("Login is already busy!")
+            connectToChat(userName)
         }
     })
    
+}
+function disconnectFromChat() {
+    if (stompClient) {
+        stompClient.disconnect();
+    }
 }
 
 function selectUser(userName) {
@@ -50,7 +55,7 @@ function selectUser(userName) {
         render(newMessages.get(userName), userName);
     }
     $('#selectedUserId').html('');
-    $('#selectedUserId').append('Chat with ' + userName);
+    $('#selectedUserId').append('聊天對象: ' + userName);
 }
 
 function fetchAll() {

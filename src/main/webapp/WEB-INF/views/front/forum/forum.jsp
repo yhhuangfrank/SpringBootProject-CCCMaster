@@ -70,7 +70,8 @@
 
             <div class="d-flex align-items-lg-center ">
               <div>
-                <div style=" color:#117e96" class=" "><h4 style="font-weight: bold; font-family: 巴哈正黑體 , 思源黑體 , 微軟正黑體 , 蘋方黑體 , 華康麗黑體 , Helvetica , Arial , sans-serif , serif;">${forum.forumName}</h4>
+                <div style=" color:#117e96" class=" ">
+                  <a href="${contextRoot}/articles"><h4 style="font-weight: bold; font-family: 巴哈正黑體 , 思源黑體 , 微軟正黑體 , 蘋方黑體 , 華康麗黑體 , Helvetica , Arial , sans-serif , serif;">${forum.forumName}</h4></a>
                 </div>
                 <div style="font-size: small; color:#ADADAD;" class="" >
                   開版時間:<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss EEEE" value="${forum.added}"/>
