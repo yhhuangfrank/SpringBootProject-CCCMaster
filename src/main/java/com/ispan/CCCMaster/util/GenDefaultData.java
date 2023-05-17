@@ -7,11 +7,16 @@ import com.ispan.CCCMaster.model.bean.category.Category;
 import com.ispan.CCCMaster.model.bean.customer.Customer;
 import com.ispan.CCCMaster.model.bean.employee.Employee;
 import com.ispan.CCCMaster.model.bean.employee.Position;
+import com.ispan.CCCMaster.model.bean.product.Product;
+import com.ispan.CCCMaster.model.bean.product.ProductImg;
 import com.ispan.CCCMaster.model.dao.*;
-
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,17 +41,22 @@ public class GenDefaultData {
 
     private final Map<String, Category> categoryMap = new HashMap<>();
 
+    private final ProductDao productDao;
+
+
     public GenDefaultData(BidProductDao bidProductDao,
                           CategoryDao categoryDao,
                           CustomerDao customerDao,
                           PositionDao positionDao,
                           EmployeeDao employeeDao,
+                          ProductDao productDao,
                           BidProductCommentDao bidProductCommentDao) {
         this.bidProductDao = bidProductDao;
         this.categoryDao = categoryDao;
         this.customerDao = customerDao;
         this.positionDao = positionDao;
         this.employeeDao = employeeDao;
+        this.productDao = productDao;
         this.bidProductCommentDao = bidProductCommentDao;
     }
 
@@ -62,9 +72,12 @@ public class GenDefaultData {
         // 設定預設職位與員工
         createPositionsAndEmployees();
 
+        //設定預設商品
+        genDefaultProduct();
+
         // 設定預設拍賣商品評論
         createBidProductComments();
-        
+
     }
 
     // 預設種類
@@ -162,7 +175,102 @@ public class GenDefaultData {
 
         return category;
     }
-    
+
+    private void genDefaultProduct() {
+        if(productDao.count()>0){
+            return;
+        }
+        System.out.println("enter genDefaultProduct");
+        String productName[][] = {{"CORSAIR 海盜船 K70 RGB MK.2 Cherry MX茶軸機械式鍵盤",
+                "HyperX Elite 2 RGB機械式鍵盤",
+                "MSI 微星 Vigor GK50 Elite LL TC 機械式電競鍵盤",
+                "CoolerMaster CK350 機械式 RGB 電競鍵盤 青軸",
+                "i-Rocks K71M RGB背光 白色機械式鍵盤 Gateron軸"}, {"logitech羅技 LGHTSPEED 無線遊戲滑鼠 G903",
+                "ASUS華碩 ROG Gladius II Origin",
+                "FANTECH 超輕量極限電競滑鼠 UX3 HELIOS",
+                "FANTECH RGB 2.4G 無線電競滑鼠 WGC1",
+                "i rock M31R 滑鼠"}, {"MSI 微星 Infinite S3 13 662TW",
+                "Dell 戴爾 3020S i5 SSD Win11電腦",
+                "華碩G10CE i7 GTX1660Ti電腦",
+                "Acer XC-840 電腦",
+                "Acer XC-1760 電腦"
+        }, {"ASUS TUF Gaming F15 FX507VV4筆電",
+                "MSI微星 Cyborg 15 A12VE 015TW",
+                "Lenovo IdeaPad Slim 3i 灰 17.3吋筆電",
+                "MSI微星 Sword 15 A12VE 093TW ",
+                "ACER Swift GO SFG14 71 54EW"
+        }, {"OPPO Reno7 5G ",
+                "ASUS 華碩 ROG Phone 5 ZS673KS",
+                "SAMSUNG Galaxy S22 Ultra",
+                "Samsung Galaxy S21",
+                "SAMSUNG Galaxy Note 9"
+        }
+        };
+
+        String imgName[] = {"keyboard", "mouse", "NB", "PC", "Phone"};
+        String categoryName[] = {"鍵盤", "滑鼠", "筆記型電腦", "電腦", "手機"
+        };
+
+        Faker faker = new Faker();
+        String resourcePath = GenDefaultData.class.getClassLoader().getResource("").getPath();
+
+        String staticFolderPath = resourcePath + "static/";
+
+        String productImgFolderPath = staticFolderPath + "ProductImg/";
+        String imagePath;
+        Product product = new Product();
+        List<ProductImg> productImgs = new ArrayList<>();
+        ProductImg productImg = new ProductImg();
+        for (int i = 0; i < imgName.length; i++) { //i表示類別
+            for (int j = 0; j < 5; j++) {
+                product = new Product();
+                productImg = new ProductImg();
+                productImgs = new ArrayList<>();
+                product.setProductImgs(productImgs);
+                Category category = getOrCreateCategory(categoryName[i]);
+                product.setCategory(category);
+                product.setProductName(productName[i][j]);
+                product.setActive(true);
+                product.setDescription(faker.lorem().paragraph());
+                product.setInventory(faker.number().numberBetween(0, 20));
+                product.setPrice(faker.number().numberBetween(100, 10000));
+                imagePath = productImgFolderPath + imgName[i] + (j + 1) + ".jpg";
+                byte[] productImageByte = getProductImageByte(imagePath);
+                productImg.setMainImage(true);
+                productImg.setImage(productImageByte);
+                productImg.setProduct(product);
+                productImgs.add(productImg);
+                productDao.save(product);
+            }
+        }
+    }
+
+    private byte[] getProductImageByte(String imagePath) {
+        File imageFile = new File(imagePath);
+        if (!imageFile.exists()) {
+//            System.out.println("圖片不存在：" + imagePath);
+            return null;
+        }
+        try (FileInputStream fileInputStream = new FileInputStream(imageFile);
+             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
+            // 讀取圖片
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = fileInputStream.read(buffer)) != -1) {
+                byteArrayOutputStream.write(buffer, 0, bytesRead);
+            }
+
+            //獲得圖片陣列
+            byte[] imageBytes = byteArrayOutputStream.toByteArray();
+            return imageBytes;
+        } catch (IOException e) {
+            System.out.println("讀取圖片出現錯誤：" + e.getMessage());
+        }
+        return null;
+    }
+
+
+
     // 預設職位與員工
     private void createPositionsAndEmployees() {
     	long num = positionDao.count();
