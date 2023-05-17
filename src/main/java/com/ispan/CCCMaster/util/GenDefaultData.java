@@ -170,6 +170,9 @@ public class GenDefaultData {
     }
 
     private void genDefaultProduct() {
+        if(productDao.count()>0){
+            return;
+        }
         System.out.println("enter genDefaultProduct");
         String productName[][] = {{"CORSAIR 海盜船 K70 RGB MK.2 Cherry MX茶軸機械式鍵盤",
                 "HyperX Elite 2 RGB機械式鍵盤",
