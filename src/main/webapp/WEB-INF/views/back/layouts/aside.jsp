@@ -86,11 +86,6 @@
                                 <i class="bi bi-circle"></i><span>所有商品</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="${contextRoot}/admin/bidProducts/create">
-                                <i class="bi bi-circle"></i><span>新增商品</span>
-                            </a>
-                        </li>
                     </ul>
                 </li><!-- End Charts Nav -->
 

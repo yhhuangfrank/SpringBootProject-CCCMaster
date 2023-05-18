@@ -52,6 +52,9 @@ public class BidProduct {
     @Column(name = "view_count", columnDefinition = "int default 0", nullable = false)
     private Integer viewCount;
 
+    @Column(name = "is_deleted", columnDefinition = "bit default 0", nullable = false)
+    private Boolean isDeleted;
+
     @PrePersist
     public void onCreate() {
         if (createdAt == null) {
@@ -59,6 +62,9 @@ public class BidProduct {
         }
         if (viewCount == null) {
             viewCount = 0;
+        }
+        if (isDeleted  == null) {
+            isDeleted = false;
         }
     }
 
@@ -150,6 +156,14 @@ public class BidProduct {
         this.viewCount = viewCount;
     }
 
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
+    }
+
     @Override
     public String toString() {
         return "BidProduct{" +
@@ -163,6 +177,7 @@ public class BidProduct {
                 ", createdAt=" + createdAt +
                 ", expiredAt=" + expiredAt +
                 ", viewCount=" + viewCount +
+                ", isDeleted=" + isDeleted +
                 '}';
     }
 
