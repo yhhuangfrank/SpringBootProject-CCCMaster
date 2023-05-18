@@ -65,7 +65,7 @@
         <div class="container">
 
             <ol>
-                <li><a href="index.html">首頁</a></li>
+                <li><a href="${contextRoot}/">首頁</a></li>
                 <li>產品列表</li>
             </ol>
             <h2>產品列表</h2>

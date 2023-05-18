@@ -45,7 +45,7 @@
 		            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 		
 		              <div class="d-flex justify-content-center py-4">
-		                <a href="index.html" class="logo d-flex align-items-center w-auto">
+		                <a href="#" class="logo d-flex align-items-center w-auto">
 		                  <img src="assets/img/logo.png" alt="">
 		                  <span class="d-none d-lg-block">山西達人</span>
 		                </a>
@@ -70,14 +70,14 @@
 		                      <label for="employeeId" class="form-label">員工編號</label>
 		                      <div class="input-group has-validation">
 		                        <input type="number" name="employeeId" class="form-control" id="employeeId" required>
-		                        <div class="invalid-feedback">你各位記得輸入員工編號啊 凸^_^凸</div>
+		                        <div class="invalid-feedback">你尚未輸入員工編號</div>
 		                      </div>
 		                    </div>
 		
 		                    <div class="col-12">
 		                      <label for="password" class="form-label">密碼</label>
 		                      <input type="password" name="password" class="form-control" id="password" required>
-		                      <div class="invalid-feedback">不打密碼就送出，你是不想上班了嗎</div>
+		                      <div class="invalid-feedback">你尚未輸入密碼</div>
 		                    </div>
 		
 		                    <div class="col-12">
