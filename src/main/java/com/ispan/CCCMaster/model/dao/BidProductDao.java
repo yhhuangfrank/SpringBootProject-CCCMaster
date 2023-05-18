@@ -11,7 +11,9 @@ import java.util.List;
 
 public interface BidProductDao extends JpaRepository<BidProduct, Integer>, JpaSpecificationExecutor<BidProduct> {
 
-    @Query("FROM BidProduct b WHERE b.customer = :customer AND b.isDeleted = false")
+    @Query("FROM BidProduct b " +
+            "WHERE b.customer = :customer AND b.isDeleted = false " +
+            "ORDER BY b.createdAt DESC ")
     List<BidProduct> findByCustomer (@Param("customer") Customer customer);
 
     @Query("FROM BidProduct b WHERE b.isDeleted = false")
