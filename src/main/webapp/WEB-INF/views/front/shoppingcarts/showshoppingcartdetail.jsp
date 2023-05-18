@@ -127,11 +127,12 @@ document.cookie = "pay=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 				</div>              
 	         </div>
             </div>
-            
+
+            <form action="${contextRoot}/front/shoppingcart/shoppingcartdetail/check" method="get">
             <div class="entry entry-single">
 				<h5>運送方式</h5>
 					<div class="form-check">
-					 <input type="radio" class="form-check-input" id="stores" value="超商取貨" required="required" onclick="hiddenInput(event),okcash()"/>
+					 <input type="radio" class="form-check-input" id="stores" value="超商取貨" required onclick="hiddenInput(event),okcash()" name="shipper"/>
                 <label class="form-check-label" for="gridRadios1">
                   超商取貨
                 </label>
@@ -151,7 +152,7 @@ document.cookie = "pay=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                 </div>
               </div>
               <div class="form-check">
-                <input type="radio" class="form-check-input" id="home" value="宅配到家" onclick="showInput(event),nocash()" required="required"/>
+                <input type="radio" class="form-check-input" id="home" value="宅配到家" onclick="showInput(event),nocash()" name="shipper"/>
                 <label class="form-check-label" for="gridRadios2">
                   宅配到家
                 </label>
@@ -174,13 +175,14 @@ document.cookie = "pay=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             <div class="entry entry-single">
 				<h5>付款方式</h5>
 					<div class="form-check">
-					 <input type="radio" class="form-check-input" id="cash" value="貨到付款" required="required" onclick="nocredit()"/>
+            
+					 <input type="radio" class="form-check-input" id="cash" value="貨到付款" required onclick="nocredit()" name="pay"/>
 		              <label class="form-check-label" for="gridRadios3">
 		                貨到付款
 		              </label>
 				    </div>
 		            <div class="form-check">
-		              <input type="radio" class="form-check-input" id="credit" value="信用卡" onclick="cashno()" required="required"/>
+		              <input type="radio" class="form-check-input" id="credit" value="信用卡" onclick="cashno()"  name="pay"/>
 		              <label class="form-check-label" for="gridRadios4">
 		                線上刷卡
 		              </label>
@@ -188,9 +190,9 @@ document.cookie = "pay=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             	</div>
             	<a href="javascript:history.back()" class="btn btn-dark">上一頁</a>
          		<button type="submit" class="btn btn-primary" onclick="savecookie()">
-         			<a href="${contextRoot}/front/shoppingcart/shoppingcartdetail/check" style="color: white;">資料確認</a>
+         			資料確認
          		</button>
-
+          </form>
         </div> 
     </section><!-- End Blog Single Section -->
 </main><!-- End #main -->
@@ -222,6 +224,12 @@ document.cookie = "pay=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 	    cookie1.required="required";
 	    cookie2.required="required";
 	    cookie3.required="required";
+    let storecookie1 = document.getElementById('cookiesstore');
+    let storecookie2 = document.getElementById('cookiesstoreaddressee');
+    let storecookie3 = document.getElementById('cookiesstoretele');
+      storecookie1.removeAttribute('required');
+      storecookie2.removeAttribute('required');
+      storecookie3.removeAttribute('required');
 	}
 // ----------------顯示超商取貨的資訊----------------------------
 	function hiddenInput(event){
@@ -234,7 +242,13 @@ document.cookie = "pay=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 		let cookie3 = document.getElementById("cookiestele");
 	    cookie1.removeAttribute('required');
 	    cookie2.removeAttribute('required');
-	    cookie3.removeAttribute('required');		
+	    cookie3.removeAttribute('required');
+    let storecookie1 = document.getElementById('cookiesstore');
+    let storecookie2 = document.getElementById('cookiesstoreaddressee');
+    let storecookie3 = document.getElementById('cookiesstoretele');
+      storecookie1.required="required"
+      storecookie2.required="required"
+      storecookie3.required="required"
 	}
 //------------點選宅配到家的選項後不可以點選貨到付款的----------------------------
 	function nocash() {
@@ -255,19 +269,6 @@ document.cookie = "pay=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       home.checked=false;
     }
 	}
-//--------------------------點選問題處理----------------------------
-  function nocredit(){
-    let credit = document.getElementById('credit')
-    if(credit.checked){
-      credit.checked=false
-    }
-  }
-  function cashno(){
-    let cash = document.getElementById("cash")
-    if(cash.checked){
-      cash.checked=false
-    }
-  }
   
 //------------計算實付總額並存入cookies中----------------------------
 	let totalamount = 0;
