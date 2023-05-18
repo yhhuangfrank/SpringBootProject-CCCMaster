@@ -14,12 +14,15 @@ public interface ServiceFromService {
 	
 	void deleteReportFormById(Integer id);
 	
-	public Page<ReportForm2Model> findByPage(Integer pageNumber,Integer customerid);
+	public Page<ReportForm2Model> findByPageId(Integer pageNumber,Integer customerid);
+	
+	public Page<ReportForm2Model> findByPage(Integer pageNumber);
+	
 	ReportForm2Model getLatest();
 	
 	 public Customer getCustomerById(Integer customerId)  ;
 	 
 	 public OrderBean getOrderById(String orderid);
 
-	
+	 public ReportForm2Model updateById(Integer id, String newMsg) ;
 }
