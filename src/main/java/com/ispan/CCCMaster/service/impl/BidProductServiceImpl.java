@@ -234,7 +234,9 @@ public class BidProductServiceImpl implements BidProductService {
 
         BidProduct foundBidProduct = bidProductDao.findById(id).orElseThrow(() -> new NotFoundException("查無對應商品，參數有誤!"));
 
-        bidProductDao.delete(foundBidProduct);
+        // 將 isDeleted 設為 true
+        foundBidProduct.setDeleted(true);
+        bidProductDao.save(foundBidProduct);
     }
 
     @Override
