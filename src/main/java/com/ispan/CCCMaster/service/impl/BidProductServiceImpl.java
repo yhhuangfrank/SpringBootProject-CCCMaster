@@ -92,7 +92,7 @@ public class BidProductServiceImpl implements BidProductService {
 
     @Override
     public List<BidProduct> findAllBidProducts() {
-        return bidProductDao.findAll();
+        return bidProductDao.findAllNotDeleted();
     }
 
     @Override
@@ -152,6 +152,10 @@ public class BidProductServiceImpl implements BidProductService {
                 Predicate p = criteriaBuilder.between(root.get("expiredAt"), now, oneDayAfter);
                 predicates.add(p);
             }
+
+            // 只找尋沒有被 delete 的商品
+            Predicate p = criteriaBuilder.isFalse(root.get("isDeleted"));
+            predicates.add(p);
 
             // 將搜尋條件從 list 複製到一空 array
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
