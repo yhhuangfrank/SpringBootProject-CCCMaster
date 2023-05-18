@@ -41,7 +41,7 @@ passwordAgainInput.addEventListener("blur", function(){
         if(password.value !== passwordAgainInput.value){
             passwordAgainSpan.innerHTML = 
             `<div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong style="color: #bb2d3b">喔喔!兩次密碼不一樣喔!  凸^_^凸</strong>
+            <strong style="color: #bb2d3b">喔喔!兩次密碼不一樣喔!  Σ(っ °Д °;)っ</strong>
             </div>`
             passwordFlag = true;
         } else{

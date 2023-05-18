@@ -123,10 +123,10 @@
         <div class="container">
 
             <ol>
-                <li><a href="index.html">Home</a></li>
-                <li>Portfolio Details</li>
+                <li><a href="${contextRoot}/">首頁</a></li>
+                <li>產品細節</li>
             </ol>
-            <h2>Portfolio Details</h2>
+            <h2>產品細節</h2>
 
         </div>
     </section><!-- End Breadcrumbs -->
