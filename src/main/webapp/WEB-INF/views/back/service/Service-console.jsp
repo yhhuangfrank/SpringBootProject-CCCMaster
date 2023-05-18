@@ -283,8 +283,6 @@
 
           <body>
 
-
-
             <main id="main" class="main">
               <!-- 操作台title -->
               <div>
@@ -318,7 +316,7 @@
                   <div class="felx-container-left-down">
                     <div style="width:100%;">
                       <div class="search" style="width:100%;text-align:center;">
-                        <input id="userName" placeholder="search" type="text" value="" />
+                        <input type="hidden" id="userName" placeholder="search" type="text" value="客服人員" />
                       </div>
                       <br>
                       <ul class="list" id="usersList" style="overflow:auto;height:435px;text-align:center;">

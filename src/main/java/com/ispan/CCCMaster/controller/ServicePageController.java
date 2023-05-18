@@ -54,9 +54,6 @@ public class ServicePageController {
         }
         @GetMapping("/admin/Service/console")
     	public String addMessage(Model model) {
-        	
-        	
-
     		return "back/service/Service-console";
     	}
 }
