@@ -132,6 +132,7 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">送出</button>
+                            <button type="button" class="btn btn-secondary" id="defaultDataBtn">一鍵輸入</button>
                             <a href="javascript:history.back()" class="btn btn-dark">上一頁</a>
                         </form:form><!-- End General Form Elements -->
 
@@ -159,5 +160,6 @@
 <%-- 自訂 js --%>
 <script src="${contextRoot}/js/bid/fileSizeValidation.js"></script>
 <script src="${contextRoot}/js/bid/dateSetting.js"></script>
+<script src="${contextRoot}/js/bid/defaultDataForCreate.js"></script>
 </body>
 </html>
