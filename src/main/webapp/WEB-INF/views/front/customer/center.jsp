@@ -124,11 +124,12 @@
 	
 		        <div class="row">
 			        <div class="col-lg-4 col-md-6">
-				        <div class="icon-box">
-				        	<div class="icon"><i class="bi bi-person-vcard"></i></div>
-				        	<h4>我的資料</h4>
-				        	<p>在此瀏覽及編輯個人資料</p>
-				        </div>
+			        	<a href="${contextRoot}/center/profile">
+					        <div class="icon-box">
+					        	<div class="icon"><i class="bi bi-person-vcard"></i></div>
+					        	<h4>我的資料</h4>
+					        	<p>在此瀏覽及編輯個人資料</p>
+					        </div>
 				       </a>
 			        </div>
 		
@@ -162,21 +163,23 @@
 			        </div>
 		
 			        <div class="col-lg-4 col-md-6 mt-4">
-				        <div class="icon-box">
-				        	<div class="icon"><i class="bi bi-heart"></i></div>
-				        	<h4><a href="">我的最愛</a></h4>
-				        	<p> aka 現在還沒有錢帶你回家</p>
-				        </div>
-				       </a>
+				        <a href="#">
+					        <div class="icon-box">
+					        	<div class="icon"><i class="bi bi-heart"></i></div>
+					        	<h4>我的最愛</h4>
+					        	<p> aka 現在還沒有錢帶你回家</p>
+					        </div>
+				        </a>
 			        </div>
 		
 			        <div class="col-lg-4 col-md-6 mt-4">
-				        <div class="icon-box">
-				        	<div class="icon"><i class="bi bi-clock-history"></i></div>
-				        	<h4><a href="">瀏覽紀錄</a></h4>
-				        	<p>抱歉了錢錢，但我真的想要那些酷東西 ಥ_ಥ</p>
-				        </div>
-				       </a>
+				        <a href="#">
+					        <div class="icon-box">
+					        	<div class="icon"><i class="bi bi-clock-history"></i></div>
+					        	<h4>瀏覽紀錄</h4>
+					        	<p>抱歉了錢錢，但我真的想要那些酷東西 ಥ_ಥ</p>
+					        </div>
+				        </a>
 			        </div>
 		
 		        </div>

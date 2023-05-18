@@ -140,6 +140,10 @@
 								<form:input required="true" path="phoneNumber" type="tel" class="form-control mb-2" id="phoneNumberInput" pattern="[0]{1}[9]{1}[0-9]{8}" placeholder="格式:09XXXXXXXX"/>
 								<span id="phoneNumberSpan"></span>
 							</div>
+							<div class="form-group">
+								<label for="point">擁有的點數</label>
+								<input disabled="disabled" value="${customer.point}" type="text" class="form-control mb-2" id="point"/>
+							</div>
 							<div class="text-center">
 								<button id="submitButton" type="submit" class="btn-primary mt-4">確認變更</button>
 								<a class="btn btn-secondary" href="${contextRoot}/center">取消並返回</a>
