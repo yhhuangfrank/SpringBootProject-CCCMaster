@@ -62,7 +62,7 @@ font-size: 20px
   </section><!-- End Breadcrumbs -->
    
 <section id="blog" class="blog">
-<form:form method="post" modelAttribute="orderBean" action="${contextRoot}/front/orders/create">
+<form:form method="post" action="${contextRoot}/front/orders/create" modelAttribute="orderBean">
     <div class="container" data-aos="fade-up">
       <div class="row">
         <div class="entries">
@@ -100,6 +100,10 @@ font-size: 20px
                  <div class="col-sm-10" style="height: 45px;line-height: 45px">
                  	<input type="hidden" name="shipper" value="${cookie.shi.value}">
                    ${cookie.shi.value}
+                 </div>
+                 <div>
+                 	<input type="hidden" name="pointsdiscount" value="${cookie.point.value}">
+                 	<input type="hidden" name="customerPoint.points" value="${cookie.point.value}">
                  </div>
                </div>
                <div class="row mb-3">

@@ -15,11 +15,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ispan.CCCMaster.model.bean.customer.Customer;
+import com.ispan.CCCMaster.model.bean.customer.CustomerPoint;
 import com.ispan.CCCMaster.model.bean.order.OrderBean;
 import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;
 import com.ispan.CCCMaster.model.bean.product.Product;
 import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
 import com.ispan.CCCMaster.model.dao.CustomerDao;
+import com.ispan.CCCMaster.model.dao.CustomerPointsDao;
 import com.ispan.CCCMaster.model.dao.OrderDao;
 import com.ispan.CCCMaster.model.dao.OrderDetailDao;
 import com.ispan.CCCMaster.model.dao.ProductDao;
@@ -29,6 +31,9 @@ import com.ispan.CCCMaster.service.OrderService;
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
 import javax.persistence.criteria.Predicate;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -48,6 +53,8 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	CustomerDao cDao;
 	
+	@Autowired
+	CustomerPointsDao pointDao;
 
 	//依訂單編號找訂單
 	@Override
@@ -176,6 +183,23 @@ public class OrderServiceImpl implements OrderService {
 		oDao.save(order);
 		//刪除購物車
 		scDao.deleteByCid(customerId);
+		//建立點數紀錄
+		CustomerPoint customerpoint = new CustomerPoint();
+		customerpoint.setCustomerId(customerId);
+		customerpoint.setOrderid(dateString);
+		customerpoint.setPlusorneg(false);
+		if(order.getPointsdiscount() == null) {
+			customerpoint.setPoints(0);
+		}else {
+			customerpoint.setPoints(order.getPointsdiscount()*300);
+		}
+		pointDao.save(customerpoint);
+		//更新會員點數
+		Integer neg = order.getPointsdiscount()*300;
+		Integer startpoint = c.getPoint();
+		startpoint -= neg;
+		c.setPoint(startpoint);
+		
 	}
 
 	//訂單的詳細資料
@@ -312,6 +336,27 @@ public class OrderServiceImpl implements OrderService {
 
 	
 
+	//給予點數
+	@Override
+	public void givePoints(CustomerPoint point,Integer customerId,String orderid) {
+		Optional<Customer> coption = cDao.findById(customerId);
+		point.setCustomerId(coption.get().getCustomerId());
+		Optional<OrderBean> ooption = oDao.findById(orderid);
+		point.setOrderid(ooption.get().getOrderid());
+		point.setPlusorneg(true);
+		point.setPoints(ooption.get().getTotalamount());
+		pointDao.save(point);
+	}
+
+	//使用點數
+	@Override
+	public void usePoints(CustomerPoint point,Integer customerId) {
+		Optional<Customer> coption = cDao.findById(customerId);
+		point.setCustomerId(coption.get().getCustomerId());
+		
+		
+	}
+		
 	
 
 	

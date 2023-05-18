@@ -7,6 +7,7 @@ import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.bid.DealRecord;
 import com.ispan.CCCMaster.model.customexception.NotFoundException;
 import com.ispan.CCCMaster.service.BidProductService;
+import com.ispan.CCCMaster.service.CustomerCouponService;
 import com.ispan.CCCMaster.service.DealRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ispan.CCCMaster.annotation.CustomerAuthentication;
 import com.ispan.CCCMaster.model.bean.customer.Customer;
+import com.ispan.CCCMaster.model.bean.customer.CustomerCoupon;
 import com.ispan.CCCMaster.service.CustomerService;
 import com.ispan.CCCMaster.util.LoginUtil;
 
@@ -28,6 +30,8 @@ public class CustomerController {
 	private CustomerService ctmService;
 	@Autowired
 	private LoginUtil loginUtil;
+	@Autowired
+	private CustomerCouponService ccService;
 
 	@Autowired
 	private BidProductService bidProductService;
@@ -152,6 +156,30 @@ public class CustomerController {
 		model.addAttribute("bidProducts", bidProducts);
 
 		return "front/customer/customer-bidProducts";
+	}
+	
+	@CustomerAuthentication
+	@GetMapping("/customers/{id}/coupons")	// 會員中心-查看我的優惠券
+	public String getCustomerCoupons(HttpSession session, Model model) {
+		List<CustomerCoupon> customerCoupons = ccService.findByCustomer(loginUtil.getLoginCustomer(session));
+		model.addAttribute("customerCoupons", customerCoupons);
+		return "front/customer/coupons";
+	}
+	
+	@CustomerAuthentication
+	@PostMapping("/customers/{id}/coupons")	// 會員新增優惠券
+	public String postCustomerCoupons(HttpSession session, @RequestParam("convertid") String convertid, RedirectAttributes redirectAttributes) {
+		if(ccService.createCustomerCoupon(session, convertid)) {
+			//重導前添加新增優惠券成功訊息
+			redirectAttributes.addFlashAttribute("isSuccess", true);
+			redirectAttributes.addFlashAttribute("successMsg", "成功新增優惠券!");			
+			return "redirect:/customers/{id}/coupons";
+		} else {			
+			//重導前添加新增優惠券失敗訊息
+			redirectAttributes.addFlashAttribute("isFailed", true);
+			redirectAttributes.addFlashAttribute("failedMsg", "查無此優惠券");			
+			return "redirect:/customers/{id}/coupons";
+		}
 	}
 
 }

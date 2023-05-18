@@ -248,8 +248,10 @@ public class GenDefaultData {
     private byte[] getProductImageByte(String imagePath) {
         File imageFile = new File(imagePath);
         if (!imageFile.exists()) {
-//            System.out.println("圖片不存在：" + imagePath);
+            System.out.println("圖片不存在：" + imagePath);
             return null;
+        }else {
+            System.out.println("圖片存在：" + imagePath);
         }
         try (FileInputStream fileInputStream = new FileInputStream(imageFile);
              ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
