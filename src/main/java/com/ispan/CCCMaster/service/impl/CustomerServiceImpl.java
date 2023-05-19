@@ -91,7 +91,7 @@ public class CustomerServiceImpl implements CustomerService {
 			return success;
 		}
 		String foundPassword = foundCustomer.getPassword();
-		success = foundPassword.equals(password);
+		success = BCrypt.checkpw(password, foundPassword);
 		if(success) {	//若登入成功則使原本的 session 失效，並取得新 session
 			HttpSession session = request.getSession();
 			session.invalidate();
