@@ -97,8 +97,9 @@ public class CustomerController {
 	public String signUp(@ModelAttribute("customer") Customer customer
 						, HttpServletRequest request
 						, RedirectAttributes redirectAttributes) {
+		String originalPassword = customer.getPassword();	// 先把原密碼存起來，因為等等 create 後密碼會變加密的
 		ctmService.createCustomer(customer);
-		ctmService.logIn(customer.getEmail(), customer.getPassword(), request);
+		ctmService.logIn(customer.getEmail(), originalPassword, request);
 		//重導前添加註冊成功且登入訊息
 		redirectAttributes.addFlashAttribute("signupSuccess", true);
 		redirectAttributes.addFlashAttribute("signupSuccessMsg", "您已成功註冊，並登入成功!");
@@ -114,7 +115,9 @@ public class CustomerController {
 	@CustomerAuthentication
 	@GetMapping("/center/profile")	//會員中心-個人資料頁面
 	public String profilePage(HttpSession session, Model model) {
-		model.addAttribute("customer", loginUtil.getLoginCustomer(session));
+		Customer currentCustomer = loginUtil.getLoginCustomer(session);
+		currentCustomer.setPassword(null);
+		model.addAttribute("customer", currentCustomer);
 		return "front/customer/profile";
 	}
 	
