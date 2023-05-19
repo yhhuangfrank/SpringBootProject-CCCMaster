@@ -206,10 +206,15 @@
       document.getElementById('freight').textContent = freight.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});;
       document.getElementById('finalamount').textContent = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
   }
-  function calculateFinalAmount(){
-    //計算總金額
     let pointCheckbox = document.getElementById('pointcheckbox') 
     let couponCheckbox = document.getElementById('couponcheckbox')
+    let selectCoupon = document.querySelector('input[name="usecoupon"]:checked')
+    if(!pointCheckbox.checked && !couponCheckbox.checked && !selectCoupon){
+      document.cookie = "point="+"0"+";path=/";
+      document.cookie = "couponId="+null;
+    }
+  function calculateFinalAmount(){
+    //計算總金額  
     let pointsInput = document.getElementById('points')
       pointsInput.addEventListener('input',function(){
         pointcheckbox.checked=true; 
@@ -222,10 +227,11 @@
         };
         pointsInput.value=pointsInput.value
       })
-    let selectCoupon = document.querySelector('input[name="usecoupon"]:checked')
+    
     let discount=0
     if(pointCheckbox.checked && !couponCheckbox.checked){
       discount=parseInt(pointsInput.value) || 0;
+      document.cookie = "couponId="+null+";path=/";
     }else if(pointCheckbox.checked && couponCheckbox.checked && selectCoupon){
       discount=(parseInt(pointsInput.value)|| 0)+parseInt(selectCoupon.value)
     }else if(!pointCheckbox.checked && couponCheckbox.checked && selectCoupon){
@@ -233,7 +239,7 @@
     }else if(!pointCheckbox.checked && !couponCheckbox.checked && !selectCoupon){
       discount=0
     }
-    document.cookie = "point="+parseInt(pointsInput.value)+";path=/";
+    document.cookie = "point="+(parseInt(pointsInput.value)||0)+";path=/";
     document.cookie = "discount="+discount+";path=/";
     let finalAmount = totalamount+freight-discount
 
