@@ -46,7 +46,7 @@ public class EmployeeAdminController {
 		} else {
 			//重導前添加登入失敗訊息
 			redirectAttributes.addFlashAttribute("isFailed", true);
-			redirectAttributes.addFlashAttribute("failedMsg", "登入失敗！編號跟密碼都記不住，你是嫌薪水太多嗎?");
+			redirectAttributes.addFlashAttribute("failedMsg", "登入失敗！員工編號或密碼錯誤!");
 			return "redirect:/admin/login";
 		}
 	}
@@ -55,15 +55,15 @@ public class EmployeeAdminController {
 	@GetMapping("/admin/logout")	//按下登出鈕
 	public String logOut(HttpSession session, RedirectAttributes redirectAttributes) {
 		epyService.logOut(session);
-		redirectAttributes.addFlashAttribute("isWarning", true);
-		redirectAttributes.addFlashAttribute("warningMsg", "快!趁主管不在的時候快閃人!");
+		redirectAttributes.addFlashAttribute("isSuccess", true);
+		redirectAttributes.addFlashAttribute("successMsg", "你已成功登出");
 		return "redirect:/admin/login";	//回到登入頁
 	}
 	
 	@GetMapping("/admin/cancelLogin")	//按下不想上班鈕
 	public String cancelLogin(RedirectAttributes redirectAttributes) {
 		redirectAttributes.addFlashAttribute("lazy_float", true);
-		redirectAttributes.addFlashAttribute("lazyMsg_float", "抱歉，你不能那麼做 ^_^");
+		redirectAttributes.addFlashAttribute("lazyMsg_float", "不可以ㄛ，你不能那麼做 ^_^");
 		return "redirect:/admin/login";	//回到登入頁
 	}
 	

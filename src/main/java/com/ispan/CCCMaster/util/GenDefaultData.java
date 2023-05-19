@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 @Component
@@ -30,9 +31,9 @@ public class GenDefaultData {
     private final CategoryDao categoryDao;
 
     private final CustomerDao customerDao;
-    
+
     private final PositionDao positionDao;
-    
+
     private final EmployeeDao employeeDao;
 
     private final BidProductCommentDao bidProductCommentDao;
@@ -68,7 +69,7 @@ public class GenDefaultData {
 
         // 設定預設拍賣商品
         createBidProducts();
-        
+
         // 設定預設職位與員工
         createPositionsAndEmployees();
 
@@ -111,17 +112,18 @@ public class GenDefaultData {
         String[] defaultPrefixes = new String[]{"九成新 ", "全新未拆 ", "限量 ", "贈品轉賣 ", "二手 "};
 
         Faker faker = new Faker();
+        Faker zhTWFaker = new Faker(new Locale("zh-TW"));
         int NUM_OF_BIDPRODUCT_PER_CATEGORY = 10;
         int total = defaultImageLinks.length * NUM_OF_BIDPRODUCT_PER_CATEGORY;
 
         // 設定預設 customer
         Customer customer1 = new Customer();
         Customer customer2 = new Customer();
-        customer1.setName("小明");
+        customer1.setName(zhTWFaker.name().lastName() + zhTWFaker.name().firstName());
         customer1.setEmail("user1@gmail.com");
         customer1.setPhoneNumber("0911111111");
         customer1.setPassword("123");
-        customer2.setName("小華");
+        customer2.setName(zhTWFaker.name().lastName() + zhTWFaker.name().firstName());
         customer2.setEmail("user2@gmail.com");
         customer2.setPhoneNumber("0922222222");
         customer2.setPassword("123");
@@ -133,7 +135,7 @@ public class GenDefaultData {
 
         for (int i = 0; i < total; i += 1) {
             BidProduct bidProduct = new BidProduct();
-            int index = i / NUM_OF_BIDPRODUCT_PER_CATEGORY; // 使 index 界於 0 - 4
+            int index = i / NUM_OF_BIDPRODUCT_PER_CATEGORY; // 使 index 介於 0 - 4
             int random = (int) Math.floor(Math.random() * defaultPrefixes.length);
             String randomPrefix = defaultPrefixes[random];
             bidProduct.setName(randomPrefix + defaultCategoryNames[index]);
@@ -142,11 +144,12 @@ public class GenDefaultData {
             bidProduct.setBidPrice(0);
             bidProduct.setDescription(faker.lorem().paragraph());
             bidProduct.setImage(defaultImageLinks[index]);
-            if (i % 5 == 0) {
-                bidProduct.setCustomer(customer1); // 給 customer 1
-            } else {
-                bidProduct.setCustomer(customer2);
-            }
+            bidProduct.setViewCount(faker.number().numberBetween(0, 50));
+
+            // 判斷給予哪位Customer
+            Customer customer = i % 5 == 0 ? customer1 : customer2;
+            bidProduct.setCustomer(customer);
+
             defaultBidProducts.add(bidProduct);
         }
 
@@ -177,7 +180,7 @@ public class GenDefaultData {
     }
 
     private void genDefaultProduct() {
-        if(productDao.count()>0){
+        if (productDao.count() > 0) {
             return;
         }
         System.out.println("enter genDefaultProduct");
@@ -250,7 +253,7 @@ public class GenDefaultData {
         if (!imageFile.exists()) {
             System.out.println("圖片不存在：" + imagePath);
             return null;
-        }else {
+        } else {
             System.out.println("圖片存在：" + imagePath);
         }
         try (FileInputStream fileInputStream = new FileInputStream(imageFile);
@@ -272,27 +275,26 @@ public class GenDefaultData {
     }
 
 
-
     // 預設職位與員工
     private void createPositionsAndEmployees() {
-    	long num = positionDao.count();
-    	
-    	if(num > 0) return;
+        long num = positionDao.count();
 
-    	// 預設職位
-    	Position superManager = new Position();
-    	superManager.setPositionId(9999);
-    	superManager.setPositionName("Super Manager");
-    	positionDao.save(superManager);
+        if (num > 0) return;
 
-    	// 預設員工
-    	Employee employee1 = new Employee();
-    	employee1.setEmployeeName("山西布政司");
-    	employee1.setPosition(superManager);
-    	employee1.setPhoneNumber("0999999999");
-    	employee1.setIdNumber("A123456789");
-    	employee1.setPassword("9999");
-    	employeeDao.save(employee1);
+        // 預設職位
+        Position superManager = new Position();
+        superManager.setPositionId(9999);
+        superManager.setPositionName("Super Manager");
+        positionDao.save(superManager);
+
+        // 預設員工
+        Employee employee1 = new Employee();
+        employee1.setEmployeeName("山西布政司");
+        employee1.setPosition(superManager);
+        employee1.setPhoneNumber("0999999999");
+        employee1.setIdNumber("A123456789");
+        employee1.setPassword("9999");
+        employeeDao.save(employee1);
     }
 
     // 預設拍賣商品評論資料

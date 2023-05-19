@@ -43,6 +43,11 @@ public class ReportForm2Model {
 	@Column(name = "email")
 	private String email;
 	
+	@Column(name = "reply", columnDefinition = "nvarchar(200)", nullable = true)
+	private String Reply;
+	
+
+
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss EEEE",timezone = "GMT+8")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -138,4 +143,12 @@ public class ReportForm2Model {
 		this.createtime = createtime;
 	}
 
+	public String getReply() {
+		return Reply;
+	}
+
+
+	public void setReply(String reply) {
+		Reply = reply;
+	}
 }

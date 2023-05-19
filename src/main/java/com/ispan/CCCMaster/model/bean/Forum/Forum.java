@@ -40,7 +40,6 @@ public class Forum implements Serializable {
 
 
     @OneToMany(cascade = CascadeType.PERSIST,orphanRemoval = true)
-    @JoinColumn(name = "fk_forum_id", referencedColumnName = "forum_id")
     private Set<Article> articles = new LinkedHashSet<>();
 
     public byte[] getImage() {

@@ -65,43 +65,43 @@
     <section id="services" class="services">
       <div class="container">
 
-        <div class="row">
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-            <div class="icon-box" >
-              <div class="icon" style="margin-right:50px;margin-left:50px;"><i class="bx bxl-dribbble"></i></div>
-              <h4><a href="${contextRoot}/Service/common">熱門問題</a></h4>
-            </div>
-            <div class="icon-box">
-              <div class="icon" style="margin-right:50px;margin-left:50px;"><i class="bx bx-file"></i></div>
-              <h4><a href="${contextRoot}/Service/common/order">訂購付款</a></h4>
-              <p></p>
-            </div>
-            <div class="icon-box">
-              <div class="icon" style="margin-right:50px;margin-left:50px;"><i class="bx bx-file"></i></div>
-              <h4><a href="${contextRoot}/Service/common/delivery">配送說明</a></h4>
-              <p></p>
-            </div>
-            <div class="icon-box">
-              <div class="icon" style="margin-right:50px;margin-left:50px;"><i class="bx bx-file"></i></div>
-              <h4><a href="/Service/common/Refund">售後退款</a></h4>
-              <p></p>
-            </div>
-            <div class="icon-box">
-              <div class="icon" style="margin-right:50px;margin-left:50px;"><i class="bx bx-file"></i></div>
-              <h4><a href="/Service/common/discount">購物優惠</a></h4>
-              <p></p>
-            </div>
-            <div class="icon-box">
-              <div class="icon" style="margin-right:50px;margin-left:50px;"><i class="bx bx-file"></i></div>
-              <h4><a href="/Service/common/Activity">活動相關</a></h4>
-              <p></p>
-            </div>
-            <div class="icon-box">
-              <div class="icon" style="margin-right:50px;margin-left:50px;"><i class="bx bx-file"></i></div>
-              <h4><a href="/Service/common/Account">會員帳號</a></h4>
-              <p></p>
-            </div>
-          </div>
+         <div class="row">
+              <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                <div class="icon-box" onclick="window.open('${contextRoot}/Service/common','_self' )" style="cursor: pointer;">
+                  <div class="icon" style="margin-right:50px;margin-left:50px;"><i class="bx bxl-dribbble"></i></div>
+                  <h4>熱門問題</h4>
+                </div>
+                <div class="icon-box" onclick="window.open('${contextRoot}/Service/common/order','_self' )" style="cursor: pointer;">
+                  <div class="icon" style="margin-right:50px;margin-left:50px;"><i class="bx bx-file"></i></div>
+                  <h4>訂購付款</h4>
+                  <p></p>
+                </div>
+                <div class="icon-box" onclick="window.open('${contextRoot}/Service/common/delivery','_self' )" style="cursor: pointer;">
+                  <div class="icon" style="margin-right:50px;margin-left:50px;"><i class="bx bx-file"></i></div>
+                  <h4>配送說明</h4>
+                  <p></p>
+                </div>
+                <div class="icon-box" onclick="window.open('${contextRoot}/Service/common/Refund','_self' )" style="cursor: pointer;">
+                  <div class="icon" style="margin-right:50px;margin-left:50px;"><i class="bx bx-file"></i></div>
+                  <h4>售後退款</h4>
+                  <p></p>
+                </div>
+                <div class="icon-box" onclick="window.open('${contextRoot}/Service/common/discount','_self' )" style="cursor: pointer;">
+                  <div class="icon" style="margin-right:50px;margin-left:50px;"><i class="bx bx-file"></i></div>
+                  <h4>購物優惠</h4>
+                  <p></p>
+                </div>
+                <div class="icon-box" onclick="window.open('${contextRoot}/Service/common/Activity','_self' )" style="cursor: pointer;">
+                  <div class="icon" style="margin-right:50px;margin-left:50px;"><i class="bx bx-file"></i></div>
+                  <h4>活動相關</h4>
+                  <p></p>
+                </div>
+                <div class="icon-box" onclick="window.open('${contextRoot}/Service/common/Account','_self' )" style="cursor: pointer;">
+                  <div class="icon" style="margin-right:50px;margin-left:50px;"><i class="bx bx-file"></i></div>
+                  <h4>會員帳號</h4>
+                  <p></p>
+                </div>
+              </div>
 
         </div>
         </div>
