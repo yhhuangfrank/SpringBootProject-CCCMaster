@@ -5,6 +5,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +27,8 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Override
 	public void createCustomer(Customer ctm) {
+		String hashedPw = BCrypt.hashpw(ctm.getPassword(), BCrypt.gensalt());
+		ctm.setPassword(hashedPw);
 		ctmDao.save(ctm);
 	}
 	
