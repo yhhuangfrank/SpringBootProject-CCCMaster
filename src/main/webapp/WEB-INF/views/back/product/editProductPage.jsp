@@ -57,7 +57,7 @@
         <label for="categoryId" class="col-sm-2 col-form-label fw-bold">種類</label>
         <div class="col-sm-10">
             <input name="categoryName" class="form-control" list="categoryList" id="categoryId"
-                   placeholder="搜尋或自訂種類"/>
+                   placeholder="搜尋或自訂種類" value="${product.category.name}"/>
             <datalist id="categoryList">
                 <c:forEach items="${categories}" var="category">
                     <option value="${category.name}"></option>
