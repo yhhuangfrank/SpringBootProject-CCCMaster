@@ -58,7 +58,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			old.setPosition(employee.getPosition());
 			old.setPhoneNumber(employee.getPhoneNumber());
 			old.setIdNumber(employee.getIdNumber());
-			old.setPassword(employee.getPassword());
+//			old.setPassword(employee.getPassword());
 		}
 	}
 	

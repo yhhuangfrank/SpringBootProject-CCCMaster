@@ -57,7 +57,7 @@ public class CustomerServiceImpl implements CustomerService {
 			Customer old = option.get();
 			old.setEmail(customer.getEmail());
 			old.setName(customer.getName());
-			old.setPassword(customer.getPassword());
+//			old.setPassword(customer.getPassword());
 			old.setPhoneNumber(customer.getPhoneNumber());
 			old.setPoint(customer.getPoint());
 			old.setAbandonCount(customer.getAbandonCount());
@@ -72,7 +72,8 @@ public class CustomerServiceImpl implements CustomerService {
 			Customer old = option.get();
 			old.setEmail(customer.getEmail());
 			old.setName(customer.getName());
-			old.setPassword(customer.getPassword());
+			String hashedPw = BCrypt.hashpw(customer.getPassword(), BCrypt.gensalt());
+			old.setPassword(hashedPw);
 			old.setPhoneNumber(customer.getPhoneNumber());
 		}
 	}

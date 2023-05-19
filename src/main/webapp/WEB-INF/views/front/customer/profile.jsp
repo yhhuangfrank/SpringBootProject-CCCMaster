@@ -130,11 +130,11 @@
 								<label for="password">密碼</label>
 								<form:input required="true" path="password" type="password" class="form-control" id="password" placeholder="輸入密碼"/>
 							</div>
-							<div class="form-group mb-2">
-								<label for="passwordAgainInput">再次輸入密碼</label>
-								<input required type="password" class="form-control mb-2" id="passwordAgainInput" placeholder="再次輸入密碼"/>
-								<span id="passwordAgainSpan"></span>
-							</div>
+<!-- 							<div class="form-group mb-2"> -->
+<!-- 								<label for="passwordAgainInput">再次輸入密碼</label> -->
+<!-- 								<input required type="password" class="form-control mb-2" id="passwordAgainInput" placeholder="再次輸入密碼"/> -->
+<!-- 								<span id="passwordAgainSpan"></span> -->
+<!-- 							</div> -->
 							<div class="form-group">
 								<label for="phoneNumberInput">手機號碼</label>
 								<form:input required="true" path="phoneNumber" type="tel" class="form-control mb-2" id="phoneNumberInput" pattern="[0]{1}[9]{1}[0-9]{8}" placeholder="格式:09XXXXXXXX"/>

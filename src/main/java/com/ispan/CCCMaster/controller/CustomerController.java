@@ -115,7 +115,9 @@ public class CustomerController {
 	@CustomerAuthentication
 	@GetMapping("/center/profile")	//會員中心-個人資料頁面
 	public String profilePage(HttpSession session, Model model) {
-		model.addAttribute("customer", loginUtil.getLoginCustomer(session));
+		Customer currentCustomer = loginUtil.getLoginCustomer(session);
+		currentCustomer.setPassword(null);
+		model.addAttribute("customer", currentCustomer);
 		return "front/customer/profile";
 	}
 	
