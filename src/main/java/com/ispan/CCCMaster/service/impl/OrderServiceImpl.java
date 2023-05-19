@@ -15,11 +15,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ispan.CCCMaster.model.bean.customer.Customer;
+import com.ispan.CCCMaster.model.bean.customer.CustomerCoupon;
 import com.ispan.CCCMaster.model.bean.customer.CustomerPoint;
 import com.ispan.CCCMaster.model.bean.order.OrderBean;
 import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;
 import com.ispan.CCCMaster.model.bean.product.Product;
 import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
+import com.ispan.CCCMaster.model.dao.CustomerCouponDao;
 import com.ispan.CCCMaster.model.dao.CustomerDao;
 import com.ispan.CCCMaster.model.dao.CustomerPointsDao;
 import com.ispan.CCCMaster.model.dao.OrderDao;
@@ -55,6 +57,9 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Autowired
 	CustomerPointsDao pointDao;
+	
+	@Autowired
+	CustomerCouponDao ccouDao;
 
 	//依訂單編號找訂單
 	@Override
@@ -199,6 +204,11 @@ public class OrderServiceImpl implements OrderService {
 		Integer startpoint = c.getPoint();
 		startpoint -= neg;
 		c.setPoint(startpoint);
+		//更新會員優惠卷狀態
+		Optional<CustomerCoupon> ccoupon= ccouDao.findByCidByCouid(customerId, order.getCouponid());
+		CustomerCoupon oldccoupon = ccoupon.get();
+		oldccoupon.setIsAvailable(false);
+		
 		
 	}
 

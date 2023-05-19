@@ -1,6 +1,7 @@
 package com.ispan.CCCMaster.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -34,6 +35,8 @@ public class CustomerCouponServiceImpl implements CustomerCouponService {
 		CustomerCoupon customerCoupon = new CustomerCoupon();
 		customerCoupon.setCustomers(foundCustomer);
 		customerCoupon.setCouponBean(foundCouponBean);
+		//true=可用
+		customerCoupon.setIsAvailable(true);
 		ccDao.save(customerCoupon);
 		
 		return true;
@@ -42,6 +45,12 @@ public class CustomerCouponServiceImpl implements CustomerCouponService {
 	@Override
 	public List<CustomerCoupon> findByCustomer(Customer customer) {
 		List<CustomerCoupon> customerCoupons = ccDao.findByCustomers(customer);
+		return customerCoupons;
+	}
+	
+	@Override
+	public List<CustomerCoupon> findByCustomerWhereIsAvailable(Customer customer) {
+		List<CustomerCoupon> customerCoupons = ccDao.findByCustomerWhereIsAvailable(customer.getCustomerId());
 		return customerCoupons;
 	}
 

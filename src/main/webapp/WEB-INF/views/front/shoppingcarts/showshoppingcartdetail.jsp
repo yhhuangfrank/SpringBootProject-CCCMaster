@@ -112,7 +112,7 @@ document.cookie = "pay=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 				</div>
 				<div class="col-lg-11" style="text-align: right">優惠折抵:</div>
 				<div class="col-lg-1" style="text-align: right;margin-top: 5px">
-					<input id="point" type="hidden" value="${cookie.point.value}">${cookie.point.value}
+					<input id="point" type="hidden" value="${cookie.discount.value}">${cookie.discount.value}
 				</div>
 				<br>
 				<br>

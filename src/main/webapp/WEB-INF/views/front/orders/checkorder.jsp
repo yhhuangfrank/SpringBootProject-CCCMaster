@@ -104,6 +104,7 @@ font-size: 20px
                  <div>
                  	<input type="hidden" name="pointsdiscount" value="${cookie.point.value}">
                  	<input type="hidden" name="customerPoint.points" value="${cookie.point.value}">
+                 	<input type="hidden" name="couponid" value="${cookie.couponId.value}">
                  </div>
                </div>
                <div class="row mb-3">

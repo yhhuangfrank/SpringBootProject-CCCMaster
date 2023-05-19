@@ -2,11 +2,14 @@ package com.ispan.CCCMaster.service;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ispan.CCCMaster.model.bean.coupon.CouponBean;
+import com.ispan.CCCMaster.model.bean.customer.Customer;
+import com.ispan.CCCMaster.model.bean.customer.CustomerCoupon;
 
 public interface CouponService {
 
@@ -30,5 +33,8 @@ public interface CouponService {
 
 	//頁數
 	Page<CouponBean> findByPage(Integer pageNumber);
+	
+	//找尋個人所有優惠券
+	List<CustomerCoupon> findAllByCid(Customer customer);
 
 }
