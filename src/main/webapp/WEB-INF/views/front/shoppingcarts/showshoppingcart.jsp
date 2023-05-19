@@ -191,7 +191,7 @@
   let canusepoint = document.getElementById('canusepoint')  //可使用點數的div
   let cupoints = document.getElementById('cupoint').value   //會員點數
   var usepoint = Math.floor(cupoints/300);                  //計算可用的點數
-  canusepoint.innerHTML = "(最多可折抵"+usepoint+"點)"
+  canusepoint.innerHTML = "(最多可折抵"+usepoint+"元)"
   var totalamount = 0;
   let counttotal = document.getElementsByClassName("countstotal");
   for(let i=0;i<counttotal.length;i++){
