@@ -82,7 +82,7 @@
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label"></label>
                   <div class="col-sm-10">
-                  	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cencel">取消</button>
+                  	<button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#cencel">取消</button>
                     	<div class="modal fade" id="cencel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog" role="document">
 								<div class="modal-content">

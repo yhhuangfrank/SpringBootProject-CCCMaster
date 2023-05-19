@@ -62,7 +62,6 @@ public class OrdersController {
 	@CustomerAuthentication
 	@GetMapping("/front/orders/details/{orderid}")
 	public String findDetailByOId(@PathVariable("orderid") String orderid, Model model) {
-		System.out.println("OK");
 		OrderBean ob = oService.findOrderByid(orderid);
 		List<OrderDetailBean> odb = oService.findorderdetailbyOId(orderid);
 		for(OrderDetailBean od:odb) {

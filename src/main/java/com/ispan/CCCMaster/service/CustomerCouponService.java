@@ -1,6 +1,7 @@
 package com.ispan.CCCMaster.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,4 +14,6 @@ public interface CustomerCouponService {
 
 	List<CustomerCoupon> findByCustomer(Customer customer);
 
+	List<CustomerCoupon> findByCustomerWhereIsAvailable(Customer customer);
+	
 }

@@ -20,7 +20,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Sort;
 
 import com.ispan.CCCMaster.model.bean.coupon.CouponBean;
+import com.ispan.CCCMaster.model.bean.customer.Customer;
+import com.ispan.CCCMaster.model.bean.customer.CustomerCoupon;
 import com.ispan.CCCMaster.model.dao.CouponDao;
+import com.ispan.CCCMaster.model.dao.CustomerCouponDao;
 import com.ispan.CCCMaster.service.CouponService;
 
 @Service
@@ -28,6 +31,9 @@ public class CouponServiceImpl implements CouponService {
 	
 	@Autowired
 	CouponDao cpDao;
+	
+	@Autowired
+	CustomerCouponDao ccpDao;
 	
 	//創造優惠券
 	@Override
@@ -37,27 +43,7 @@ public class CouponServiceImpl implements CouponService {
 		couponBean.setCouponid(uuidString);
 		cpDao.save(couponBean);
 	}
-	
-	
-	//查詢所有優惠券
-//	public List<CouponBean> findCoupons() throws ParseException{
-//		List<CouponBean> list = cpDao.findAllCoupons();
-//		List<Map<String,Object>> listm = new ArrayList<>();
-//		for(CouponBean cpb : list) {
-//			Map<String,Object> map = new HashMap<>();
-//			map.put("couponid", cpb.getCouponid());
-//			map.put("couponname", cpb.getCouponname());
-//			map.put("convertid", cpb.getConvertid());
-//			String sDate = changeSD(cpb);
-//			map.put("startdate", sDate);
-//			String eDate = changeED(cpb);
-//			map.put("enddate", eDate);
-//			map.put("couponamount", cpb.getCouponamount());
-//			map.put("instructions", cpb.getInstructions());
-//			listm.add(map);
-//		}
-//		return cpDao.findAllCoupons();
-//	}
+
 	
 	//查詢單張優惠券
 	@Override
@@ -115,6 +101,14 @@ public class CouponServiceImpl implements CouponService {
 		Page<CouponBean> page = cpDao.findAll(pg);
 		
 		return page;
+	}
+
+
+	
+	//找尋個人所有優惠券
+	@Override
+	public List<CustomerCoupon> findAllByCid(Customer customer) {
+		return ccpDao.findByCustomers(customer);
 	}
 
 }
