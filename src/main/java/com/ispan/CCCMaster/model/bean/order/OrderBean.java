@@ -236,6 +236,16 @@ public class OrderBean implements Serializable {
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
+
+	@Override
+	public String toString() {
+		return "OrderBean [orderid=" + orderid + ", freight=" + freight + ", pointsdiscount=" + pointsdiscount
+				+ ", couponid=" + couponid + ", orderdate=" + orderdate + ", arrivaldate=" + arrivaldate + ", shipper="
+				+ shipper + ", shipperaddress=" + shipperaddress + ", payment=" + payment + ", ordercondition="
+				+ ordercondition + ", paymentcondition=" + paymentcondition + ", totalamount=" + totalamount
+				+ ", addressee=" + addressee + ", telephone=" + telephone + ", cbOrder=" + cbOrder + ", seto=" + seto
+				+ "]";
+	}
 	
 //	@OneToOne(mappedBy = "opoint",cascade = CascadeType.ALL)
 //	private CustomerPoint cpoint;

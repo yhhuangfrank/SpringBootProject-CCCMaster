@@ -94,6 +94,7 @@ public class OrdersController {
 	public String createorder(@ModelAttribute("orderBean")OrderBean orderBean,
 			@RequestParam("customerId")Integer customerId) throws IOException {
 		oService.createOrder(orderBean,customerId);
+		System.out.println("------建立OK------");
 		return "redirect:/front/orders/paymentorok";
 	}
 	

@@ -193,23 +193,26 @@ public class OrderServiceImpl implements OrderService {
 		customerpoint.setCustomerId(customerId);
 		customerpoint.setOrderid(dateString);
 		customerpoint.setPlusorneg(false);
-		if(order.getPointsdiscount() == null) {
+		if(order.getPointsdiscount() == 0) {
 			customerpoint.setPoints(0);
 		}else {
 			customerpoint.setPoints(order.getPointsdiscount()*300);
+			//更新會員點數
+			Integer neg = order.getPointsdiscount()*300;
+			Integer startpoint = c.getPoint();
+			startpoint -= neg;
+			c.setPoint(startpoint);
 		}
-		pointDao.save(customerpoint);
-		//更新會員點數
-		Integer neg = order.getPointsdiscount()*300;
-		Integer startpoint = c.getPoint();
-		startpoint -= neg;
-		c.setPoint(startpoint);
+		pointDao.save(customerpoint);		
 		//更新會員優惠卷狀態
-		Optional<CustomerCoupon> ccoupon= ccouDao.findByCidByCouid(customerId, order.getCouponid());
-		CustomerCoupon oldccoupon = ccoupon.get();
-		oldccoupon.setIsAvailable(false);
-		
-		
+		if(!order.getCouponid().equals("null")) {
+			Optional<CustomerCoupon> ccoupon= ccouDao.findByCidByCouid(customerId, order.getCouponid());
+			CustomerCoupon oldccoupon = ccoupon.get();
+			oldccoupon.setIsAvailable(false);
+		}	
+		System.out.println("=============================================");
+		System.out.println("so far so goodddddddddddddddddddddddddd!");
+		System.out.println("=============================================");
 	}
 
 	//訂單的詳細資料
