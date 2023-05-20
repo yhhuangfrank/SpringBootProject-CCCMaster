@@ -5,6 +5,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +27,8 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Override
 	public void createCustomer(Customer ctm) {
+		String hashedPw = BCrypt.hashpw(ctm.getPassword(), BCrypt.gensalt());
+		ctm.setPassword(hashedPw);
 		ctmDao.save(ctm);
 	}
 	
@@ -54,7 +57,7 @@ public class CustomerServiceImpl implements CustomerService {
 			Customer old = option.get();
 			old.setEmail(customer.getEmail());
 			old.setName(customer.getName());
-			old.setPassword(customer.getPassword());
+//			old.setPassword(customer.getPassword());
 			old.setPhoneNumber(customer.getPhoneNumber());
 			old.setPoint(customer.getPoint());
 			old.setAbandonCount(customer.getAbandonCount());
@@ -69,7 +72,8 @@ public class CustomerServiceImpl implements CustomerService {
 			Customer old = option.get();
 			old.setEmail(customer.getEmail());
 			old.setName(customer.getName());
-			old.setPassword(customer.getPassword());
+			String hashedPw = BCrypt.hashpw(customer.getPassword(), BCrypt.gensalt());
+			old.setPassword(hashedPw);
 			old.setPhoneNumber(customer.getPhoneNumber());
 		}
 	}
@@ -88,7 +92,7 @@ public class CustomerServiceImpl implements CustomerService {
 			return success;
 		}
 		String foundPassword = foundCustomer.getPassword();
-		success = foundPassword.equals(password);
+		success = BCrypt.checkpw(password, foundPassword);
 		if(success) {	//若登入成功則使原本的 session 失效，並取得新 session
 			HttpSession session = request.getSession();
 			session.invalidate();

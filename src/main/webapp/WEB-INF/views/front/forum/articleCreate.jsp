@@ -3,18 +3,19 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="jstl" %>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <script src="https://<hostname.tld>/tinymce.min.js" referrerpolicy="origin"></script>
-    <script src="https://cdn.tiny.cloud/1/rhx9ul0mmewwi6kmsk26ne06bj1vj10ceyrs1tviq0jqepq3/tinymce/6/plugins.min.js" referrerpolicy="origin"></script>
+
+    <script src="https://cdn.tiny.cloud/1/rhx9ul0mmewwi6kmsk26ne06bj1vj10ceyrs1tviq0jqepq3/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <title>論壇</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
+<%--    <meta content="" name="description">--%>
+<%--    <meta content="" name="keywords">--%>
 
     <c:set var="contextRoot" value="${pageContext.request.contextPath}"/>
 
@@ -45,7 +46,7 @@
 
 <jsp:include page="../layouts/header.jsp"/>
 
-<main id="main" class="main">
+<main id="" class="" >
 
     <div class="pagetitle">
 
@@ -71,22 +72,22 @@
                         <div class="row mb-3">
 
                             <form:form method="post" modelAttribute="article"
-                                       action="${contextRoot}/admin/articles/create" enctype="multipart/form-data">
+                                       action="${contextRoot}/front/articles/create" enctype="multipart/form-data">
 
                             <div class="col-sm-10 d-flex mb-3">
-                                <label for="inputTitle" class="col-sm-2 col-form-label">文章名稱</label>
-                                <form:input type="text" path="title" class="form-control" id="inputTitle"></form:input>
+                                <label for="Title" class="col-sm-2 col-form-label">文章名稱</label>
+                                <form:input type="text" path="title" class="form-control" id="title"></form:input>
                                     <%--                                <form:input type="checkbox" path="productList" class="form-control" id="inputTitle"></form:input>--%>
                                 <br>
                                     <%--                <form:textarea cssStyle="width: 610px;height: 300px"  type="text" path="content"  id="content"></form:textarea>--%>
                             </div>
                             <div class="col-sm-10">
-                                新增圖片<form:input class="form-control" type="file" id="formFile" path="imageFile"></form:input>
+                                新增圖片<form:input class="form-control" type="file" id="File" path="imageFile"></form:input>
                             </div>
 
 
                         </div>
-                        <form:textarea type="text" path="content" id="contentFront"></form:textarea>
+                        <form:textarea cssClass="w-100 " cssStyle="height: 300px;" type="text" path="content" id="contentfront"></form:textarea>
 
                     </div>
                 </div>
@@ -94,6 +95,7 @@
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label"></label>
                     <div class="col-sm-10">
+                        <button type="button" class="btn btn-secondary" id="articleDataBtn">一鍵輸入</button>
                         <button type="submit" class="btn btn-primary">Submit Form</button>
                         </form:form>
 
@@ -113,20 +115,22 @@
 
 
 <!-- Vendor JS Files -->
-<script src="${contextRoot}/styles/front/assets/vendor/purecounter/purecounter_vanilla.js"></script>
-<script src="${contextRoot}/styles/front/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="${contextRoot}/styles/front/assets/vendor/glightbox/js/glightbox.min.js"></script>
-<script src="${contextRoot}/styles/front/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-<script src="${contextRoot}/styles/front/assets/vendor/swiper/swiper-bundle.min.js"></script>
-<script src="${contextRoot}/styles/front/assets/vendor/waypoints/noframework.waypoints.js"></script>
-<script src="${contextRoot}/styles/front/assets/vendor/php-email-form/validate.js"></script>
+<%--<script src="${contextRoot}/styles/front/assets/vendor/purecounter/purecounter_vanilla.js"></script>--%>
+<%--<script src="${contextRoot}/styles/front/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>--%>
+<%--<script src="${contextRoot}/styles/front/assets/vendor/glightbox/js/glightbox.min.js"></script>--%>
+<%--<script src="${contextRoot}/styles/front/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>--%>
+<%--<script src="${contextRoot}/styles/front/assets/vendor/swiper/swiper-bundle.min.js"></script>--%>
+<%--<script src="${contextRoot}/styles/front/assets/vendor/waypoints/noframework.waypoints.js"></script>--%>
+<%--<script src="${contextRoot}/styles/front/assets/vendor/php-email-form/validate.js"></script>--%>
 
 <!-- Template Main JS File -->
-<script src="${contextRoot}/styles/front/assets/js/main.js"></script>
+<%--<script src="${contextRoot}/styles/front/assets/js/main.js"></script>--%>
+<script src="${contextRoot}/js/response/defaultArticleForCreate.js"></script>
+
 
 <script>
     tinymce.init({
-        selector: 'textarea#contentFront',
+        selector: 'textarea#contentfront',
         plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
         toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
         tinycomments_mode: 'embedded',
@@ -137,6 +141,8 @@
         ]
     });
 </script>
+
+<script src="${contextRoot}/js/response/defaultArticleForCreate.js"></script>
 
 </body>
 

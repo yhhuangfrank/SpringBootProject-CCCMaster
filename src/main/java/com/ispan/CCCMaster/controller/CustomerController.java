@@ -12,6 +12,8 @@ import com.ispan.CCCMaster.model.dao.CustomerCouponDao;
 import com.ispan.CCCMaster.service.BidProductService;
 import com.ispan.CCCMaster.service.CustomerCouponService;
 import com.ispan.CCCMaster.service.DealRecordService;
+import com.ispan.CCCMaster.service.EmailService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +38,8 @@ public class CustomerController {
 	private LoginUtil loginUtil;
 	@Autowired
 	private CustomerCouponService ccService;
+	@Autowired
+	private EmailService emailService;
 
 	@Autowired
 	private BidProductService bidProductService;
@@ -97,11 +101,15 @@ public class CustomerController {
 	public String signUp(@ModelAttribute("customer") Customer customer
 						, HttpServletRequest request
 						, RedirectAttributes redirectAttributes) {
+		String originalPassword = customer.getPassword();	// 先把原密碼存起來，因為等等 create 後密碼會變加密的
 		ctmService.createCustomer(customer);
-		ctmService.logIn(customer.getEmail(), customer.getPassword(), request);
+		ctmService.logIn(customer.getEmail(), originalPassword, request);
 		//重導前添加註冊成功且登入訊息
 		redirectAttributes.addFlashAttribute("signupSuccess", true);
 		redirectAttributes.addFlashAttribute("signupSuccessMsg", "您已成功註冊，並登入成功!");
+		
+		String emailBody = "哈囉 " + customer.getName() + " 你好\n" + "歡迎您加入山西達人會員，點擊下面連結開始您在山西世界遨遊吧!\n" + "http://localhost:8080/front/product";
+		emailService.sendEmail(customer.getEmail(), "山西達人註冊成功通知信", emailBody);
 		return "redirect:/";	//註冊成功後自動登入並到首頁
 	}
 	
@@ -114,7 +122,9 @@ public class CustomerController {
 	@CustomerAuthentication
 	@GetMapping("/center/profile")	//會員中心-個人資料頁面
 	public String profilePage(HttpSession session, Model model) {
-		model.addAttribute("customer", loginUtil.getLoginCustomer(session));
+		Customer currentCustomer = loginUtil.getLoginCustomer(session);
+		currentCustomer.setPassword(null);
+		model.addAttribute("customer", currentCustomer);
 		return "front/customer/profile";
 	}
 	

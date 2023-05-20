@@ -7,10 +7,8 @@
 <html lang="en">
 <head>
     <title>test</title>
-<%--    <script src="https://cdn.tiny.cloud/1/eietea4ay3bbc7u6eb00o3821yablr9864z3qbin2vszwiq3/tinymce/6/tinymce.min.js"--%>
-<%--            referrerpolicy="origin"></script>--%>
-    <script src="https://cdn.tiny.cloud/1/rhx9ul0mmewwi6kmsk26ne06bj1vj10ceyrs1tviq0jqepq3/tinymce/6/tinymce.min.js"
-            referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/rhx9ul0mmewwi6kmsk26ne06bj1vj10ceyrs1tviq0jqepq3/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
 
 
     <meta charset="utf-8">
@@ -75,8 +73,8 @@
                                        action="${contextRoot}/admin/articles/create" enctype="multipart/form-data">
 
                             <div class="col-sm-10 d-flex mb-3">
-                                <label for="inputTitle" class="col-sm-2 col-form-label">文章名稱</label>
-                                <form:input type="text" path="title" class="form-control" id="inputTitle"></form:input>
+                                <label for="title" class="col-sm-2 col-form-label">文章名稱</label>
+                                <form:input type="text" path="title" class="form-control" id="title"></form:input>
 <%--                                <form:input type="checkbox" path="productList" class="form-control" id="inputTitle"></form:input>--%>
                                 <br>
                                     <%--                <form:textarea cssStyle="width: 610px;height: 300px"  type="text" path="content"  id="content"></form:textarea>--%>
@@ -95,6 +93,7 @@
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label"></label>
                     <div class="col-sm-10">
+                        <button type="button" class="btn btn-secondary" id="articleDataBtn">一鍵輸入</button>
                         <button type="submit" class="btn btn-primary">Submit Form</button>
                         </form:form>
 
@@ -130,11 +129,11 @@
 <!-- Template Main JS File -->
 <script src="${contextRoot}/styles/back/assets/js/main.js"></script>
 
+
 <script>
     tinymce.init({
         selector: 'textarea#content',
-        plugins: 'anchor autolink charmap codesample emoticons  link lists  searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode  tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
-        // plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
+        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
         toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
         tinycomments_mode: 'embedded',
         tinycomments_author: 'Author name',
@@ -144,6 +143,6 @@
         ]
     });
 </script>
-
+<script src="${contextRoot}/js/response/defaultArticleForCreate.js"></script>
 </body>
 </html>

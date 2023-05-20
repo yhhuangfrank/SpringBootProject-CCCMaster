@@ -41,7 +41,7 @@ public class Customer {
 	@Column(name = "email", columnDefinition = "varchar(50)", unique = true)
 	private String email;
 	
-	@Column(name = "password", columnDefinition = "varchar(20)")
+	@Column(name = "password", columnDefinition = "varchar(max)")
 	private String password;
 	
 	@Temporal(TemporalType.TIMESTAMP)

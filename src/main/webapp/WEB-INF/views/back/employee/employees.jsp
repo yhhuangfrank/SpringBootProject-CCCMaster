@@ -86,7 +86,7 @@
 										<th scope="col">職位</th>
 										<th scope="col">手機號碼</th>
 										<th scope="col">身分證字號</th>
-										<th scope="col">登入密碼</th>
+<!-- 										<th scope="col">登入密碼</th> -->
 										<th scope="col">到職日期</th>
 										<th scope="col">操作</th>
 									</tr>
@@ -99,7 +99,7 @@
 											<td>${employee.position.positionName}</td>
 											<td>${employee.phoneNumber}</td>
 											<td>${employee.idNumber}</td>
-											<td>${employee.password}</td>
+<%-- 											<td>${employee.password}</td> --%>
 											<td>${employee.hireDate}</td>
 											<td>
 												<div class="d-flex">

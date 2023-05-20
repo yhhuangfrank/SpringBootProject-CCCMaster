@@ -87,7 +87,7 @@ public class AdvertiseServiceImpl implements AdvertiseService {
     }
 
     public Page<Advertise> findByPage(Integer pageNumber) {
-        Pageable pgb = PageRequest.of(pageNumber - 1, 3, Sort.Direction.DESC, "startTime");
+        Pageable pgb = PageRequest.of(pageNumber - 1, 10, Sort.Direction.ASC, "startTime");
         Page<Advertise> page = advertiseDao.findAll(pgb);
         return page;
     }
@@ -171,6 +171,7 @@ public class AdvertiseServiceImpl implements AdvertiseService {
     public Page<Product> addProductToAdvertise(Advertise advertise, Integer productId, Integer pageNumber) {
         Pageable pgb = PageRequest.of(pageNumber - 1, 10, Sort.Direction.ASC, "productId");
         Page<Product> page = productDao.findAll(pgb);
+
 
         Set<Product> productsSet = new HashSet<>();
         productsSet.add(productDao.findById(productId).orElse(null));

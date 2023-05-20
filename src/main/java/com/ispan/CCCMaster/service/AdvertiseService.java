@@ -26,7 +26,9 @@ public interface AdvertiseService {
 
    Page<Advertise> findByPage(Integer pageNumber);
 
-   Page<Product> addProductToAdvertise(Advertise advertise, Integer productId, Integer pageNumber);
+    Page<Product> addProductToAdvertise(Integer pageNumber);
+
+    Page<Product> addProductToAdvertise(Advertise advertise, Integer productId, Integer pageNumber);
 
 
     void deleteAdvertiseById(Integer id);
@@ -44,7 +46,7 @@ public interface AdvertiseService {
 
     Advertise getLatestAdvertise();
 
-    Page<Product> addProductToAdvertise(Integer pageNumber);
+//    Page<Product> addProductToAdvertise(Integer pageNumber);
 
 
     List<Advertise> advertiseByTime(Date nowDate);

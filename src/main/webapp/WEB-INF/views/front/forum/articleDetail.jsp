@@ -115,8 +115,8 @@
             <div class="mt-3">
                 <div class="mb-3">
                     <label for="commentTextArea"></label>
-                    <textarea class="form-control" name="comment" id="commentTextArea" cols="20"
-                              rows="8">想說點什麼... ?</textarea>
+                    <textarea class="form-control" name="comment" id="commentTextArea" cols="20" placeholder="想說點什麼... ?"
+                              rows="8" ></textarea>
                 </div>
                  留言提示訊息
                 <div id="alertMessageForComment"></div>
