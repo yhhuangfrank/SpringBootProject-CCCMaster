@@ -51,7 +51,7 @@
                 <li>會員中心</li>
                 <li>我的訂單</li>
             </ol>
-            <h2>訂單查詢</h2>
+            <h2>二手商品訂單查詢</h2>
 
         </div>
     </section><!-- End Breadcrumbs -->
@@ -96,7 +96,7 @@
                     </td>                  
                     <td>${bidorder.ordercondition}</td>
                     <td>${bidorder.paymentcondition}</td>
-                    <td>${bidorder.addressee}</td>
+                    <td>${bidorder.shipperaddress}</td>
                     <td>${bidorder.price}</td>
                     <td>${bidorder.cbSeller.name}</td>
                     <td>                   	

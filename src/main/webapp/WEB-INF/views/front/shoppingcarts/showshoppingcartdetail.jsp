@@ -136,7 +136,7 @@ document.cookie = "pay=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 					<div class="form-check">
 					 <input type="radio" class="form-check-input" id="stores" value="超商取貨" required onclick="hiddenInput(event),okcash()" name="shipper"/>
                 <label class="form-check-label" for="gridRadios1">
-                  超商取貨
+                  7-11超商取貨
                 </label>
                 <div id="store" style="display: none;width: 400px">
                   <div style="width: 400px">
@@ -146,13 +146,14 @@ document.cookie = "pay=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                   	<select id="storeaddress"></select>
                   </div>
                   <div style="width: 300px">
-                  <label style="text-align:ceneter;float: left;width: 60px">收件人:</label>
-                  <input type="text" class="form-control" id="cookiesstoreaddressee"/>
+	                  <label style="text-align:ceneter;float: left;width: 60px">收件人:</label>
+	                  <input type="text" class="form-control" id="cookiesstoreaddressee"/>
                   </div>
                   <div style="width: 300px">
-                  <label style="text-align: ceneter;float: left;">電&nbsp;&nbsp;&nbsp;話:</label>
-                  <input type="text" class="form-control" id="cookiesstoretele"/>
+	                  <label style="text-align: ceneter;float: left;">電&nbsp;&nbsp;&nbsp;話:</label>
+	                  <input type="tel" class="form-control" id="cookiesstoretele" pattern="[0]{1}[9]{1}[0-9]{8}" placeholder="格式:09XXXXXXXX"/>
                   </div>
+                  <button type="button" class="btn btn-secondary" id="defaultDataBtnStore" style="margin-top: 10px">一鍵輸入</button>
                 </div>
               </div>
               <div class="form-check">
@@ -163,16 +164,17 @@ document.cookie = "pay=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                 <div id="address" style="display: none;width: 400px">   
                   <div style="width: 300px">
                   <label style="text-align:ceneter;float: left;width: 60px">收件人:</label>
-                  <input type="text" class="form-control" id="cookiesaddressee"/>
+                  	<input type="text" class="form-control" id="cookiesaddressee"/>
                   </div>
                   <div style="width: 300px">
-                  <label style="text-align: ceneter;float: left;">地&nbsp;&nbsp;&nbsp;址:</label>
-                  <input type="text" class="form-control" id="cookiesaddress"/>
+	                  <label style="text-align: ceneter;float: left;">地&nbsp;&nbsp;&nbsp;址:</label>
+	                  <input type="text" class="form-control" id="cookiesaddress"/>
                   </div>
                   <div style="width: 300px">
-                  <label style="text-align: ceneter;float: left;">電&nbsp;&nbsp;&nbsp;話:</label>
-                  <input type="text" class="form-control" id="cookiestele"/>
-                  </div> 	
+	                  <label style="text-align: ceneter;float: left;">電&nbsp;&nbsp;&nbsp;話:</label>
+	                  <input type="tel" class="form-control" id="cookiestele" pattern="[0]{1}[9]{1}[0-9]{8}" placeholder="格式:09XXXXXXXX"/>
+                  </div>
+                  <button type="button" class="btn btn-secondary" id="defaultDataBtnHome" style="margin-top: 10px">一鍵輸入</button> 	
                 </div>
               </div>
             </div>
@@ -291,7 +293,25 @@ document.cookie = "pay=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 	    document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
 	    document.cookie = "tol="+totalamount;  
 	}
-//------------寄送資料存入cookies中----------------------------
+	//超商資料一鍵輸入
+	let defaultDataBtnStore = document.getElementById('defaultDataBtnStore')
+	let inputName = document.getElementById('cookiesstoreaddressee')
+	let inputtel = document.getElementById('cookiesstoretele')	
+	defaultDataBtnStore.addEventListener("click",function(){
+	   inputName.value = "瑪麗鷗"
+	   inputtel.value="0988344712"
+	 })
+	 //宅配到家一鍵輸入
+	let defaultDataBtnHome = document.getElementById('defaultDataBtnHome')
+	let inputHomeAddre = document.getElementById('cookiesaddress')
+	let inputHomeTel = document.getElementById('cookiestele')
+	let inputHomeName = document.getElementById('cookiesaddressee')
+	defaultDataBtnHome.addEventListener("click",function(){
+		inputHomeName.value = "瑪麗鷗"
+		inputHomeTel.value="0988344712"
+		inputHomeAddre.value="台南市大學路1號(國立成功大學唯農大樓)"
+	 })
+	
 </script>
 <script src="${contextRoot}/js/shoppingcart/storeInfo.js"></script>
 </body>

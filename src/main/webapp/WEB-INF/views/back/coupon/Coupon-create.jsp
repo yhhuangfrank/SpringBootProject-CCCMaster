@@ -76,19 +76,19 @@
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="floatingInput" class="col-sm-2 col-form-label fw-bold" style="text-align: right;">使用起始時間</label>
+                  <label for="inputstartdate" class="col-sm-2 col-form-label fw-bold" style="text-align: right;">使用起始時間</label>
                   <div class="form-floating col-sm-10">
-                    <form:input type="text" path="startdate" class="form-control" id="floatingInputValue" 
+                    <form:input type="text" path="startdate" class="form-control" id="inputstartdate" 
                     placeholder="格式:2023-01-01 12:00:00" required="true"></form:input>
-                    <label for="floatingInputValue" style="margin-left: 5px">範例:2023-01-01 12:00:00</label>
+                    <label for="inputstartdate" style="margin-left: 5px">範例:2023-01-01 12:00:00</label>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="inputenddate" class="col-sm-2 col-form-label fw-bold" style="text-align: right;">使用結束時間</label>
                   	<div class="form-floating col-sm-10">
-	                    <form:input type="text" path="enddate" class="form-control" id="floatingInputValue" 
+	                    <form:input type="text" path="enddate" class="form-control" id="inputenddate" 
 	                    placeholder="格式:2023-01-01 12:00:00" required="true"></form:input>
-	                    <label for="floatingInputValue" style="margin-left: 5px">範例:2023-01-01 12:00:00</label>
+	                    <label for="inputenddate" style="margin-left: 5px">範例:2023-01-01 12:00:00</label>
                  	 </div>                 
                 </div>
                 <div class="row mb-3">
@@ -100,9 +100,8 @@
 
                 <div >
                   <label class="col-sm-2 col-form-label"></label>
-                  <div style="text-align: center;">
-                    <button type="submit" class="btn btn-primary">送出</button>
-                  </div>
+	                    <button type="submit" class="btn btn-primary">送出</button>
+	                    <button type="button" class="btn btn-secondary" id="defaultDataBtn">一鍵輸入</button>
                 </div>
 
               </form:form>
@@ -130,5 +129,24 @@
 
 <!-- Template Main JS File -->
 <script src="${contextRoot}/styles/back/assets/js/main.js"></script>
+
+<script>
+  let defaultDataBtn = document.getElementById('defaultDataBtn')
+  let inputName = document.getElementById('inputName')
+  let inputconvertid = document.getElementById('inputconvertid')
+  let inputcouponamount = document.getElementById('inputcouponamount')
+  let inputstartdate = document.getElementById('inputstartdate')
+  let inputenddate = document.getElementById('inputenddate')
+  let inputinstructions = document.getElementById('inputinstructions')
+
+  defaultDataBtn.addEventListener("click",function(){
+    inputName.value = "五月大大大禮包"
+    inputconvertid.value="MAY"
+    inputcouponamount.value="1000"
+    inputstartdate.value = "2023-05-01 00:00:00"
+    inputenddate.value = "2023-05-31 23:59:59"
+    inputinstructions.value = "五月優惠大贈送"
+  })
+</script>
 </body>
 </html>

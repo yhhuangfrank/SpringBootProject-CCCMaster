@@ -88,7 +88,6 @@
                     <th scope="col">訂單狀態</th>
                     <th scope="col">付款狀態</th>
                     <th scope="col">總價</th>
-                    <th scope="col">退貨</th>
                     <th scope="col">客戶服務</th>
                   </tr>
                 </thead>
@@ -108,8 +107,7 @@
 	                    <td>${result.ordercondition}</td>
 	                    <td>${result.paymentcondition}</td>
 	                    <td>${result.totalamount}</td>
-	                    <td>我要退貨</td>
-	                    <td>聯絡客服</td>
+	                    <td><a href="">聯絡客服</a></td>
 	                  </tr>
 	                  </c:forEach>
 	                 </c:if>
