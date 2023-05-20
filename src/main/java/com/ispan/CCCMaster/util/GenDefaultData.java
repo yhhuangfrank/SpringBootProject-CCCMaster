@@ -313,7 +313,7 @@ public class GenDefaultData {
         employee1.setPosition(superManager);
         employee1.setPhoneNumber("0999999999");
         employee1.setIdNumber("A123456789");
-        String hashedPw = BCrypt.hashpw("9999", BCrypt.gensalt());
+        String hashedPw = BCrypt.hashpw("999999999", BCrypt.gensalt());
         employee1.setPassword(hashedPw);
         employeeDao.save(employee1);
         
