@@ -28,10 +28,13 @@ public class AdvertiseController {
     }
 
     @GetMapping("/")
-    public String advertiseByTime(Model model) {
+    public String advertiseByTime(@RequestParam(name = "p", defaultValue = "1") Integer pageNumber,
+                                  Model model) {
 
 
         List<Integer> productImageIds = getAllProductImageId();
+        Page<Product> page = productService.findByPage(pageNumber);
+
 
 
         model.addAttribute("productImageIds", productImageIds);
