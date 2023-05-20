@@ -45,8 +45,19 @@ public class ServiceFormController {
         return "redirect:/service/from/create/{customerid}";
     }
 
+
+    //後台前台回覆表單柴看
+    @GetMapping("/admin/Service/create/ReplyFinish")
+    public String CheckPageGO(@RequestParam("id") Integer id, Model model) {
+    	ReportForm2Model form = Sservice.findReportFormById(id);
+    	
+    	model.addAttribute("ReportForm", form);
+
+        return "front/service/ServicefromCheck";
+    }
+
     
-    //後端顯示全部表單
+    //後端顯示未回覆表單
     @GetMapping("/admin/Service/findform")
 	public String findallform(@RequestParam(name="p",defaultValue = "1" ) Integer pageNumber,Model model) {
     	Page<ReportForm2Model> page = Sservice.findByPage(pageNumber);
@@ -66,7 +77,6 @@ public class ServiceFormController {
     	return "back/service/Service-ReplyForm";
     }
     //後臺回覆表單
-
 	@PutMapping("/admin/Service/findform/Reply")
 	public String putEditedMessage(@ModelAttribute("id") ReportForm2Model form) {
 		Sservice.updateById(form.getId(), form.getReply());
@@ -79,7 +89,27 @@ public class ServiceFormController {
 		return "redirect:/admin/Service/findform";
 	}
     
-    
+
+    //後端顯示全部完成表單
+    @GetMapping("/admin/Service/findformFinish")
+	public String findallformFinish(@RequestParam(name="p",defaultValue = "1" ) Integer pageNumber,Model model) {
+    	Page<ReportForm2Model> page = Sservice.findByPage(pageNumber);
+    	
+    	model.addAttribute("page",page);
+    	
+		return "back/service/Service-formfindallFinish";
+	}
+    //後臺查看完成表單回覆
+
+    //後台回覆表單
+    @GetMapping("/admin/Service/findformFinish/Reply")
+    public String CheckPage(@RequestParam("id") Integer id, Model model) {
+    	ReportForm2Model form = Sservice.findReportFormById(id);
+    	
+    	model.addAttribute("ReportForm", form);
+    	
+    	return "back/service/Service-ReplyCheck";
+    }
 
 }
 

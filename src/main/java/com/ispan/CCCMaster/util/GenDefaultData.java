@@ -4,9 +4,11 @@ import com.github.javafaker.Faker;
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.bid.BidProductComment;
 import com.ispan.CCCMaster.model.bean.category.Category;
+import com.ispan.CCCMaster.model.bean.coupon.CouponBean;
 import com.ispan.CCCMaster.model.bean.customer.Customer;
 import com.ispan.CCCMaster.model.bean.employee.Employee;
 import com.ispan.CCCMaster.model.bean.employee.Position;
+import com.ispan.CCCMaster.model.bean.order.OrderBean;
 import com.ispan.CCCMaster.model.bean.product.Product;
 import com.ispan.CCCMaster.model.bean.product.ProductImg;
 import com.ispan.CCCMaster.model.dao.*;
@@ -24,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 @Component
 public class GenDefaultData {
@@ -45,7 +48,9 @@ public class GenDefaultData {
     private final Map<String, Category> categoryMap = new HashMap<>();
 
     private final ProductDao productDao;
-
+    
+    private final CouponDao couponDao;
+    
 
     public GenDefaultData(BidProductDao bidProductDao,
                           CategoryDao categoryDao,
@@ -53,7 +58,8 @@ public class GenDefaultData {
                           PositionDao positionDao,
                           EmployeeDao employeeDao,
                           ProductDao productDao,
-                          BidProductCommentDao bidProductCommentDao) {
+                          BidProductCommentDao bidProductCommentDao,
+                          CouponDao couponDao) {
         this.bidProductDao = bidProductDao;
         this.categoryDao = categoryDao;
         this.customerDao = customerDao;
@@ -61,10 +67,14 @@ public class GenDefaultData {
         this.employeeDao = employeeDao;
         this.productDao = productDao;
         this.bidProductCommentDao = bidProductCommentDao;
+        this.couponDao = couponDao;
     }
 
     @PostConstruct
     public void genDefaultDataToDB() {
+    	
+    	// 設定預設會員
+    	createCustomer();
 
         // 設定預設種類
         createCategories();
@@ -80,6 +90,9 @@ public class GenDefaultData {
 
         // 設定預設拍賣商品評論
         createBidProductComments();
+        
+        //設定預設優惠券
+        createCoupon();
 
     }
 
@@ -122,14 +135,16 @@ public class GenDefaultData {
         Customer customer1 = new Customer();
         Customer customer2 = new Customer();
         customer1.setName(zhTWFaker.name().lastName() + zhTWFaker.name().firstName());
-        customer1.setEmail("user1@gmail.com");
+//        customer1.setEmail("user1@gmail.com");
+        customer1.setEmail("CCCMasterUser1@gmail.com");
         customer1.setPhoneNumber("0911111111");
-        String hashedPw = BCrypt.hashpw("123", BCrypt.gensalt());
+        String hashedPw = BCrypt.hashpw("123456789", BCrypt.gensalt());
         customer1.setPassword(hashedPw);
         customer2.setName(zhTWFaker.name().lastName() + zhTWFaker.name().firstName());
-        customer2.setEmail("user2@gmail.com");
+//        customer2.setEmail("user2@gmail.com");
+        customer2.setEmail("CCCMasterUser2@gmail.com");
         customer2.setPhoneNumber("0922222222");
-        hashedPw = BCrypt.hashpw("123", BCrypt.gensalt());
+        hashedPw = BCrypt.hashpw("123456789", BCrypt.gensalt());
         customer2.setPassword(hashedPw);
         customerDao.save(customer1);
         customerDao.save(customer2);
@@ -284,12 +299,25 @@ public class GenDefaultData {
         long num = positionDao.count();
 
         if (num > 0) return;
+        
+        Faker zhTWFaker = new Faker(new Locale("zh-TW"));
+        Faker faker = new Faker();
 
         // 預設職位
         Position superManager = new Position();
         superManager.setPositionId(9999);
         superManager.setPositionName("Super Manager");
         positionDao.save(superManager);
+        
+//        Position customerService = new Position();
+//        superManager.setPositionId(3786);
+//        superManager.setPositionName("客服人員");
+//        positionDao.save(customerService);
+//        
+//        Position engineer = new Position();
+//        superManager.setPositionId(5457);
+//        superManager.setPositionName("工程師");
+//        positionDao.save(engineer);
 
         // 預設員工
         Employee employee1 = new Employee();
@@ -297,9 +325,33 @@ public class GenDefaultData {
         employee1.setPosition(superManager);
         employee1.setPhoneNumber("0999999999");
         employee1.setIdNumber("A123456789");
-        String hashedPw = BCrypt.hashpw("9999", BCrypt.gensalt());
+        String hashedPw = BCrypt.hashpw("999999999", BCrypt.gensalt());
         employee1.setPassword(hashedPw);
         employeeDao.save(employee1);
+        
+        for(int i=0; i <=5 ; i++) {
+        	Employee employee = new Employee();
+        	employee.setEmployeeName(zhTWFaker.name().name());
+        	employee.setPosition(superManager);
+        	employee.setPhoneNumber("09" + faker.number().digits(8));
+        	employee.setIdNumber("R1" + faker.number().digits(8));
+        	int randomNum = faker.random().nextInt(6, 11);
+    		String randomPassword = faker.number().digits(randomNum);
+        	String hashedPassword = BCrypt.hashpw(randomPassword, BCrypt.gensalt());
+        	employee.setPassword(hashedPassword);
+        	employeeDao.save(employee);
+        	
+        	Employee employee2 = new Employee();
+        	employee2.setEmployeeName(zhTWFaker.name().name());
+        	employee2.setPosition(superManager);
+        	employee2.setPhoneNumber("09" + faker.number().digits(8));
+        	employee2.setIdNumber("R2" + faker.number().digits(8));
+        	int randomNum2 = faker.random().nextInt(6, 11);
+        	String randomPassword2 = faker.number().digits(randomNum2);
+        	String hashedPassword2 = BCrypt.hashpw(randomPassword2, BCrypt.gensalt());
+        	employee.setPassword(hashedPassword2);
+        	employeeDao.save(employee2);
+        }
     }
 
     // 預設拍賣商品評論資料
@@ -329,4 +381,45 @@ public class GenDefaultData {
 
         bidProductCommentDao.saveAll(defaultBidProductComments);
     }
+    
+    //預設優惠券資料
+    private void createCoupon() {
+    	long num = couponDao.count();
+    	
+    	if(num>0) return;
+    	CouponBean coupon = new CouponBean();
+    	UUID uuid = UUID.randomUUID();
+		String uuidString  = uuid.toString().replace("-", "").substring(0,20);
+    	coupon.setCouponid(uuidString);
+    	coupon.setConvertid("6666");
+    	coupon.setCouponamount(9999);
+    	coupon.setCouponname("限定優惠6666");
+    	coupon.setStartdate("2023-05-01 00:00:00");
+    	coupon.setEnddate("2023-05-31 23:59:59");
+    	coupon.setInstructions("開店限時優惠");
+    	couponDao.save(coupon);   	
+    }
+    
+    // 預設會員
+    private void createCustomer() {
+    	long num = customerDao.count();
+    	
+    	if(num >= 100) return;
+    	
+    	Faker zhTWFaker = new Faker(new Locale("zh-TW"));
+		Faker faker = new Faker();
+		
+    	for(int i=0; i<100; i++) {
+    		Customer customer = new Customer();
+    		customer.setEmail(faker.internet().emailAddress());
+    		customer.setName(zhTWFaker.name().name());
+    		int randomNum = zhTWFaker.random().nextInt(6, 11);
+    		String randomPassword = zhTWFaker.number().digits(randomNum);
+    		customer.setPassword(BCrypt.hashpw(randomPassword, BCrypt.gensalt()));
+    		customer.setPhoneNumber("09" + faker.number().digits(8));
+    		customer.setAbandonCount(zhTWFaker.random().nextInt(0, 3));
+    		customer.setPoint(zhTWFaker.random().nextInt(0, 1001));
+    		customerDao.save(customer);
+    	}
+    }    
 }

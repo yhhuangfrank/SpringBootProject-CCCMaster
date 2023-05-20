@@ -84,8 +84,8 @@ font-size: 20px
 	            <div class="row mb-3">
                  <label for="inputText" class="col-sm-2 col-form-label" style="text-align: right;">取貨地址:</label>
                  <div class="col-sm-10" style="height: 45px;line-height: 45px">
-                 	<input type="hidden" name="shipperaddress" value="${cookie.add.value}">
-                 	${cookie.add.value}
+                 	<input type="hidden" name="shipperaddress" value="${cookie.address.value}">
+                 	${cookie.address.value}
                  </div>
 	           </div>
           	   <div class="row mb-3">

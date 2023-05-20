@@ -45,7 +45,7 @@
             <!-- Template Main CSS File -->
             <link href="${contextRoot}/styles/back/assets/css/style.css" rel="stylesheet">
 
-            
+
           </head>
 
           <body>
@@ -53,127 +53,160 @@
 
 
             <main id="main" class="main">
-            
-                                                    <div class="col-lg-12">
-                                                        <br>
-                                                        <h1 style="text-align:center;margin-right:80px;">答覆中心</h1><br>
-                                                        <div class="card">
-                                                            <div class="card-body">
-                                                                <!-- Table with stripped rows -->
-                                                                <table id="tabs" class="table">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th scope="col">編號</th>
-                                                                            <th scope="col">回報主旨</th>
-                                                                            <th scope="col">回報內容</th>
-                                                                            <th scope="col">回報時間</th>
-                                                                            <th scope="col">操作區</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <c:forEach items="${page.content}" var="ReportForm">
-                                                                            <tr>
-                                                                                <td>${ReportForm.id}</td>
-                                                                                <td>${ReportForm.question}</td>
-                                                                                <td id="ellipsis" title="${ReportForm.narrative}">${ReportForm.narrative}</td>
-                                                                                <td><fmt:formatDate pattern="EEEE yyyy-MM-dd HH:mm:ss" value="${ReportForm.createtime}" /></td>
-                                                                                <td>
-						                                                        <div style="display:flex">
-                                                                                <form action="${contextRoot}/admin/Service/findform/Reply">
-						                                                        <input type="hidden" name="id" value="${ReportForm.id}" />
-					                                                       	   <input type="submit" class="btn btn-outline-success" value="回覆" />
-					                                                          	</form>
-				                                                         		<form action="${contextRoot}/admin/Service/findform/delete" method="post">
-		                                                       				   <input type="hidden" name="_method" value="delete" />
-						                                      				   <input type="hidden" name="id" value="${ReportForm.id}" />
-						                                      				   <input type="submit" class="btn btn-danger" value="刪除" />
-						                                   				   </form>
-						                                   				   </div>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </c:forEach>
-                                                                    </tbody>
-                                                                </table>
-                                                                <!-- End Table with stripped rows -->
-                                                                <!-- 分頁開始 -->
-                                                                <div style="display: flex;justify-content: center;">
-                                                                    <ul class="pagination">
-                                                                        <li style="padding-top: 7px;margin-right: 30px;">
-                                                                            共${page.totalPages}頁
-                                                                        </li>
-                                                                        <!-- 分頁上下頁開始 -->
-                                                                        <c:choose>
-                                                                             <c:when test="${page.number != 0 }">
-                                                                            <li class="page-item">
-                                                                              <a class="page-link" href="${contextRoot}/admin/Service/findform?p=${page.number}" aria-label="Previous">
-                                                                                <span aria-hidden="true">&laquo;</span>
-                                                                              </a>
-                                                                            </li>
-                                                                            </c:when>
-                                                                           <c:otherwise>
-                                                                            <li class="page-item">
-                                                                              <a class="page-link" href="${contextRoot}/admin/Service/findform?p=${page.number+1}" aria-label="Previous">
-                                                                                <span aria-hidden="true">&laquo;</span>
-                                                                              </a>
-                                                                            </c:otherwise>
-                                                                         </c:choose>
-                                                                <jstl:forEach var="pageNumber" begin="1" end="${page.totalPages}">
-                                                                <jstl:choose>
-                                                                <jstl:when test="${page.number != pageNumber-1 }">
-                                                                </jstl:when>
-                                                                <jstl:otherwise>
-                                                                
-                                                                <li class="page-item">
-                                                                    <span class="page-link" style="color: black;">第${pageNumber}頁</span>
-                                                            </li>
-                                                                </jstl:otherwise>
-                                                                </jstl:choose>
-                                                                </jstl:forEach>
-                                                                
-                                                                    <c:choose>
-                                                                       <c:when test="${page.number != page.totalPages -1}">
-                                                                 <li class="page-item">
-                                                                    <a class="page-link" href="${contextRoot}/admin/Service/findform?p=${page.number+2}" aria-label="Next">
-                                                                      <span aria-hidden="true">&raquo;</span>
-                                                                    </a>
-                                                                  </li>
-                                                                        </c:when>
-                                                                           <c:otherwise>
-                                                                            <li class="page-item">
-                                                                               <a class="page-link" href="${contextRoot}/admin/Service/findform?p=${page.number+1}" aria-label="Next">
-                                                                                 <span aria-hidden="true">&raquo;</span>
-                                                                               </a>
-                                                                             </li>
-                                                                            </c:otherwise>
-                                                                         </c:choose>   
-                                                                         <!-- 分頁上下頁結束 -->
-                                                                         <!-- 跳頁開始 -->
-                                                                         <li style="margin-left: 7px;padding-top:7px"><span>跳至</span></li>
-                                                                         <li style="margin-left: 7px;">
-                                                                            <select  class="form-control" id="inputQuestion" onchange="javascript:location.href=this.value;">
-                                                                                    <option value="" selected>${page.number+1}
-                                                                                    <jstl:forEach var="pageNumber" begin="1" end="${page.totalPages}"><option value="${contextRoot}/admin/Service/findform?p=${pageNumber}" >${pageNumber}
-                                                                                    </jstl:forEach>
-                                                                            </select>
-                                                                            <li style="margin-left: 7px;padding-top:7px"><span>頁</span>
-                                                                        </li>
 
-                                                                         <!-- 跳頁結束 -->
-                                                                </ul>
-                                                                <!-- 分頁結束 -->
-                                                            </div>
-                                                            </div>
-                                                        </div>
+              <div class="col-lg-12">
+                <br>
+                <h1 style="text-align:center;margin-right:80px;">答覆中心</h1><br>
+                <div class="card">
+                  <div class="card-body">
+                    <!-- Table with stripped rows -->
+                    <table id="tabs" class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">編號</th>
+                          <th scope="col">回報主旨</th>
+                          <th scope="col">回報內容</th>
+                          <th scope="col">回報時間</th>
+                          <th scope="col">操作區</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <c:forEach items="${page.content}" var="ReportForm">
+                          <c:choose>
+                            <c:when test="${empty ReportForm.reply}">
+                              <tr>
+                                <td>${ReportForm.id}</td>
+                                <td>${ReportForm.question}</td>
+                                <td id="ellipsis" title="${ReportForm.narrative}">${ReportForm.narrative}</td>
+                                <td>
+                                  <fmt:formatDate pattern="EEEE yyyy-MM-dd HH:mm:ss" value="${ReportForm.createtime}" />
+                                </td>
+                                <td>
+                                  <div style="display:flex">
+                                    <form action="${contextRoot}/admin/Service/findform/Reply">
+                                      <input type="hidden" name="id" value="${ReportForm.id}" />
+                                      <input type="submit" class="btn btn-outline-success" value="回覆" onclick="return myFunction2()"/>
+                                    </form>
+                                    <form action="${contextRoot}/admin/Service/findform/delete" method="post">
+                                      <input type="hidden" name="_method" value="delete" />
+                                      <input type="hidden" name="id" value="${ReportForm.id}" />
+                                      <input type="submit" class="btn btn-danger" value="刪除" onclick="return myFunction1()" />
+                                    </form>
+                                  </div>
+                                </td>
+                              </tr>
+                            </c:when>
+                            <c:otherwise>
+                            </c:otherwise>
+                          </c:choose>
+                        </c:forEach>
+                      </tbody>
+                    </table>
+                    <!-- End Table with stripped rows -->
+                    <!-- 分頁開始 -->
+                    <div style="display: flex;justify-content: center;">
+                      <ul class="pagination">
+                        <li style="padding-top: 7px;margin-right: 30px;">
+                          共${page.totalPages}頁
+                        </li>
+                        <!-- 分頁上下頁開始 -->
+                        <c:choose>
+                          <c:when test="${page.number != 0 }">
+                            <li class="page-item">
+                              <a class="page-link" href="${contextRoot}/admin/Service/findform?p=${page.number}"
+                                aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                              </a>
+                            </li>
+                          </c:when>
+                          <c:otherwise>
+                            <li class="page-item">
+                              <a class="page-link" href="${contextRoot}/admin/Service/findform?p=${page.number+1}"
+                                aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                              </a>
+                          </c:otherwise>
+                        </c:choose>
+                        <jstl:forEach var="pageNumber" begin="1" end="${page.totalPages}">
+                          <jstl:choose>
+                            <jstl:when test="${page.number != pageNumber-1 }">
+                            </jstl:when>
+                            <jstl:otherwise>
 
-                                                    </div>
-                                            
-                                        <!-- 分隔 -->
+                              <li class="page-item">
+                                <span class="page-link" style="color: black;">第${pageNumber}頁</span>
+                              </li>
+                            </jstl:otherwise>
+                          </jstl:choose>
+                        </jstl:forEach>
 
-            
-            
-            
+                        <c:choose>
+                          <c:when test="${page.number != page.totalPages -1}">
+                            <li class="page-item">
+                              <a class="page-link" href="${contextRoot}/admin/Service/findform?p=${page.number+2}"
+                                aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                              </a>
+                            </li>
+                          </c:when>
+                          <c:otherwise>
+                            <li class="page-item">
+                              <a class="page-link" href="${contextRoot}/admin/Service/findform?p=${page.number+1}"
+                                aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                              </a>
+                            </li>
+                          </c:otherwise>
+                        </c:choose>
+                        <!-- 分頁上下頁結束 -->
+                        <!-- 跳頁開始 -->
+                        <li style="margin-left: 7px;padding-top:7px"><span>跳至</span></li>
+                        <li style="margin-left: 7px;">
+                          <select class="form-control" id="inputQuestion"
+                            onchange="javascript:location.href=this.value;">
+                            <option value="" selected>${page.number+1}
+                              <jstl:forEach var="pageNumber" begin="1" end="${page.totalPages}">
+                            <option value="${contextRoot}/admin/Service/findform?p=${pageNumber}">${pageNumber}
+                              </jstl:forEach>
+                          </select>
+                        <li style="margin-left: 7px;padding-top:7px"><span>頁</span>
+                        </li>
+
+                        <!-- 跳頁結束 -->
+                      </ul>
+                      <!-- 分頁結束 -->
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- 分隔 -->
+
+
+
+
             </main>
 
+            <script>
+            function myFunction1() {
+            	  var r = confirm("確認是否刪除!");
+            	  if (r == true) {
+            	    return true; // 继续提交表单
+            	  } else {
+            	    return false; // 阻止表单提交
+            	  }
+            	}
+
+            function myFunction2() {
+            	  var r = confirm("確認是否回覆該用戶表單!");
+            	  if (r == true) {
+            	    return true; // 继续提交表单
+            	  } else {
+            	    return false; // 阻止表单提交
+            	  }
+            	}
+        </script>
 
 
 

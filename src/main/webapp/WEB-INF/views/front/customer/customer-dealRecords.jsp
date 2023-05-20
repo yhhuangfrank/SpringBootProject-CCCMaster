@@ -137,7 +137,10 @@
 														<a href="#" class="btn btn-outline-dark disabled"><i class="bi bi-cash-coin"></i></a>
 													</c:when>
 													<c:otherwise>
-														<a href="#" class="btn btn-outline-success"><i class="bi bi-cash-coin"></i></a>
+														<form action="${contextRoot}/front/shoppingcart/bid" style="margin: auto;">
+							                        		<input type="hidden" name="productId" value="${bidProduct.id}">
+							                            	<button class="btn btn-outline-success"><i class="bi bi-cash-coin"></i></button>
+						                            	</form>
 													</c:otherwise>
 												</c:choose>
 											</td>

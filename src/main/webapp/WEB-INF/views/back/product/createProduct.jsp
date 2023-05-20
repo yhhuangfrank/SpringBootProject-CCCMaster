@@ -108,7 +108,7 @@
                     <legend class="col-form-label col-sm-2 pt-0">上下架狀態</legend>
                     <div class="col-sm-10">
                         <div class="form-check">
-                            <form:radiobutton class="form-check-input" path="active" id="gridRadios1" value="true"/>
+                            <form:radiobutton class="form-check-input" path="active" id="gridRadios1" value="true" checked="${myForm.active == true}"/>
                             <label class="form-check-label" for="gridRadios1">
                                 上架
                             </label>
@@ -124,8 +124,10 @@
                 </fieldset>
                 <br>
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label"></label>
+<%--                    <label class="col-sm-2 col-form-label"></label>--%>
+
                     <div class="col-sm-10">
+                        <button type="button" id="setDataBtn" class="btn btn-primary">預設資料</button>
                         <button type="submit" class="btn btn-primary">送出</button>
                     </div>
                 </div>
@@ -188,6 +190,22 @@
 <script>
     const modal = new bootstrap.Modal(document.getElementById('exampleModal'));//js使用Bootstrap提供的Modal物件使用modal.hide()來關閉modal
     const generateBtn = document.getElementById("generateBtn")
+    const setDataBtn=document.getElementById("setDataBtn")
+    setDataBtn.addEventListener('click',function (){
+    const idNameInput=document.getElementById('inputName')
+    const idCategoryInput=document.getElementById('categoryId')
+    const idInventoryInput=document.getElementById('inputInventory')
+    const idPriceInput=document.getElementById('inputPrice')
+    const idFeaturesInput=document.getElementById('product-features')
+    const idCustomersInput=document.getElementById('target-customers')
+        console.log('enter')
+        idNameInput.value='i-rocks M31R 無線滑鼠'
+        idCategoryInput.value='鍵盤'
+        idInventoryInput.value='20'
+        idPriceInput.value='1800'
+        idFeaturesInput.value='無線滑鼠 重量只有66公克'
+        idCustomersInput.value='遊戲玩家'
+    })
     generateBtn.addEventListener('click', function () {
         const feature=getFeatures()
         const target= getTarget()
@@ -220,6 +238,7 @@
             console.error('Error Generate Description', error);
         }
     }
+
 </script>
 </body>
 </html>

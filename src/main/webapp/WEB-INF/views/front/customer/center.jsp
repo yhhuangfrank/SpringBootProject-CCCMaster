@@ -163,11 +163,11 @@
 			        </div>
 		
 			        <div class="col-lg-4 col-md-6 mt-4">
-				        <a href="#">
+				        <a href="${contextRoot}/front/bidorders">
 					        <div class="icon-box">
 					        	<div class="icon"><i class="bi bi-heart"></i></div>
-					        	<h4>我的最愛</h4>
-					        	<p> aka 現在還沒有錢帶你回家</p>
+					        	<h4>二手賣場訂單查詢</h4>
+					        	<p>查看所有二手賣場的訂單</p>
 					        </div>
 				        </a>
 			        </div>

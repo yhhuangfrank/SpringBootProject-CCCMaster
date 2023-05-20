@@ -38,6 +38,18 @@
 
         <main>
 		    <div class="container">
+		    
+		    	<!-- 開發人員工具 -->
+				<div class="position-fixed top-50 end-0 translate-middle-y">
+				    <button class="btn btn-secondary rounded-circle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+				      開發人員工具
+				    </button>
+				    <ul class="dropdown-menu">
+				      <li><button class="dropdown-item" id="managerLoginBtn">管理員登入</button></li>
+<!-- 				      <li><button class="dropdown-item" id="firstData">成功的註冊資料</button></li> -->
+				    </ul>
+			  	</div>
+				<!-- 開發人員工具 end -->
 		
 		      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
 		        <div class="container">
@@ -122,6 +134,8 @@
 
         <!-- Template Main JS File -->
         <script src="${contextRoot}/styles/back/assets/js/main.js"></script>
+        <!-- 開發人員工具js -->
+		<script src="${contextRoot}/js/employee/autoLogin.js"></script>
         
         <c:if test="${lazy_float}">
 			<div id="failed-msg-float" class="alert alert-danger position-fixed top-50 start-50 translate-middle d-none" role="alert">

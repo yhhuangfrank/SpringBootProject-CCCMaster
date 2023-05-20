@@ -42,7 +42,7 @@
                 <li><a href="${contextRoot}/service/from/create/${sessionScope.customerId}">表單回報問答中心</a></li>
               </c:when>
               <c:otherwise>
-                <li><a href="${contextRoot}/service/from/create/7">表單回報問答中心</a></li>
+		            <li><a href="${contextRoot}/login">表單回報問答中心</a></li>
               </c:otherwise>
               </c:choose>
               </ul>
@@ -101,6 +101,7 @@
 		  </script>
 	  </c:if>
       
+            <jsp:include page="../layouts/messageroom.jsp" />
       <!-- 引用 Bootstrap icon -->
 	  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     </header>

@@ -38,7 +38,7 @@ function render(message, userName) {
 
 function sendMessage(message) {
     let username = $('#userName').val();
-    console.log(username)
+    console.log(username);
     sendMsg(username, message);
     scrollToBottom();
     if (message.trim() !== '') {
@@ -46,7 +46,7 @@ function sendMessage(message) {
         var context = {
             messageOutput: message,
             time: getCurrentTime(),
-            toUserName: selectedUser
+            toUserName: '客服人員'
         };
 
         $chatHistoryList.append(template(context));
@@ -54,6 +54,7 @@ function sendMessage(message) {
         $textarea.val('');
     }
 }
+
 
 function scrollToBottom() {
     $chatHistory.scrollTop($chatHistory[0].scrollHeight);

@@ -45,6 +45,42 @@
             <!-- Template Main CSS File -->
             <link href="${contextRoot}/styles/back/assets/css/style.css" rel="stylesheet">
 
+            <style>
+            
+              .bordered-table {
+                border-collapse: collapse;
+              }
+
+              .bordered-table th,
+              .bordered-table td {
+                border: 1px solid black;
+                padding: 8px;
+              }
+
+              .bordered-table th:nth-child(1),
+              .bordered-table td:nth-child(1),
+              .bordered-table th:nth-child(3),
+              .bordered-table td:nth-child(3) {
+                background-color: lightgray;
+              }
+
+              th,
+              td {
+                text-align: center;
+              }
+              #fontbackcolor{
+                right: 50px;
+                height:35px; 
+                border:1px solid; 
+                border-color:#eceae9;
+                background-color: rgb(74, 212, 31);
+                text-align: center;
+                font-size: 24px;
+              }
+              #userfontbackcolor{
+                font-size: 24px;
+              }
+            </style>
             
           </head>
 
@@ -55,64 +91,53 @@
             <main id="main" class="main">
             
 		<div class="row justify-content-center">
-			<div class="col-4">
-				<h1>修改頁面</h1>
+			<div class="col-5">
+				<h1>客服表單回覆區</h1>
 				<div class="card">
-					<div class="card-header">訊息</div>
-					<div class="card-body">
+					<div class="card-header">表單</div>
+					<div class="card-body" >
 						<form:form class="form-control" modelAttribute="ReportForm"
 							method="put">
 
-                           <table id="orderTable" class="bordered-table">
+                           <table id="orderTable" class="bordered-table" style="width:100%;height:90%;">
                           <thead>
                             <tr>
-                              <th style="width: 90px;">訂單編號</th>
-                              <th id="trow1col2" style="width: 120px;">
-							<form:input path="Reply" class="form-control" id="" cols="30"
-								rows="10" vluas="${ReportForm.id}"></form:input></th>
-                              <th style="width: 100px;">顧客編號</th>
-                              <th id="trow1col4" style="width: 195px;"></th>
+                              <th style="width: 110px;">回報編號</th>
+                              <th id="trow1col2" style="width: 180px;">${ReportForm.id}</th>
+                              <th style="width: 110px;">訂單編號</th>
+                              <th id="trow1col4" style="width: 180px;">${ReportForm.orderid}</th>
                             </tr>
                           </thead>
-                          <tbody id="orderTableBody">
+                          <tbody>
                             <tr>
-                              <td>訂購人</td>
-                              <td id="trow2col2"></td>
-                              <td>訂單金額</td>
-                              <td id="trow2col4"></td>
-                            </tr>
-                            <tr>
-                              <td>付款方式</td>
-                              <td id="trow3col2"></td>
-                              <td>付款狀態</td>
-                              <td id="trow3col4"></td>
-                            </tr>
-                            <tr>
-                              <td>配送方式</td>
-                              <td id="trow4col2"></td>
-                              <td>貨運公司</td>
-                              <td id="trow4col4"></td>
+                              <td>顧客編號</td>
+                              <td>${ReportForm.customerid}</td>
+                              <td>顧客名稱</td>
+                              <td>${ReportForm.customername}</td>
                             </tr>
                             <tr>
                               <td>連絡電話</td>
-                              <td id="trow5col2" colspan="3"></td>
+                              <td>${ReportForm.phone}</td>
+                              <td>電子郵件</td>
+                              <td>${ReportForm.email}</td>
                             </tr>
                             <tr>
-                              <td>寄送地址</td>
-                              <td id="trow6col2" colspan="3"></td>
+                              <td>問題主旨</td>
+                              <td colspan="3">${ReportForm.question}</td>
                             </tr>
                             <tr>
-                              <td>訂單成立日期</td>
-                              <td id="trow7col2" colspan="3"></td>
+                              <td>問題與建議</td>
+                              <td colspan="3" style="height:200px;">${ReportForm.narrative}</td>
                             </tr>
                             <tr>
-                              <td>寄達日期</td>
-                              <td id="trow8col2" colspan="3">	<form:input type="hidden" path="id"/>
-							<h1>${ReportForm.id}</h1></td>
+                              <td>客服回覆</td>
+                              <td colspan="3" style="height:200px;">
+							<form:textarea  type="text" path="Reply" style="height:100%;width:100%;" /></td>
                             </tr>
                           </tbody>
                         </table>
 
+							<button type="submit" class="btn btn-primary" style="text-align:right;">送出</button>
 						</form:form>
 					</div>
 				</div>

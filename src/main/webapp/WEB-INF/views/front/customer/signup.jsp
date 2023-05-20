@@ -88,6 +88,18 @@
 	<jsp:include page="../layouts/header.jsp" />
 
 	<main id="main">
+	
+		<!-- 開發人員工具 -->
+		<div class="position-fixed top-50 end-0 translate-middle-y">
+		    <button class="btn btn-secondary rounded-circle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+		      開發人員工具
+		    </button>
+		    <ul class="dropdown-menu">
+		      <li><button class="dropdown-item" id="duplicateData">錯誤的註冊資料</button></li>
+		      <li><button class="dropdown-item" id="firstData">成功的註冊資料</button></li>
+		    </ul>
+	  	</div>
+		<!-- 開發人員工具 end -->
 
 		<!-- ======= Breadcrumbs ======= -->
 		<section id="breadcrumbs" class="breadcrumbs">
@@ -179,6 +191,8 @@
 	<!-- ajax -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.6/axios.min.js"></script>
 	<script src="${contextRoot}/js/customer/checkSignup.js"></script>
+	<!-- 開發人員工具js -->
+	<script src="${contextRoot}/js/customer/autoData.js"></script>
 </body>
 
 </html>

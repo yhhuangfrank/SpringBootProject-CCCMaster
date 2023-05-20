@@ -22,7 +22,7 @@ function connectToChat(userName) {
 }
 
 function sendMsg(from, text) {
-    stompClient.send("/app/chat/" + selectedUser, {}, JSON.stringify({
+    stompClient.send("/app/chat/客服人員", {}, JSON.stringify({
         fromLogin: from,
         message: text
     }));
@@ -47,7 +47,7 @@ function disconnectFromChat() {
 
 function selectUser(userName) {
     console.log("selecting users: " + userName);
-    selectedUser = userName;
+    selectedUser = '客服人員';
     let isNew = document.getElementById("newMessage_" + userName) !== null;
     if (isNew) {
         let element = document.getElementById("newMessage_" + userName);
@@ -57,6 +57,7 @@ function selectUser(userName) {
     $('#selectedUserId').html('');
     $('#selectedUserId').append('聊天對象: ' + userName);
 }
+
 
 function fetchAll() {
     $.get(url + "/fetchAllUsers", function (response) {
@@ -76,10 +77,7 @@ function fetchAll() {
         $('#usersList').html(usersTemplateHTML);
     });
 }
-
 $(document).ready(function() {
-    // Call fetchAll() when the page finishes loading
-    fetchAll();
-    
-    setInterval(fetchAll, 5000);
+    selectUser('客服人員');
 });
+

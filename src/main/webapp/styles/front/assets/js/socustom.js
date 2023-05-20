@@ -56,8 +56,7 @@ function sendMessage(message) {
 }
 
 function scrollToBottom() {
-  var $box = $('#box');
-  $box.scrollTop($box[0].scrollHeight);
+    $chatHistory.scrollTop($chatHistory[0].scrollHeight);
 }
 
 function getCurrentTime() {
