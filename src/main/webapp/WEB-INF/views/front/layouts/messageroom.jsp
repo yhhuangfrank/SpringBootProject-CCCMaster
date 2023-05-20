@@ -46,54 +46,7 @@
       padding: 0%;
     }
 
-    /* //聊天室模板 */
-body{
-	background: #EEEEEE;
-	font-family: 'Roboto', sans-serif;
-}
-.card{
-	width: 100%;
-  height: 100%;
-	border: none;
-	border-radius: 15px;
-}
-.adiv{
-	background: #04CB28;
-	border-radius: 15px;
-	border-bottom-right-radius: 0;
-	border-bottom-left-radius: 0;
-	font-size: 12px;
-	height: 46px;
-}
-.chat{
-	border: none;
-	background: #E2FFE8;
-	font-size: 10px;
-	border-radius: 20px;
-}
-.bg-white{
-	border: 1px solid #E7E7E9;
-	font-size: 10px;
-	border-radius: 20px;
-}
-.myvideo img{
-	border-radius: 20px
-}
-.dot{
-	font-weight: bold;
-}
-.form-control{
-	border-radius: 12px;
-	border: 1px solid #F0F0F0;
-	font-size: 8px;
-}
-.form-control:focus{
-	box-shadow: none;
-	}
-.form-control::placeholder{
-	font-size: 8px;
-	color: #C4C4C4;
-}
+
   </style>
 </head>
 <body>
