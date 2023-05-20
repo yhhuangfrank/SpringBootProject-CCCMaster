@@ -182,7 +182,8 @@
             <c:forEach var="pageNumber" begin="1" end="${page.totalPages}">
               <c:choose>
                 <c:when test="${page.number != pageNumber-1 }">
-                  <a href="${contextRoot}/admin/advertises/showAllAdvertise?p=${pageNumber}">${pageNumber}</a>
+<%--                  <a href="${contextRoot}/admin/advertises/showProduct?advertiseId=${advertiseId}&?p=${pageNumber}">${pageNumber}</a>--%>
+                  <a href="${contextRoot}/admin/advertises/showProduct?advertiseId=${advertiseId}&p=${pageNumber}">${pageNumber}</a>
                 </c:when>
                 <c:otherwise>${pageNumber}</c:otherwise>
               </c:choose>
