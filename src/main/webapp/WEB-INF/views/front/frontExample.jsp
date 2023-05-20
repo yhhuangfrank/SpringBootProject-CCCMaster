@@ -32,11 +32,11 @@
 
   <style>
     .slider_container {
-      margin: 30px auto;
-      width: 420px;
-      height: 280px;
-      overflow: hidden;
-      position: relative;
+      /*margin: 30px auto;*/
+      /*width: 525px;*/
+      /*height: 350px;*/
+      /*overflow: hidden;*/
+      /*position: relative;*/
       /*border: 10px solid;*/
       /*border-top-color: #856036;*/
       /*border-left-color: #5d4426;*/
@@ -54,7 +54,7 @@
       filter: alpha(opacity=100);
       width: 100%;
       height: 100%;
-      /*background-image: url(http://blog.shihshih.com/wp-content/uploads/2018/08/image1.png);*/
+      background-image: url(http://blog.shihshih.com/wp-content/uploads/2018/08/image1.png);
       animation: bk 25s linear;
     }
     .slider_container div {
@@ -146,7 +146,7 @@
     }
     .rwd_slider_container_wrapper {
       margin: 30px auto !important;
-      width: 420px;
+      width: 400px;
     }
     .rwd_slider_container {
       position: relative;
@@ -172,6 +172,82 @@
 
 
   </style>
+
+
+<%--<style>--%>
+<%--  .coverflow{--%>
+<%--  width: 700px;--%>
+<%--  height: 300px;--%>
+<%--  position: relative;--%>
+<%--  }--%>
+<%--  .coverflow>a{--%>
+<%--  display: block;--%>
+<%--  position: absolute;--%>
+<%--  top:0;--%>
+<%--  left:0;--%>
+<%--  opacity: 0;--%>
+<%--  filter: alpha(opacity=0);--%>
+<%--  /*當圖片數量增加，影片長度需更改，變為5s*圖片數量*/--%>
+<%--  -webkit-animation: silder 15s linear infinite;--%>
+<%--  animation: silder 15s linear infinite;--%>
+<%--  }--%>
+<%--  .coverflow>a>img{--%>
+<%--    width: 700px;--%>
+<%--    height: 300px;--%>
+<%--  }--%>
+
+<%--  /*動畫關鍵影格*/--%>
+<%--  @-webkit-keyframes silder {--%>
+<%--  3% {--%>
+<%--  opacity: 1;--%>
+<%--  filter: alpha(opacity=100);--%>
+<%--  }--%>
+<%--  27% {--%>
+<%--  opacity: 1;--%>
+<%--  filter: alpha(opacity=100);--%>
+<%--  }--%>
+<%--  30% {--%>
+<%--  opacity: 0;--%>
+<%--  filter: alpha(opacity=0);--%>
+<%--  }--%>
+<%--  }--%>
+<%--  @keyframes silder {--%>
+<%--  3% {--%>
+<%--  opacity: 1;--%>
+<%--  filter: alpha(opacity=100);--%>
+<%--  }--%>
+<%--  27% {--%>
+<%--  opacity: 1;--%>
+<%--  filter: alpha(opacity=100);--%>
+<%--  }--%>
+<%--  30% {--%>
+<%--  opacity: 0;--%>
+<%--  filter: alpha(opacity=0);--%>
+<%--  }--%>
+<%--  }--%>
+
+<%--  /*每個圖片各延遲5秒*/--%>
+<%--  .coverflow>a:nth-child(3) {--%>
+<%--  -webkit-animation-delay: 10s;--%>
+<%--  animation-delay: 10s;--%>
+<%--  }--%>
+
+<%--  .coverflow>a:nth-child(2) {--%>
+<%--  -webkit-animation-delay: 5s;--%>
+<%--  animation-delay: 5s;--%>
+<%--  }--%>
+
+<%--  .coverflow>a:nth-child(1) {--%>
+<%--  -webkit-animation-delay: 0s;--%>
+<%--  animation-delay: 0s;--%>
+<%--  }--%>
+<%--  /*滑入時停止播放*/--%>
+<%--  .coverflow:hover>a{--%>
+<%--  -webkit-animation-play-state: paused;--%>
+<%--  animation-play-state: paused;--%>
+<%--  }--%>
+<%--</style>--%>
+
 
 </head>
 
@@ -274,7 +350,7 @@
   </section><!-- End Counts Section -->
 
   <!-- ======= Clients Section ======= -->
-  <section id="clients" class="clients">
+<%--  <section id="clients" class="clients">--%>
 <%--    <div class="container">--%>
 
 <%--      <div class="section-title">--%>
@@ -301,7 +377,7 @@
           <div class="rwd_slider_container">
             <div class="slider_container" >
               <c:forEach items="${productImageIds}" var="productImageIds">
-                <div class="carousel-item active" style="width: 500px;" data-bs-interval="3000">
+                <div class="carousel-item active"  data-bs-interval="3000">
                   <a href="${contextRoot}/front/product/details/${productImageIds}">
 
                     <img src="${contextRoot}/product/mainImage/${productImageIds}" class="d-block w-100 "  alt="...">
@@ -313,7 +389,17 @@
           </div><!-- end of .embed-responsive -->
         </div><!-- end of .embed-responsive-box -->
 
+<%--  <div class="coverflow m-auto">--%>
+<%--    <c:forEach items="${productImageIds}" var="productImageIds">--%>
 
+<%--        <a href="${contextRoot}/front/product/details/${productImageIds}">--%>
+
+<%--          <img src="${contextRoot}/product/mainImage/${productImageIds}"   alt="...">--%>
+<%--        </a>--%>
+
+<%--    </c:forEach>--%>
+
+<%--  </div>--%>
 
 
 
