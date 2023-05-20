@@ -119,7 +119,7 @@
         <div class="row mb-3">
             <label class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
-                <button type="submit" class="btn btn-primary">Submit Form</button>
+                <button type="submit" class="btn btn-primary">送出</button>
             </div>
         </div>
 
