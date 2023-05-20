@@ -38,7 +38,7 @@ public class AdvertiseController {
 
 
         model.addAttribute("productImageIds", productImageIds);
-        return "front/frontExample";
+        return "front/product/productAjaxTest";
     }
 
     @ResponseBody

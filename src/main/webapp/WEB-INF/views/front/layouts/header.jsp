@@ -31,7 +31,7 @@
 <%--              </ul>--%>
 <%--            </li>--%>
             <li><a href="#">通知</a></li>
-            <li><a href="${contextRoot}/front/product">商城</a></li>
+            <li><a href="${contextRoot}/">商城</a></li>
             <li><a href="${contextRoot}/bidProducts"><span>二手賣場</span></a></li>
             <li><a href="${contextRoot}/forums/showAllForum">論壇</a></li>
            <li class="dropdown"><a href="#"><span>聯絡客服</span></a>

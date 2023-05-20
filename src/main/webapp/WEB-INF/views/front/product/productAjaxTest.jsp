@@ -79,6 +79,147 @@
         .product-info {
             width: 400px;
         }
+
+        .slider_container {
+            /*margin: 30px auto;*/
+            /*width: 525px;*/
+            /*height: 350px;*/
+            /*overflow: hidden;*/
+            /*position: relative;*/
+            /*border: 10px solid;*/
+            /*border-top-color: #856036;*/
+            /*border-left-color: #5d4426;*/
+            /*border-bottom-color: #856036;*/
+            /*border-right-color: #5d4426;*/
+            /*background-color: #f5f5f5;*/
+        }
+        .slider_container:before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: -100%;
+            opacity: 1;
+            filter: alpha(opacity=100);
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            animation: bk 25s linear;
+        }
+        .slider_container div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 1;
+            filter: alpha(opacity=100);
+            left: 100%;
+            width: 100%;
+            -webkit-animation: round 25s linear infinite;
+            animation: round 25s linear infinite;
+        }
+        .slider_container div img {
+            width: 100%;
+        }
+        @-webkit-keyframes round {
+            4% {
+                opacity: 1;
+                filter: alpha(opacity=100);
+                left: 0;
+                /* 0 - 1秒 滑入*/
+            }
+            20% {
+                opacity: 1;
+                filter: alpha(opacity=100);
+                left: 0;
+                /* 1- 5秒靜止*/
+            }
+            24% {
+                opacity: 1;
+                filter: alpha(opacity=100);
+                left: -100%;
+                /* 5-6秒滑出*/
+            }
+            26% {
+                opacity: 0;
+                filter: alpha(opacity=0);
+                left: -100%;
+                /* 6-6.5秒變透明*/
+            }
+            28% {
+                opacity: 0;
+                filter: alpha(opacity=0);
+                left: 100%;
+                /* 6.5-7秒回到起始位置*/
+            }
+        }
+        @keyframes bk {
+            0% {
+                left: 0;
+                /* 初始位置*/
+            }
+            4% {
+                left: -100%;
+                /* 0 - 1秒 滑出*/
+            }
+        }
+
+        @keyframes bk {
+            0% {
+                left: 0;
+                /* 初始位置*/
+            }
+            4% {
+                left: -100%;
+                /* 0 - 1秒 滑出*/
+            }
+        }
+        .slider_container div:nth-child(5) {
+            -webkit-animation-delay: 0s;
+            animation-delay: 0s;
+        }
+        .slider_container div:nth-child(4) {
+            -webkit-animation-delay: 5s;
+            animation-delay: 5s;
+        }
+        .slider_container div:nth-child(3) {
+            -webkit-animation-delay: 10s;
+            animation-delay: 10s;
+        }
+        .slider_container div:nth-child(2) {
+            -webkit-animation-delay: 15s;
+            animation-delay: 15s;
+        }
+        .slider_container div:nth-child(1) {
+            -webkit-animation-delay: 20s;
+            animation-delay: 20s;
+        }
+        .rwd_slider_container_wrapper {
+            margin: 0px auto !important;
+            width: 400px;
+        }
+        .rwd_slider_container {
+            position: relative;
+            display: block;
+            height: 0;
+            padding: 0;
+            overflow: hidden;
+            padding-bottom: 70%;
+            box-sizing: border-box;
+        }
+        .rwd_slider_container .slider_container {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+
+
+        }
     </style>
 </head>
 
@@ -88,9 +229,29 @@
 <jsp:include page="${contextRoot}/WEB-INF/views/front/layouts/header.jsp"/>
 
 <main id="main" class="mt-5">
+    <section>
+        <div class="rwd_slider_container_wrapper">
+            <div class="rwd_slider_container">
+                <div class="slider_container" >
+                    <c:forEach items="${productImageIds}" var="productImageIds">
+                        <div class="carousel-item active"  data-bs-interval="3000">
+                            <a href="${contextRoot}/front/product/details/${productImageIds}">
+                                <img src="${contextRoot}/product/mainImage/${productImageIds}" class="d-block w-100 "  alt="...">
+                            </a>
+                        </div>
+                    </c:forEach>
+
+                </div><!-- end of .pure_slider_container -->
+            </div><!-- end of .embed-responsive -->
+        </div><!-- end of .embed-responsive-box -->
+
+    </section>
+
+
 
     <!-- ======= Breadcrumbs ======= -->
     <section id="breadcrumbs" class="breadcrumbs">
+
         <div class="container">
             <ol>
                 <li><a href="${contextRoot}/">首頁</a></li>

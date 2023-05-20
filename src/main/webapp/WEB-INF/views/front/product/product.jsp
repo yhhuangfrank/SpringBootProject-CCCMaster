@@ -49,7 +49,15 @@
             max-height: 400px; /* 將最大高度設置為 200px */
             height: auto; /* 讓高度根據原始比例自適應 */
         }
+
+
+
     </style>
+
+
+
+
+
 </head>
 
 <body>
@@ -58,9 +66,14 @@
 
 <jsp:include page="${contextRoot}/WEB-INF/views/front/layouts/header.jsp"/>
 
+
+
 <main id="main">
 
+
+
     <!-- ======= Breadcrumbs ======= -->
+
     <section id="breadcrumbs" class="breadcrumbs">
         <div class="container">
 
@@ -80,10 +93,16 @@
 
         </div>
 
+
+
+
     </section><!-- End Breadcrumbs -->
+
+
 
     <!-- ======= Portfolio Section ======= -->
     <section id="portfolio" class="portfolio">
+
         <div class="container">
 
             <div class="row">
