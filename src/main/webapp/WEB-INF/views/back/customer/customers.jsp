@@ -84,7 +84,7 @@
 										<th scope="col">編號</th>
 										<th scope="col">電子郵件</th>
 										<th scope="col">暱稱</th>
-										<th scope="col">密碼</th>
+<!-- 										<th scope="col">密碼</th> -->
 										<th scope="col">手機號碼</th>
 										<th scope="col">點數</th>
 										<th scope="col">棄標次數</th>
@@ -98,7 +98,7 @@
 											<th scope="row">${customer.customerId}</th>
 											<td>${customer.email}</td>
 											<td>${customer.name}</td>
-											<td>${customer.password}</td>
+<%-- 											<td>${customer.password}</td> --%>
 											<td>${customer.phoneNumber}</td>
 											<td>${customer.point}</td>
 											<td>${customer.abandonCount}</td>

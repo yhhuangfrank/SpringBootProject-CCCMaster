@@ -25,10 +25,13 @@ import com.ispan.CCCMaster.annotation.CustomerAuthentication;
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.bid.DealRecord;
 import com.ispan.CCCMaster.model.bean.customer.Customer;
+import com.ispan.CCCMaster.model.bean.customer.CustomerCoupon;
 import com.ispan.CCCMaster.model.bean.order.OrderBean;
 import com.ispan.CCCMaster.model.bean.order.OrderDetailBean;
 import com.ispan.CCCMaster.model.bean.shoppingcart.ShoppingCartBean;
 import com.ispan.CCCMaster.model.dao.CustomerDao;
+import com.ispan.CCCMaster.service.CouponService;
+import com.ispan.CCCMaster.service.CustomerCouponService;
 import com.ispan.CCCMaster.service.CustomerService;
 import com.ispan.CCCMaster.service.DealRecordService;
 import com.ispan.CCCMaster.service.ProductService;
@@ -36,18 +39,15 @@ import com.ispan.CCCMaster.service.ShoppingCartService;
 
 @Controller
 public class ShoppingCartController {
-	
-    @Autowired
-    private ProductService pService;
-    
+	  
 	@Autowired
 	private ShoppingCartService scService;
 	
 	@Autowired
-	private DealRecordService recordService;
+	private CustomerService cService;
 	
 	@Autowired
-	private CustomerService cService;
+	private CustomerCouponService cpService;
 	
 	//創立購物車，並將畫面重新導向為商品詳細頁面
 	@PostMapping("/shoppingcarts/create")
@@ -67,6 +67,8 @@ public class ShoppingCartController {
 		Customer customer= cService.findById(customerId);
 		model.addAttribute("shoppingcart",sc);
 		model.addAttribute("customer",customer);
+		List<CustomerCoupon> coupon= cpService.findByCustomerWhereIsAvailable(customer);
+		model.addAttribute("coupon",coupon);
 		return "/front/shoppingcarts/showshoppingcart";
 	}
 

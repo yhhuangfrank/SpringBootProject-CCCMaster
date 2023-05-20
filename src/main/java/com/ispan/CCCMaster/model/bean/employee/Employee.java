@@ -34,7 +34,7 @@ public class Employee {
 	@Column(name = "id_number", columnDefinition = "char(10)", unique = true)
 	private String idNumber;
 	
-	@Column(name = "password", columnDefinition = "varchar(20)")
+	@Column(name = "password", columnDefinition = "varchar(max)")
 	private String password;
 	
 	@ManyToOne

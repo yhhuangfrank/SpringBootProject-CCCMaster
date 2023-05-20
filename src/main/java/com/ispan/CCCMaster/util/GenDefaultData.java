@@ -10,6 +10,8 @@ import com.ispan.CCCMaster.model.bean.employee.Position;
 import com.ispan.CCCMaster.model.bean.product.Product;
 import com.ispan.CCCMaster.model.bean.product.ProductImg;
 import com.ispan.CCCMaster.model.dao.*;
+
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -122,11 +124,13 @@ public class GenDefaultData {
         customer1.setName(zhTWFaker.name().lastName() + zhTWFaker.name().firstName());
         customer1.setEmail("user1@gmail.com");
         customer1.setPhoneNumber("0911111111");
-        customer1.setPassword("123");
+        String hashedPw = BCrypt.hashpw("123", BCrypt.gensalt());
+        customer1.setPassword(hashedPw);
         customer2.setName(zhTWFaker.name().lastName() + zhTWFaker.name().firstName());
         customer2.setEmail("user2@gmail.com");
         customer2.setPhoneNumber("0922222222");
-        customer2.setPassword("123");
+        hashedPw = BCrypt.hashpw("123", BCrypt.gensalt());
+        customer2.setPassword(hashedPw);
         customerDao.save(customer1);
         customerDao.save(customer2);
 
@@ -293,7 +297,8 @@ public class GenDefaultData {
         employee1.setPosition(superManager);
         employee1.setPhoneNumber("0999999999");
         employee1.setIdNumber("A123456789");
-        employee1.setPassword("9999");
+        String hashedPw = BCrypt.hashpw("9999", BCrypt.gensalt());
+        employee1.setPassword(hashedPw);
         employeeDao.save(employee1);
     }
 

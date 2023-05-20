@@ -5,7 +5,10 @@ import javax.servlet.http.HttpSession;
 
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.bid.DealRecord;
+import com.ispan.CCCMaster.model.bean.coupon.CouponBean;
 import com.ispan.CCCMaster.model.customexception.NotFoundException;
+import com.ispan.CCCMaster.model.dao.CouponDao;
+import com.ispan.CCCMaster.model.dao.CustomerCouponDao;
 import com.ispan.CCCMaster.service.BidProductService;
 import com.ispan.CCCMaster.service.CustomerCouponService;
 import com.ispan.CCCMaster.service.DealRecordService;
@@ -22,6 +25,7 @@ import com.ispan.CCCMaster.service.CustomerService;
 import com.ispan.CCCMaster.util.LoginUtil;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class CustomerController {
@@ -38,6 +42,12 @@ public class CustomerController {
 
 	@Autowired
 	private DealRecordService dealRecordService;
+	
+	@Autowired
+	private CouponDao couponDao;
+	
+	@Autowired
+	private CustomerCouponDao ccDao;
 	
 	@GetMapping("/login")	//前台會員登入頁面
 	public String loginPage(HttpServletRequest request) {
@@ -87,8 +97,9 @@ public class CustomerController {
 	public String signUp(@ModelAttribute("customer") Customer customer
 						, HttpServletRequest request
 						, RedirectAttributes redirectAttributes) {
+		String originalPassword = customer.getPassword();	// 先把原密碼存起來，因為等等 create 後密碼會變加密的
 		ctmService.createCustomer(customer);
-		ctmService.logIn(customer.getEmail(), customer.getPassword(), request);
+		ctmService.logIn(customer.getEmail(), originalPassword, request);
 		//重導前添加註冊成功且登入訊息
 		redirectAttributes.addFlashAttribute("signupSuccess", true);
 		redirectAttributes.addFlashAttribute("signupSuccessMsg", "您已成功註冊，並登入成功!");
@@ -104,7 +115,9 @@ public class CustomerController {
 	@CustomerAuthentication
 	@GetMapping("/center/profile")	//會員中心-個人資料頁面
 	public String profilePage(HttpSession session, Model model) {
-		model.addAttribute("customer", loginUtil.getLoginCustomer(session));
+		Customer currentCustomer = loginUtil.getLoginCustomer(session);
+		currentCustomer.setPassword(null);
+		model.addAttribute("customer", currentCustomer);
 		return "front/customer/profile";
 	}
 	
@@ -161,7 +174,8 @@ public class CustomerController {
 	@CustomerAuthentication
 	@GetMapping("/customers/{id}/coupons")	// 會員中心-查看我的優惠券
 	public String getCustomerCoupons(HttpSession session, Model model) {
-		List<CustomerCoupon> customerCoupons = ccService.findByCustomer(loginUtil.getLoginCustomer(session));
+//		List<CustomerCoupon> customerCoupons = ccService.findByCustomer(loginUtil.getLoginCustomer(session));
+		List<CustomerCoupon> customerCoupons = ccService.findByCustomerWhereIsAvailable(loginUtil.getLoginCustomer(session));
 		model.addAttribute("customerCoupons", customerCoupons);
 		return "front/customer/coupons";
 	}
@@ -169,17 +183,36 @@ public class CustomerController {
 	@CustomerAuthentication
 	@PostMapping("/customers/{id}/coupons")	// 會員新增優惠券
 	public String postCustomerCoupons(HttpSession session, @RequestParam("convertid") String convertid, RedirectAttributes redirectAttributes) {
-		if(ccService.createCustomerCoupon(session, convertid)) {
-			//重導前添加新增優惠券成功訊息
+//		if(ccService.createCustomerCoupon(session, convertid)) {
+//			//重導前添加新增優惠券成功訊息
+//			redirectAttributes.addFlashAttribute("isSuccess", true);
+//			redirectAttributes.addFlashAttribute("successMsg", "成功新增優惠券!");			
+//			return "redirect:/customers/{id}/coupons";
+//		} else {			
+//			//重導前添加新增優惠券失敗訊息
+//			redirectAttributes.addFlashAttribute("isFailed", true);
+//			redirectAttributes.addFlashAttribute("failedMsg", "查無此優惠券");	
+//			return "redirect:/customers/{id}/coupons";
+//		}
+		
+		//cover by瑛仁
+		Integer customerId = (Integer)session.getAttribute("customerId");
+		CouponBean coupon = couponDao.findByConvertid(convertid);	
+		if(coupon == null) {
+			redirectAttributes.addFlashAttribute("isFailed", true);
+			redirectAttributes.addFlashAttribute("failedMsg","查無此張優惠券");
+			return "redirect:/customers/{id}/coupons";
+		}
+		Optional<CustomerCoupon> option= ccDao.findByCidByCouid(customerId, coupon.getCouponid());
+			if(option.isEmpty()) {
+			ccService.createCustomerCoupon(session, convertid);
 			redirectAttributes.addFlashAttribute("isSuccess", true);
 			redirectAttributes.addFlashAttribute("successMsg", "成功新增優惠券!");			
 			return "redirect:/customers/{id}/coupons";
-		} else {			
-			//重導前添加新增優惠券失敗訊息
+			} else {
 			redirectAttributes.addFlashAttribute("isFailed", true);
-			redirectAttributes.addFlashAttribute("failedMsg", "查無此優惠券");			
+			redirectAttributes.addFlashAttribute("failedMsg","你已經兌換過此張優惠券了");
 			return "redirect:/customers/{id}/coupons";
+			}
 		}
-	}
-
 }

@@ -76,11 +76,11 @@
                     <td>
                     	<form action="${contextRoot}/coupons/editcoupon" style="margin:auto 0px">
 	                    	<input type="hidden" name="id" value="${cp.couponid}"/>
-	                        <input type="submit" class="btn btn-outline-info btn-sm" value="編輯"/>
+	                        <button type="submit" class="btn btn-outline-dark"><i class="bi bi-pencil"></i></button>
                     	</form>
                     </td>
                     <td>                    	
-                   		<button type="button" data-bs-toggle="modal" data-bs-target="#delete" class="btn btn-outline-danger btn-sm" >刪除</button>	                    		            
+                   		<button type="button" data-bs-toggle="modal" data-bs-target="#delete" class="btn btn-outline-danger" ><i class="bi bi-trash"></i></button>	                    		            
 						<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog" role="document">
 								<div class="modal-content">

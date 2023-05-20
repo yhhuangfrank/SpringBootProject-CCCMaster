@@ -110,21 +110,29 @@
           <div class="sidebar">
               <h5>優惠方式</h5>
               	<div class="form-check">
-              			<input class="form-check-input" type="checkbox" id="pointcheckbox">
+              			<input class="form-check-input" type="checkbox" id="pointcheckbox" onclick="calculateFinalAmount()">
               			<label class="form-check-label" for="gridCheck1" for="points">
               				使用點數              	
             			</label>
             			<div >
-            				<input type="number" id="points" class="form-control col-sm-4"></input>
+            				<input type="number" id="points" class="form-control col-sm-4" onchange="calculateFinalAmount()"></input>
             				(現有${customer.point}點)<input value="${customer.point}" type="hidden" id="cupoint">
             				<div id="canusepoint"></div>
             			</div>
             		</div>
               			<div class="form-check">
-	              			<input class="form-check-input" type="checkbox">
+	              			<input class="form-check-input" type="checkbox" onclick="calculateFinalAmount(),appearcoupon()" id="couponcheckbox">
 	              			<label class="form-check-label" for="gridCheck1">
 	              				使用優惠券              	
 	            			</label>
+	            			<div id="coupons" style="display: none">
+	            				<c:forEach items="${coupon}" var="cp" varStatus="status">
+                        <div>
+                          <input type="radio" class="form-check-input" name="usecoupon" id="usecoupons${status.count}" value="${cp.couponBean.couponamount}" onclick="calculateFinalAmount();storeCouponId('${cp.couponBean.couponid}')">
+                          <label>${cp.couponBean.couponamount},${cp.couponBean.couponname}(${cp.couponBean.enddate})</label>
+                        </div>
+	            				</c:forEach>
+	            			</div>
             			</div>          	
             </div>
             <div class="sidebar">
@@ -149,9 +157,13 @@
 					<span id="finalamount"></span>
 				</div>										
 						<div class="d-grid gap-2 mt-3">
-							<botton type="button" class="btn btn-danger">
-		                        <a href="${contextRoot}/front/shoppingcart/shoppingcartdetail" style="color: white;">結帳去</a>
-	                    	</botton>											
+							<a href="${contextRoot}/front/shoppingcart/shoppingcartdetail" style="color: white;text-align: center;">
+								<div class="d-grid gap-2 mt-3">
+									<botton type="button" class="btn btn-danger">
+				                        結帳去
+			                    	</botton>
+		                    	</div>
+	                    	</a>											
 						</div>					
 				</div>
             </div><!-- End sidebar -->
@@ -176,70 +188,68 @@
 <!-- Template Main JS File -->
 <script src="${contextRoot}/styles/front/assets/js/main.js"></script>
 <script>
-  //總金額
+  let canusepoint = document.getElementById('canusepoint')  //可使用點數的div
+  let cupoints = document.getElementById('cupoint').value   //會員點數
+  var usepoint = Math.floor(cupoints/300);                  //計算可用的點數
+  canusepoint.innerHTML = "(最多可折抵"+usepoint+"點)"
   var totalamount = 0;
   let counttotal = document.getElementsByClassName("countstotal");
   for(let i=0;i<counttotal.length;i++){
     totalamount += parseInt(counttotal[i].value,10)
   }
-  document.getElementById('totalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-  //運費金額
-  if(totalamount<1000 && totalamount>0){
-    document.getElementById('freight').innerHTML = "30";
-    totalamount = totalamount + 30 ;
-    document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-  }else{
-    document.getElementById('freight').innerHTML = 0;
-    document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
+    document.getElementById('totalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
+    let freight=30
+    document.getElementById('freight').textContent = freight.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});;
+    document.getElementById('finalamount').innerHTML = (totalamount+freight).toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
+    if(totalamount>1000){
+      freight=0
+      document.getElementById('freight').textContent = freight.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});;
+      document.getElementById('finalamount').textContent = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
   }
-  let canusepoint = document.getElementById('canusepoint')  //可使用點數的div
-  let cupoints = document.getElementById('cupoint').value   //會員點數
-  var usepoint = Math.floor(cupoints/300);                  //計算可用的點數
-  canusepoint.innerHTML = "(最多可折抵"+usepoint+"元)"
-  
-  let pointcheckbox = document.getElementById('pointcheckbox')
-  let discountLabel = document.getElementById('discount');
-  document.cookie = "point="+0+";path=/";
-  //可用點數
-  document.getElementById('points').addEventListener('input',function(event){
-    let input = event.target; 
-    let inputpoint = parseInt(input.value, 10);     //輸入的point
-    pointcheckbox.checked=true;
+    let pointCheckbox = document.getElementById('pointcheckbox') 
+    let couponCheckbox = document.getElementById('couponcheckbox')
+    let selectCoupon = document.querySelector('input[name="usecoupon"]:checked')
+    if(!pointCheckbox.checked && !couponCheckbox.checked && !selectCoupon){
+      document.cookie = "point="+"0"+";path=/";
+      document.cookie = "couponId="+null;
+    }
+  function calculateFinalAmount(){
+    //計算總金額  
+    let pointsInput = document.getElementById('points')
+      pointsInput.addEventListener('input',function(){
+        pointcheckbox.checked=true; 
+        //使用點數限制
+        if(isNaN(pointsInput.value) || pointsInput.value < 1){
+          pointsInput.value=0;
+        }
+        if(pointsInput.value>usepoint){
+          pointsInput.value=usepoint
+        };
+        pointsInput.value=pointsInput.value
+      })
     
-    //使用點數限制
-    if(isNaN(inputpoint) || inputpoint < 1){
-      inputpoint=0;
+    let discount=0
+    if(pointCheckbox.checked && !couponCheckbox.checked){
+      discount=parseInt(pointsInput.value) || 0;
+      document.cookie = "couponId="+null+";path=/";
+    }else if(pointCheckbox.checked && couponCheckbox.checked && selectCoupon){
+      discount=(parseInt(pointsInput.value)|| 0)+parseInt(selectCoupon.value)
+    }else if(!pointCheckbox.checked && couponCheckbox.checked && selectCoupon){
+      discount=parseInt(selectCoupon.value)
+    }else if(!pointCheckbox.checked && !couponCheckbox.checked && !selectCoupon){
+      discount=0
     }
-    if(inputpoint>usepoint){
-      inputpoint=usepoint
-    };
-    input.value=inputpoint
-    document.getElementById('discount').innerHTML = inputpoint
-    updateFinalAmountUsePoint(inputpoint)
-  })
-  pointcheckbox.addEventListener("change",function(){
-      if(pointcheckbox.checked){
-        discountLabel.innerHTML = document.getElementById('points').value;
-        updateFinalAmountUsePoint(document.getElementById('points').value)
-        document.cookie = "point="+document.getElementById('points').value+";path=/";
-      }else{
-        document.getElementById('discount').innerHTML = "0"
-        updateFinalAmountUsePoint(0)
-        document.cookie = "point="+document.getElementById('points').value+";path=/";
-      }
-    });
-  //更新實付總額
-    function updateFinalAmountUsePoint(inputpoint){
-      let finaltotal = totalamount;
-      if(totalamount<1000 && totalamount>0){
-        finaltotal = totalamount-inputpoint
-      }else{
-        finaltotal = totalamount-inputpoint
-      }
-      document.getElementById('finalamount').innerHTML = finaltotal.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
-    }
+    document.cookie = "point="+(parseInt(pointsInput.value)||0)+";path=/";
+    document.cookie = "discount="+discount+";path=/";
+    let finalAmount = totalamount+freight-discount
 
-
+    document.getElementById('freight').textContent=freight.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
+    document.getElementById('discount').textContent=discount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
+    document.getElementById('finalamount').textContent=finalAmount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
+}
+  function storeCouponId(couponId){
+    document.cookie = "couponId="+couponId;
+  }
   //數量-1
   function dec(count){
     let valueInput = document.getElementById('quantity'+count); //數量
@@ -321,7 +331,16 @@
     }
     input.value=values;
   }
-  
+  //顯示優惠券
+  function appearcoupon(){
+    let couponcheckbox = document.getElementById('couponcheckbox')
+    if(couponcheckbox.checked){
+      let coupons = document.getElementById('coupons')
+      coupons.style.display="block"
+    }else{
+      coupons.style.display="none"
+    }
+  }
   
   
   
