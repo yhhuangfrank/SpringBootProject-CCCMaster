@@ -129,6 +129,7 @@ public class OrderServiceImpl implements OrderService {
 			oldOrder.setShipperaddress(orderBean.getShipperaddress());
 			oldOrder.setOrdercondition(orderBean.getOrdercondition());
 			oldOrder.setShipperaddress(orderBean.getShipperaddress());
+			oldOrder.setPaymentcondition(orderBean.getPaymentcondition());
 		}
 	}
 	

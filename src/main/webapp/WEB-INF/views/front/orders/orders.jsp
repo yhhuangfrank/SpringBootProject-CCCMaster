@@ -125,8 +125,7 @@
 	                    <td>${order.ordercondition}</td>
 	                    <td>${order.paymentcondition}</td>
 	                    <td>${order.totalamount}</td>
-	                    <td>我要退貨</td>
-	                    <td>聯絡客服</td>
+	                    <td><a href="${contextRoot}/service/from/create/${order.cbOrder.customerId}">聯絡客服</a></td>
 	                  </tr>
 	                  </c:forEach>
 	                 </c:if> 
