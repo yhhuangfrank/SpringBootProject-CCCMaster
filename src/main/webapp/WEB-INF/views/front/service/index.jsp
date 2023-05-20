@@ -17,13 +17,22 @@
     <!--    end libs for stomp and sockjs-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"
           type="text/css">
-    <link href="${contextRoot}/styles/front/assets/vendor/swiper/style.css" rel="stylesheet">
+    
+    
+    
 </head>
 <body>
 <div class="container clearfix">
     <div class="people-list" id="people-list">
         <div class="search">
-            <input id="userName" placeholder="search" type="text"/>
+        <c:choose>
+        <c:when test="${not empty sessionScope.customerId}">
+         <input type="hidden" id="userName" placeholder="search" type="text" value="${sessionScope.customerId}" />
+         </c:when>
+          <c:otherwise>
+         <input type="hidden" id="userName" placeholder="search" type="text" value="遊客" />
+          </c:otherwise>
+        </c:choose>
             <button onclick="registration()">加入聊天</button>
             <button onclick="disconnectFromChat()">中斷連線</button>
         </div>
@@ -67,6 +76,9 @@
 
 </div> <!-- end container -->
 
+
+
+
 <script id="message-template" type="text/x-handlebars-template">
     <li class="clearfix">
         <div class="message-data align-right">
@@ -93,11 +105,5 @@
 
 <script src="${contextRoot}/styles/front/assets/js/custom.js"></script>
 <script src="${contextRoot}/styles/front/assets/js/chat.js"></script>
-<script>
-    // 當頁面加載完成後調用 fetchAll() 函數
-    document.addEventListener('DOMContentLoaded', function() {
-        fetchAll();
-    });
-</script>
 </body>
 </html>

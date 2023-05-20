@@ -21,8 +21,7 @@
             <!--    end libs for stomp and sockjs-->
             <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"
               type="text/css">
-            <link href="${contextRoot}/styles/front/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-            <link href="${contextRoot}/styles/front/assets/vendor/swiper/style.css" rel="stylesheet">
+            <link href="${contextRoot}/styles/front/assets/css/consolestyle.css" rel="stylesheet">
 
             <!-- Favicons -->
             <link href="${contextRoot}/styles/back/assets/img/favicon.png" rel="icon">
@@ -277,6 +276,62 @@
               }
               #userfontbackcolor{
                 font-size: 24px;
+              } /* //聊天室模板 */
+              body {
+                background: #EEEEEE;
+                font-family: 'Roboto', sans-serif;
+              }
+
+              .card {
+                width: 100%;
+                height: 100%;
+                border: none;
+                border-radius: 15px;
+              }
+
+              .adiv {
+                background: #04CB28;
+                border-radius: 15px;
+                border-bottom-right-radius: 0;
+                border-bottom-left-radius: 0;
+                font-size: 12px;
+                height: 46px;
+              }
+
+              .chat {
+                border: none;
+                background: #E2FFE8;
+                font-size: 10px;
+                border-radius: 20px;
+              }
+
+              .bg-white {
+                border: 1px solid #E7E7E9;
+                font-size: 10px;
+                border-radius: 20px;
+              }
+
+              .myvideo img {
+                border-radius: 20px
+              }
+
+              .dot {
+                font-weight: bold;
+              }
+
+              .form-control {
+                border-radius: 12px;
+                border: 1px solid #F0F0F0;
+                font-size: 8px;
+              }
+
+              .form-control:focus {
+                box-shadow: none;
+              }
+
+              .form-control::placeholder {
+                font-size: 8px;
+                color: #C4C4C4;
               }
             </style>
           </head>
@@ -345,7 +400,7 @@
                     </div> <!-- end chat-header -->
                   </div>
                   <!-- 工作資料2-2 -->
-                  <div id="box" class="felx-container-center-center" style="overflow:auto;height:500px;">
+                  <div id="box" class="felx-container-center-center" style="overflow:auto;height:500px;width:100%">
                     <div class="text-center">
                     </div>
                     <br />
@@ -503,25 +558,25 @@
 
             </main>
 
+
             <script id="message-template" type="text/x-handlebars-template">
-    <li class="clearfix">
+    <li class="message-row">
         <div class="message-data align-right">
-            <span class="message-data-time">{{time}}, Today</span> &nbsp; &nbsp;
-            <span class="message-data-name">You</span> <i class="fa fa-circle me"></i>
+            <span class="message-data-time">{{time}}</span> &nbsp; &nbsp;
+            <span class="message-data-name">你</span> 
         </div>
-        <div class="message other-message float-right" id="fontbackcolor">
+        <div class="sendmessage"  >
             {{messageOutput}}
         </div>
     </li>
 </script>
-
             <script id="message-response-template" type="text/x-handlebars-template">
     <li>
-        <div class="message-data">
-            <span class="message-data-name"><i class="fa fa-circle online"></i> {{userName}}</span>
-            <span class="message-data-time">{{time}}, Today</span>
+      <div class="message-row">
+            <span class="message-data-name" style="font-size:5px;"><i class="fa fa-circle online"></i> 用戶:{{userName}}</span>
+            <span class="message-data-time">{{time}}</span>
         </div>
-        <div class="message my-message" id="userfontbackcolor">
+        <div class="chat" id="userfontbackcolor">
             {{response}}
         </div>
     </li>
@@ -549,8 +604,8 @@
             <script src="${contextRoot}/styles/back/assets/js/main.js"></script>
 
 
+            <script src="${contextRoot}/styles/front/assets/js/sochat.js"></script>>
             <script src="${contextRoot}/styles/front/assets/js/socustom.js"></script>
-            <script src="${contextRoot}/styles/front/assets/js/chat.js"></script>>
             <script src="${contextRoot}/styles/front/assets/js/console.js"></script>
 
           </body>

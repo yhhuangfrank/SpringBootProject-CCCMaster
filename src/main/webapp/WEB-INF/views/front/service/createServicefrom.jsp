@@ -120,9 +120,9 @@ text-overflow: ellipsis;
         <ol>
               <li><a href="${contextRoot}/">首頁</a></li>
               <li>聯絡客服</li>
-              <li>常見問題</li>
+              <li>表單回報問答中心</li>
             </ol>
-            <h2>常見問題</h2>
+            <h2>表單回報問答中心</h2>
 
       </div>
     </section><!-- End Breadcrumbs -->
@@ -179,15 +179,18 @@ text-overflow: ellipsis;
                                                                                 <td id="ellipsis" title="${ReportForm.narrative}">${ReportForm.narrative}</td>
                                                                                 <td><fmt:formatDate pattern="EEEE yyyy-MM-dd HH:mm:ss" value="${ReportForm.createtime}" /></td>
                                                                                 <td>
-                                                                                    <button 
-                                                                                        type="button"
-                                                                                        class="btn btn-outline-success"
-                                                                                        style="display: inline;"
-                                                                                        id="bntt"
-                                                                                        data-bs-toggle="modal"
-                                                                                        data-bs-target="#modal-${ReportForm.id}">
-                                                                                        查看回覆
-                                                                                    </button>
+                                                                                <c:choose>
+                                                                                <c:when test="${not empty ReportForm.reply}">
+                                                                                <form action="${contextRoot}/admin/Service/create/ReplyFinish">
+                                                                                <input type="hidden" name="id" value="${ReportForm.id}" />
+                                                                                <input type="submit" class="btn btn-success" value="查看回覆" >
+                                                                                </form>
+                                                                                </c:when>
+                                                                                <c:otherwise>
+                                                                                <input type="submit" class="btn btn-secondary" value="查看回覆" >
+                                                                                </c:otherwise>
+                                                                                </c:choose>
+                                                                                
                                                                                 </td>
                                                                             </tr>
                                                                         </c:forEach>
@@ -331,6 +334,8 @@ text-overflow: ellipsis;
                                                         </div>
                                                                 <form:input type="hidden" path="customerid"
                                                                     class="form-control" id="inputEemail" maxlength="20" value="${sessionScope.customerId}"></form:input>
+                                                                <form:input type="hidden" path="customername"
+                                                                    class="form-control" id="inputEemail" maxlength="20" value="${sessionScope.customerName}"></form:input>
                                                         <br>
                                                         <div class="col-sm-10" style="text-align:center;">
                                                             <button type="submit" class="btn btn-primary">送出</button>

@@ -151,6 +151,12 @@
                                 <i class="ri-information-line"></i><span>顧客回報表操作單區</span>
                             </a>
                         </li>
+                        
+                        <li>
+                            <a href="${contextRoot}/admin/Service/findformFinish">
+                                <i class="ri-information-line"></i><span>顧客回報表歷史回覆完成區</span>
+                            </a>
+                        </li>
                     </ul>
                 </li><!-- End Icons Nav -->
 

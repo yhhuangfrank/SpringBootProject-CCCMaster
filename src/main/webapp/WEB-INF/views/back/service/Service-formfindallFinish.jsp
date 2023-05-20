@@ -7,7 +7,7 @@
           <html>
 
           <head>
-            <title>客服表單區</title>
+            <title>客服表單完成存檔區</title>
             <meta charset="utf-8">
             <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -56,7 +56,7 @@
 
               <div class="col-lg-12">
                 <br>
-                <h1 style="text-align:center;margin-right:80px;">答覆中心</h1><br>
+                <h1 style="text-align:center;margin-right:80px;">表單存檔區</h1><br>
                 <div class="card">
                   <div class="card-body">
                     <!-- Table with stripped rows -->
@@ -73,7 +73,7 @@
                       <tbody>
                         <c:forEach items="${page.content}" var="ReportForm">
                           <c:choose>
-                            <c:when test="${empty ReportForm.reply}">
+                            <c:when test="${not empty ReportForm.reply}">
                               <tr>
                                 <td>${ReportForm.id}</td>
                                 <td>${ReportForm.question}</td>
@@ -83,14 +83,9 @@
                                 </td>
                                 <td>
                                   <div style="display:flex">
-                                    <form action="${contextRoot}/admin/Service/findform/Reply">
+                                    <form action="${contextRoot}/admin/Service/findformFinish/Reply">
                                       <input type="hidden" name="id" value="${ReportForm.id}" />
-                                      <input type="submit" class="btn btn-outline-success" value="回覆" onclick="return myFunction2()"/>
-                                    </form>
-                                    <form action="${contextRoot}/admin/Service/findform/delete" method="post">
-                                      <input type="hidden" name="_method" value="delete" />
-                                      <input type="hidden" name="id" value="${ReportForm.id}" />
-                                      <input type="submit" class="btn btn-danger" value="刪除" onclick="return myFunction1()" />
+                                      <input type="submit" class="btn btn-secondary" value="查看回覆" />
                                     </form>
                                   </div>
                                 </td>
@@ -188,25 +183,6 @@
 
             </main>
 
-            <script>
-            function myFunction1() {
-            	  var r = confirm("確認是否刪除!");
-            	  if (r == true) {
-            	    return true; // 继续提交表单
-            	  } else {
-            	    return false; // 阻止表单提交
-            	  }
-            	}
-
-            function myFunction2() {
-            	  var r = confirm("確認是否回覆該用戶表單!");
-            	  if (r == true) {
-            	    return true; // 继续提交表单
-            	  } else {
-            	    return false; // 阻止表单提交
-            	  }
-            	}
-        </script>
 
 
 

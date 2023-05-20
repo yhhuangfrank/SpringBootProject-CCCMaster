@@ -80,7 +80,7 @@
               #userfontbackcolor{
                 font-size: 24px;
               }
-            </style>
+            </style> 
             
           </head>
 
@@ -131,14 +131,14 @@
                             </tr>
                             <tr>
                               <td>客服回覆</td>
-                              <td colspan="3" style="height:200px;">
-							<form:textarea  type="text" path="Reply" style="height:100%;width:100%;" /></td>
+                              <td colspan="3" style="height:200px;">${ReportForm.reply}</td>
                             </tr>
                           </tbody>
                         </table>
-
-							<button type="submit" class="btn btn-primary" style="text-align:right;">送出</button>
 						</form:form>
+						<div style="width:100%;text-align:center;"></div>
+                                <a href="${contextRoot}/admin/Service/findformFinish" id="btn"
+                                                                Class="btn btn-secondary" style="">返回</a>
 					</div>
 				</div>
 			</div>
