@@ -37,6 +37,10 @@ public class ReportForm2Model {
 	@Column(name = "customer_id")
 	private Integer customerid;
 
+	@Column(name = "customer_name")
+	private String customername;
+
+
 	@Column(name = "phone")
 	private String phone;
 
@@ -151,4 +155,15 @@ public class ReportForm2Model {
 	public void setReply(String reply) {
 		Reply = reply;
 	}
+
+
+	public String getCustomername() {
+		return customername;
+	}
+
+
+	public void setCustomername(String customername) {
+		this.customername = customername;
+	}
+	
 }

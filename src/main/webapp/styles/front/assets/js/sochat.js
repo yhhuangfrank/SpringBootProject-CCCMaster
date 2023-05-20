@@ -22,7 +22,7 @@ function connectToChat(userName) {
 }
 
 function sendMsg(from, text) {
-    stompClient.send("/app/chat/客服人員", {}, JSON.stringify({
+    stompClient.send("/app/chat/" + selectedUser, {}, JSON.stringify({
         fromLogin: from,
         message: text
     }));
@@ -47,15 +47,17 @@ function disconnectFromChat() {
 
 function selectUser(userName) {
     console.log("selecting users: " + userName);
-    selectedUser = '客服人員';
+    selectedUser = userName;
     let isNew = document.getElementById("newMessage_" + userName) !== null;
     if (isNew) {
         let element = document.getElementById("newMessage_" + userName);
         element.parentNode.removeChild(element);
+        $('#selectedUserId').html('');
+        $('#selectedUserId').append('聊天對象: ' + userName);
+        // 清空聊天记录
+        $chatHistoryList.empty(); // 清空聊天记录的列表项
         render(newMessages.get(userName), userName);
     }
-    $('#selectedUserId').html('');
-    $('#selectedUserId').append('聊天對象: ' + userName);
 }
 
 
@@ -77,7 +79,10 @@ function fetchAll() {
         $('#usersList').html(usersTemplateHTML);
     });
 }
-$(document).ready(function() {
-    selectUser('客服人員');
-});
 
+$(document).ready(function() {
+    // Call fetchAll() when the page finishes loading
+    fetchAll();
+    
+    setInterval(fetchAll, 5000);
+});
