@@ -65,6 +65,9 @@ public class GenDefaultData {
 
     @PostConstruct
     public void genDefaultDataToDB() {
+    	
+    	// 設定預設會員
+    	createCustomer();
 
         // 設定預設種類
         createCategories();
@@ -284,12 +287,25 @@ public class GenDefaultData {
         long num = positionDao.count();
 
         if (num > 0) return;
+        
+        Faker zhTWFaker = new Faker(new Locale("zh-TW"));
+        Faker faker = new Faker();
 
         // 預設職位
         Position superManager = new Position();
         superManager.setPositionId(9999);
         superManager.setPositionName("Super Manager");
         positionDao.save(superManager);
+        
+//        Position customerService = new Position();
+//        superManager.setPositionId(3786);
+//        superManager.setPositionName("客服人員");
+//        positionDao.save(customerService);
+//        
+//        Position engineer = new Position();
+//        superManager.setPositionId(5457);
+//        superManager.setPositionName("工程師");
+//        positionDao.save(engineer);
 
         // 預設員工
         Employee employee1 = new Employee();
@@ -300,6 +316,30 @@ public class GenDefaultData {
         String hashedPw = BCrypt.hashpw("9999", BCrypt.gensalt());
         employee1.setPassword(hashedPw);
         employeeDao.save(employee1);
+        
+        for(int i=0; i <=5 ; i++) {
+        	Employee employee = new Employee();
+        	employee.setEmployeeName(zhTWFaker.name().name());
+        	employee.setPosition(superManager);
+        	employee.setPhoneNumber("09" + faker.number().digits(8));
+        	employee.setIdNumber("R1" + faker.number().digits(8));
+        	int randomNum = faker.random().nextInt(6, 11);
+    		String randomPassword = faker.number().digits(randomNum);
+        	String hashedPassword = BCrypt.hashpw(randomPassword, BCrypt.gensalt());
+        	employee.setPassword(hashedPassword);
+        	employeeDao.save(employee);
+        	
+        	Employee employee2 = new Employee();
+        	employee2.setEmployeeName(zhTWFaker.name().name());
+        	employee2.setPosition(superManager);
+        	employee2.setPhoneNumber("09" + faker.number().digits(8));
+        	employee2.setIdNumber("R2" + faker.number().digits(8));
+        	int randomNum2 = faker.random().nextInt(6, 11);
+        	String randomPassword2 = faker.number().digits(randomNum2);
+        	String hashedPassword2 = BCrypt.hashpw(randomPassword2, BCrypt.gensalt());
+        	employee.setPassword(hashedPassword2);
+        	employeeDao.save(employee2);
+        }
     }
 
     // 預設拍賣商品評論資料
@@ -329,4 +369,27 @@ public class GenDefaultData {
 
         bidProductCommentDao.saveAll(defaultBidProductComments);
     }
+    
+    // 預設會員
+    private void createCustomer() {
+    	long num = customerDao.count();
+    	
+    	if(num >= 100) return;
+    	
+    	Faker zhTWFaker = new Faker(new Locale("zh-TW"));
+		Faker faker = new Faker();
+		
+    	for(int i=0; i<100; i++) {
+    		Customer customer = new Customer();
+    		customer.setEmail(faker.internet().emailAddress());
+    		customer.setName(zhTWFaker.name().name());
+    		int randomNum = zhTWFaker.random().nextInt(6, 11);
+    		String randomPassword = zhTWFaker.number().digits(randomNum);
+    		customer.setPassword(BCrypt.hashpw(randomPassword, BCrypt.gensalt()));
+    		customer.setPhoneNumber("09" + faker.number().digits(8));
+    		customer.setAbandonCount(zhTWFaker.random().nextInt(0, 3));
+    		customer.setPoint(zhTWFaker.random().nextInt(0, 1001));
+    		customerDao.save(customer);
+    	}
+    }    
 }
