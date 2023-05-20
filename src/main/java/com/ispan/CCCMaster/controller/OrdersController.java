@@ -64,11 +64,6 @@ public class OrdersController {
 	public String findDetailByOId(@PathVariable("orderid") String orderid, Model model) {
 		OrderBean ob = oService.findOrderByid(orderid);
 		List<OrderDetailBean> odb = oService.findorderdetailbyOId(orderid);
-		System.out.println("------");
-//		for(OrderDetailBean od:odb) {
-//			System.out.println(od);
-//		}
-		
 		model.addAttribute("paymentCompleted",commentService.checkPaymentCompleted(orderid));//將付款狀態帶到 orderDetail 新增 by 暐翔
 		model.addAttribute("orderdetails",odb);
 		return "front/orders/orderdetail";

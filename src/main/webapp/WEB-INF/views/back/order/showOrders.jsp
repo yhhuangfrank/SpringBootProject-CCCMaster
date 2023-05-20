@@ -45,6 +45,7 @@
       </nav>
   </div>
   <section class="section">
+  <jsp:include page="../../message.jsp"/>
   	<ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
           <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab" aria-controls="all" aria-selected="true">總覽</button>
@@ -90,6 +91,7 @@
               <th scope="col">繳款狀態</th>
               <th scope="col">合計</th>
               <th scope="col"></th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
@@ -102,11 +104,21 @@
 	               <td style="vertical-align:middle">${result.ordercondition}</td>
 	               <td style="vertical-align:middle">${result.paymentcondition}</td>
 	               <td style="vertical-align:middle">${result.totalamount}</td>
-	               <td >
-	                 <form action="${contextRoot}/admin/orders/editorder" style="margin:auto 0px">
-	                   	 <input type="hidden" name="id" value="${result.orderid}"/>
-	                     <input type="submit" class="btn btn-outline-info btn-sm" value="編輯"/>
-	                 </form>
+	               <td>
+		              <div class="d-flex">
+		                <form action="${contextRoot}/admin/orders/editorder" style="margin:auto 0px" method="get">
+		                   	 <input type="hidden" name="id" value="${result.orderid}"/>
+		                     <button type="submit" class="btn btn-secondary btn-sm">
+								<i class="bi bi-pencil-square"></i>編輯
+							 </button>
+		                </form>
+		               	<form action="${contextRoot}/admin/givepoints" style="margin:auto 0px" method="post">
+		               		<input type="hidden" name="orderid" value="${result.orderid}"/>
+		               		<button type="submit" class="btn btn-outline-danger btn-sm ms-2">
+								<i class="bi bi-exclamation-circle"></i>給予點數
+							</button>
+		               	</form>
+	               	 </div>
 	               </td>
 	             </tr>
 	             </c:forEach>
@@ -120,11 +132,21 @@
 	               <td style="vertical-align:middle">${order.ordercondition}</td>
 	               <td style="vertical-align:middle">${order.paymentcondition}</td>
 	               <td style="vertical-align:middle">${order.totalamount}</td>
-	               <td >
-	                 <form action="${contextRoot}/admin/orders/editorder" style="margin:auto 0px">
-	                   	 <input type="hidden" name="id" value="${order.orderid}"/>
-	                     <input type="submit" class="btn btn-outline-info btn-sm" value="編輯"/>
-	                 </form>
+	               <td>
+		              <div class="d-flex">
+		                <form action="${contextRoot}/admin/orders/editorder" style="margin:auto 0px" method="get">
+		                   	 <input type="hidden" name="id" value="${order.orderid}"/>
+		                     <button type="submit" class="btn btn-secondary btn-sm">
+								<i class="bi bi-pencil-square"></i>編輯
+							 </button>
+		                </form>
+		               	<form action="${contextRoot}/admin/givepoints" style="margin:auto 0px" method="post">
+		               		<input type="hidden" name="orderid" value="${order.orderid}"/>
+		               		<button type="submit" class="btn btn-outline-danger btn-sm ms-2">
+								<i class="bi bi-exclamation-circle"></i>給予點數
+							</button>
+		               	</form>
+	               	 </div>
 	               </td>
 	             </tr>
 	             </c:forEach>
@@ -164,11 +186,21 @@
                <td style="vertical-align:middle">${handling.ordercondition}</td>
                <td style="vertical-align:middle">${handling.paymentcondition}</td>
                <td style="vertical-align:middle">${handling.totalamount}</td>
-               <td >
-                 <form action="${contextRoot}/admin/orders/editorder" style="margin:auto 0px">
-                   	 <input type="hidden" name="id" value="${handling.orderid}"/>
-                     <input type="submit" class="btn btn-outline-info btn-sm" value="編輯"/>
-                 </form>
+               <td>
+	              <div class="d-flex">
+	                <form action="${contextRoot}/admin/orders/editorder" style="margin:auto 0px" method="get">
+	                   	 <input type="hidden" name="id" value="${handling.orderid}"/>
+	                     <button type="submit" class="btn btn-secondary btn-sm">
+							<i class="bi bi-pencil-square"></i>編輯
+						 </button>
+	                </form>
+	               	<form action="${contextRoot}/admin/givepoints" style="margin:auto 0px" method="post">
+	               		<input type="hidden" name="orderid" value="${handling.orderid}"/>
+	               		<button type="submit" class="btn btn-outline-danger btn-sm ms-2">
+							<i class="bi bi-exclamation-circle"></i>給予點數
+						</button>
+	               	</form>
+               	 </div>
                </td>
              </tr>
              </c:forEach>
@@ -182,11 +214,21 @@
                <td style="vertical-align:middle">${handlingorder.ordercondition}</td>
                <td style="vertical-align:middle">${handlingorder.paymentcondition}</td>
                <td style="vertical-align:middle">${handlingorder.totalamount}</td>
-               <td >
-                 <form action="${contextRoot}/admin/orders/editorder" style="margin:auto 0px">
-                   	 <input type="hidden" name="id" value="${handlingorder.orderid}"/>
-                     <input type="submit" class="btn btn-outline-info btn-sm" value="編輯"/>
-                 </form>
+               <td>
+	              <div class="d-flex">
+	                <form action="${contextRoot}/admin/orders/editorder" style="margin:auto 0px" method="get">
+	                   	 <input type="hidden" name="id" value="${handlingorder.orderid}"/>
+	                     <button type="submit" class="btn btn-secondary btn-sm">
+							<i class="bi bi-pencil-square"></i>編輯
+						 </button>
+	                </form>
+	               	<form action="${contextRoot}/admin/givepoints" style="margin:auto 0px" method="post">
+	               		<input type="hidden" name="orderid" value="${handlingorder.orderid}"/>
+	               		<button type="submit" class="btn btn-outline-danger btn-sm ms-2">
+							<i class="bi bi-exclamation-circle"></i>給予點數
+						</button>
+	               	</form>
+               	 </div>
                </td>
              </tr>
              </c:forEach>
@@ -226,11 +268,21 @@
                <td style="vertical-align:middle">${unpay.ordercondition}</td>
                <td style="vertical-align:middle">${unpay.paymentcondition}</td>
                <td style="vertical-align:middle">${unpay.totalamount}</td>
-               <td >
-                 <form action="${contextRoot}/admin/orders/editorder" style="margin:auto 0px">
-                   	 <input type="hidden" name="id" value="${unpay.orderid}"/>
-                     <input type="submit" class="btn btn-outline-info btn-sm" value="編輯"/>
-                 </form>
+               <td>
+	              <div class="d-flex">
+	                <form action="${contextRoot}/admin/orders/editorder" style="margin:auto 0px" method="get">
+	                   	 <input type="hidden" name="id" value="${unpay.orderid}"/>
+	                     <button type="submit" class="btn btn-secondary btn-sm">
+							<i class="bi bi-pencil-square"></i>編輯
+						 </button>
+	                </form>
+	               	<form action="${contextRoot}/admin/givepoints" style="margin:auto 0px" method="post">
+	               		<input type="hidden" name="orderid" value="${unpay.orderid}"/>
+	               		<button type="submit" class="btn btn-outline-danger btn-sm ms-2">
+							<i class="bi bi-exclamation-circle"></i>給予點數
+						</button>
+	               	</form>
+               	 </div>
                </td>
              </tr>
              </c:forEach>
@@ -244,11 +296,21 @@
 	               <td style="vertical-align:middle">${unpayorder.ordercondition}</td>
 	               <td style="vertical-align:middle">${unpayorder.paymentcondition}</td>
 	               <td style="vertical-align:middle">${unpayorder.totalamount}</td>
-	               <td >
-	                 <form action="${contextRoot}/admin/orders/editorder" style="margin:auto 0px">
-	                   	 <input type="hidden" name="id" value="${unpayorder.orderid}"/>
-	                     <input type="submit" class="btn btn-outline-info btn-sm" value="編輯"/>
-	                 </form>
+	               <td>
+		              <div class="d-flex">
+		                <form action="${contextRoot}/admin/orders/editorder" style="margin:auto 0px" method="get">
+		                   	 <input type="hidden" name="id" value="${unpayorder.orderid}"/>
+		                     <button type="submit" class="btn btn-secondary btn-sm">
+								<i class="bi bi-pencil-square"></i>編輯
+							 </button>
+		                </form>
+		               	<form action="${contextRoot}/admin/givepoints" style="margin:auto 0px" method="post">
+		               		<input type="hidden" name="orderid" value="${unpayorder.orderid}"/>
+		               		<button type="submit" class="btn btn-outline-danger btn-sm ms-2">
+								<i class="bi bi-exclamation-circle"></i>給予點數
+							</button>
+		               	</form>
+	               	 </div>
 	               </td>
 	             </tr>
 	             </c:forEach>
@@ -288,11 +350,21 @@
                <td style="vertical-align:middle">${cancel.ordercondition}</td>
                <td style="vertical-align:middle">${cancel.paymentcondition}</td>
                <td style="vertical-align:middle">${cancel.totalamount}</td>
-               <td >
-                 <form action="${contextRoot}/admin/orders/editorder" style="margin:auto 0px">
-                   	 <input type="hidden" name="id" value="${cancel.orderid}"/>
-                     <input type="submit" class="btn btn-outline-info btn-sm" value="編輯"/>
-                 </form>
+               <td>
+	              <div class="d-flex">
+	                <form action="${contextRoot}/admin/orders/editorder" style="margin:auto 0px" method="get">
+	                   	 <input type="hidden" name="id" value="${cancel.orderid}"/>
+	                     <button type="submit" class="btn btn-secondary btn-sm">
+							<i class="bi bi-pencil-square"></i>編輯
+						 </button>
+	                </form>
+	               	<form action="${contextRoot}/admin/givepoints" style="margin:auto 0px" method="post">
+	               		<input type="hidden" name="orderid" value="${cancel.orderid}"/>
+	               		<button type="submit" class="btn btn-outline-danger btn-sm ms-2">
+							<i class="bi bi-exclamation-circle"></i>給予點數
+						</button>
+	               	</form>
+               	 </div>
                </td>
              </tr>
              </c:forEach>
@@ -306,11 +378,21 @@
 	               <td style="vertical-align:middle">${refundorder.ordercondition}</td>
 	               <td style="vertical-align:middle">${refundorder.paymentcondition}</td>
 	               <td style="vertical-align:middle">${refundorder.totalamount}</td>
-	               <td >
-	                 <form action="${contextRoot}/admin/orders/editorder" style="margin:auto 0px">
-	                   	 <input type="hidden" name="id" value="${refundorder.orderid}"/>
-	                     <input type="submit" class="btn btn-outline-info btn-sm" value="編輯"/>
-	                 </form>
+	               <td>
+		              <div class="d-flex">
+		                <form action="${contextRoot}/admin/orders/editorder" style="margin:auto 0px" method="get">
+		                   	 <input type="hidden" name="id" value="${refundorder.orderid}"/>
+		                     <button type="submit" class="btn btn-secondary btn-sm">
+								<i class="bi bi-pencil-square"></i>編輯
+							 </button>
+		                </form>
+		               	<form action="${contextRoot}/admin/givepoints" style="margin:auto 0px" method="post">
+		               		<input type="hidden" name="orderid" value="${refundorder.orderid}"/>
+		               		<button type="submit" class="btn btn-outline-danger btn-sm ms-2">
+								<i class="bi bi-exclamation-circle"></i>給予點數
+							</button>
+		               	</form>
+	               	 </div>
 	               </td>
 	             </tr>
 	             </c:forEach>
@@ -350,11 +432,21 @@
                <td style="vertical-align:middle">${refund.ordercondition}</td>
                <td style="vertical-align:middle">${refund.paymentcondition}</td>
                <td style="vertical-align:middle">${refund.totalamount}</td>
-               <td >
-                 <form action="${contextRoot}/admin/orders/editorder" style="margin:auto 0px">
-                   	 <input type="hidden" name="id" value="${refund.orderid}"/>
-                     <input type="submit" class="btn btn-outline-info btn-sm" value="編輯"/>
-                 </form>
+               <td>
+	              <div class="d-flex">
+	                <form action="${contextRoot}/admin/orders/editorder" style="margin:auto 0px" method="get">
+	                   	 <input type="hidden" name="id" value="${refund.orderid}"/>
+	                     <button type="submit" class="btn btn-secondary btn-sm">
+							<i class="bi bi-pencil-square"></i>編輯
+						 </button>
+	                </form>
+	               	<form action="${contextRoot}/admin/givepoints" style="margin:auto 0px" method="post">
+	               		<input type="hidden" name="orderid" value="${refund.orderid}"/>
+	               		<button type="submit" class="btn btn-outline-danger btn-sm ms-2">
+							<i class="bi bi-exclamation-circle"></i>給予點數
+						</button>
+	               	</form>
+               	 </div>
                </td>
              </tr>
              </c:forEach>
@@ -368,11 +460,21 @@
 	               <td style="vertical-align:middle">${cancelorder.ordercondition}</td>
 	               <td style="vertical-align:middle">${cancelorder.paymentcondition}</td>
 	               <td style="vertical-align:middle">${cancelorder.totalamount}</td>
-	               <td >
-	                 <form action="${contextRoot}/admin/orders/editorder" style="margin:auto 0px">
-	                   	 <input type="hidden" name="id" value="${cancelorder.orderid}"/>
-	                     <input type="submit" class="btn btn-outline-info btn-sm" value="編輯"/>
-	                 </form>
+	               <td>
+		              <div class="d-flex">
+		                <form action="${contextRoot}/admin/orders/editorder" style="margin:auto 0px" method="get">
+		                   	 <input type="hidden" name="id" value="${cancelorder.orderid}"/>
+		                     <button type="submit" class="btn btn-secondary btn-sm">
+								<i class="bi bi-pencil-square"></i>編輯
+							 </button>
+		                </form>
+		               	<form action="${contextRoot}/admin/givepoints" style="margin:auto 0px" method="post">
+		               		<input type="hidden" name="orderid" value="${cancelorder.orderid}"/>
+		               		<button type="submit" class="btn btn-outline-danger btn-sm ms-2">
+								<i class="bi bi-exclamation-circle"></i>給予點數
+							</button>
+		               	</form>
+	               	 </div>
 	               </td>
 	             </tr>
 	             </c:forEach>
@@ -411,5 +513,6 @@
 
   <!-- Template Main JS File -->
   <script src="${contextRoot}/styles/back/assets/js/main.js"></script>
+  
 </body>
 </html>

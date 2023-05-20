@@ -200,7 +200,6 @@ document.cookie = "pay=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         </div> 
     </section><!-- End Blog Single Section -->
 </main><!-- End #main -->
-<button id="loadButton" class="btn btn-info">Load Data</button>
 
 <jsp:include page="../layouts/footer.jsp"/>
 

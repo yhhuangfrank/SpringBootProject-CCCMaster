@@ -174,7 +174,6 @@
                 </div>
               </form:form>
               <div style="margin-left: 180px">
-              	<button onclick="givepoint()" class="btn btn-danger" id="givebutton">點數給予</button>
               </div>
 
   </main>
@@ -195,23 +194,5 @@
 
   <!-- Template Main JS File -->
   <script src="${contextRoot}/styles/back/assets/js/main.js"></script>
-  <script>
-function givepoint() {
-	let cid = document.getElementById('cid').value;
-	let oid = document.getElementById('oid').value;	
-	$.ajax({
-		type:"Post",
-        url:"http://localhost:8080/admin/givepoints",
-        data:{
-        	customerId:cid,
-        	orderid:oid,
-        },
-        success:function(response){
-        	location.href = response;
-        	alert("成功給予!")
-        }
-	})
-}
-  </script>
 </body>
 </html>

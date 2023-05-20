@@ -134,20 +134,19 @@ public class OrderAdminController {
 	@Transactional
 	@PostMapping("/admin/givepoints")
 	public String givepoints(@ModelAttribute("point")CustomerPoint point,
-							@RequestParam("customerId")Integer customerId,
 							@RequestParam("orderid")String orderid,
 							Model model,
 							RedirectAttributes redirectAttributes) throws IOException {
 		Optional<OrderBean> option = oDao.findById(orderid);
-		Optional<Customer> coption = cDao.findById(customerId);
+		Optional<Customer> coption = cDao.findById(option.get().getCbOrder().getCustomerId());
 		Integer total= option.get().getTotalamount();
-		Optional<CustomerPoint> points = pointDao.findPoints(customerId, orderid);
+		Optional<CustomerPoint> points = pointDao.findPoints(option.get().getCbOrder().getCustomerId(), orderid);
 		if(points.isPresent()) {
 			redirectAttributes.addFlashAttribute("isFailed",true);
 			redirectAttributes.addFlashAttribute("failedMsg","此筆訂單已給過點數!");
 		}else {
 			//新增紀錄
-			oService.givePoints(point, customerId, orderid);	
+			oService.givePoints(point, option.get().getCbOrder().getCustomerId(), orderid);	
 			//給予會員點數					
 			Integer startpoint = coption.get().getPoint();
 			Integer givepoint = startpoint+total;
@@ -156,7 +155,7 @@ public class OrderAdminController {
 			redirectAttributes.addFlashAttribute("successMsg","此筆訂單成功給予點數!");
 		}
 		
-			return "redirect:/admin/orders/editorder?id=" + orderid +"#";
+			return "redirect:/admin/orders";
 		}
 	
 	
