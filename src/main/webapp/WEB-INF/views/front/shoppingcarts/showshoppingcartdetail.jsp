@@ -41,6 +41,8 @@ document.cookie = "shi=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 document.cookie = "pay=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.js"></script>
+
 
 </head>
 
@@ -134,21 +136,24 @@ document.cookie = "pay=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 					<div class="form-check">
 					 <input type="radio" class="form-check-input" id="stores" value="超商取貨" required onclick="hiddenInput(event),okcash()" name="shipper"/>
                 <label class="form-check-label" for="gridRadios1">
-                  超商取貨
+                  7-11超商取貨
                 </label>
                 <div id="store" style="display: none;width: 400px">
-                  <div style="width: 300px">
-                  <label style="text-align: ceneter;float: left;">地&nbsp;&nbsp;&nbsp;址:</label>
-                  <input type="text" class="form-control" id="cookiesstore"/>
+                  <div style="width: 400px">
+                  <div style="margin-right10px;float: left;">縣&nbsp;&nbsp;&nbsp;市:</div>
+                  	<select id="city"></select>
+                  <div style="text-align: ceneter">門市&地址:</div>
+                  	<select id="storeaddress"></select>
                   </div>
                   <div style="width: 300px">
-                  <label style="text-align:ceneter;float: left;width: 60px">收件人:</label>
-                  <input type="text" class="form-control" id="cookiesstoreaddressee"/>
+	                  <label style="text-align:ceneter;float: left;width: 60px">收件人:</label>
+	                  <input type="text" class="form-control" id="cookiesstoreaddressee"/>
                   </div>
                   <div style="width: 300px">
-                  <label style="text-align: ceneter;float: left;">電&nbsp;&nbsp;&nbsp;話:</label>
-                  <input type="text" class="form-control" id="cookiesstoretele"/>
+	                  <label style="text-align: ceneter;float: left;">電&nbsp;&nbsp;&nbsp;話:</label>
+	                  <input type="tel" class="form-control" id="cookiesstoretele" pattern="[0]{1}[9]{1}[0-9]{8}" placeholder="格式:09XXXXXXXX"/>
                   </div>
+                  <button type="button" class="btn btn-secondary" id="defaultDataBtnStore" style="margin-top: 10px">一鍵輸入</button>
                 </div>
               </div>
               <div class="form-check">
@@ -159,16 +164,17 @@ document.cookie = "pay=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                 <div id="address" style="display: none;width: 400px">   
                   <div style="width: 300px">
                   <label style="text-align:ceneter;float: left;width: 60px">收件人:</label>
-                  <input type="text" class="form-control" id="cookiesaddressee"/>
+                  	<input type="text" class="form-control" id="cookiesaddressee"/>
                   </div>
                   <div style="width: 300px">
-                  <label style="text-align: ceneter;float: left;">地&nbsp;&nbsp;&nbsp;址:</label>
-                  <input type="text" class="form-control" id="cookiesaddress"/>
+	                  <label style="text-align: ceneter;float: left;">地&nbsp;&nbsp;&nbsp;址:</label>
+	                  <input type="text" class="form-control" id="cookiesaddress"/>
                   </div>
                   <div style="width: 300px">
-                  <label style="text-align: ceneter;float: left;">電&nbsp;&nbsp;&nbsp;話:</label>
-                  <input type="text" class="form-control" id="cookiestele"/>
-                  </div> 	
+	                  <label style="text-align: ceneter;float: left;">電&nbsp;&nbsp;&nbsp;話:</label>
+	                  <input type="tel" class="form-control" id="cookiestele" pattern="[0]{1}[9]{1}[0-9]{8}" placeholder="格式:09XXXXXXXX"/>
+                  </div>
+                  <button type="button" class="btn btn-secondary" id="defaultDataBtnHome" style="margin-top: 10px">一鍵輸入</button> 	
                 </div>
               </div>
             </div>
@@ -176,20 +182,20 @@ document.cookie = "pay=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 				<h5>付款方式</h5>
 					<div class="form-check">
             
-					 <input type="radio" class="form-check-input" id="cash" value="貨到付款" required onclick="nocredit()" name="pay"/>
+					 <input type="radio" class="form-check-input" id="cash" value="貨到付款" required  name="pay"/>
 		              <label class="form-check-label" for="gridRadios3">
 		                貨到付款
 		              </label>
 				    </div>
 		            <div class="form-check">
-		              <input type="radio" class="form-check-input" id="credit" value="信用卡" onclick="cashno()"  name="pay"/>
+		              <input type="radio" class="form-check-input" id="credit" value="信用卡"  name="pay"/>
 		              <label class="form-check-label" for="gridRadios4">
 		                線上刷卡
 		              </label>
 		            </div>
             	</div>
             	<a href="javascript:history.back()" class="btn btn-dark">上一頁</a>
-         		<button type="submit" class="btn btn-primary" onclick="savecookie()">
+         		<button type="submit" class="btn btn-primary" id="saveButton">
          			資料確認
          		</button>
           </form>
@@ -224,10 +230,9 @@ document.cookie = "pay=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 	    cookie1.required="required";
 	    cookie2.required="required";
 	    cookie3.required="required";
-    let storecookie1 = document.getElementById('cookiesstore');
     let storecookie2 = document.getElementById('cookiesstoreaddressee');
     let storecookie3 = document.getElementById('cookiesstoretele');
-      storecookie1.removeAttribute('required');
+
       storecookie2.removeAttribute('required');
       storecookie3.removeAttribute('required');
 	}
@@ -243,10 +248,9 @@ document.cookie = "pay=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 	    cookie1.removeAttribute('required');
 	    cookie2.removeAttribute('required');
 	    cookie3.removeAttribute('required');
-    let storecookie1 = document.getElementById('cookiesstore');
     let storecookie2 = document.getElementById('cookiesstoreaddressee');
     let storecookie3 = document.getElementById('cookiesstoretele');
-      storecookie1.required="required"
+
       storecookie2.required="required"
       storecookie3.required="required"
 	}
@@ -289,57 +293,27 @@ document.cookie = "pay=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 	    document.getElementById('finalamount').innerHTML = totalamount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
 	    document.cookie = "tol="+totalamount;  
 	}
-//------------寄送資料存入cookies中----------------------------
-  function savecookie(){
-    let store = document.getElementById('cookiesstore')
-    let storeaddre = document.getElementById('cookiesstoreaddressee')
-    let storetel = document.getElementById('cookiesstoretele')
-    let sshipper = document.getElementById('stores')  
-    let homeadd = document.getElementById("cookiesaddress");
-    let homeaddre = document.getElementById("cookiesaddressee");
-	  let hometel = document.getElementById("cookiestele");
-    let hshipper = document.getElementById('home');    
-      let value1='';
-        if(store.value){
-          value1 = store.value
-        }else if(homeadd.value){
-          value1=homeadd.value
-        }
-        document.cookie = "add="+value1;
-      let value2='';
-        if(storeaddre.value){
-          value2 = storeaddre.value
-        }else if(homeaddre.value){
-          value2=homeaddre.value
-        }
-        document.cookie = "addee="+value2;
-      let value3='';
-        if(storetel.value){
-          value3 = storetel.value
-        }else if(hometel.value){
-          value3=hometel.value
-        }
-        document.cookie = "tel="+value3;
-      let value4='';
-        if(sshipper.checked){
-          value4 = sshipper.value
-        }else if(hshipper.checked){
-          value4=hshipper.value
-        }
-        document.cookie = "shi="+value4;
-      let cash = document.getElementById('cash')
-      let credit = document.getElementById('credit');
-      let value5='';
-        if(credit.checked){
-           value5=credit.value
-        }else if(cash.checked){
-          value5=cash.value
-        }
-        document.cookie = "pay="+value5+";path=/";
-  }
-  
+	//超商資料一鍵輸入
+	let defaultDataBtnStore = document.getElementById('defaultDataBtnStore')
+	let inputName = document.getElementById('cookiesstoreaddressee')
+	let inputtel = document.getElementById('cookiesstoretele')	
+	defaultDataBtnStore.addEventListener("click",function(){
+	   inputName.value = "瑪麗鷗"
+	   inputtel.value="0988344712"
+	 })
+	 //宅配到家一鍵輸入
+	let defaultDataBtnHome = document.getElementById('defaultDataBtnHome')
+	let inputHomeAddre = document.getElementById('cookiesaddress')
+	let inputHomeTel = document.getElementById('cookiestele')
+	let inputHomeName = document.getElementById('cookiesaddressee')
+	defaultDataBtnHome.addEventListener("click",function(){
+		inputHomeName.value = "瑪麗鷗"
+		inputHomeTel.value="0988344712"
+		inputHomeAddre.value="台南市大學路1號(國立成功大學唯農大樓)"
+	 })
+	
 </script>
-
+<script src="${contextRoot}/js/shoppingcart/storeInfo.js"></script>
 </body>
 
 </html>

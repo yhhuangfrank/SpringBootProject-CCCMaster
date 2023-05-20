@@ -129,7 +129,7 @@
 	            				<c:forEach items="${coupon}" var="cp" varStatus="status">
                         <div>
                           <input type="radio" class="form-check-input" name="usecoupon" id="usecoupons${status.count}" value="${cp.couponBean.couponamount}" onclick="calculateFinalAmount();storeCouponId('${cp.couponBean.couponid}')">
-                          <label>${cp.couponBean.couponamount},${cp.couponBean.couponname}(${cp.couponBean.enddate})</label>
+                          <label>${cp.couponBean.couponamount},${cp.couponBean.couponname}(效期:${cp.couponBean.enddate})</label>
                         </div>
 	            				</c:forEach>
 	            			</div>
@@ -191,7 +191,7 @@
   let canusepoint = document.getElementById('canusepoint')  //可使用點數的div
   let cupoints = document.getElementById('cupoint').value   //會員點數
   var usepoint = Math.floor(cupoints/300);                  //計算可用的點數
-  canusepoint.innerHTML = "(最多可折抵"+usepoint+"點)"
+  canusepoint.innerHTML = "(最多可折抵"+usepoint+"元)"
   var totalamount = 0;
   let counttotal = document.getElementsByClassName("countstotal");
   for(let i=0;i<counttotal.length;i++){
@@ -209,12 +209,17 @@
     let pointCheckbox = document.getElementById('pointcheckbox') 
     let couponCheckbox = document.getElementById('couponcheckbox')
     let selectCoupon = document.querySelector('input[name="usecoupon"]:checked')
+    // let selectCoupon = document.querySelector('input[name="usecoupon"]:checked')
     if(!pointCheckbox.checked && !couponCheckbox.checked && !selectCoupon){
       document.cookie = "point="+"0"+";path=/";
-      document.cookie = "couponId="+null;
+      document.cookie = "couponId="+null+";path=/";
+      document.cookie = "discount="+"0"+";path=/";
     }
+    
   function calculateFinalAmount(){
     //計算總金額  
+    let couponCheckbox = document.getElementById('couponcheckbox')
+    let selectCoupon = document.querySelector('input[name="usecoupon"]:checked')
     let pointsInput = document.getElementById('points')
       pointsInput.addEventListener('input',function(){
         pointcheckbox.checked=true; 
@@ -227,15 +232,14 @@
         };
         pointsInput.value=pointsInput.value
       })
-    
     let discount=0
     if(pointCheckbox.checked && !couponCheckbox.checked){
       discount=parseInt(pointsInput.value) || 0;
       document.cookie = "couponId="+null+";path=/";
     }else if(pointCheckbox.checked && couponCheckbox.checked && selectCoupon){
-      discount=(parseInt(pointsInput.value)|| 0)+parseInt(selectCoupon.value)
+      discount=(parseInt(pointsInput.value)|| 0)+ parseInt(selectCoupon.value);
     }else if(!pointCheckbox.checked && couponCheckbox.checked && selectCoupon){
-      discount=parseInt(selectCoupon.value)
+      discount=parseInt(selectCoupon.value);
     }else if(!pointCheckbox.checked && !couponCheckbox.checked && !selectCoupon){
       discount=0
     }
@@ -248,7 +252,7 @@
     document.getElementById('finalamount').textContent=finalAmount.toLocaleString('zh-TW', {style: 'currency', currency: 'TWD', minimumFractionDigits: 0});
 }
   function storeCouponId(couponId){
-    document.cookie = "couponId="+couponId;
+    document.cookie = "couponId="+couponId+";path=/";
   }
   //數量-1
   function dec(count){

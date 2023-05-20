@@ -4,9 +4,11 @@ import com.github.javafaker.Faker;
 import com.ispan.CCCMaster.model.bean.bid.BidProduct;
 import com.ispan.CCCMaster.model.bean.bid.BidProductComment;
 import com.ispan.CCCMaster.model.bean.category.Category;
+import com.ispan.CCCMaster.model.bean.coupon.CouponBean;
 import com.ispan.CCCMaster.model.bean.customer.Customer;
 import com.ispan.CCCMaster.model.bean.employee.Employee;
 import com.ispan.CCCMaster.model.bean.employee.Position;
+import com.ispan.CCCMaster.model.bean.order.OrderBean;
 import com.ispan.CCCMaster.model.bean.product.Product;
 import com.ispan.CCCMaster.model.bean.product.ProductImg;
 import com.ispan.CCCMaster.model.dao.*;
@@ -24,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 @Component
 public class GenDefaultData {
@@ -45,7 +48,9 @@ public class GenDefaultData {
     private final Map<String, Category> categoryMap = new HashMap<>();
 
     private final ProductDao productDao;
-
+    
+    private final CouponDao couponDao;
+    
 
     public GenDefaultData(BidProductDao bidProductDao,
                           CategoryDao categoryDao,
@@ -53,7 +58,8 @@ public class GenDefaultData {
                           PositionDao positionDao,
                           EmployeeDao employeeDao,
                           ProductDao productDao,
-                          BidProductCommentDao bidProductCommentDao) {
+                          BidProductCommentDao bidProductCommentDao,
+                          CouponDao couponDao) {
         this.bidProductDao = bidProductDao;
         this.categoryDao = categoryDao;
         this.customerDao = customerDao;
@@ -61,6 +67,7 @@ public class GenDefaultData {
         this.employeeDao = employeeDao;
         this.productDao = productDao;
         this.bidProductCommentDao = bidProductCommentDao;
+        this.couponDao = couponDao;
     }
 
     @PostConstruct
@@ -83,6 +90,9 @@ public class GenDefaultData {
 
         // 設定預設拍賣商品評論
         createBidProductComments();
+        
+        //設定預設優惠券
+        createCoupon();
 
     }
 
@@ -368,6 +378,24 @@ public class GenDefaultData {
         }
 
         bidProductCommentDao.saveAll(defaultBidProductComments);
+    }
+    
+    //預設優惠券資料
+    private void createCoupon() {
+    	long num = couponDao.count();
+    	
+    	if(num>0) return;
+    	CouponBean coupon = new CouponBean();
+    	UUID uuid = UUID.randomUUID();
+		String uuidString  = uuid.toString().replace("-", "").substring(0,20);
+    	coupon.setCouponid(uuidString);
+    	coupon.setConvertid("6666");
+    	coupon.setCouponamount(9999);
+    	coupon.setCouponname("限定優惠6666");
+    	coupon.setStartdate("2023-05-01 00:00:00");
+    	coupon.setEnddate("2023-05-31 23:59:59");
+    	coupon.setInstructions("開店限時優惠");
+    	couponDao.save(coupon);   	
     }
     
     // 預設會員
