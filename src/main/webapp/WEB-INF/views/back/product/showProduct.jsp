@@ -48,9 +48,9 @@
         <h1>產品列表</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item">Tables</li>
-                <li class="breadcrumb-item active">產品</li>
+                <li class="breadcrumb-item"><a href="index.html">首頁</a></li>
+                <li class="breadcrumb-item">產品</li>
+                <li class="breadcrumb-item active">產品列表</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
