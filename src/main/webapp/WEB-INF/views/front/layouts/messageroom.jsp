@@ -46,7 +46,27 @@
       padding: 0%;
     }
 
-
+  /* //聊天室模板 */
+.cardchat{
+	width: 100%;
+  height: 100%;
+	border: none;
+	border-radius: 15px;
+}
+.adiv{
+	background: #04CB28;
+	border-radius: 15px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	font-size: 12px;
+	height: 46px;
+}
+.chat{
+	border: none;
+	background: #E2FFE8;
+	font-size: 10px;
+	border-radius: 20px;
+}
   </style>
 </head>
 <body>
