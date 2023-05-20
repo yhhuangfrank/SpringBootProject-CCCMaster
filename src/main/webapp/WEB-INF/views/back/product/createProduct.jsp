@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <label for="categoryId" class="col-sm-2 col-form-label fw-bold">種類</label>
+                    <label for="categoryId" class="col-sm-2 col-form-label">種類</label>
                     <div class="col-sm-10">
                         <input name="categoryName" class="form-control" list="categoryList" id="categoryId"
                                placeholder="搜尋或自訂種類"/>
