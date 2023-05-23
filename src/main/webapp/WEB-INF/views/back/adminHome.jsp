@@ -33,7 +33,7 @@
   <jsp:include page="layouts/header.jsp"/>
 
   <main id="main" class="main">
-    <h1>This is a test page</h1>
+    <h1>歡迎來到後台</h1>
   </main>
 
   <jsp:include page="layouts/aside.jsp"/>
