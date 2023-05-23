@@ -9,7 +9,6 @@
 ![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/blob/main/src/main/resources/static/previewImages/home.png)
 ![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/blob/main/src/main/resources/static/previewImages/products.png)
 ![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/blob/main/src/main/resources/static/previewImages/productDetail.png)
-![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/blob/main/src/main/resources/static/previewImages/productDetail.png)
 ![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/blob/main/src/main/resources/static/previewImages/bid.png)
 ![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/blob/main/src/main/resources/static/previewImages/bidDetail.png)
 ![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/blob/main/src/main/resources/static/previewImages/shoppingCart.png)
