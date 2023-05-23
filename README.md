@@ -2,19 +2,19 @@
 
 山西購物網-3C購物網
 
-![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/tree/main/src/main/resources/static/previewImages/adminlogin.png)
-![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/tree/main/src/main/resources/static/previewImages/admin.png)
-![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/tree/main/src/main/resources/static/previewImages/login.png)
-![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/tree/main/src/main/resources/static/previewImages/center.png)
-![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/tree/main/src/main/resources/static/previewImages/home.png)
-![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/tree/main/src/main/resources/static/previewImages/products.png)
-![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/tree/main/src/main/resources/static/previewImages/productDetail.png)
-![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/tree/main/src/main/resources/static/previewImages/productDetail.png)
-![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/tree/main/src/main/resources/static/previewImages/bid.png)
-![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/tree/main/src/main/resources/static/previewImages/bidDetail.png)
-![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/tree/main/src/main/resources/static/previewImages/shoppingCart.png)
-![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/tree/main/src/main/resources/static/previewImages/payment.png)
-![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/tree/main/src/main/resources/static/previewImages/service.png)
+![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/blob/main/src/main/resources/static/previewImages/adminlogin.png)
+![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/blob/main/src/main/resources/static/previewImages/admin.png)
+![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/blob/main/src/main/resources/static/previewImages/login.png)
+![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/blob/main/src/main/resources/static/previewImages/center.png)
+![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/blob/main/src/main/resources/static/previewImages/home.png)
+![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/blob/main/src/main/resources/static/previewImages/products.png)
+![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/blob/main/src/main/resources/static/previewImages/productDetail.png)
+![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/blob/main/src/main/resources/static/previewImages/productDetail.png)
+![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/blob/main/src/main/resources/static/previewImages/bid.png)
+![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/blob/main/src/main/resources/static/previewImages/bidDetail.png)
+![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/blob/main/src/main/resources/static/previewImages/shoppingCart.png)
+![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/blob/main/src/main/resources/static/previewImages/payment.png)
+![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/blob/main/src/main/resources/static/previewImages/service.png)
 
 ## Features
 
@@ -29,7 +29,7 @@
 
 1. 開啟終端機，將專案 clone 至本機電腦
 
-``
+```
 git clone https://github.com/yhhuangfrank/SpringBootProject-CCCMaster.git
 ```
 
@@ -53,6 +53,7 @@ Started CccMasterApplication in xxx seconds (JVM running for xxx)
 
 ```
 預設帳號密碼
+
 前台: 
 帳號: CCCMasterUser1@gmail.com
 密碼: 123456789
