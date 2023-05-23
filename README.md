@@ -56,7 +56,7 @@ Started CccMasterApplication in xxx seconds (JVM running for xxx)
 前台: 
 帳號: CCCMasterUser1@gmail.com
 密碼: 123456789
-帳號: CCCMasterUser@gmail.com
+帳號: CCCMasterUser2@gmail.com
 密碼: 123456789
 
 後台
