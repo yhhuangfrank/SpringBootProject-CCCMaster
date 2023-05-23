@@ -2,7 +2,7 @@
 
 山西購物網-3C購物網
 
-![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/blob/main/src/main/resources/static/previewImages/adminlogin.png)
+![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/blob/main/src/main/resources/static/previewImages/adminLogin.png)
 ![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/blob/main/src/main/resources/static/previewImages/admin.png)
 ![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/blob/main/src/main/resources/static/previewImages/login.png)
 ![Previrew](https://github.com/yhhuangfrank/SpringBootProject-CCCMaster/blob/main/src/main/resources/static/previewImages/center.png)
