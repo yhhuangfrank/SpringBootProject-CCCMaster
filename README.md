@@ -32,7 +32,7 @@
 git clone https://github.com/yhhuangfrank/SpringBootProject-CCCMaster.git
 ```
 
-2. 初始化
+2. 進入專案資料夾
 
 ```
 cd SpringBootProject-CCCMaster // 進入專案資料夾
@@ -66,7 +66,7 @@ Started CccMasterApplication in xxx seconds (JVM running for xxx)
 
 ### Built with
 
-- [Java 11] - Environment
+- Java 11 - Environment
 - [Spring Boot @4.18.2](https://spring.io/projects/spring-boot) - Web framework
 - [Bootstrap 5.2.3](https://getbootstrap.com/docs/5.2/getting-started/introduction/)
 - [MS SQL 2019](https://www.microsoft.com/zh-tw/sql-server/sql-server-2019) - Database
